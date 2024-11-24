@@ -25,7 +25,7 @@ const spaceGrotesk = Space_Grotesk({
 });
 
 export const metadata: Metadata = {
-  title: "Unicore - Teacher",
+  title: "Unicore - Admin",
   description: "A class management system",
   icons: "/assets/images/site-logo.svg",
 };
