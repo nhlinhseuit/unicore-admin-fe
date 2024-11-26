@@ -1596,3 +1596,24 @@ export const mockStepsCreateReport = [
   { id: 1, title: "Bước 1", desc: "Thêm lịch báo cáo" },
   { id: 2, title: "Bước 2", desc: "Thông tin báo cáo đồ án" },
 ];
+
+//
+//// TODO: Query exact student Id from db
+//
+export const mockDbStudent = [
+  {
+    id: "21522289",
+    name: "Nguyễn Hoàng Linh",
+    class: "SE502.N21",
+  },
+  {
+    id: "21521087",
+    name: "Lê Thành Lộc",
+    class: "SE502.N21",
+  },
+  {
+    id: "21521632",
+    name: "Võ Hữu",
+    class: "SE502.N25",
+  },
+];
