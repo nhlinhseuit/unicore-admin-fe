@@ -31,6 +31,7 @@ const ScoreColumnDetailItemTable = (params: DataTableParams) => {
           value={value}
           placeholder={value}
           onChange={(newValue) => handleInputChange(key, newValue)}
+          otherClassess="w-full"
         />
       );
     }
@@ -82,12 +83,11 @@ const ScoreColumnDetailItemTable = (params: DataTableParams) => {
           {/* BODY */}
           <Table.Body className="text-left divide-y">
             <Table.Row
-              onClick={() => {}}
-              className={`bg-background-secondary  text-left ${
-                params.isEditTable
+              onClick={() => { }}
+              className={`bg-background-secondary  text-left ${params.isEditTable
                   ? "hover:bg-white cursor-default"
                   : "hover:bg-light-800 cursor-default"
-              } duration-100`}
+                } duration-100`}
             >
               {/* Các giá trị khác */}
               {Object.entries(params.dataTable).map(([key, value]) => {
