@@ -18,7 +18,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
 
   const linkToBigExercises =
     indexOfBigExercises !== -1
-      ? "/" + pathArray.slice(1, indexOfBigExercises + 1).join("/")
+      ? "/" + pathArray.slice(1, indexOfBigExercises).join("/")
       : "/"; // Nếu không tìm thấy, quay về "/"
 
   const params = useParams() as { bigExerciseId: string };

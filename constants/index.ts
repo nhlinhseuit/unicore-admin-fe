@@ -65,9 +65,9 @@ export const DepartmentCourseTabItems = [
     route: "/manage-group",
   },
   {
-    value: "bigExercise",
-    label: "Bài tập lớn",
-    route: "/big-exercises",
+    value: "events",
+    label: "Sự kiện",
+    route: "/events",
   },
   {
     value: "scoreTranscript",
