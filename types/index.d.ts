@@ -239,3 +239,9 @@ export interface TeacherDataItem {
   isDeleted: boolean;
   data: TeacherData;
 }
+
+export interface OfficerPermissionDataItem {
+  name: string;
+  email: string;
+  permissions: OfficerPermissionData
+}
