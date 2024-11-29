@@ -8,7 +8,9 @@ interface IconButtonProps {
   red?: boolean;
   yellow?: boolean;
   green?: boolean;
+  blue?: boolean;
   gray?: boolean;
+  purple?: boolean;
 
   onClick?: () => void;
   iconLeft?: string;
@@ -41,7 +43,9 @@ const IconButton = (params: IconButtonProps) => {
         ${params.yellow ? `bg-[#FFC107]` : ""} 
         ${params.red ? `bg-[#F02021]` : ""} 
         ${params.green ? `bg-[#27CD95]` : ""} 
+        ${params.blue ? `bg-[#7FC9FA]` : ""} 
         ${params.gray ? `bg-[#CCCCCC]` : ""} 
+        ${params.purple ? `bg-[#8151fd]` : ""} 
         hover:bg-primary-800
         focus:ring-1
         focus:ring-gray-200
