@@ -47,6 +47,10 @@ export const DepartmentCoursesTabItems = [
   { value: "createCourse", label: "Tạo lớp học", route: "/courses/create" },
 ];
 
+export const DepartmentSettingTabItems = [
+  { value: "settingNoti", label: "Tin tức - thông báo", route: "/setting" },
+];
+
 export const DepartmentSubjectsTabItems = [
   { value: "listSubjects", label: "Danh sách môn học", route: "/subjects" },
   { value: "subjectTypes", label: "Loại môn học", route: "/subjects/types" },
