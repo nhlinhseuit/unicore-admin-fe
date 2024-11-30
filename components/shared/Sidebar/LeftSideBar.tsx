@@ -68,19 +68,14 @@ const LeftSideBar = () => {
     max-h-screen
     z-50
     max-sm:hidden
-    overflow-y-auto
-    left-
-    top-0
     border-r
     pt-4
     shadow-light-300
     dark:shadow-none
-    custom-scrollbar
-    
     "
     >
       {/* LOGO */}
-      <div className="px-6 mb-2 ml-2">
+      <div className="px-6 mb-2 ml-2 flex-shrink-0">
         <Link href="/" className="flex items-center gap-1">
           <Image
             src={"/assets/images/site-logo.svg"}
@@ -95,9 +90,19 @@ const LeftSideBar = () => {
         </Link>
       </div>
 
-      {/* <div className="h-[1px] mx-4 bg-[#ECECEC]"></div> */}
+      {/* NỘI DUNG CUỘN */}
 
-      <div className="flex flex-col h-full gap-4 px-6 mt-6 ">
+      <div
+        className="
+      flex flex-col
+      gap-4
+      px-6
+      mt-6
+      overflow-y-auto
+      flex-grow
+      custom-scrollbar
+    "
+      >
         {/* ITEM */}
         {sidebarDepartmentLinks.map((item, index) => {
           let isActive;
@@ -172,7 +177,7 @@ const LeftSideBar = () => {
         })}
       </div>
 
-      <div className="flex flex-col gap-3 mx-6 mt-6 mb-6 ">
+      <div className="flex flex-col gap-3 mx-6 mt-6 mb-6 flex-shrink-0">
         {/* <SignedOut>
         </SignedOut> */}
         <Link
