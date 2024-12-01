@@ -132,7 +132,6 @@ const ManageGroup = () => {
     } else {
       newErrorList[2].value = false;
     }
-    console.log("newErrorList", newErrorList);
 
     setErrorList(newErrorList); // Cập nhật trạng thái errorList
 
