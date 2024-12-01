@@ -1596,7 +1596,7 @@ export const mockPostDataGradingDetail = [
     id: "1",
     creator: "Huỳnh Hồ Thị Mộng Trinh",
     createdAt: "29/8/2024 7:23AM",
-    title: "Bài tập ngày 29/9/2024",
+    title: "Bài tập 1",
     fileName: "exercise.docx",
     scoreDetail: {
       "Bài nộp": "NHL_Bài 1.docx",
@@ -1609,7 +1609,7 @@ export const mockPostDataGradingDetail = [
     id: "2",
     creator: "Huỳnh Hồ Thị Mộng Trinh",
     createdAt: "29/8/2024 7:23AM",
-    title: "Bài tập ngày 29/9/2024",
+    title: "Bài tập 2",
     fileName: "exercise.docx",
     scoreDetail: {
       "Bài nộp": "NHL_Bài 1.docx",
@@ -1622,7 +1622,7 @@ export const mockPostDataGradingDetail = [
     id: "3",
     creator: "Huỳnh Hồ Thị Mộng Trinh",
     createdAt: "29/8/2024 7:23AM",
-    title: "Bài tập ngày 29/9/2024",
+    title: "Bài tập 3",
     fileName: "exercise.docx",
     scoreDetail: {
       "Bài nộp": "NHL_Bài 1.docx",
@@ -1992,101 +1992,105 @@ export const mockDataImportStudentList = [
 //
 export const mockDataImportTeacherList = [
   {
-      "type": "teacher",
-      "STT": '1',
-      "isDeleted": false,
-      "data": {
-          "Mã cán bộ": "80001",
-          "Tài khoản": "manhhd",
-          "Mật khẩu": "1",
-          "Họ và tên": "Hoàng Đức Mạnh",
-          "Học vị": "Th.S",
-          "Hướng nghiên cứu": "Các hệ thống thông minh",
-          "Quan tâm tìm hiểu": "Quy trình, công nghệ phát triển game, phần mềm",
-          "Email": "hoangducmanh254@gmail.com",
-          "SDT": "0889952504",
-          "Giới tính": "Nam",
-          "Địa chỉ": "Thôn 2, EaNam, EaH’Leo, Đăk Lăk",
-          "Ngày sinh": "26/09/1995"
-      }
+    type: "teacher",
+    STT: "1",
+    isDeleted: false,
+    data: {
+      "Mã cán bộ": "80001",
+      "Tài khoản": "manhhd",
+      "Mật khẩu": "1",
+      "Họ và tên": "Hoàng Đức Mạnh",
+      "Học vị": "Th.S",
+      "Hướng nghiên cứu": "Các hệ thống thông minh",
+      "Quan tâm tìm hiểu": "Quy trình, công nghệ phát triển game, phần mềm",
+      Email: "hoangducmanh254@gmail.com",
+      SDT: "0889952504",
+      "Giới tính": "Nam",
+      "Địa chỉ": "Thôn 2, EaNam, EaH’Leo, Đăk Lăk",
+      "Ngày sinh": "26/09/1995",
+    },
   },
   {
-      "type": "teacher",
-      "STT": '2',
-      "isDeleted": false,
-      "data": {
-          "Mã cán bộ": "80002",
-          "Tài khoản": "tienntp",
-          "Mật khẩu": "1",
-          "Họ và tên": "Nguyễn Thị Phương Tiên",
-          "Học vị": "T.S",
-          "Hướng nghiên cứu": "Quy trình, phương pháp phát triển phần mềm (Agile,Scrum, XP,..), bài toán tối ưu trong quản lý ",
-          "Quan tâm tìm hiểu": "Công nghệ lập trình Web, Open Source liên quan đến hướng nghiên cứu quản lý dự án, CRM/ERP, CMS,..",
-          "Email": "nguyenthiphuongtien12e@gmail.com",
-          "SDT": "0908953203",
-          "Giới tính": "Nữ",
-          "Địa chỉ": "Thôn 2, EaNam, EaH’Leo, Đăk Lăk",
-          "Ngày sinh": "26/09/1995"
-      }
+    type: "teacher",
+    STT: "2",
+    isDeleted: false,
+    data: {
+      "Mã cán bộ": "80002",
+      "Tài khoản": "tienntp",
+      "Mật khẩu": "1",
+      "Họ và tên": "Nguyễn Thị Phương Tiên",
+      "Học vị": "T.S",
+      "Hướng nghiên cứu":
+        "Quy trình, phương pháp phát triển phần mềm (Agile,Scrum, XP,..), bài toán tối ưu trong quản lý ",
+      "Quan tâm tìm hiểu":
+        "Công nghệ lập trình Web, Open Source liên quan đến hướng nghiên cứu quản lý dự án, CRM/ERP, CMS,..",
+      Email: "nguyenthiphuongtien12e@gmail.com",
+      SDT: "0908953203",
+      "Giới tính": "Nữ",
+      "Địa chỉ": "Thôn 2, EaNam, EaH’Leo, Đăk Lăk",
+      "Ngày sinh": "26/09/1995",
+    },
   },
   {
-      "type": "teacher",
-      "STT": '3',
-      "isDeleted": false,
-      "data": {
-          "Mã cán bộ": "80003",
-          "Tài khoản": "anhnvh",
-          "Mật khẩu": "1",
-          "Họ và tên": "Nguyễn Văn Hoàng Anh",
-          "Học vị": "Th.S",
-          "Hướng nghiên cứu": "Các hệ thống thông minh",
-          "Quan tâm tìm hiểu": "Quy trình, công nghệ phát triển game, phần mềm",
-          "Email": "gokudeptrai1@gmail.com",
-          "SDT": "0985274643",
-          "Giới tính": "Nam",
-          "Địa chỉ": "Thôn 2, EaNam, EaH’Leo, Đăk Lăk",
-          "Ngày sinh": "26/09/1995"
-      }
+    type: "teacher",
+    STT: "3",
+    isDeleted: false,
+    data: {
+      "Mã cán bộ": "80003",
+      "Tài khoản": "anhnvh",
+      "Mật khẩu": "1",
+      "Họ và tên": "Nguyễn Văn Hoàng Anh",
+      "Học vị": "Th.S",
+      "Hướng nghiên cứu": "Các hệ thống thông minh",
+      "Quan tâm tìm hiểu": "Quy trình, công nghệ phát triển game, phần mềm",
+      Email: "gokudeptrai1@gmail.com",
+      SDT: "0985274643",
+      "Giới tính": "Nam",
+      "Địa chỉ": "Thôn 2, EaNam, EaH’Leo, Đăk Lăk",
+      "Ngày sinh": "26/09/1995",
+    },
   },
   {
-      "type": "teacher",
-      "STT": '4',
-      "isDeleted": false,
-      "data": {
-          "Mã cán bộ": "80004",
-          "Tài khoản": "chinhtm",
-          "Mật khẩu": "1",
-          "Họ và tên": "Trần Minh Chính",
-          "Học vị": "Th.S",
-          "Hướng nghiên cứu": "Quy trình, phương pháp phát triển phần mềm (Agile,Scrum, XP,..), bài toán tối ưu trong quản lý ",
-          "Quan tâm tìm hiểu": "Công nghệ lập trình Web, Open Source liên quan đến hướng nghiên cứu quản lý dự án, CRM/ERP, CMS,..",
-          "Email": "minhchinhtran03@gmail.com",
-          "SDT": "0968134049",
-          "Giới tính": "Nam",
-          "Địa chỉ": "Thôn 2, EaNam, EaH’Leo, Đăk Lăk",
-          "Ngày sinh": "26/09/1995"
-      }
+    type: "teacher",
+    STT: "4",
+    isDeleted: false,
+    data: {
+      "Mã cán bộ": "80004",
+      "Tài khoản": "chinhtm",
+      "Mật khẩu": "1",
+      "Họ và tên": "Trần Minh Chính",
+      "Học vị": "Th.S",
+      "Hướng nghiên cứu":
+        "Quy trình, phương pháp phát triển phần mềm (Agile,Scrum, XP,..), bài toán tối ưu trong quản lý ",
+      "Quan tâm tìm hiểu":
+        "Công nghệ lập trình Web, Open Source liên quan đến hướng nghiên cứu quản lý dự án, CRM/ERP, CMS,..",
+      Email: "minhchinhtran03@gmail.com",
+      SDT: "0968134049",
+      "Giới tính": "Nam",
+      "Địa chỉ": "Thôn 2, EaNam, EaH’Leo, Đăk Lăk",
+      "Ngày sinh": "26/09/1995",
+    },
   },
   {
-      "type": "teacher",
-      "STT": '5',
-      "isDeleted": false,
-      "data": {
-          "Mã cán bộ": "80005",
-          "Tài khoản": "hientt",
-          "Mật khẩu": "1",
-          "Họ và tên": "Trần Thanh Hiền",
-          "Học vị": "Th.S",
-          "Hướng nghiên cứu": "Các hệ thống thông minh",
-          "Quan tâm tìm hiểu": "Quy trình, công nghệ phát triển game, phần mềm",
-          "Email": "tranthanhhien123bt@gmail.com",
-          "SDT": "0398285020",
-          "Giới tính": "Nữ",
-          "Địa chỉ": "Thôn 2, EaNam, EaH’Leo, Đăk Lăk",
-          "Ngày sinh": "26/09/1995"
-      }
+    type: "teacher",
+    STT: "5",
+    isDeleted: false,
+    data: {
+      "Mã cán bộ": "80005",
+      "Tài khoản": "hientt",
+      "Mật khẩu": "1",
+      "Họ và tên": "Trần Thanh Hiền",
+      "Học vị": "Th.S",
+      "Hướng nghiên cứu": "Các hệ thống thông minh",
+      "Quan tâm tìm hiểu": "Quy trình, công nghệ phát triển game, phần mềm",
+      Email: "tranthanhhien123bt@gmail.com",
+      SDT: "0398285020",
+      "Giới tính": "Nữ",
+      "Địa chỉ": "Thôn 2, EaNam, EaH’Leo, Đăk Lăk",
+      "Ngày sinh": "26/09/1995",
+    },
   },
-]
+];
 
 //
 //// TODO: Query exact student Id from db
@@ -2114,23 +2118,23 @@ export const mockDbStudent = [
 //
 export const mockDataOfficerPermissions = [
   {
-    name: 'Trần Hạnh Xuân',
-    email: 'xuanth@uit.edu.vn',
+    name: "Trần Hạnh Xuân",
+    email: "xuanth@uit.edu.vn",
     permissions: {
-        activityTracking: true,
-        createExercise: true,
-        createAnnouncement: true,
-        createBigExercise: true,
+      activityTracking: true,
+      createExercise: true,
+      createAnnouncement: true,
+      createBigExercise: true,
     },
-},
+  },
   {
-    name: 'Nguyễn Văn A',
-    email: 'anv@uit.edu.vn',
+    name: "Nguyễn Văn A",
+    email: "anv@uit.edu.vn",
     permissions: {
-        activityTracking: true,
-        createExercise: true,
-        createAnnouncement: true,
-        createBigExercise: true,
+      activityTracking: true,
+      createExercise: true,
+      createAnnouncement: true,
+      createBigExercise: true,
     },
-},
-]
+  },
+];
