@@ -37,7 +37,6 @@ export interface CourseData {
 // nếu giữ như này thì phải đổi lại tên vì đây là data của 1 student
 export interface RegisterGroupData {
   "Mã nhóm": string;
-  "Tên nhóm": string;
   MSSV: string;
   SĐT: string;
   "Họ và tên": string;
@@ -46,7 +45,6 @@ export interface RegisterTopicData {
   "Tên đề tài": string;
   "Mô tả": string;
   "Mã nhóm": string;
-  "Tên nhóm": string;
   MSSV: string;
   SĐT: string;
   "Họ và tên": string;
@@ -73,7 +71,6 @@ export interface GradingExerciseData {
   // 0 là cá nhân
   "Hình thức": boolean;
   "Mã nhóm": string;
-  "Tên nhóm": string;
   "Bài nộp": string;
   "Trễ hạn": string;
   MSSV: string;
@@ -85,7 +82,6 @@ export interface GradingExerciseData {
 export interface GradingReportData {
   "Điểm danh": boolean;
   "Mã nhóm": string;
-  "Tên nhóm": string;
   "Bài nộp": string;
   "Trễ hạn": string;
   MSSV: string;
@@ -242,5 +238,5 @@ export interface TeacherDataItem {
 export interface OfficerPermissionDataItem {
   name: string;
   email: string;
-  permissions: OfficerPermissionData
+  permissions: OfficerPermissionData;
 }
