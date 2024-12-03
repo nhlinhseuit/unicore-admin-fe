@@ -712,8 +712,8 @@ export const mockDataStudentRegisterGroup = [
     data: {
       "Mã nhóm": "1",
       MSSV: "21522289",
-      SĐT: "0378060972",
       "Họ và tên": "Nguyễn Hoàng Linh",
+      SĐT: "0378060972",
     },
   },
   {
@@ -722,8 +722,8 @@ export const mockDataStudentRegisterGroup = [
     data: {
       "Mã nhóm": "2",
       MSSV: "21522289",
-      SĐT: "0378060972",
       "Họ và tên": "Lê Thành Lộc",
+      SĐT: "0378060972",
     },
   },
   {
@@ -732,8 +732,8 @@ export const mockDataStudentRegisterGroup = [
     data: {
       "Mã nhóm": "2",
       MSSV: "21522289",
-      SĐT: "0378060972",
       "Họ và tên": "Huỳnh Hồ Thị Mộng Trinh",
+      SĐT: "0378060972",
     },
   },
   {
@@ -742,8 +742,8 @@ export const mockDataStudentRegisterGroup = [
     data: {
       "Mã nhóm": "3",
       MSSV: "21522289",
-      SĐT: "0378060972",
       "Họ và tên": "Nguyễn Tiến Vĩ",
+      SĐT: "0378060972",
     },
   },
   {
@@ -752,8 +752,8 @@ export const mockDataStudentRegisterGroup = [
     data: {
       "Mã nhóm": "3",
       MSSV: "21522289",
-      SĐT: "0378060972",
       "Họ và tên": "Nguyễn Thị Thanh Tuyền",
+      SĐT: "0378060972",
     },
   },
   {
@@ -762,8 +762,8 @@ export const mockDataStudentRegisterGroup = [
     data: {
       "Mã nhóm": "4",
       MSSV: "21522289",
-      SĐT: "0378060972",
       "Họ và tên": "Võ Hữu Xike",
+      SĐT: "0378060972",
     },
   },
 ];
@@ -1442,8 +1442,8 @@ export const mockTopicRegisterGroupDataTable = [
     STT: "1",
     data: {
       MSSV: "",
-      SĐT: "",
       "Họ và tên": "",
+      SĐT: "",
     },
   },
 ];
@@ -1465,8 +1465,8 @@ export const mockDataStudentRegisterTopic = [
         "Kết nối người dùng với những người có sở thích tương tự Nơi người dùng có thể đăng tải và chia sẻ hình ảnh Một ứng dụng áp dụng phiếu giảm giá tự động để đảm bảo cung cấp phiếu giảm giá và giảm giá cho khách hàng",
       "Mã nhóm": "1",
       MSSV: "21522289",
-      SĐT: "0378060972",
       "Họ và tên": "Nguyễn Hoàng Linh",
+      SĐT: "0378060972",
     },
   },
   {
@@ -1478,8 +1478,8 @@ export const mockDataStudentRegisterTopic = [
         "Nơi người dùng có thể đăng tải và chia sẻ hình ảnh Nơi người dùng có thể đăng tải và chia sẻ hình ảnh Nơi người dùng có thể đăng tải và chia sẻ hình ảnh Nơi người dùng có thể đăng tải và chia sẻ hình ảnh Nơi người dùng có thể đăng tải và chia sẻ hình ảnh Nơi người dùng có thể đăng tải và chia sẻ hình ảnh Nơi người dùng có thể đăng tải và chia sẻ hình ảnh Nơi người dùng có thể đăng tải và chia sẻ hình ảnh Nơi người dùng có thể đăng tải và chia sẻ hình ảnh Nơi người dùng có thể đăng tải và chia sẻ hình ảnh Nơi người dùng có thể đăng tải và chia sẻ hình ảnh",
       "Mã nhóm": "2",
       MSSV: "21522289",
-      SĐT: "0378060972",
       "Họ và tên": "Lê Thành Lộc",
+      SĐT: "0378060972",
     },
   },
   {
@@ -1491,8 +1491,8 @@ export const mockDataStudentRegisterTopic = [
         "Nơi người dùng có thể đăng tải và chia sẻ hình ảnh Nơi người dùng có thể đăng tải và chia sẻ hình ảnh Nơi người dùng có thể đăng tải và chia sẻ hình ảnh Nơi người dùng có thể đăng tải và chia sẻ hình ảnh Nơi người dùng có thể đăng tải và chia sẻ hình ảnh Nơi người dùng có thể đăng tải và chia sẻ hình ảnh Nơi người dùng có thể đăng tải và chia sẻ hình ảnh Nơi người dùng có thể đăng tải và chia sẻ hình ảnh Nơi người dùng có thể đăng tải và chia sẻ hình ảnh Nơi người dùng có thể đăng tải và chia sẻ hình ảnh Nơi người dùng có thể đăng tải và chia sẻ hình ảnh",
       "Mã nhóm": "2",
       MSSV: "21522289",
-      SĐT: "0378060972",
       "Họ và tên": "Huỳnh Hồ Thị Mộng Trinh",
+      SĐT: "0378060972",
     },
   },
   {
@@ -1503,8 +1503,8 @@ export const mockDataStudentRegisterTopic = [
       "Mô tả": "Giúp người dùng xây dựng một ngôi nhà thông minh và tiện lợi",
       "Mã nhóm": "3",
       MSSV: "21522289",
-      SĐT: "0378060972",
       "Họ và tên": "Nguyễn Tiến Vĩ",
+      SĐT: "0378060972",
     },
   },
   {
@@ -1515,8 +1515,8 @@ export const mockDataStudentRegisterTopic = [
       "Mô tả": "Giúp người dùng xây dựng một ngôi nhà thông minh và tiện lợi",
       "Mã nhóm": "3",
       MSSV: "21522289",
-      SĐT: "0378060972",
       "Họ và tên": "Nguyễn Thị Thanh Tuyền",
+      SĐT: "0378060972",
     },
   },
   {
@@ -1527,8 +1527,8 @@ export const mockDataStudentRegisterTopic = [
       "Mô tả": "Giúp người dùng ghi lại và tổ chức các ghi chú của mình",
       "Mã nhóm": "4",
       MSSV: "21522289",
-      SĐT: "0378060972",
       "Họ và tên": "Võ Hữu Xike",
+      SĐT: "0378060972",
     },
   },
 ];
