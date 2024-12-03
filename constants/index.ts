@@ -59,17 +59,7 @@ export const DepartmentSubjectsTabItems = [
 export const DepartmentCourseTabItems = [
   { value: "generalPost", label: "Thông báo chung", route: "/" },
   {
-    value: "exercises",
-    label: "Bài tập",
-    route: "/exercises",
-  },
-  {
-    value: "manageGroup",
-    label: "Quản lý nhóm",
-    route: "/manage-group",
-  },
-  {
-    value: "events",
+    value: "events",  
     label: "Sự kiện",
     route: "/events",
   },
@@ -77,11 +67,6 @@ export const DepartmentCourseTabItems = [
     value: "scoreTranscript",
     label: "Bảng điểm",
     route: "/score-transcript",
-  },
-  {
-    value: "timeTable",
-    label: "Thời khóa biểu",
-    route: "/time-table",
   },
   {
     value: "files",
@@ -156,6 +141,14 @@ export enum DetailFilter {
   Year,
   Subject,
   Teacher,
+}
+
+export enum DetailFilterScore {
+  Semester,
+  Year,
+  Subject,
+  Teacher,
+  Course,
 }
 
 export const FilterTable = [

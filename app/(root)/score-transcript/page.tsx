@@ -1,7 +1,7 @@
 "use client";
 
 import IconButton from "@/components/shared/Button/IconButton";
-import DetailFilterComponent from "@/components/shared/DetailFilterComponent";
+import DetailFilterComponentScore from "@/components/shared/DetailFilterComponentScore";
 import ScoreColumnDetailPage from "@/components/shared/ScoreTranscript/ScoreColumnDetailPage";
 import ScoreTranscriptTable from "@/components/shared/Table/TableScoreTranscript/ScoreTranscriptTable";
 import { mockDataScoreTranscript, mockGradeColumnPercent } from "@/mocks";
@@ -147,7 +147,7 @@ const ScoreTranscript = () => {
                 Xem bảng điểm lớp:
               </p>
 
-              <DetailFilterComponent />
+              <DetailFilterComponentScore />
             </div>
           </div>
 

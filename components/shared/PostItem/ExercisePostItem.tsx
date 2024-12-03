@@ -1,8 +1,6 @@
 import { getAvatarName } from "@/lib/utils";
-import { mockSubmissionPost } from "@/mocks";
 import Image from "next/image";
 import MyAvatar from "../../courses/MyAvatar";
-import GradingInPost from "../../courses/GradingInPost";
 import MyComment from "../../courses/MyComment";
 import OtherComment from "../../courses/OtherComment";
 import RenderFile from "../Annoucements/RenderFile";
@@ -58,13 +56,6 @@ const ExercisePostItem = (params: Props) => {
               </ul>
             }
           />
-          <Image
-            src={"/assets/icons/edit-black.svg"}
-            width={26}
-            height={26}
-            alt={"edit"}
-            className={`object-contain cursor-pointer ml-4`}
-          />
         </div>
 
         <div className=" mt-3 ml-2 flex gap-4 items-center">
@@ -72,16 +63,6 @@ const ExercisePostItem = (params: Props) => {
         </div>
 
         <RenderFile _id={1} name={"exercise.docx"} otherClasses={"mt-2 px-2"} />
-
-        <Divider />
-
-        <GradingInPost
-          onClickBack={params.setGrading}
-          submissionNumber={mockSubmissionPost.submissionNumber}
-          totalNumber={mockSubmissionPost.totalNumber}
-          lateTime={mockSubmissionPost.lateTime}
-          columnGrade={mockSubmissionPost.columnGrade}
-        />
 
         <Divider />
 

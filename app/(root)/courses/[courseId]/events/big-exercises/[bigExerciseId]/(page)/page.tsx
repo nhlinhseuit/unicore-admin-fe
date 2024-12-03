@@ -1,15 +1,13 @@
 "use client";
 
-import BorderButton from "@/components/shared/Button/BorderButton";
 import IconButton from "@/components/shared/Button/IconButton";
 import ExercisePostItem from "@/components/shared/PostItem/ExercisePostItem";
 import PostItem from "@/components/shared/PostItem/PostItem";
 import ReportPostItem from "@/components/shared/PostItem/ReportPostItem";
 import TableSearch from "@/components/shared/Search/TableSearch";
-import { AnnouncementTabs, AnnouncementTypes, FilterType } from "@/constants";
+import { AnnouncementTabs, FilterType } from "@/constants";
 import { mockPostDataWithReport } from "@/mocks";
 import { Dropdown } from "flowbite-react";
-import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
 
@@ -178,52 +176,6 @@ const BigExercise = () => {
             </ul>
           </Dropdown>
         </div>
-
-        {/* Create announcement */}
-        <div>
-          <Dropdown
-            className="z-30 rounded-lg"
-            label=""
-            dismissOnClick={false}
-            renderTrigger={() => (
-              <div className="w-full">
-                <div>
-                  <IconButton
-                    text="Tạo thông báo"
-                    iconLeft="/assets/icons/add.svg"
-                  />
-                </div>
-              </div>
-            )}
-          >
-            <div className="w-full">
-              {AnnouncementTypes.map((item) => (
-                <Link
-                  key={`${pathName}${item.route}`}
-                  href={`${pathName}${item.route}`}
-                >
-                  <Dropdown.Item>{item.label}</Dropdown.Item>
-                </Link>
-              ))}
-            </div>
-          </Dropdown>
-        </div>
-      </div>
-      {/* AnnouncementTabs */}
-      <div className="flex gap-2">
-        {AnnouncementTabs.map((item) => {
-          return (
-            <BorderButton
-              key={item.value}
-              text={item.label}
-              value={item.value}
-              onClick={(value) => {
-                setSelectedAnnouncement(value);
-              }}
-              isActive={selectedAnnouncement === item.value}
-            />
-          );
-        })}
       </div>
 
       {/* PostList */}
