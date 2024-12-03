@@ -15,7 +15,9 @@ export default function CoursesDataTable() {
   const [isEditTable, setIsEditTable] = useState(false);
   const [isMultipleDelete, setIsMultipleDelete] = useState(false);
   const [dataTable, setDataTable] = useState<CourseDataItem[]>([]);
-  const [errorMessages, setErrorMessages] = useState<string[]>([]);
+  const [errorMessages, setErrorMessages] = useState<string[]>([
+    "Bạn cần phải import danh sách môn học trước khi import danh sách lớp",
+  ]);
   const [isLoading, setIsLoading] = useState(false);
 
   // XỬ LÝ UPLOAD FILE LỚP HỌC
