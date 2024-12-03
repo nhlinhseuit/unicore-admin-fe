@@ -1487,7 +1487,6 @@ export const mockDataStudentRegisterTopic = [
       "Tên đề tài": "Ứng dụng hẹn hò",
       "Mô tả":
         "Kết nối người dùng với những người có sở thích tương tự Nơi người dùng có thể đăng tải và chia sẻ hình ảnh Một ứng dụng áp dụng phiếu giảm giá tự động để đảm bảo cung cấp phiếu giảm giá và giảm giá cho khách hàng",
-      "GV phụ trách": "Huỳnh Hồ Thị Mộng Trinh",
       "Mã nhóm": "1",
       "Tên nhóm": "Figma",
       MSSV: "21522289",
@@ -1502,7 +1501,6 @@ export const mockDataStudentRegisterTopic = [
       "Tên đề tài": "Ứng dụng chia sẻ hình ảnh",
       "Mô tả":
         "Nơi người dùng có thể đăng tải và chia sẻ hình ảnh Nơi người dùng có thể đăng tải và chia sẻ hình ảnh Nơi người dùng có thể đăng tải và chia sẻ hình ảnh Nơi người dùng có thể đăng tải và chia sẻ hình ảnh Nơi người dùng có thể đăng tải và chia sẻ hình ảnh Nơi người dùng có thể đăng tải và chia sẻ hình ảnh Nơi người dùng có thể đăng tải và chia sẻ hình ảnh Nơi người dùng có thể đăng tải và chia sẻ hình ảnh Nơi người dùng có thể đăng tải và chia sẻ hình ảnh Nơi người dùng có thể đăng tải và chia sẻ hình ảnh Nơi người dùng có thể đăng tải và chia sẻ hình ảnh",
-      "GV phụ trách": "Huỳnh Tuấn Anh",
       "Mã nhóm": "2",
       "Tên nhóm": "STYLLE",
       MSSV: "21522289",
@@ -1517,7 +1515,6 @@ export const mockDataStudentRegisterTopic = [
       "Tên đề tài": "Ứng dụng đặt hàng và giao đồ ăn",
       "Mô tả":
         "Nơi người dùng có thể đăng tải và chia sẻ hình ảnh Nơi người dùng có thể đăng tải và chia sẻ hình ảnh Nơi người dùng có thể đăng tải và chia sẻ hình ảnh Nơi người dùng có thể đăng tải và chia sẻ hình ảnh Nơi người dùng có thể đăng tải và chia sẻ hình ảnh Nơi người dùng có thể đăng tải và chia sẻ hình ảnh Nơi người dùng có thể đăng tải và chia sẻ hình ảnh Nơi người dùng có thể đăng tải và chia sẻ hình ảnh Nơi người dùng có thể đăng tải và chia sẻ hình ảnh Nơi người dùng có thể đăng tải và chia sẻ hình ảnh Nơi người dùng có thể đăng tải và chia sẻ hình ảnh",
-      "GV phụ trách": "Huỳnh Tuấn Anh",
       "Mã nhóm": "2",
       "Tên nhóm": "STYLLE",
       MSSV: "21522289",
@@ -1531,7 +1528,6 @@ export const mockDataStudentRegisterTopic = [
     data: {
       "Tên đề tài": "Ứng dụng nhà thông minh",
       "Mô tả": "Giúp người dùng xây dựng một ngôi nhà thông minh và tiện lợi",
-      "GV phụ trách": "Huỳnh Hồ Thị Mộng Trinh",
       "Mã nhóm": "3",
       "Tên nhóm": "MERN",
       MSSV: "21522289",
@@ -1545,7 +1541,6 @@ export const mockDataStudentRegisterTopic = [
     data: {
       "Tên đề tài": "Ứng dụng học ngôn ngữ",
       "Mô tả": "Giúp người dùng xây dựng một ngôi nhà thông minh và tiện lợi",
-      "GV phụ trách": "Huỳnh Hồ Thị Mộng Trinh",
       "Mã nhóm": "3",
       "Tên nhóm": "MERN",
       MSSV: "21522289",
@@ -1559,7 +1554,6 @@ export const mockDataStudentRegisterTopic = [
     data: {
       "Tên đề tài": "Ứng dụng ghi chú",
       "Mô tả": "Giúp người dùng ghi lại và tổ chức các ghi chú của mình",
-      "GV phụ trách": "Nguyễn Thị Thanh Trúc",
       "Mã nhóm": "4",
       "Tên nhóm": "Đom đóm",
       MSSV: "21522289",

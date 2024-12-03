@@ -45,7 +45,6 @@ export interface RegisterGroupData {
 export interface RegisterTopicData {
   "Tên đề tài": string;
   "Mô tả": string;
-  "GV phụ trách": string;
   "Mã nhóm": string;
   "Tên nhóm": string;
   MSSV: string;
