@@ -64,7 +64,7 @@ const DetailFilterComponentScore = () => {
   
                   break;
                 case "Course":
-                  text = "Môn học";
+                  text = "Lớp học";
                   width = "w-[30%]";
   
                   dataDropdown = [
