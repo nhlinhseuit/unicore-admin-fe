@@ -2,7 +2,7 @@
 import CourseItem from "@/components/courses/CourseItem";
 import MoreButtonCourseItem from "@/components/courses/MoreButtonCourseItem";
 import IconButton from "@/components/shared/Button/IconButton";
-import { DetailFilter, FilterType, listCourseColors, listCourseColors } from "@/constants";
+import { DetailFilter, FilterType, listCourseColors } from "@/constants";
 import { Dropdown } from "flowbite-react";
 import Image from "next/image";
 import Link from "next/link";
