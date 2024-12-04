@@ -23,7 +23,7 @@ const Setting = () => {
           value={isToggleShowCourseSetting}
         />
         {isToggleShowCourseSetting ? (
-          <div className="mx-6 pl-6 flex flex-col gap-6">
+          <div className="mx-6 pl-6 flex flex-col gap-20">
             <div>
               <label className="peer-disabled:cursor-not-allowed peer-disabled:opacity-70 dark:text-red-900 text-dark400_light800 text-[14px] font-medium leading-[20.8px]">
                 1. Quy tắc làm tròn số
