@@ -132,7 +132,6 @@ const Row = React.memo(
       setIsChecked,
       handleInputChange,
       isHasSubCourses,
-      params,
     }: {
       key: string;
       value: string | number;
@@ -142,7 +141,6 @@ const Row = React.memo(
       setIsChecked: (checked: boolean) => void;
       handleInputChange: Function;
       isHasSubCourses: boolean | undefined;
-      params: any;
     }) => {
       switch (key) {
         case "Mã lớp":
@@ -372,7 +370,6 @@ const Row = React.memo(
                 setIsChecked,
                 handleInputChange,
                 isHasSubCourses: params.isHasSubCourses,
-                params,
               })}
             </Table.Cell>
           );

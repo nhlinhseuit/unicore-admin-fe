@@ -1,4 +1,4 @@
-import { RegisterGroupDataItem, RegisterTopicDataItem } from "@/types";
+import { RegisterTopicDataItem } from "@/types";
 import { Table } from "flowbite-react";
 import { useMemo, useState } from "react";
 import NoResult from "../../Status/NoResult";
@@ -51,7 +51,7 @@ const RegisterTopicTable = (params: DataTableParams) => {
   }, [dataTable, currentPage]);
 
   const [filteredDataTable, setFilteredDataTable] =
-    useState<RegisterGroupDataItem[]>(currentItems);
+    useState<RegisterTopicDataItem[]>(currentItems);
 
   const AnnoucementSchema = z.object({
     title: z.string().optional(),
@@ -333,13 +333,6 @@ const RegisterTopicTable = (params: DataTableParams) => {
                           <RowRegisterTopicTable
                             type={params.type}
                             key={dataItem.STT}
-                            isMemberOfAboveGroup={
-                              index === 0
-                                ? false
-                                : filteredDataTable[index - 1].data[
-                                    "Mã nhóm"
-                                  ] === dataItem.data["Mã nhóm"]
-                            }
                             dataItem={dataItem}
                             isEditTable={params.isEditTable}
                             isMultipleDelete={params.isMultipleDelete}
