@@ -75,8 +75,7 @@ const InputComponent = (params: InputParams) => {
             background-light800_darkgradient
             shadow-none outline-none border-none truncate
             w-[200px] 
-            ${params.otherClassess && ""}
-            ${params.isDescription && "w-full"}
+            ${params.otherClassess || ""}
           `}
         />
       )}
