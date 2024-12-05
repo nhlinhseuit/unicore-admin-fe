@@ -12,7 +12,6 @@ import { Dropdown } from "flowbite-react";
 import Image from "next/image";
 import IconButton from "../../Button/IconButton";
 import SubmitButton from "../../Button/SubmitButton";
-import TableSearch from "../../Search/TableSearch";
 import MyFooter from "../components/MyFooter";
 
 import { Form } from "@/components/ui/form";
@@ -20,6 +19,7 @@ import { Form } from "@/components/ui/form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
+import BorderContainer from "../../BorderContainer";
 
 interface DataTableParams {
   type: RegisterTopicTableType;
@@ -49,9 +49,6 @@ const RegisterTopicTable = (params: DataTableParams) => {
       currentPage * itemsPerPageRegisterTable
     );
   }, [dataTable, currentPage]);
-
-  const [filteredDataTable, setFilteredDataTable] =
-    useState<RegisterTopicDataItem[]>(currentItems);
 
   const AnnoucementSchema = z.object({
     title: z.string().optional(),
@@ -106,7 +103,7 @@ const RegisterTopicTable = (params: DataTableParams) => {
       <form onSubmit={form.handleSubmit(onSubmit)}>
         <div>
           {/* TABLE */}
-          {currentItems.length > 0 && filteredDataTable.length === 0 ? (
+          {currentItems.length > 0 && currentItems.length === 0 ? (
             <NoResult
               title="Không có dữ liệu!"
               description="💡 Bạn hãy thử tìm kiếm 1 từ khóa khác nhé."
@@ -115,162 +112,163 @@ const RegisterTopicTable = (params: DataTableParams) => {
             <>
               {params.type === RegisterTopicTableType.approveTopic ? (
                 isShowDialog === -1 ? (
-                  <div className="flex justify-between items-center mb-3 gap-2">
-                    <div className="flex gap-2 items-center">
-                      <p className="inline-flex justify-start text-sm whitespace-nowrap">
-                        Chọn giảng viên
-                      </p>
-                      <Dropdown
-                        className="min-w-max z-30 rounded-lg"
-                        label=""
-                        dismissOnClick={true}
-                        renderTrigger={() => (
-                          <div>
-                            <IconButton
-                              text={`${
-                                mockTeacherList[selectedTeacher - 1].value
-                              }`}
-                              onClick={() => {}}
-                              iconRight={"/assets/icons/chevron-down.svg"}
-                              bgColor="bg-white"
-                              textColor="text-black"
-                              border
-                            />
+                  <BorderContainer otherClasses="mb-4 p-6">
+                    <div className="flex justify-between items-center gap-2">
+                      <div className="flex gap-2 items-center">
+                        <p className="inline-flex justify-start text-sm whitespace-nowrap">
+                          Chọn giảng viên
+                        </p>
+                        <Dropdown
+                          className="min-w-max z-30 rounded-lg"
+                          label=""
+                          dismissOnClick={true}
+                          renderTrigger={() => (
+                            <div>
+                              <IconButton
+                                text={`${
+                                  mockTeacherList[selectedTeacher - 1].value
+                                }`}
+                                onClick={() => {}}
+                                iconRight={"/assets/icons/chevron-down.svg"}
+                                bgColor="bg-white"
+                                textColor="text-black"
+                                border
+                              />
+                            </div>
+                          )}
+                        >
+                          <div className="w-full scroll-container scroll-container-dropdown-content">
+                            {mockTeacherList.map((teacher, index) => (
+                              <Dropdown.Item
+                                key={`${teacher.id}_${index}`}
+                                onClick={() => {
+                                  if (selectedTeacher === teacher.id) {
+                                    setSelectedTeacher(1);
+                                  } else {
+                                    setSelectedTeacher(teacher.id);
+                                  }
+                                }}
+                                className="min-w-max"
+                              >
+                                <div className="flex justify-between w-full">
+                                  <p className="w-[80%] text-left line-clamp-1">
+                                    {teacher.value}
+                                  </p>
+                                  {selectedTeacher === teacher.id ? (
+                                    <Image
+                                      src="/assets/icons/check.svg"
+                                      alt="search"
+                                      width={21}
+                                      height={21}
+                                      className="cursor-pointer mr-2"
+                                    />
+                                  ) : (
+                                    <></>
+                                  )}
+                                </div>
+                              </Dropdown.Item>
+                            ))}
                           </div>
-                        )}
-                      >
-                        <TableSearch
-                          setSearchTerm={() => {}}
-                          searchTerm=""
-                          otherClasses="p-2"
-                        />
-                        <div className="w-full scroll-container scroll-container-dropdown-content">
-                          {mockTeacherList.map((teacher, index) => (
-                            <Dropdown.Item
-                              key={`${teacher.id}_${index}`}
-                              onClick={() => {
-                                if (selectedTeacher === teacher.id) {
-                                  setSelectedTeacher(1);
-                                } else {
-                                  setSelectedTeacher(teacher.id);
-                                }
-                              }}
-                              className="min-w-max"
-                            >
-                              <div className="flex justify-between w-full">
-                                <p className="w-[80%] text-left line-clamp-1">
-                                  {teacher.value}
-                                </p>
-                                {selectedTeacher === teacher.id ? (
-                                  <Image
-                                    src="/assets/icons/check.svg"
-                                    alt="search"
-                                    width={21}
-                                    height={21}
-                                    className="cursor-pointer mr-2"
-                                  />
-                                ) : (
-                                  <></>
-                                )}
-                              </div>
-                            </Dropdown.Item>
-                          ))}
-                        </div>
-                      </Dropdown>
-                    </div>
+                        </Dropdown>
+                      </div>
 
-                    <div className="flex items-center mb-3 gap-2">
-                      <p className="text-sm font-medium">
-                        Đã chọn:
-                        <span className="font-semibold">
-                          {` ${itemsSelected.length}`}
-                        </span>
-                      </p>
-                      <IconButton
-                        text="Chỉ định giảng viên"
-                        green
-                        onClick={() => {
-                          if (itemsSelected.length === 0) {
+                      <div className="flex items-center gap-2">
+                        <p className="text-sm font-medium">
+                          Đã chọn:
+                          <span className="font-semibold">
+                            {` ${itemsSelected.length}`}
+                          </span>
+                        </p>
+                        <IconButton
+                          text="Chỉ định giảng viên"
+                          onClick={() => {
+                            if (itemsSelected.length === 0) {
+                              toast({
+                                title: "Vui lòng chọn đề tài!",
+                                variant: "error",
+                                duration: 3000,
+                              });
+                              return;
+                            }
                             toast({
-                              title: "Vui lòng chọn đề tài!",
-                              variant: "error",
+                              title:
+                                "Chỉ định giảng viên duyệt đề tài thành công.",
+                              description: `Đề tài ${itemsSelected.join(
+                                ", "
+                              )} sẽ dược duyệt bởi ${
+                                mockTeacherList[selectedTeacher - 1].value
+                              }.`,
+                              variant: "success",
                               duration: 3000,
                             });
-                            return;
-                          }
-                          toast({
-                            title:
-                              "Chỉ định giảng viên duyệt đề tài thành công.",
-                            description: `Đề tài ${itemsSelected.join(
-                              ", "
-                            )} sẽ dược duyệt bởi ${
-                              mockTeacherList[selectedTeacher - 1].value
-                            }.`,
-                            variant: "success",
-                            duration: 3000,
-                          });
-                          setItemsSelected([]);
-                        }}
-                        iconWidth={16}
-                        iconHeight={16}
-                      />
-                      <IconButton
-                        text="Từ chối đề tài"
-                        red
-                        onClick={() => {
-                          if (itemsSelected.length === 0) {
-                            toast({
-                              title: "Vui lòng chọn đề tài!",
-                              variant: "error",
-                              duration: 3000,
-                            });
-                            return;
-                          }
-                          setIsShowDialog(3);
-                        }}
-                        iconWidth={16}
-                        iconHeight={16}
-                      />
+                            setItemsSelected([]);
+                          }}
+                          iconWidth={16}
+                          iconHeight={16}
+                        />
+                        <IconButton
+                          text="Từ chối đề tài"
+                          red
+                          onClick={() => {
+                            if (itemsSelected.length === 0) {
+                              toast({
+                                title: "Vui lòng chọn đề tài!",
+                                variant: "error",
+                                duration: 3000,
+                              });
+                              return;
+                            }
+                            setIsShowDialog(3);
+                          }}
+                          iconWidth={16}
+                          iconHeight={16}
+                        />
+                      </div>
                     </div>
-                  </div>
-                ) : (
-                  <div className="flex justify-end items-center mb-3 gap-2">
-                    <SubmitButton text="Lưu" iconWidth={16} iconHeight={16} />
-                  </div>
-                )
+                  </BorderContainer>
+                ) : null
               ) : null}
 
               {itemsSelected.length > 0 && isShowDialog !== -1 ? (
-                <div className="mb-4">
-                  <p className="text-dark400_light800 text-[14px] font-semibold leading-[20.8px]">
-                    Phản hồi cho đề tài (nếu có)
-                  </p>
-                  <p className="body-regular mt-2.5 text-light-500">
-                    Không bắt buộc.
-                  </p>
-                  <textarea
-                    placeholder="Nhập phản hồi đề tài..."
-                    onChange={(e) => setFeedback(e.target.value)}
-                    className="
-                    no-focus
-                    paragraph-regular
-                    background-light900_dark300
-                    light-border-2
-                    text-dark300_light700
-                    min-h-[200px]
-                    rounded-md
-                    border
-                    resize-none
-                    w-full
-                    px-3
-                    py-4
-                    focus:outline-none
-                    focus:ring-0
-                    active:outline-none
-                    focus:border-inherit
-                    text-sm"
-                  />
-                </div>
+                <BorderContainer otherClasses="mb-4 p-6">
+                  <div>
+                    <div className="flex justify-end items-center mb-3 gap-2">
+                      <SubmitButton text="Lưu" iconWidth={16} iconHeight={16} />
+                    </div>
+
+                    <div className="mb-4">
+                      <p className="text-dark400_light800 text-[14px] font-semibold leading-[20.8px]">
+                        Phản hồi cho đề tài (nếu có)
+                      </p>
+                      <p className="body-regular mt-3.5 text-light-500">
+                        Không bắt buộc.
+                      </p>
+                      <textarea
+                        placeholder="Nhập phản hồi đề tài..."
+                        onChange={(e) => setFeedback(e.target.value)}
+                        className="
+                      mt-3.5
+                      no-focus
+                      paragraph-regular
+                      background-light900_dark300
+                      light-border-2
+                      text-dark300_light700
+                      min-h-[200px]
+                      rounded-md
+                      border
+                      resize-none
+                      w-full
+                      px-3
+                      py-4
+                      focus:outline-none
+                      focus:ring-0
+                      active:outline-none
+                      focus:border-inherit
+                      text-sm"
+                      />
+                    </div>
+                  </div>
+                </BorderContainer>
               ) : null}
 
               <div
@@ -302,26 +300,24 @@ const RegisterTopicTable = (params: DataTableParams) => {
                       STT
                     </Table.HeadCell>
 
-                    {Object.keys(filteredDataTable[0]?.data || {}).map(
-                      (key) => {
-                        if (key === "Mã nhóm") return null;
+                    {Object.keys(currentItems[0]?.data || {}).map((key) => {
+                      if (key === "Mã nhóm") return null;
 
-                        return (
-                          <Table.HeadCell
-                            key={key}
-                            theme={tableTheme?.head?.cell}
-                            className={`px-2 py-4 border-r-[1px] uppercase whitespace-nowrap`}
-                          >
-                            {key}
-                          </Table.HeadCell>
-                        );
-                      }
-                    )}
+                      return (
+                        <Table.HeadCell
+                          key={key}
+                          theme={tableTheme?.head?.cell}
+                          className={`px-2 py-4 border-r-[1px] uppercase whitespace-nowrap`}
+                        >
+                          {key}
+                        </Table.HeadCell>
+                      );
+                    })}
                   </Table.Head>
 
                   {/* BODY */}
                   <Table.Body className="text-left divide-y">
-                    {filteredDataTable.map((dataItem, index) =>
+                    {currentItems.map((dataItem, index) =>
                       dataItem.isDeleted ? (
                         <></>
                       ) : (
@@ -329,7 +325,7 @@ const RegisterTopicTable = (params: DataTableParams) => {
                           {/* //TODO: Main Row: Leader */}
                           <RowRegisterTopicTable
                             type={params.type}
-                            key={dataItem.STT}
+                            key={`${dataItem.STT}_${index}`}
                             dataItem={dataItem}
                             isEditTable={params.isEditTable}
                             isMultipleDelete={params.isMultipleDelete}

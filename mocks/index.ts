@@ -669,6 +669,17 @@ export const mockTeacherList = [
 ];
 
 //
+// TODO: Approve Topic Options
+//
+export const mockApproveTopicOptions = [
+  { id: 1, value: "Tất cả" },
+  { id: 2, value: "Đã chỉ định giảng viên" },
+  { id: 3, value: "Chưa chỉ định giảng viên" },
+  { id: 4, value: "Đã từ chối" },
+];
+
+
+//
 // TODO: Score Transcript
 //
 export const mockCoursesListScoreTranscript = [
@@ -830,18 +841,13 @@ export const mockFileDataTable = [
 
 export const mockDataStudentRegisterGroup = [
   {
-    //
-    // TODO: Kh// cần stt của sv ở đây
-    // TODO: //Hiện tại chỉ dùng làm key
-    // * FIX:// STT count ++ cho row leader
-
     STT: "1",
     isDeleted: false,
     data: {
       "Mã nhóm": "1",
-      MSSV: "21522289",
-      "Họ và tên": "Nguyễn Hoàng Linh",
-      SĐT: "0378060972",
+      MSSV: ["21522289"],
+      "Họ và tên": ["Nguyễn Hoàng Linh"],
+      SĐT: ["0378060972"],
     },
   },
   {
@@ -849,49 +855,29 @@ export const mockDataStudentRegisterGroup = [
     isDeleted: false,
     data: {
       "Mã nhóm": "2",
-      MSSV: "21522289",
-      "Họ và tên": "Lê Thành Lộc",
-      SĐT: "0378060972",
+      MSSV: ["21522289", "21522289"],
+      "Họ và tên": ["Lê Thành Lộc", "Huỳnh Hồ Thị Mộng Trinh"],
+      SĐT: ["0378060972", "0378060972"],
     },
   },
   {
     STT: "3",
     isDeleted: false,
     data: {
-      "Mã nhóm": "2",
-      MSSV: "21522289",
-      "Họ và tên": "Huỳnh Hồ Thị Mộng Trinh",
-      SĐT: "0378060972",
+      "Mã nhóm": "3",
+      MSSV: ["21522289", "21522289"],
+      "Họ và tên": ["Nguyễn Tiến Vĩ", "Nguyễn Vĩ"],
+      SĐT: ["0378060972", "0378060972"],
     },
   },
   {
     STT: "4",
     isDeleted: false,
     data: {
-      "Mã nhóm": "3",
-      MSSV: "21522289",
-      "Họ và tên": "Nguyễn Tiến Vĩ",
-      SĐT: "0378060972",
-    },
-  },
-  {
-    STT: "5",
-    isDeleted: false,
-    data: {
-      "Mã nhóm": "3",
-      MSSV: "21522289",
-      "Họ và tên": "Nguyễn Thị Thanh Tuyền",
-      SĐT: "0378060972",
-    },
-  },
-  {
-    STT: "6",
-    isDeleted: false,
-    data: {
       "Mã nhóm": "4",
-      MSSV: "21522289",
-      "Họ và tên": "Võ Hữu Xike",
-      SĐT: "0378060972",
+      MSSV: ["21522289"],
+      "Họ và tên": ["Võ Hữu Xike"],
+      SĐT: ["0378060972"],
     },
   },
 ];
@@ -1627,6 +1613,240 @@ export const mockDataStudentRegisterTopic = [
       "Mô tả": "Giúp người dùng ghi lại và tổ chức các ghi chú của mình",
       MSSV: ["21522289"],
       "Họ và tên": ["Võ Hữu Xike"],
+      SĐT: ["0378060972"],
+    },
+  },
+];
+
+//
+// TODO: BigExerciseId Approve topic
+//
+export const mockDataAllAppproveTopic = [
+  {
+    STT: "1",
+    isDeleted: false,
+    data: {
+      "Trạng thái": "Đã chỉ định giảng viên",
+      "Tên đề tài": "Ứng dụng hẹn hò",
+      "Mô tả":
+        "Kết nối người dùng với những người có sở thích tương tự Nơi người dùng có thể đăng tải và chia sẻ hình ảnh Một ứng dụng áp dụng phiếu giảm giá tự động để đảm bảo cung cấp phiếu giảm giá và giảm giá cho khách hàng",
+      "GV phụ trách": "Huỳnh Hồ Thị Mộng Trinh",
+      "Mã nhóm": "1",
+      MSSV: ["21522289"],
+      "Họ và tên": ["Nguyễn Hoàng Linh"],
+      SĐT: ["0378060972"],
+    },
+  },
+  {
+    STT: "2",
+    isDeleted: false,
+    data: {
+      "Trạng thái": "Chưa chỉ định giảng viên",
+      "Tên đề tài": "Ứng dụng chia sẻ hình ảnh",
+      "Mô tả":
+        "Nơi người dùng có thể đăng tải và chia sẻ hình ảnh Nơi người dùng có thể đăng tải và chia sẻ hình ảnh Nơi người dùng có thể đăng tải và chia sẻ hình ảnh Nơi người dùng có thể đăng tải và chia sẻ hình ảnh Nơi người dùng có thể đăng tải và chia sẻ hình ảnh Nơi người dùng có thể đăng tải và chia sẻ hình ảnh Nơi người dùng có thể đăng tải và chia sẻ hình ảnh Nơi người dùng có thể đăng tải và chia sẻ hình ảnh Nơi người dùng có thể đăng tải và chia sẻ hình ảnh Nơi người dùng có thể đăng tải và chia sẻ hình ảnh Nơi người dùng có thể đăng tải và chia sẻ hình ảnh",
+      "GV phụ trách": "Huỳnh Tuấn Anh",
+      "Mã nhóm": "2",
+      MSSV: ["21522289", "21522289"],
+      "Họ và tên": ["Lê Thành Lộc", "Huỳnh Hồ Thị Mộng Trinh"],
+      SĐT: ["0378060972", "0378060972"],
+    },
+  },
+  {
+    STT: "3",
+    isDeleted: false,
+    data: {
+      "Trạng thái": "Đã từ chối",
+      "Tên đề tài": "Ứng dụng đặt hàng và giao đồ ăn",
+      "Mô tả":
+        "Nơi người dùng có thể đăng tải và chia sẻ hình ảnh Nơi người dùng có thể đăng tải và chia sẻ hình ảnh Nơi người dùng có thể đăng tải và chia sẻ hình ảnh Nơi người dùng có thể đăng tải và chia sẻ hình ảnh Nơi người dùng có thể đăng tải và chia sẻ hình ảnh Nơi người dùng có thể đăng tải và chia sẻ hình ảnh Nơi người dùng có thể đăng tải và chia sẻ hình ảnh Nơi người dùng có thể đăng tải và chia sẻ hình ảnh Nơi người dùng có thể đăng tải và chia sẻ hình ảnh Nơi người dùng có thể đăng tải và chia sẻ hình ảnh Nơi người dùng có thể đăng tải và chia sẻ hình ảnh",
+      "GV phụ trách": "Huỳnh Tuấn Anh",
+      "Mã nhóm": "3",
+      MSSV: ["21522289"],
+      "Họ và tên": ["Nguyễn Hoàng Linh"],
+      SĐT: ["0378060972"],
+    },
+  },
+  {
+    STT: "4",
+    isDeleted: false,
+    data: {
+      "Trạng thái": "Đã chỉ định giảng viên",
+      "Tên đề tài": "Ứng dụng nhà thông minh",
+      "Mô tả": "Giúp người dùng xây dựng một ngôi nhà thông minh và tiện lợi",
+      "GV phụ trách": "Huỳnh Hồ Thị Mộng Trinh",
+      "Mã nhóm": "4",
+      MSSV: ["21522289", "21522289"],
+      "Họ và tên": ["Lê Thành Lộc", "Huỳnh Hồ Thị Mộng Trinh"],
+      SĐT: ["0378060972", "0378060972"],
+    },
+  },
+  {
+    STT: "5",
+    isDeleted: false,
+    data: {
+      "Trạng thái": "Chưa chỉ định giảng viên",
+      "Tên đề tài": "Ứng dụng học ngôn ngữ",
+      "Mô tả": "Giúp người dùng xây dựng một ngôi nhà thông minh và tiện lợi",
+      "GV phụ trách": "Huỳnh Hồ Thị Mộng Trinh",
+      "Mã nhóm": "5",
+      MSSV: ["21522289"],
+      "Họ và tên": ["Nguyễn Hoàng Linh"],
+      SĐT: ["0378060972"],
+    },
+  },
+  {
+    STT: "6",
+    isDeleted: false,
+    data: {
+      "Trạng thái": "Đã từ chối",
+      "Tên đề tài": "Ứng dụng ghi chú",
+      "Mô tả": "Giúp người dùng ghi lại và tổ chức các ghi chú của mình",
+      "GV phụ trách": "Nguyễn Thị Thanh Trúc",
+      "Mã nhóm": "6",
+      MSSV: ["21522289", "21522289"],
+      "Họ và tên": ["Lê Thành Lộc", "Huỳnh Hồ Thị Mộng Trinh"],
+      SĐT: ["0378060972", "0378060972"],
+    },
+  },
+];
+export const mockDataAssignedTopic = [
+  {
+    STT: "1",
+    isDeleted: false,
+    data: {
+      "Trạng thái": "Đã chỉ định giảng viên",
+      "Tên đề tài": "Ứng dụng hẹn hò",
+      "Mô tả":
+        "Kết nối người dùng với những người có sở thích tương tự Nơi người dùng có thể đăng tải và chia sẻ hình ảnh Một ứng dụng áp dụng phiếu giảm giá tự động để đảm bảo cung cấp phiếu giảm giá và giảm giá cho khách hàng",
+      "GV phụ trách": "Huỳnh Hồ Thị Mộng Trinh",
+      "Mã nhóm": "1",
+      MSSV: ["21522289"],
+      "Họ và tên": ["Nguyễn Hoàng Linh"],
+      SĐT: ["0378060972"],
+    },
+  },
+  {
+    STT: "2",
+    isDeleted: false,
+    data: {
+      "Trạng thái": "Đã chỉ định giảng viên",
+      "Tên đề tài": "Ứng dụng chia sẻ hình ảnh",
+      "Mô tả":
+        "Nơi người dùng có thể đăng tải và chia sẻ hình ảnh Nơi người dùng có thể đăng tải và chia sẻ hình ảnh Nơi người dùng có thể đăng tải và chia sẻ hình ảnh Nơi người dùng có thể đăng tải và chia sẻ hình ảnh Nơi người dùng có thể đăng tải và chia sẻ hình ảnh Nơi người dùng có thể đăng tải và chia sẻ hình ảnh Nơi người dùng có thể đăng tải và chia sẻ hình ảnh Nơi người dùng có thể đăng tải và chia sẻ hình ảnh Nơi người dùng có thể đăng tải và chia sẻ hình ảnh Nơi người dùng có thể đăng tải và chia sẻ hình ảnh Nơi người dùng có thể đăng tải và chia sẻ hình ảnh",
+      "GV phụ trách": "Huỳnh Tuấn Anh",
+      "Mã nhóm": "2",
+      MSSV: ["21522289", "21522289"],
+      "Họ và tên": ["Lê Thành Lộc", "Huỳnh Hồ Thị Mộng Trinh"],
+      SĐT: ["0378060972", "0378060972"],
+    },
+  },
+  {
+    STT: "3",
+    isDeleted: false,
+    data: {
+      "Trạng thái": "Đã chỉ định giảng viên",
+      "Tên đề tài": "Ứng dụng đặt hàng và giao đồ ăn",
+      "Mô tả":
+        "Nơi người dùng có thể đăng tải và chia sẻ hình ảnh Nơi người dùng có thể đăng tải và chia sẻ hình ảnh Nơi người dùng có thể đăng tải và chia sẻ hình ảnh Nơi người dùng có thể đăng tải và chia sẻ hình ảnh Nơi người dùng có thể đăng tải và chia sẻ hình ảnh Nơi người dùng có thể đăng tải và chia sẻ hình ảnh Nơi người dùng có thể đăng tải và chia sẻ hình ảnh Nơi người dùng có thể đăng tải và chia sẻ hình ảnh Nơi người dùng có thể đăng tải và chia sẻ hình ảnh Nơi người dùng có thể đăng tải và chia sẻ hình ảnh Nơi người dùng có thể đăng tải và chia sẻ hình ảnh",
+      "GV phụ trách": "Huỳnh Tuấn Anh",
+      "Mã nhóm": "3",
+      MSSV: ["21522289"],
+      "Họ và tên": ["Nguyễn Hoàng Linh"],
+      SĐT: ["0378060972"],
+    },
+  },
+];
+export const mockDataNotAssignedTopic = [
+  {
+    STT: "1",
+    isDeleted: false,
+    data: {
+      "Trạng thái": "Chưa chỉ định giảng viên",
+      "Tên đề tài": "Ứng dụng hẹn hò",
+      "Mô tả":
+        "Kết nối người dùng với những người có sở thích tương tự Nơi người dùng có thể đăng tải và chia sẻ hình ảnh Một ứng dụng áp dụng phiếu giảm giá tự động để đảm bảo cung cấp phiếu giảm giá và giảm giá cho khách hàng",
+      "GV phụ trách": "Huỳnh Hồ Thị Mộng Trinh",
+      "Mã nhóm": "1",
+      MSSV: ["21522289"],
+      "Họ và tên": ["Nguyễn Hoàng Linh"],
+      SĐT: ["0378060972"],
+    },
+  },
+  {
+    STT: "2",
+    isDeleted: false,
+    data: {
+      "Trạng thái": "Chưa chỉ định giảng viên",
+      "Tên đề tài": "Ứng dụng chia sẻ hình ảnh",
+      "Mô tả":
+        "Nơi người dùng có thể đăng tải và chia sẻ hình ảnh Nơi người dùng có thể đăng tải và chia sẻ hình ảnh Nơi người dùng có thể đăng tải và chia sẻ hình ảnh Nơi người dùng có thể đăng tải và chia sẻ hình ảnh Nơi người dùng có thể đăng tải và chia sẻ hình ảnh Nơi người dùng có thể đăng tải và chia sẻ hình ảnh Nơi người dùng có thể đăng tải và chia sẻ hình ảnh Nơi người dùng có thể đăng tải và chia sẻ hình ảnh Nơi người dùng có thể đăng tải và chia sẻ hình ảnh Nơi người dùng có thể đăng tải và chia sẻ hình ảnh Nơi người dùng có thể đăng tải và chia sẻ hình ảnh",
+      "GV phụ trách": "Huỳnh Tuấn Anh",
+      "Mã nhóm": "2",
+      MSSV: ["21522289", "21522289"],
+      "Họ và tên": ["Lê Thành Lộc", "Huỳnh Hồ Thị Mộng Trinh"],
+      SĐT: ["0378060972", "0378060972"],
+    },
+  },
+  {
+    STT: "3",
+    isDeleted: false,
+    data: {
+      "Trạng thái": "Chưa chỉ định giảng viên",
+      "Tên đề tài": "Ứng dụng đặt hàng và giao đồ ăn",
+      "Mô tả":
+        "Nơi người dùng có thể đăng tải và chia sẻ hình ảnh Nơi người dùng có thể đăng tải và chia sẻ hình ảnh Nơi người dùng có thể đăng tải và chia sẻ hình ảnh Nơi người dùng có thể đăng tải và chia sẻ hình ảnh Nơi người dùng có thể đăng tải và chia sẻ hình ảnh Nơi người dùng có thể đăng tải và chia sẻ hình ảnh Nơi người dùng có thể đăng tải và chia sẻ hình ảnh Nơi người dùng có thể đăng tải và chia sẻ hình ảnh Nơi người dùng có thể đăng tải và chia sẻ hình ảnh Nơi người dùng có thể đăng tải và chia sẻ hình ảnh Nơi người dùng có thể đăng tải và chia sẻ hình ảnh",
+      "GV phụ trách": "Huỳnh Tuấn Anh",
+      "Mã nhóm": "3",
+      MSSV: ["21522289"],
+      "Họ và tên": ["Nguyễn Hoàng Linh"],
+      SĐT: ["0378060972"],
+    },
+  },
+];
+export const mockDataRefuseTopic = [
+  {
+    STT: "1",
+    isDeleted: false,
+    data: {
+      "Trạng thái": "Đã từ chối",
+      "Tên đề tài": "Ứng dụng hẹn hò",
+      "Mô tả":
+        "Kết nối người dùng với những người có sở thích tương tự Nơi người dùng có thể đăng tải và chia sẻ hình ảnh Một ứng dụng áp dụng phiếu giảm giá tự động để đảm bảo cung cấp phiếu giảm giá và giảm giá cho khách hàng",
+      "GV phụ trách": "Huỳnh Hồ Thị Mộng Trinh",
+      "Mã nhóm": "1",
+      MSSV: ["21522289"],
+      "Họ và tên": ["Nguyễn Hoàng Linh"],
+      SĐT: ["0378060972"],
+    },
+  },
+  {
+    STT: "2",
+    isDeleted: false,
+    data: {
+      "Trạng thái": "Đã từ chối",
+      "Tên đề tài": "Ứng dụng chia sẻ hình ảnh",
+      "Mô tả":
+        "Nơi người dùng có thể đăng tải và chia sẻ hình ảnh Nơi người dùng có thể đăng tải và chia sẻ hình ảnh Nơi người dùng có thể đăng tải và chia sẻ hình ảnh Nơi người dùng có thể đăng tải và chia sẻ hình ảnh Nơi người dùng có thể đăng tải và chia sẻ hình ảnh Nơi người dùng có thể đăng tải và chia sẻ hình ảnh Nơi người dùng có thể đăng tải và chia sẻ hình ảnh Nơi người dùng có thể đăng tải và chia sẻ hình ảnh Nơi người dùng có thể đăng tải và chia sẻ hình ảnh Nơi người dùng có thể đăng tải và chia sẻ hình ảnh Nơi người dùng có thể đăng tải và chia sẻ hình ảnh",
+      "GV phụ trách": "Huỳnh Tuấn Anh",
+      "Mã nhóm": "2",
+      MSSV: ["21522289", "21522289"],
+      "Họ và tên": ["Lê Thành Lộc", "Huỳnh Hồ Thị Mộng Trinh"],
+      SĐT: ["0378060972", "0378060972"],
+    },
+  },
+  {
+    STT: "3",
+    isDeleted: false,
+    data: {
+      "Trạng thái": "Đã từ chối",
+      "Tên đề tài": "Ứng dụng đặt hàng và giao đồ ăn",
+      "Mô tả":
+        "Nơi người dùng có thể đăng tải và chia sẻ hình ảnh Nơi người dùng có thể đăng tải và chia sẻ hình ảnh Nơi người dùng có thể đăng tải và chia sẻ hình ảnh Nơi người dùng có thể đăng tải và chia sẻ hình ảnh Nơi người dùng có thể đăng tải và chia sẻ hình ảnh Nơi người dùng có thể đăng tải và chia sẻ hình ảnh Nơi người dùng có thể đăng tải và chia sẻ hình ảnh Nơi người dùng có thể đăng tải và chia sẻ hình ảnh Nơi người dùng có thể đăng tải và chia sẻ hình ảnh Nơi người dùng có thể đăng tải và chia sẻ hình ảnh Nơi người dùng có thể đăng tải và chia sẻ hình ảnh",
+      "GV phụ trách": "Huỳnh Tuấn Anh",
+      "Mã nhóm": "3",
+      MSSV: ["21522289"],
+      "Họ và tên": ["Nguyễn Hoàng Linh"],
       SĐT: ["0378060972"],
     },
   },
