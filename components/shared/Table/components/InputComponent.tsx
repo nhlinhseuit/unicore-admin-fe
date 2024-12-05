@@ -7,20 +7,21 @@ interface InputParams {
   onChange: (newValue: string | number) => void;
   otherClassess?: string;
   isDescription?: boolean;
+  isInTable?: boolean;
 }
 
 const InputComponent = (params: InputParams) => {
   const [inputValue, setInputValue] = useState(params.value);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setInputValue(e.target.value); 
+    setInputValue(e.target.value);
 
-    params.onChange(e.target.value); 
+    params.onChange(e.target.value);
   };
-  
+
   const handleTextAreaChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setInputValue(e.target.value);
-    
+
     params.onChange(e.target.value);
   };
 
@@ -39,17 +40,15 @@ const InputComponent = (params: InputParams) => {
         <textarea
           value={inputValue}
           onChange={handleTextAreaChange}
-          placeholder="Trống"
-          className="
+          placeholder={params.placeholder.toString() || "Trống"}
+          className={`
             no-focus
             paragraph-regular
-            background-light800_darkgradient
-            light-border-2
             text-dark300_light700
             min-h-[120px]
             rounded-md
-            border
             resize-none
+            min-w-[300px]
             w-full
             px-3
             py-4
@@ -59,22 +58,29 @@ const InputComponent = (params: InputParams) => {
             focus:border-inherit
             text-sm
             paragraph-regular no-focus placeholder
-            background-light800_darkgradient
-            shadow-none outline-none border-none 
+            shadow-none outline-none
             custom-scrollbar-desc
-            "
+            background-light800_darkgradient 
+            
+            ${
+              params.isInTable
+                ? "background-light800_darkgradient border-none"
+                : "border light-border-2 bg-transparent"
+            }
+            ${params.otherClassess || ""}
+            `}
         />
       ) : (
         <Input
           type="text"
-          placeholder="Trống"
+          placeholder={params.placeholder.toString() || "Trống"}
           value={inputValue}
           onChange={handleInputChange}
           className={`
             paragraph-regular no-focus placeholder
             background-light800_darkgradient
             shadow-none outline-none border-none truncate
-            w-[200px] 
+            w-[200px]
             ${params.otherClassess || ""}
           `}
         />

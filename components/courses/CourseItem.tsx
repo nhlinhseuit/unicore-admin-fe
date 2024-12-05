@@ -25,7 +25,7 @@ const CourseItem = (params: Props) => {
         </p>
       </div>
 
-      <p className="small-regular text-center">{params.teachers}</p>
+      <p className="small-regular text-center">GV: {params.teachers}</p>
     </div>
   );
 };

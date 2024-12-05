@@ -423,16 +423,19 @@ export const mockCourses = [
     teachers: "Trịnh Văn A, Nguyễn Văn H, +1",
     subCourses: [
       {
-        id: "SE114.N21.PMCL.1",
+        id: "SE114.N21.PMCL",
+        type: "theory",
         teacher: "Trịnh Văn A",
       },
       {
-        id: "SE114.N21.PMCL.2",
+        id: "SE114.N21.PMCL.1",
+        type: "pratice",
         teacher: "Nguyễn Văn H",
       },
       {
-        id: "SE114.N21.PMCL.3",
-        teacher: "Nguyễn Hoàng Linh",
+        id: "SE114.N21.PMCL.2",
+        type: "pratice",
+        teacher: "Lê Minh T",
       },
     ],
   },
@@ -444,30 +447,144 @@ export const mockCourses = [
     teachers: "Nguyễn Hoàng Linh, Nguyễn Văn H",
     subCourses: [
       {
-        id: "SE114.N23.PMCL.1",
+        id: "SE100.N23.PMCL",
+        type: "theory",
         teacher: "Trịnh Văn A",
       },
       {
-        id: "SE114.N23.PMCL.2",
-        teacher: "Trịnh Văn A",
+        id: "SE100.N23.PMCL.1",
+        type: "pratice",
+        teacher: "Nguyễn Văn H",
       },
     ],
   },
   {
-    id: "SE502.N21",
+    id: "SE501.N21.PMCL",
     type: "internCourse",
     name: "Thực tập doanh nghiệp",
     semester: "HK1/2024",
-    teachers: "Nguyễn Ngọc Quí",
-    subCourses: [],
+    teachers: "Nguyễn Ngọc Quí, Trịnh Văn A, Nguyễn Văn H, +12",
+    subCourses: [
+      {
+        id: "SE501.N21.PMCL",
+        type: "general",
+        teacher: "Lớp chung",
+      },
+      {
+        id: "80001",
+        type: "advisor",
+        teacher: "Nguyễn Ngọc Quí",
+      },
+      {
+        id: "80002",
+        type: "advisor",
+        teacher: "Trịnh Văn A",
+      },
+      {
+        id: "80003",
+        type: "advisor",
+        teacher: "Nguyễn Văn H",
+      },
+      {
+        id: "80004",
+        type: "advisor",
+        teacher: "Lê Thị B",
+      },
+      {
+        id: "80005",
+        type: "advisor",
+        teacher: "Phan Minh T",
+      },
+      {
+        id: "80006",
+        type: "advisor",
+        teacher: "Nguyễn Quốc C",
+      },
+      {
+        id: "80007",
+        type: "advisor",
+        teacher: "Vũ Minh H",
+      },
+      {
+        id: "80008",
+        type: "advisor",
+        teacher: "Hoàng Thị N",
+      },
+      {
+        id: "80009",
+        type: "advisor",
+        teacher: "Trần Văn K",
+      },
+      {
+        id: "80010",
+        type: "advisor",
+        teacher: "Lý Thiên L",
+      },
+    ],
   },
   {
-    id: "SE502.N21",
+    id: "SE121.O21.PMCL",
     type: "thesisCourse",
     name: "Đồ án 1",
     semester: "HK1/2024",
-    teachers: "Nguyễn Hoàng Linh, Lê Thành Lộc",
-    subCourses: [],
+    teachers: "Nguyễn Ngọc Quí, Trịnh Văn A, Nguyễn Văn H, +12",
+    subCourses: [
+      {
+        id: "SE121.O21.PMCL",
+        type: "general",
+        teacher: "Lớp chung",
+      },
+      {
+        id: "80001",
+        type: "advisor",
+        teacher: "Nguyễn Ngọc Quí",
+      },
+      {
+        id: "80002",
+        type: "advisor",
+        teacher: "Trịnh Văn A",
+      },
+      {
+        id: "80003",
+        type: "advisor",
+        teacher: "Nguyễn Văn H",
+      },
+      {
+        id: "80004",
+        type: "advisor",
+        teacher: "Lê Thị B",
+      },
+      {
+        id: "80005",
+        type: "advisor",
+        teacher: "Phan Minh T",
+      },
+      {
+        id: "80006",
+        type: "advisor",
+        teacher: "Nguyễn Quốc C",
+      },
+      {
+        id: "80007",
+        type: "advisor",
+        teacher: "Vũ Minh H",
+      },
+      {
+        id: "80008",
+        type: "advisor",
+        teacher: "Hoàng Thị N",
+      },
+      {
+        id: "80009",
+        type: "advisor",
+        teacher: "Trần Văn K",
+      },
+      {
+        id: "80010",
+        type: "advisor",
+        teacher: "Lý Thiên L",
+      },
+    ],
   },
 ];
 

@@ -66,6 +66,7 @@ export interface FileData {
 }
 
 export interface GradingExerciseData {
+  "Điểm danh"?: boolean;
   // 1 là có nhóm
   // 0 là cá nhân
   "Hình thức": boolean;
