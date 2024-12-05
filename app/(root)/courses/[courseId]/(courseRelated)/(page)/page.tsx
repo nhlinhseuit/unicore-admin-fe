@@ -6,7 +6,11 @@ import ExercisePostItem from "@/components/shared/PostItem/ExercisePostItem";
 import PostItem from "@/components/shared/PostItem/PostItem";
 import ReportPostItem from "@/components/shared/PostItem/ReportPostItem";
 import TableSearch from "@/components/shared/Search/TableSearch";
-import { AnnouncementTabs, AnnouncementTypes, FilterType } from "@/constants";
+import {
+  AnnouncementTabs,
+  AnnouncementTypesNotRegularCourse,
+  FilterType,
+} from "@/constants";
 import { mockPostDataCourseIdPage } from "@/mocks";
 import { Dropdown } from "flowbite-react";
 import Link from "next/link";
@@ -18,9 +22,11 @@ const page = () => {
 
   var typeFilter = FilterType.SortNewer;
 
-  const [selectedAnnouncement, setSelectedAnnouncement] = useState(
-    AnnouncementTabs[0].value
-  );
+  //! CALL API để xem course này có phải có type là internCourse hay thesisCourse hay không
+  const isNotRegularCourse = true;
+  const renderAnnouncementTypes = isNotRegularCourse
+    ? AnnouncementTypesNotRegularCourse
+    : null;
 
   const getRenderPostItem = (item: any): JSX.Element => {
     switch (item.typePost) {
@@ -178,6 +184,38 @@ const page = () => {
             </ul>
           </Dropdown>
         </div>
+
+        {/* Create announcement */}
+        {renderAnnouncementTypes ? (
+          <div>
+            <Dropdown
+              className="z-30 rounded-lg"
+              label=""
+              dismissOnClick={false}
+              renderTrigger={() => (
+                <div className="w-full">
+                  <div>
+                    <IconButton
+                      text="Tạo thông báo"
+                      iconLeft="/assets/icons/add.svg"
+                    />
+                  </div>
+                </div>
+              )}
+            >
+              <div className="w-full">
+                {renderAnnouncementTypes.map((item) => (
+                  <Link
+                    key={`${pathName}${item.route}`}
+                    href={`${pathName}${item.route}`}
+                  >
+                    <Dropdown.Item>{item.label}</Dropdown.Item>
+                  </Link>
+                ))}
+              </div>
+            </Dropdown>
+          </div>
+        ) : null}
       </div>
 
       {/* PostList */}

@@ -3,7 +3,7 @@
 import React from "react";
 import Link from "next/link";
 import { useParams, usePathname } from "next/navigation";
-import { DepartmentCourseTabItems } from "@/constants";
+import { DepartmentCourseTabItems, DepartmentRegularCourseTabItems } from "@/constants";
 import { Dropdown } from "flowbite-react";
 import Image from "next/image";
 import NavbarButton from "@/components/shared/NavbarButton";
@@ -13,6 +13,12 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
   const params = useParams() as { courseId: string };
   const { courseId } = params;
   // TODO: Get API lấy tên lớp học
+
+    //! CALL API để xem course này có phải có type là internCourse hay thesisCourse hay không
+    const isNotRegularCourse = false;
+    const renderDepartmentCourseTabItems = isNotRegularCourse
+      ? DepartmentCourseTabItems
+      : DepartmentRegularCourseTabItems;
 
   return (
     <main
@@ -38,7 +44,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
           pr-[230px]
         "
       >
-        {DepartmentCourseTabItems.map((item) => {
+        {renderDepartmentCourseTabItems.map((item) => {
           let isActive;
 
           // TODO: handle cho COURSE ITEM

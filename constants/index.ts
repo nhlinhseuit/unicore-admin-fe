@@ -59,6 +59,24 @@ export const DepartmentSubjectsTabItems = [
 export const DepartmentCourseTabItems = [
   { value: "generalPost", label: "Thông báo chung", route: "/" },
   {
+    value: "scoreTranscript",
+    label: "Bảng điểm",
+    route: "/score-transcript",
+  },
+  {
+    value: "files",
+    label: "Lưu trữ",
+    route: "/files",
+  },
+  {
+    value: "setting",
+    label: "Cài đặt",
+    route: "/setting",
+  },
+];
+export const DepartmentRegularCourseTabItems = [
+  { value: "generalPost", label: "Thông báo chung", route: "/" },
+  {
     value: "events",  
     label: "Sự kiện",
     route: "/events",
@@ -109,9 +127,8 @@ export const BigExerciseTabItems = [
 ];
 
 // TODO: OTHERS
-export const AnnouncementTypes = [
+export const AnnouncementTypesNotRegularCourse = [
   { route: "/create-announcement", label: "Tạo thông báo" },
-  { route: "/create-exercise", label: "Tạo bài tập" },
   { route: "/create-report", label: "Tạo báo cáo đồ án" },
 ];
 
