@@ -1,15 +1,12 @@
 "use client";
 import CourseItem from "@/components/courses/CourseItem";
 import MoreButtonCourseItem from "@/components/courses/MoreButtonCourseItem";
-import IconButton from "@/components/shared/Button/IconButton";
-import { DetailFilter, FilterType, listCourseColors } from "@/constants";
-import { Dropdown } from "flowbite-react";
-import Image from "next/image";
+import { ListCourseColors } from "@/constants";
 import Link from "next/link";
 import { useState } from "react";
 
 import CourseItemDialog from "@/components/courses/CourseItemDialog";
-import TableSearch from "@/components/shared/Search/TableSearch";
+import DetailFilterComponent from "@/components/shared/DetailFilterComponent";
 import {
   AlertDialog,
   AlertDialogCancel,
@@ -21,7 +18,6 @@ import {
 } from "@/components/ui/alert-dialog";
 import { mockCourses } from "@/mocks";
 import { useRouter } from "next/navigation";
-import DetailFilterComponent from "@/components/shared/DetailFilterComponent";
 
 const JoinedCourses = () => {
   const [currentCourseId, setCurrentCourseId] = useState("");
@@ -61,7 +57,10 @@ const JoinedCourses = () => {
               name={item.name}
               semester={item.semester}
               teachers={item.teachers}
-              color={listCourseColors[index % listCourseColors.length]}
+              color={
+                ListCourseColors.find((course) => course.type === item.type)
+                  ?.color || "#ffffff"
+              }
             />
             <div className="absolute right-0 top-0">
               <MoreButtonCourseItem handleEdit={() => {}} />
