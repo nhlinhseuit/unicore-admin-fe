@@ -5,20 +5,12 @@ import ExercisePostItem from "@/components/shared/PostItem/ExercisePostItem";
 import PostItem from "@/components/shared/PostItem/PostItem";
 import ReportPostItem from "@/components/shared/PostItem/ReportPostItem";
 import TableSearch from "@/components/shared/Search/TableSearch";
-import { AnnouncementTabs, FilterType } from "@/constants";
+import { FilterType } from "@/constants";
 import { mockPostDataWithReport } from "@/mocks";
 import { Dropdown } from "flowbite-react";
-import { usePathname } from "next/navigation";
-import { useState } from "react";
 
 const BigExercise = () => {
-  const pathName = usePathname();
-
   var typeFilter = FilterType.SortNewer;
-
-  const [selectedAnnouncement, setSelectedAnnouncement] = useState(
-    AnnouncementTabs[0].value
-  );
 
   const getRenderPostItem = (item: any): JSX.Element => {
     switch (item.typePost) {

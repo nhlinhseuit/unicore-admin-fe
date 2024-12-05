@@ -20,12 +20,6 @@ export const ALLOWED_FILE_TYPES = [
 ];
 export const MAX_CATEGORIES = 5; // Số danh mục tối đa chọn khi đăng thông báo
 
-// TODO: BORDER CONTAINER TAB
-export const AnnouncementTabs = [
-  { value: "postedAnnouncement", label: "Thông báo đã đăng" },
-  { value: "createdAnnouncement", label: "Thông báo đã tạo" },
-  { value: "hidedAnnouncement", label: "Thông báo đã ẩn" },
-];
 
 // TODO: NAVBAR TAB
 export const DepartmentAnnouncementsTabItems = [
