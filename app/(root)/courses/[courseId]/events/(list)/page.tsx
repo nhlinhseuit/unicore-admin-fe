@@ -1,8 +1,6 @@
 "use client";
 
-import BackToPrev from "@/components/shared/BackToPrev";
 import BigExerciseItem from "@/components/shared/BigExercise/BigExerciseItem";
-import CreateBigExercise from "@/components/shared/BigExercise/CreateBigExercise";
 import ToggleTitle from "@/components/shared/ToggleTitle";
 import { mockBigExercisesList, mockCentralizedExam } from "@/mocks";
 import Link from "next/link";
@@ -12,27 +10,13 @@ import { useState } from "react";
 const BigExercises = () => {
   const pathName = usePathname();
 
-  const [isCreate, setIsCreate] = useState(false);
   const [isToggleShowCentralizedExam, setIsToggleShowCentralizedExam] =
     useState(true);
   const [isToggleShowFinalExam, setIsToggleShowFinalExam] = useState(false);
   const [isToggleShowBigExercise, setIsToggleShowBigExercise] = useState(true);
 
   return (
-    <div>
-      {isCreate ? (
-        <>
-          <BackToPrev
-            text={"Quay lại danh sách bài tập lớn"}
-            onClickPrev={() => {
-              setIsCreate(false);
-            }}
-          />
-
-          <CreateBigExercise />
-        </>
-      ) : (
-        <>
+    <>
           <div className="flex flex-col gap-4">
             <ToggleTitle
               text="Thi tập trung"
@@ -87,8 +71,6 @@ const BigExercises = () => {
               : null}
           </div>
         </>
-      )}
-    </div>
   );
 };
 

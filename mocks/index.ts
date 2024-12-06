@@ -150,19 +150,7 @@ export const mockAnnouncementDetailLists = [
 ];
 
 //
-//// TODO: NotiTypeList
-//
-export const mockNotiTypeList = [
-  { id: 1, value: "Phúc khảo" },
-  { id: 2, value: "Bài tập" },
-  { id: 3, value: "Báo cáo đồ án" },
-  { id: 4, value: "Điểm bài làm" },
-  { id: 5, value: "Duyệt đề tài" },
-  { id: 6, value: "Tin nhắn" },
-];
-
-//
-//// TODO: Exercises
+//// TODO: Category
 //
 export const mockCategoryList = [
   { id: 1, value: "Thông báo - tin tức" },
@@ -226,188 +214,6 @@ export const mockPostData = [
         content: "Các em mau chóng đăng ký nhóm đúng hạn",
       },
     ],
-  },
-];
-export const mockDataGradingExercise = [
-  {
-    //
-    // TODO: Kh// cần stt của sv ở đây
-    // TODO: //Hiện tại chỉ dùng làm key
-    // * FIX:// STT count ++ cho row leader
-
-    STT: "1",
-    isDeleted: false,
-    data: {
-      "Hình thức": false,
-      "Mã nhóm": "1",
-      "Bài nộp": "NguyenHoangLinh_BaiTap.docx",
-      "Trễ hạn": "0",
-      MSSV: "21522289",
-      "Họ và tên": "Nguyễn Hoàng Linh",
-      Điểm: 9,
-      "Góp ý": "Bài làm tốt!",
-    },
-  },
-  {
-    STT: "2",
-    isDeleted: false,
-    data: {
-      "Hình thức": true,
-      "Mã nhóm": "2",
-      "Bài nộp": "LeThanhLoc_BaiTap.docx",
-      "Trễ hạn": "1 ngày 12 tiếng",
-      MSSV: "21522289",
-      "Họ và tên": "Lê Thành Lộc",
-      Điểm: 9,
-      "Góp ý": "",
-    },
-  },
-  {
-    STT: "3",
-    isDeleted: false,
-    data: {
-      "Hình thức": true,
-      "Mã nhóm": "2",
-      "Bài nộp": "",
-      "Trễ hạn": "0",
-      MSSV: "21522289",
-      "Họ và tên": "Huỳnh Hồ Thị Mộng Trinh",
-      Điểm: 9,
-      "Góp ý": "Bài làm tốt!",
-    },
-  },
-  {
-    STT: "4",
-    isDeleted: false,
-    data: {
-      "Hình thức": true,
-      "Mã nhóm": "3",
-      "Bài nộp": "LeThanhLoc_BaiTap.docx",
-      "Trễ hạn": "3 phút 12 giây",
-      MSSV: "21522289",
-      "Họ và tên": "Nguyễn Tiến Vĩ",
-      Điểm: 9,
-      "Góp ý": "",
-    },
-  },
-  {
-    STT: "5",
-    isDeleted: false,
-    data: {
-      "Hình thức": true,
-      "Mã nhóm": "3",
-      "Bài nộp": "NguyenHoangLinh_BaiTap.docx",
-      "Trễ hạn": "0",
-      MSSV: "21522289",
-      "Họ và tên": "Nguyễn Thị Thanh Tuyền",
-      Điểm: 9,
-      "Góp ý": "Bài làm xuất sắc",
-    },
-  },
-  {
-    STT: "6",
-    isDeleted: false,
-    data: {
-      "Hình thức": false,
-      "Mã nhóm": "4",
-      "Bài nộp": "LeThanhLoc_BaiTap.docx",
-      "Trễ hạn": "0",
-      MSSV: "21522289",
-      "Họ và tên": "Võ Hữu Xike",
-      Điểm: 9,
-      "Góp ý": "Cần xem lại!",
-    },
-  },
-];
-export const mockDataGradingReport = [
-  {
-    //
-    // TODO: Kh// cần stt của sv ở đây
-    // TODO: //Hiện tại chỉ dùng làm key
-    // * FIX:// STT count ++ cho row leader
-
-    STT: "1",
-    isDeleted: false,
-    data: {
-      "Điểm danh": false,
-      "Mã nhóm": "1",
-      "Bài nộp": "NguyenHoangLinh_BaiTap.docx",
-      "Trễ hạn": "0",
-      MSSV: "21522289",
-      "Họ và tên": "Nguyễn Hoàng Linh",
-      Điểm: 9,
-      "Góp ý": "Bài làm tốt!",
-    },
-  },
-  {
-    STT: "2",
-    isDeleted: false,
-    data: {
-      "Điểm danh": true,
-      "Mã nhóm": "2",
-      "Bài nộp": "LeThanhLoc_BaiTap.docx",
-      "Trễ hạn": "1 ngày 12 tiếng",
-      MSSV: "21522289",
-      "Họ và tên": "Lê Thành Lộc",
-      Điểm: 9,
-      "Góp ý": "",
-    },
-  },
-  {
-    STT: "3",
-    isDeleted: false,
-    data: {
-      "Điểm danh": true,
-      "Mã nhóm": "2",
-      "Bài nộp": "",
-      "Trễ hạn": "0",
-      MSSV: "21522289",
-      "Họ và tên": "Huỳnh Hồ Thị Mộng Trinh",
-      Điểm: 9,
-      "Góp ý": "Bài làm tốt!",
-    },
-  },
-  {
-    STT: "4",
-    isDeleted: false,
-    data: {
-      "Điểm danh": true,
-      "Mã nhóm": "3",
-      "Bài nộp": "LeThanhLoc_BaiTap.docx",
-      "Trễ hạn": "3 phút 12 giây",
-      MSSV: "21522289",
-      "Họ và tên": "Nguyễn Tiến Vĩ",
-      Điểm: 9,
-      "Góp ý": "",
-    },
-  },
-  {
-    STT: "5",
-    isDeleted: false,
-    data: {
-      "Điểm danh": true,
-      "Mã nhóm": "3",
-      "Bài nộp": "NguyenHoangLinh_BaiTap.docx",
-      "Trễ hạn": "0",
-      MSSV: "21522289",
-      "Họ và tên": "Nguyễn Thị Thanh Tuyền",
-      Điểm: 9,
-      "Góp ý": "Bài làm xuất sắc",
-    },
-  },
-  {
-    STT: "6",
-    isDeleted: false,
-    data: {
-      "Điểm danh": false,
-      "Mã nhóm": "4",
-      "Bài nộp": "LeThanhLoc_BaiTap.docx",
-      "Trễ hạn": "0",
-      MSSV: "21522289",
-      "Họ và tên": "Võ Hữu Xike",
-      Điểm: 9,
-      "Góp ý": "Cần xem lại!",
-    },
   },
 ];
 
@@ -657,11 +463,6 @@ export const mockCoursesList = [
 //
 // TODO: Create exercise
 //
-export const mockGradeColumnList = [
-  { id: 1, value: "Quá trình - 20%" },
-  { id: 2, value: "Giữa kỳ - 30%" },
-  { id: 3, value: "Cuối kỳ - 50%" },
-];
 export const mockTeacherList = [
   { id: 1, value: "Huỳnh Hồ Thị Mộng Trinh" },
   { id: 2, value: "Nguyễn Thị Thanh Trúc" },
@@ -678,19 +479,9 @@ export const mockApproveTopicOptions = [
   { id: 4, value: "Đã từ chối" },
 ];
 
-
 //
 // TODO: Score Transcript
 //
-export const mockCoursesListScoreTranscript = [
-  { id: 1, value: "SE114.N22.PMCL - Nhập môn ứng dụng di động" },
-  { id: 2, value: "SE121.O11.PMCL - Đồ án 1" },
-  {
-    id: 3,
-    value: "SE100.O11.PMCL - Phương pháp phát triển phần mềm hướng đối tượng",
-  },
-  { id: 4, value: "SE104.N21.PMCL - Kiểm chứng phần mềm" },
-];
 export const mockSubCoursesOfCourseScoreTranscript = [
   { id: 1, value: "Điểm lớp lý thuyết" },
   { id: 2, value: "Điểm lớp thực hành" },
@@ -830,54 +621,6 @@ export const mockFileDataTable = [
       "Tên file": "Nộp bài tập 27/9/2024.zip",
       "Ngày sửa đổi": "27 tháng 9 năm 2024",
       "Người sửa đổi": "Nguyễn Hoàng Linh",
-    },
-  },
-];
-
-//
-// TODO: Manage Group
-// ! Từ d//ata của group đăng ký, biến đổi nó thành data dạng này để render
-// ! mỗi student 1 row
-
-export const mockDataStudentRegisterGroup = [
-  {
-    STT: "1",
-    isDeleted: false,
-    data: {
-      "Mã nhóm": "1",
-      MSSV: ["21522289"],
-      "Họ và tên": ["Nguyễn Hoàng Linh"],
-      SĐT: ["0378060972"],
-    },
-  },
-  {
-    STT: "2",
-    isDeleted: false,
-    data: {
-      "Mã nhóm": "2",
-      MSSV: ["21522289", "21522289"],
-      "Họ và tên": ["Lê Thành Lộc", "Huỳnh Hồ Thị Mộng Trinh"],
-      SĐT: ["0378060972", "0378060972"],
-    },
-  },
-  {
-    STT: "3",
-    isDeleted: false,
-    data: {
-      "Mã nhóm": "3",
-      MSSV: ["21522289", "21522289"],
-      "Họ và tên": ["Nguyễn Tiến Vĩ", "Nguyễn Vĩ"],
-      SĐT: ["0378060972", "0378060972"],
-    },
-  },
-  {
-    STT: "4",
-    isDeleted: false,
-    data: {
-      "Mã nhóm": "4",
-      MSSV: ["21522289"],
-      "Họ và tên": ["Võ Hữu Xike"],
-      SĐT: ["0378060972"],
     },
   },
 ];
@@ -1547,17 +1290,6 @@ export const mockTopicDataTable = [
       "Tên đề tài": "Ứng dụng quản lý thời gian",
       "Mô tả": "Giúp người dùng lập lịch và theo dõi các nhiệm vụ hàng ngày",
       "GV phụ trách": "Nguyễn Thị Thanh Trúc",
-    },
-  },
-];
-
-export const mockTopicRegisterGroupDataTable = [
-  {
-    STT: "1",
-    data: {
-      MSSV: "",
-      "Họ và tên": "",
-      SĐT: "",
     },
   },
 ];
