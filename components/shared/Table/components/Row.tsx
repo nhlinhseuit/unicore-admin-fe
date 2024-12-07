@@ -100,7 +100,8 @@ const Row = React.memo(
         return;
       }
 
-      // setEditDataItem(updatedDataItem); // ??
+      // ở dưới chỉ change local data, nên kh re-render lại row, nên phải tự re-render cho Row
+      setEditDataItem(updatedDataItem); // ??
 
       params.onChangeRow && params.onChangeRow(updatedDataItem); // Gọi callback để truyền dữ liệu đã chỉnh sửa lên DataTable
     };
@@ -144,7 +145,14 @@ const Row = React.memo(
     }) => {
       switch (key) {
         case "Mã lớp":
-          return isHasSubCourses ? (
+          return isEdit || params.isEditTable ? (
+            <InputComponent
+              key={`${keyId}_input_${key}_${value}`}
+              value={value as string | number}
+              placeholder={value as string | number}
+              onChange={(newValue) => handleInputChange({ key, newValue })}
+            />
+          ) : isHasSubCourses ? (
             <div className="flex">
               <span>{value}</span>
               <Dropdown
