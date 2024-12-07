@@ -209,9 +209,7 @@ const Row = React.memo(
             />
           );
 
-        case "student":
-        case "subject":
-        case "course":
+        default:
           return isEdit || params.isEditTable ? (
             typeof value === "string" ? (
               <div className="flex flex-col gap-1">
@@ -254,9 +252,6 @@ const Row = React.memo(
           ) : (
             value
           );
-
-        default:
-          return value;
       }
     };
 
