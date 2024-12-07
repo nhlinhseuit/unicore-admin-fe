@@ -88,7 +88,12 @@ const RowGradingGroupTable = React.memo(
       value: any,
       isEdit: boolean
     ) => {
-      if (key === "Quá trình" || key === "Giữa kỳ" || key === "Cuối kỳ") {
+      if (
+        key === "Quá trình" ||
+        key === "Giữa kỳ" ||
+        key === "Cuối kỳ" ||
+        key === "Thực hành"
+      ) {
         if (isEdit || params.isEditTable) {
           return (
             <InputComponent

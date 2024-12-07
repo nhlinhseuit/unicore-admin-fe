@@ -489,11 +489,6 @@ export const mockSubCoursesOfCourseScoreTranscript = [
 ];
 export const mockDataScoreTranscript = [
   {
-    //
-    // TODO: Kh cần stt của sv ở đây
-    // TODO: Hiện tại chỉ dùng làm key
-    // * FIX:// STT count ++ cho row leader
-
     STT: "1",
     isDeleted: false,
     data: {
@@ -502,6 +497,7 @@ export const mockDataScoreTranscript = [
       MSSV: "21522289",
       "Quá trình": 9,
       "Giữa kỳ": 8,
+      "Thực hành": 8,
       "Cuối kỳ": 10,
       "Điểm trung bình": 8,
     },
@@ -515,6 +511,7 @@ export const mockDataScoreTranscript = [
       MSSV: "21522289",
       "Quá trình": 9,
       "Giữa kỳ": 8,
+      "Thực hành": 8,
       "Cuối kỳ": 10,
       "Điểm trung bình": 8,
     },
@@ -528,6 +525,7 @@ export const mockDataScoreTranscript = [
       MSSV: "21522289",
       "Quá trình": 9,
       "Giữa kỳ": 8,
+      "Thực hành": 8,
       "Cuối kỳ": 10,
       "Điểm trung bình": 8,
     },
@@ -541,6 +539,7 @@ export const mockDataScoreTranscript = [
       MSSV: "21522289",
       "Quá trình": 9,
       "Giữa kỳ": 8,
+      "Thực hành": 8,
       "Cuối kỳ": 10,
       "Điểm trung bình": 8,
     },
@@ -554,6 +553,7 @@ export const mockDataScoreTranscript = [
       MSSV: "21522289",
       "Quá trình": 9,
       "Giữa kỳ": 8,
+      "Thực hành": 8,
       "Cuối kỳ": 10,
       "Điểm trung bình": 8,
     },
@@ -567,6 +567,7 @@ export const mockDataScoreTranscript = [
       MSSV: "21522289",
       "Quá trình": 9,
       "Giữa kỳ": 8,
+      "Thực hành": 8,
       "Cuối kỳ": 10,
       "Điểm trung bình": 8,
     },
@@ -1303,6 +1304,7 @@ export const mockDataStudentRegisterTopic = [
     isDeleted: false,
     data: {
       "Mã nhóm": "1",
+      "GV phụ trách": 'Huỳnh Hồ Thị Mộng Trinh',
       "Tên đề tài": "Ứng dụng hẹn hò",
       "Mô tả":
         "Kết nối người dùng với những người có sở thích tương tự Nơi người dùng có thể đăng tải và chia sẻ hình ảnh Một ứng dụng áp dụng phiếu giảm giá tự động để đảm bảo cung cấp phiếu giảm giá và giảm giá cho khách hàng",
@@ -1316,6 +1318,7 @@ export const mockDataStudentRegisterTopic = [
     isDeleted: false,
     data: {
       "Mã nhóm": "2",
+      "GV phụ trách": 'Huỳnh Hồ Thị Mộng Trinh',
       "Tên đề tài": "Ứng dụng chia sẻ hình ảnh",
       "Mô tả":
         "Nơi người dùng có thể đăng tải và chia sẻ hình ảnh Nơi người dùng có thể đăng tải và chia sẻ hình ảnh Nơi người dùng có thể đăng tải và chia sẻ hình ảnh Nơi người dùng có thể đăng tải và chia sẻ hình ảnh Nơi người dùng có thể đăng tải và chia sẻ hình ảnh Nơi người dùng có thể đăng tải và chia sẻ hình ảnh Nơi người dùng có thể đăng tải và chia sẻ hình ảnh Nơi người dùng có thể đăng tải và chia sẻ hình ảnh Nơi người dùng có thể đăng tải và chia sẻ hình ảnh Nơi người dùng có thể đăng tải và chia sẻ hình ảnh Nơi người dùng có thể đăng tải và chia sẻ hình ảnh",
@@ -1329,6 +1332,7 @@ export const mockDataStudentRegisterTopic = [
     isDeleted: false,
     data: {
       "Mã nhóm": "3",
+      "GV phụ trách": 'Huỳnh Hồ Thị Mộng Trinh',
       "Tên đề tài": "Ứng dụng nhà thông minh",
       "Mô tả": "Giúp người dùng xây dựng một ngôi nhà thông minh và tiện lợi",
       MSSV: ["21522289", "21522289"],
@@ -1341,6 +1345,7 @@ export const mockDataStudentRegisterTopic = [
     isDeleted: false,
     data: {
       "Mã nhóm": "4",
+      "GV phụ trách": 'Huỳnh Hồ Thị Mộng Trinh',
       "Tên đề tài": "Ứng dụng ghi chú",
       "Mô tả": "Giúp người dùng ghi lại và tổ chức các ghi chú của mình",
       MSSV: ["21522289"],

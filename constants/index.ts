@@ -68,29 +68,6 @@ export const DepartmentCourseTabItems = [
     route: "/setting",
   },
 ];
-export const DepartmentRegularCourseTabItems = [
-  { value: "generalPost", label: "Thông báo chung", route: "/" },
-  {
-    value: "events",  
-    label: "Sự kiện",
-    route: "/events",
-  },
-  {
-    value: "scoreTranscript",
-    label: "Bảng điểm",
-    route: "/score-transcript",
-  },
-  {
-    value: "files",
-    label: "Lưu trữ",
-    route: "/files",
-  },
-  {
-    value: "setting",
-    label: "Cài đặt",
-    route: "/setting",
-  },
-];
 export const BigExerciseTabItems = [
   { value: "generalPost", label: "Thông báo chung", route: "/" },
   {
@@ -99,9 +76,9 @@ export const BigExerciseTabItems = [
     route: "/happening-event",
   },
   {
-    value: "listTopic",
+    value: "uploadTopic",
     label: "Danh sách đề tài",
-    route: "/list-topic",
+    route: "/upload-topic",
   },
   {
     value: "registerTopic",
