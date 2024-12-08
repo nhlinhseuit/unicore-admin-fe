@@ -28,6 +28,7 @@ import StudentItem from "@/components/shared/StudentItem";
 import { maxStudentPerGroup, minStudentPerGroup } from "@/constants";
 import Student from "@/types/entity/Student";
 import { usePathname } from "next/navigation";
+import TextAreaComponent from "@/components/shared/TextAreaComponent";
 
 interface Props {
     isCreateNew: boolean;
@@ -38,6 +39,7 @@ const AlertCreateNewTopic = (params: Props) => {
     const pathName = usePathname();
   const courseId = pathName.split("/")[2];
   const [selectedStudents, setSelectedStudents] = useState<Student[]>([]);
+  const [description, setDescription] = useState("");
   const studentIdRef = useRef<HTMLInputElement>(null);
   const updateStudentId = (value: string) => {
     if (studentIdRef.current) {
@@ -119,10 +121,13 @@ const AlertCreateNewTopic = (params: Props) => {
         .string()
         .min(5, { message: "Tên đề tài phải chứa ít nhất 5 ký tự" })
         .max(130),
-      description: z
-        .string()
-        .min(20, { message: "Nội dung đề tài phải chứa ít nhất 20 ký tự" }),
+        description: z
+        .string().optional(),
       studentList: z.string().optional(),
+    })
+    .refine(() => description.length >= 20, {
+      message: `Nội dung đề tài phải chứa ít nhất 20 ký tự`,
+      path: ["description"],
     })
     .refine(() => selectedStudents.length >= minStudentPerGroup, {
       message: `Nhóm phải có ít nhất ${minStudentPerGroup} thành viên.`,
@@ -151,7 +156,7 @@ const AlertCreateNewTopic = (params: Props) => {
     try {
       console.log({
         title: values.title,
-        description: values.description,
+        description: description,
       });
 
       // naviate to home page
@@ -214,28 +219,13 @@ const AlertCreateNewTopic = (params: Props) => {
                   Mô tả đề tài <span className="text-red-600">*</span>
                 </FormLabel>
                 <FormControl className="mt-3.5 ">
-                  <textarea
-                    {...field}
-                    placeholder="Nhập mô tả..."
-                    className="
-                    no-focus
-                    paragraph-regular
-                    background-light900_dark300
-                    light-border-2
-                    text-dark300_light700
-                    min-h-[200px]
-                    rounded-md
-                    border
-                    resize-none
-                    w-full
-                    px-3
-                    py-4
-                    focus:outline-none
-                    focus:ring-0
-                    active:outline-none
-                    focus:border-inherit
-                    text-sm"
-                  />
+                <TextAreaComponent
+                          value={description}
+                          placeholder="Nhập mô tả..."
+                          onChange={(e) => {
+                            setDescription(e.target.value);
+                          }}
+                        />
                 </FormControl>
                 <FormMessage className="text-red-500" />
               </FormItem>

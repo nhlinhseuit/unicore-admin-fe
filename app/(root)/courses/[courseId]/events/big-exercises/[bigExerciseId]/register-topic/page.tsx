@@ -359,7 +359,7 @@ const RegisterTopic = () => {
           </div>
 
           {isToggleViewTable ? (
-            <div className="px-6">
+            <div>
               <RegisterTopicTable
                 type={RegisterTopicTableType.registerTopic}
                 isEditTable={false}

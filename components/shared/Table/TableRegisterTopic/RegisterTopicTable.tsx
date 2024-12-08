@@ -20,6 +20,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import BorderContainer from "../../BorderContainer";
+import TextAreaComponent from "../../TextAreaComponent";
 
 interface DataTableParams {
   type: RegisterTopicTableType;
@@ -243,28 +244,13 @@ const RegisterTopicTable = (params: DataTableParams) => {
                       <p className="body-regular mt-3.5 text-light-500">
                         Không bắt buộc.
                       </p>
-                      <textarea
+                      <TextAreaComponent
+                        value={feedback}
                         placeholder="Nhập phản hồi đề tài..."
-                        onChange={(e) => setFeedback(e.target.value)}
-                        className="
-                      mt-3.5
-                      no-focus
-                      paragraph-regular
-                      background-light900_dark300
-                      light-border-2
-                      text-dark300_light700
-                      min-h-[200px]
-                      rounded-md
-                      border
-                      resize-none
-                      w-full
-                      px-3
-                      py-4
-                      focus:outline-none
-                      focus:ring-0
-                      active:outline-none
-                      focus:border-inherit
-                      text-sm"
+                        onChange={(e) => {
+                          setFeedback(e.target.value);
+                        }}
+                        otherClassess={'mt-3.5'}
                       />
                     </div>
                   </div>
