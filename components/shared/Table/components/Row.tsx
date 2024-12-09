@@ -100,7 +100,7 @@ const Row = React.memo(
         return;
       }
 
-      console.log('handleInputChange')
+      console.log('handleInputChange1')
 
       // ở dưới chỉ change local data, nên kh re-render lại row, nên phải tự re-render cho Row
       setEditDataItem(updatedDataItem); // ??
