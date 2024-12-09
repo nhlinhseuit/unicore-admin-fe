@@ -100,6 +100,8 @@ const Row = React.memo(
         return;
       }
 
+      console.log('handleInputChange')
+
       // ở dưới chỉ change local data, nên kh re-render lại row, nên phải tự re-render cho Row
       setEditDataItem(updatedDataItem); // ??
 
@@ -262,6 +264,8 @@ const Row = React.memo(
           );
       }
     };
+
+    console.log('rederrow number: ', params.dataItem.STT)
 
     return (
       <Table.Row

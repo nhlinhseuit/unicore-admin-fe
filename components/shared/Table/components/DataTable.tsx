@@ -400,6 +400,9 @@ const DataTable = (params: DataTableParams) => {
     }
   };
 
+  console.log('rerender table')
+
+
   return (
     <div>
       <div className="flex flex-col items-center justify-between p-4 space-y-3 md:flex-row md:space-y-0">
@@ -846,6 +849,8 @@ const DataTable = (params: DataTableParams) => {
                       });
                     }}
                     onChangeRow={(updatedDataItem: any) => {
+                      console.log('onChangeRow table')
+
                       setLocalDataTable((prevTable) =>
                         prevTable.map((item) =>
                           item.STT === updatedDataItem.STT
