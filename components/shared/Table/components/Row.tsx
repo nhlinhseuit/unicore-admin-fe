@@ -46,13 +46,12 @@ interface handleInputChangeParams {
 const Row = React.memo(
   (params: RowParams) => {
     const [isEdit, setIsEdit] = useState(false);
-    const [editDataItem, setEditDataItem] = useState(params.dataItem);
     const [isChecked, setIsChecked] = useState(
       //@ts-ignore
       params.dataItem.data["Khoa quản lý"] as boolean
     );
 
-    const refInput = useRef({});
+    const refInput = useRef(params.dataItem);
 
     useEffect(() => {
       if (params.isEditTable) setIsEdit(false);
@@ -79,12 +78,12 @@ const Row = React.memo(
         | SubjectDataItem
         | StudentDataItem
         | TeacherDataItem = {
-        ...editDataItem,
+        ...refInput.current,
         data: {
-          ...editDataItem.data,
+          ...refInput.current.data,
           [key]: isMultipleInput
             ? //@ts-ignore
-              (editDataItem.data[key] as string)
+              (refInput.current.data[key] as string)
                 .split(/\r\n|\n/)
                 .map((line, index) =>
                   index === currentIndex ? newValue : line
@@ -94,14 +93,13 @@ const Row = React.memo(
         },
       };
 
-      // TODO: inputref for save single row
+      refInput.current = updatedDataItem;
+
+      // TODO:  save single row
       if (isEdit) {
-        refInput.current = updatedDataItem;
         return;
       }
 
-      // ở dưới chỉ change local data, nên kh re-render lại row, nên phải tự re-render cho Row
-      setEditDataItem(updatedDataItem); // ??
 
       params.onChangeRow && params.onChangeRow(updatedDataItem); // Gọi callback để truyền dữ liệu đã chỉnh sửa lên DataTable
     };
@@ -262,6 +260,8 @@ const Row = React.memo(
           );
       }
     };
+
+    console.log("rederrow number: ", params.dataItem.STT);
 
     return (
       <Table.Row
