@@ -1,46 +1,47 @@
-"use client";
-
+import { mockTeacherList } from "@/mocks";
 import { useRef, useState } from "react";
 import * as XLSX from "xlsx";
-import { CourseDataItem } from "@/types";
-import DataTable from "../components/DataTable";
-import ErrorComponent from "../../Status/ErrorComponent";
-import TableSkeleton from "../components/TableSkeleton";
-import NoResult from "../../Status/NoResult";
-import { useToast } from "@/hooks/use-toast";
+import BorderContainer from "../../BorderContainer";
 import IconButton from "../../Button/IconButton";
-import { DataTableType } from "@/constants";
-
-type Student = {
-  name: string;
-  studentId: string;
-  topicVi: string;
-  topicEn: string;
-};
+import MyDropdown from "../../MyDropdown";
+import ErrorComponent from "../../Status/ErrorComponent";
 
 type Group = {
-  students: Student[];
+  STT: string;
+  studentIds: string[];
+  names: string[];
+  "Tên đề tài Tiếng Việt": string;
+  "Tên đề tài Tiếng Anh": string;
 };
 
 type Council = {
-  councilName: string;
-  groups: Group[];
+  STT: string;
+  "Tên hội đồng": string;
+  "Thư ký": string; // Thêm trường thư ký vào Council
+  data: Group[];
 };
 
 export default function ThesisReportDataTable() {
-  const [isEditTable, setIsEditTable] = useState(false);
-  const [isMultipleDelete, setIsMultipleDelete] = useState(false);
-  const [dataTable, setDataTable] = useState<CourseDataItem[]>([]);
+  let council = 0;
+
+  const [selectedSecretaries, setSelectedSecretaries] = useState<string[]>([]);
+  const [uploadedFileName, setUploadedFileName] = useState<string | null>(null);
   const [errorMessages, setErrorMessages] = useState<string[]>([
     "Bạn cần phải import danh sách môn học trước khi import danh sách lớp",
   ]);
+  const [councilsData, setCountcilsData] = useState<Council[]>([]);
   const [isLoading, setIsLoading] = useState(false);
 
   // XỬ LÝ UPLOAD FILE LỚP HỌC
   const handleCoursesFileUpload = (e: any) => {
+    const file = e.target.files[0];
+    if (file) {
+      setUploadedFileName(file.name);
+    }
+
+    setCountcilsData([]);
     setIsLoading(true);
     setErrorMessages([]);
-    setDataTable([]);
 
     const reader = new FileReader();
     reader.readAsArrayBuffer(e.target.files[0]);
@@ -56,8 +57,6 @@ export default function ThesisReportDataTable() {
         defval: "",
       });
 
-      console.log("parsedData", parsedData);
-
       let errorMessages: string[] = [];
       let councils: Council[] = []; // Danh sách các hội đồng
       let currentCouncil: Council | null = null; // Hội đồng hiện tại
@@ -71,77 +70,61 @@ export default function ThesisReportDataTable() {
           // Gặp một hội đồng mới
           if (currentCouncil) {
             // Thêm nhóm cuối cùng vào hội đồng nếu còn nhóm
-            if (currentGroup && currentGroup.students.length > 0) {
-              currentCouncil.groups.push(currentGroup);
+            if (currentGroup && currentGroup.studentIds.length > 0) {
+              currentCouncil.data.push(currentGroup);
               currentGroup = null; // Reset nhóm hiện tại
             }
             councils.push(currentCouncil); // Thêm hội đồng hiện tại vào danh sách
           }
           // Tạo hội đồng mới
           currentCouncil = {
-            councilName: `Hội đồng ${item.STT}`,
-            groups: [],
+            STT: (++council).toString(),
+            "Tên hội đồng": `${item.STT}`,
+            "Thư ký": "", // Thư ký mặc định rỗng
+            data: [],
           };
         } else if (
           item["TÊN ĐỀ TÀI TIẾNG VIỆT"] ||
           item["TÊN ĐỀ TÀI TIẾNG ANH"]
         ) {
           // Sinh viên có đầy đủ thông tin, tạo nhóm mới
-          if (currentGroup && currentGroup.students.length > 0) {
-            currentCouncil?.groups.push(currentGroup); // Thêm nhóm hiện tại vào hội đồng
+          if (currentGroup && currentGroup.studentIds.length > 0) {
+            currentCouncil?.data.push(currentGroup); // Thêm nhóm hiện tại vào hội đồng
           }
           currentGroup = {
-            students: [
-              {
-                name: item["HỌ TÊN"] || "",
-                studentId: item["MSSV"] || "",
-                topicVi: item["TÊN ĐỀ TÀI TIẾNG VIỆT"] || "",
-                topicEn: item["TÊN ĐỀ TÀI TIẾNG ANH"] || "",
-              },
-            ],
+            STT: item.STT || "",
+            studentIds: [item["MSSV"] || ""],
+            names: [item["HỌ TÊN"] || ""],
+            "Tên đề tài Tiếng Việt": item["TÊN ĐỀ TÀI TIẾNG VIỆT"] || "",
+            "Tên đề tài Tiếng Anh": item["TÊN ĐỀ TÀI TIẾNG ANH"] || "",
           };
         } else if (currentGroup) {
-          // Chỉ thêm sinh viên nếu có MSSV hoặc HỌ TÊN
+          // Thêm sinh viên vào nhóm hiện tại (nếu topic rỗng)
           const studentName = item["HỌ TÊN"] || "";
           const studentId = item["MSSV"] || "";
           if (studentName || studentId) {
-            currentGroup.students.push({
-              name: studentName,
-              studentId: studentId,
-              topicVi: item["TÊN ĐỀ TÀI TIẾNG VIỆT"] || "",
-              topicEn: item["TÊN ĐỀ TÀI TIẾNG ANH"] || "",
-            });
+            currentGroup.studentIds.push(studentId);
+            currentGroup.names.push(studentName);
           }
         }
       });
 
       // Xử lý nhóm và hội đồng cuối cùng nếu còn tồn đọng
-
       //@ts-ignore
-      if (currentGroup && currentGroup!.students.length > 0) {
-        currentCouncil!.groups.push(currentGroup);
-      }
-      if (currentCouncil) {
-        councils.push(currentCouncil);
-      }
-
-      // Xử lý nhóm và hội đồng cuối cùng nếu còn tồn đọng
-      if (currentGroup) {
+      if (currentGroup && currentGroup.studentIds.length > 0) {
         //@ts-ignore
-        currentCouncil?.groups.push(currentGroup);
+        currentCouncil?.data.push(currentGroup);
       }
       if (currentCouncil) {
         councils.push(currentCouncil);
       }
-
-      console.log("Processed Councils", councils);
 
       // Nếu có lỗi, hiển thị lỗi
       if (errorMessages.length > 0) {
         setErrorMessages(errorMessages);
       } else {
-        // Cập nhật dữ liệu hội đồng
-        setDataTable(councils as []);
+        //! POST API LƯU DỮ LIỆU LÊN BACKEND
+        setCountcilsData(councils);
       }
 
       setIsLoading(false);
@@ -154,9 +137,16 @@ export default function ThesisReportDataTable() {
     fileInputRef.current?.click();
   };
 
-  const { toast } = useToast();
+  // Cập nhật thông tin thư ký khi chọn từ dropdown
+  const handleSecretaryChange = (value: number, councilIndex: number) => {
+    const updatedSecretaries = [...selectedSecretaries];
+    updatedSecretaries[councilIndex] = mockTeacherList[value - 1]?.value || "";
+    setSelectedSecretaries(updatedSecretaries);
 
-  console.log("errorMessages", errorMessages);
+    const updatedCouncils = [...councilsData];
+    updatedCouncils[councilIndex]["Thư ký"] = updatedSecretaries[councilIndex];
+    setCountcilsData(updatedCouncils);
+  };
 
   return (
     <div>
@@ -179,7 +169,7 @@ export default function ThesisReportDataTable() {
       {/* DESCRIPTION */}
       <div className="flex justify-between">
         <div>
-          <div className="flex mb-2">
+          <div className="flex mb-2 gap-4 items-center">
             <div>
               <input
                 ref={fileInputRef}
@@ -192,14 +182,13 @@ export default function ThesisReportDataTable() {
               <IconButton
                 text="Import danh sách hội đồng phản biện"
                 onClick={handleButtonClick}
-                iconLeft={"/assets/icons/upload-white.svg"}
+                iconLeft="/assets/icons/upload-white.svg"
                 iconWidth={16}
                 iconHeight={16}
               />
             </div>
-            {dataTable.length > 0 && (
-              <IconButton text="Lưu" onClick={() => {}} otherClasses="ml-2" />
-            )}
+
+            <p className="text-sm italic">{uploadedFileName}</p>
           </div>
 
           <a
@@ -207,92 +196,37 @@ export default function ThesisReportDataTable() {
             download
             className="text-blue-500 underline text-base italic"
           >
-            Tải xuống template file import lớp học
+            Tải xuống template file import hội đồng chấm Khoá luận tốt nghiệp
           </a>
-        </div>
-
-        <div>
-          <p className="italic text-sm text-right ">
-            * Học kỳ hiện tại: HK1, năm 2024
-          </p>
-          <p className="italic text-sm text-right">
-            * Để scroll ngang, nhấn nút Shift và cuộn chuột
-          </p>
         </div>
       </div>
 
-      {isLoading ? (
-        <TableSkeleton />
-      ) : dataTable.length > 0 ? (
-        <>
-          <DataTable
-            type={DataTableType.Course}
-            dataTable={dataTable}
-            isEditTable={isEditTable}
-            isMultipleDelete={isMultipleDelete}
-            onClickEditTable={() => {
-              setIsEditTable(true);
-            }}
-            onSaveEditTable={(localDataTable) => {
-              setIsEditTable(false);
-              // set lại data import hoặc patch API
-              localDataTable = localDataTable as CourseDataItem[];
-              setDataTable(localDataTable);
-            }}
-            onClickMultipleDelete={() => {
-              setIsMultipleDelete(true);
-            }}
-            onClickDeleteAll={() => {
-              setDataTable((prevData) => {
-                return prevData.map((item) => ({
-                  ...item,
-                  isDeleted: true,
-                }));
-              });
+      {councilsData.length > 0 ? (
+        <div className="mt-12 flex flex-col gap-4">
+          <p className="paragraph-semibold">Chọn thư ký cho hội đồng</p>
 
-              toast({
-                title: "Xóa thành công",
-                description: `Đã xóa tất cả lớp học`,
-                variant: "success",
-                duration: 3000,
-              });
-            }}
-            onClickDelete={(itemsSelected: string[]) => {
-              // ? DELETE THEO MÃ LỚP
-              setDataTable((prevData) => {
-                return prevData.map((item) => {
-                  if (itemsSelected.includes(item.data["Mã lớp"])) {
-                    return {
-                      ...item,
-                      isDeleted: true,
-                    };
-                  }
-                  return item;
-                });
-              });
+          {councilsData.map((item, index) => (
+            <div key={item.STT} className="flex gap-4 items-center">
+              <BorderContainer key={item.STT} otherClasses="p-3">
+                <p>{item["Tên hội đồng"]}</p>
+              </BorderContainer>
 
-              toast({
-                title: "Xóa thành công",
-                description: `${`Các lớp ${itemsSelected.join(
-                  ", "
-                )} đã được xóa.`}`,
-                variant: "success",
-                duration: 3000,
-              });
-            }}
-            onClickGetOut={() => {
-              setIsMultipleDelete(false);
-            }}
-          />
-        </>
-      ) : (
-        <NoResult
-          title="Không có dữ liệu!"
-          description="🚀 Import file danh sách để thấy được dữ liệu."
-          linkTitle="Import danh sách hội đồng phản biện"
-          handleFileUpload={handleCoursesFileUpload}
-        />
-      )}
+              <MyDropdown
+                text={`${
+                  selectedSecretaries[index] || "Chọn thư ký"
+                }`}
+                dataOptions={mockTeacherList}
+                onClick={(value: number) => handleSecretaryChange(value, index)}
+                selectedItem={selectedSecretaries[index]}
+              />
+            </div>
+          ))}
+
+          <div>
+            <IconButton text="Lưu" onClick={() => {}} />
+          </div>
+        </div>
+      ) : null}
     </div>
   );
 }
