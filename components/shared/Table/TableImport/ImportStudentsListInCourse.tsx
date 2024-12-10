@@ -68,6 +68,13 @@ export default function ImportStudentsListInCourse() {
           Object.entries(requiredFields).forEach(([fieldName, value]) => {
             if (value === undefined) {
               errorMessages.push(`Trường "${fieldName}" bị thiếu hoặc lỗi.`);
+
+              if (file) {
+                setUploadedFileName((prevData: any) => ({
+                  ...prevData,
+                  [courseId]: "Import lỗi",
+                }));
+              }
             }
           });
         }
@@ -92,7 +99,6 @@ export default function ImportStudentsListInCourse() {
       setIsLoading(false);
     };
   };
-
 
   return (
     <div>
@@ -214,7 +220,13 @@ export default function ImportStudentsListInCourse() {
                   className={`border-r-[1px] px-2 py-4 normal-case text-left max-w-[800px]`}
                 >
                   <div className="flex-center gap-4">
-                    <p className="text-sm italic">
+                    <p
+                      className={`text-sm italic ${
+                        uploadedFileName[dataItem["Mã lớp"]] === "Import lỗi"
+                          ? "text-red-400 font-semibold"
+                          : ""
+                      }`}
+                    >
                       {uploadedFileName[dataItem["Mã lớp"]]}
                     </p>
 
