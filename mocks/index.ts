@@ -1,4 +1,6 @@
 
+
+
 //// TODO: Not Complete Actions
 //
 export const mockNotCompleteActions = [
@@ -2173,6 +2175,53 @@ export const mockDbStudent = [
     id: "21521632",
     name: "Võ Hữu",
     class: "SE502.N25",
+  },
+];
+
+
+//
+//// TODO: Courses List from Db
+//
+export const mockDbCourses = [
+  {
+    STT: 1,
+    "Mã lớp": "IT002.O21.CLC",
+    "Tên môn học": "Lập trình hướng đối tượng",
+  },
+  {
+    STT: 2,
+    "Mã lớp": "IT003.O21.CLC",
+    "Tên môn học": "Cấu trúc dữ liệu và giải thuật",
+  },
+  {
+    STT: 3,
+    "Mã lớp": "IT004.O21.CLC",
+    "Tên môn học": "Cơ sở dữ liệu",
+  },
+  {
+    STT: 4,
+    "Mã lớp": "IT005.O21.CLC",
+    "Tên môn học": "Hệ điều hành",
+  },
+  {
+    STT: 5,
+    "Mã lớp": "IT006.O21.CLC",
+    "Tên môn học": "Mạng máy tính",
+  },
+  {
+    STT: 6,
+    "Mã lớp": "IT007.O21.CLC",
+    "Tên môn học": "Phân tích thiết kế hệ thống",
+  },
+  {
+    STT: 7,
+    "Mã lớp": "IT008.O21.CLC",
+    "Tên môn học": "Công nghệ phần mềm",
+  },
+  {
+    STT: 8,
+    "Mã lớp": "IT009.O21.CLC",
+    "Tên môn học": "Trí tuệ nhân tạo",
   },
 ];
 

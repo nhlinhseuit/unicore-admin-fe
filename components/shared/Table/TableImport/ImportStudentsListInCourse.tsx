@@ -6,6 +6,7 @@ import * as XLSX from "xlsx";
 import IconButton from "../../Button/IconButton";
 import { StudentDataItem } from "@/types";
 import BorderContainer from "../../BorderContainer";
+import { mockDbCourses } from "@/mocks";
 
 export default function ImportStudentsListInCourse() {
   const [errorMessages, setErrorMessages] = useState<string[]>([]);
@@ -92,50 +93,6 @@ export default function ImportStudentsListInCourse() {
     };
   };
 
-  const mockDataImportStudentInCourse = [
-    {
-      STT: 1,
-      "Mã lớp": "IT002.O21.CLC",
-      "Tên môn học": "Lập trình hướng đối tượng",
-    },
-    {
-      STT: 2,
-      "Mã lớp": "IT003.O21.CLC",
-      "Tên môn học": "Cấu trúc dữ liệu và giải thuật",
-    },
-    {
-      STT: 3,
-      "Mã lớp": "IT004.O21.CLC",
-      "Tên môn học": "Cơ sở dữ liệu",
-    },
-    {
-      STT: 4,
-      "Mã lớp": "IT005.O21.CLC",
-      "Tên môn học": "Hệ điều hành",
-    },
-    {
-      STT: 5,
-      "Mã lớp": "IT006.O21.CLC",
-      "Tên môn học": "Mạng máy tính",
-    },
-    {
-      STT: 6,
-      "Mã lớp": "IT007.O21.CLC",
-      "Tên môn học": "Phân tích thiết kế hệ thống",
-    },
-    {
-      STT: 7,
-      "Mã lớp": "IT008.O21.CLC",
-      "Tên môn học": "Công nghệ phần mềm",
-    },
-    {
-      STT: 8,
-      "Mã lớp": "IT009.O21.CLC",
-      "Tên môn học": "Trí tuệ nhân tạo",
-    },
-  ];
-
-  console.log("dataTables", dataTables);
 
   return (
     <div>
@@ -167,7 +124,7 @@ export default function ImportStudentsListInCourse() {
           Tải xuống template file import sinh viên cho lớp
         </a>
         <a
-          href="/assets/KTLN - template import ds sinh viên.xlsx"
+          href="/assets/KTLN - template import ds sinh viên lớp KLTN.xlsx"
           download
           className="text-blue-500 underline text-base italic"
         >
@@ -225,7 +182,7 @@ export default function ImportStudentsListInCourse() {
 
           {/* BODY */}
           <Table.Body className="text-left divide-y">
-            {mockDataImportStudentInCourse.map((dataItem, index) => (
+            {mockDbCourses.map((dataItem, index) => (
               <Table.Row
                 key={dataItem.STT}
                 onClick={() => {}}
