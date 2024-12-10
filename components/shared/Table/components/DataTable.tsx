@@ -27,7 +27,7 @@ import {
 } from "@/types";
 import { CustomFlowbiteTheme, Dropdown, Table } from "flowbite-react";
 import Image from "next/image";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import IconButton from "../../Button/IconButton";
 import TableSearch from "../../Search/TableSearch";
 import NoResult from "../../Status/NoResult";
@@ -35,7 +35,7 @@ import MyFooter from "./MyFooter";
 import Row from "./Row";
 
 // TODO: filteredData là để render giao diện (search, filter old new, detail filter)
-// TODO: localData là để handle save (khi edit từ search, filter old new, detail filter, pagination)
+// TODO: localDataRef là để handle save (khi edit từ search, filter old new, detail filter, pagination)
 // TODO: currentItems là để pagination cho dataTable (footer)
 
 // ! KHI LÀM NÚT XÓA, THÌ CHUYỂN BIẾN DELETED = 1 => KH HIỆN TRÊN BẢNG ===> ĐỒNG NHẤT VỚI CODE HANDLE SAVE
@@ -85,7 +85,7 @@ const DataTable = (params: DataTableParams) => {
 
     const updatedDataTable = dataTable.map((item) => {
       // Tìm item tương ứng trong localDataTable dựa vào STT (hoặc một identifier khác)
-      const localItem = localDataTable.find((local) => local.STT === item.STT);
+      const localItem = localDataTableRef.current.find((local) => local.STT === item.STT);
 
       // * Nếu tìm thấy, cập nhật giá trị bằng localItem, ngược lại giữ nguyên item
       // * Trải item và localitem ra, nếu trùng nhau thì localItem ghi đè
@@ -108,14 +108,18 @@ const DataTable = (params: DataTableParams) => {
       (currentPage - 1) * itemsPerPage,
       currentPage * itemsPerPage
     );
-  }, [dataTable, currentPage]); // * Khi dataTable thì currentItems cũng cập nhật để update dữ liệu kh bị cũ
+  }, [dataTable, currentPage]); // * Khi dataTable thay đổi thì currentItems cũng cập nhật để update dữ liệu kh bị cũ
 
   // * Local dataTable sử dụng để edit lại data import hoặc PATCH API
-  const [localDataTable, setLocalDataTable] = useState(currentItems);
+  // const [localDataTable, setLocalDataTable] = useState(currentItems);
+  const localDataTableRef = useRef(currentItems)
+  const updateLocalDataTableRef = (newValue: any) => {
+    localDataTableRef.current = newValue
+  }
+
 
   const applyFilter = () => {
     let filteredData;
-
     if (
       !(
         semesterFilterSelected == 0 &&
@@ -177,11 +181,10 @@ const DataTable = (params: DataTableParams) => {
 
   useEffect(() => {
     // * => (HANDLE ĐƯỢC 2 TRƯỜNG HỢP)
-    // TODO. TH1: CLICK SANG TRANG MỚI -> CURRENTPAGE ĐỔI -> CURRENT ITEMS ĐỔI (KHÔNG CÓ FILTER) => APPLYFILTER VẪN HANDLE ĐƯỢC
+    // TODO. TH1: CLICK SANG TRANG MỚI -> CURRENTPAGE ĐỔI -> CURRENT ITEMS ĐỔI (KHÔNG CÓ FILTER) => SET LẠI DATA CHO FILTERDATATABLE
     // TODO. TH2: ĐANG Ở DETAIL FILTER DATA, THÌ DATATABLE CẬP NHẬT -> VÀO APPLY FILTER LẠI
 
     applyFilter();
-    // setFilteredDataTable(currentItems);
   }, [currentItems]);
 
   const [typeFilter, setTypeFilter] = useState(FilterType.None);
@@ -238,13 +241,13 @@ const DataTable = (params: DataTableParams) => {
     currentItems
   );
 
-  // TODO Đồng bộ filteredDataTable với localDataTable khi localDataTable thay đổi
+  // TODO Đồng bộ filteredDataTable với localDataTableRef khi filteredDataTable thay đổi
   // *
-  // Biến localDataTable dùng để edit data phân trang từ data gốc
-  // nên data phân trang thay đổi thì cũng update localDataTable
+  // Biến localDataTableRef dùng để edit data phân trang từ data gốc
+  // nên data phân trang thay đổi thì cũng update localDataTableRef
   // *
   useEffect(() => {
-    setLocalDataTable([...filteredDataTable]);
+    updateLocalDataTableRef([...filteredDataTable]);
   }, [filteredDataTable]); // Chạy mỗi khi filteredDataTable thay đổi
 
   // ! DETAIL FILTER
@@ -846,13 +849,20 @@ const DataTable = (params: DataTableParams) => {
                       });
                     }}
                     onChangeRow={(updatedDataItem: any) => {
-                      setLocalDataTable((prevTable) =>
-                        prevTable.map((item) =>
+                      updateLocalDataTableRef(
+                        localDataTableRef.current.map((item) =>
                           item.STT === updatedDataItem.STT
                             ? updatedDataItem
                             : item
                         )
                       );
+                      // setLocalDataTable((prevTable) =>
+                      //   prevTable.map((item) =>
+                      //     item.STT === updatedDataItem.STT
+                      //       ? updatedDataItem
+                      //       : item
+                      //   )
+                      // );
                     }}
                     saveSingleRow={(updatedDataItem: any) => {
                       const updatedDataTable = dataTable.map((item) =>
