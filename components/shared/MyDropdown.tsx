@@ -3,6 +3,7 @@ import React from "react";
 import IconButton from "./Button/IconButton";
 import Image from "next/image";
 import { LargeNumberLike } from "crypto";
+import TableSearch from "./Search/TableSearch";
 
 interface Props {
   selectedItem: string | number;
@@ -30,6 +31,11 @@ const MyDropdown = (params: Props) => {
         </div>
       )}
     >
+      <TableSearch
+        setSearchTerm={() => {}}
+        searchTerm={""}
+        otherClasses="pr-2"
+      />
       <div className="scroll-container scroll-container-dropdown-content">
         {params.dataOptions.map((option: any, index: number) => (
           <Dropdown.Item
