@@ -1,3 +1,46 @@
+
+//// TODO: Not Complete Actions
+//
+export const mockNotCompleteActions = [
+  {
+    id: 1,
+    action: "Nhập danh sách lớp (lớp thường - lớp TTDN)",
+    desc: "Bạn chưa nhập danh sách sinh viên cho các lớp:",
+    data: "STT 01: SE100.PMCL2021.2, STT 01: SE100.PMCL2021.2, STT 01: SE100.PMCL2021.2, STT 01: SE100.PMCL2021.2, STT 01: SE100.PMCL2021.2, STT 01: SE100.PMCL2021.2, STT 01: SE100.PMCL2021.2, STT 01: SE100.PMCL2021.2, STT 01: SE100.PMCL2021.2",
+  },
+  {
+    id: 2,
+    action: "Nhập lịch thi giữa kỳ (Lớp thường, lớp đồ án)",
+    desc: "Bạn chưa nhập danh sách sinh viên và chia nhóm cho các lớp TTDN",
+    data: "STT 01: SE100.PMCL2021.2, STT 01: SE100.PMCL2021.2, STT 01: SE100.PMCL2021.2, STT 01: SE100.PMCL2021.2, STT 01: SE100.PMCL2021.2, STT 01: SE100.PMCL2021.2, STT 01: SE100.PMCL2021.2, STT 01: SE100.PMCL2021.2, STT 01: SE100.PMCL2021.2",
+  },
+  {
+    id: 3,
+    action: "Nhập lịch thi cuối kỳ (Lớp thường, lớp đồ án)",
+    desc: "Bạn chưa nhập danh sách sinh viên và chia nhóm cho các lớp TTDN",
+    data: "STT 01: SE100.PMCL2021.2, STT 01: SE100.PMCL2021.2, STT 01: SE100.PMCL2021.2, STT 01: SE100.PMCL2021.2, STT 01: SE100.PMCL2021.2, STT 01: SE100.PMCL2021.2, STT 01: SE100.PMCL2021.2, STT 01: SE100.PMCL2021.2, STT 01: SE100.PMCL2021.2",
+  },
+  {
+    id: 4,
+    action: "Nhập lịch báo cáo Khoá luận tốt nghiệp",
+    desc: "Bạn chưa nhập danh sách sinh viên và chia nhóm cho các lớp TTDN",
+    data: "STT 01: SE100.PMCL2021.2, STT 01: SE100.PMCL2021.2, STT 01: SE100.PMCL2021.2, STT 01: SE100.PMCL2021.2, STT 01: SE100.PMCL2021.2, STT 01: SE100.PMCL2021.2, STT 01: SE100.PMCL2021.2, STT 01: SE100.PMCL2021.2, STT 01: SE100.PMCL2021.2",
+  },
+  {
+    id: 5,
+    action: "Nhập lịch báo cáo & danh sách GV phản biện Khoá luận tốt nghiệp",
+    desc: "Bạn chưa nhập danh sách sinh viên cho các lớp:",
+    data: "STT 01: SE100.PMCL2021.2, STT 01: SE100.PMCL2021.2, STT 01: SE100.PMCL2021.2, STT 01: SE100.PMCL2021.2, STT 01: SE100.PMCL2021.2, STT 01: SE100.PMCL2021.2, STT 01: SE100.PMCL2021.2, STT 01: SE100.PMCL2021.2, STT 01: SE100.PMCL2021.2",
+  },
+  {
+    id: 6,
+    action:
+      "Nhập lịch báo cáo & danh sách Hội đồng chấm Thực tập doanh nghiệp",
+    desc: "Bạn chưa nhập danh sách sinh viên và chia nhóm cho các lớp TTDN",
+    data: "STT 01: SE100.PMCL2021.2, STT 01: SE100.PMCL2021.2, STT 01: SE100.PMCL2021.2, STT 01: SE100.PMCL2021.2, STT 01: SE100.PMCL2021.2, STT 01: SE100.PMCL2021.2, STT 01: SE100.PMCL2021.2, STT 01: SE100.PMCL2021.2, STT 01: SE100.PMCL2021.2",
+  },
+];
+
 //// TODO: Annoucements List
 //
 export const mockAnnouncementLists = [

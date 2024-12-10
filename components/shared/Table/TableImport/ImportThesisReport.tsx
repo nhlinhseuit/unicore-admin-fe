@@ -21,7 +21,7 @@ type Council = {
   data: Group[];
 };
 
-export default function ThesisReportDataTable() {
+export default function ImportThesisReport() {
   let council = 0;
 
   const [selectedSecretaries, setSelectedSecretaries] = useState<string[]>([]);

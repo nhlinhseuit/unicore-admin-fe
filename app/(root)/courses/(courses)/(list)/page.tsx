@@ -4,17 +4,29 @@ import IconButton from "@/components/shared/Button/IconButton";
 import IconButtonStopPropagation from "@/components/shared/Button/IconButtonStopPropagation";
 import DetailFilterComponent from "@/components/shared/DetailFilterComponent";
 import CoursesDataTable from "@/components/shared/Table/TableImport/CoursesDataTable";
-import ThesisReportDataTable from "@/components/shared/Table/TableImport/ThesisReportDataTable";
+import ImportStudentsListInCourse from "@/components/shared/Table/TableImport/ImportStudentsListInCourse";
+import ImportThesisReport from "@/components/shared/Table/TableImport/ImportThesisReport";
+import { mockNotCompleteActions } from "@/mocks";
 import { Dropdown } from "flowbite-react";
-import Image from "next/image";
 import { useState } from "react";
 
 const Courses = () => {
   const [isImport, setIsImport] = useState(false);
-  const [isImportThesisReport, setIsImportThesisReport] = useState(false);
+  const [isImportCompleteAction, setIsImportCompleteAction] = useState(-1);
+
+  const getImportCompleteActionComponent = () => {
+    switch (isImportCompleteAction) {
+      case 1:
+        return <ImportStudentsListInCourse />;
+      case 6:
+        return <ImportThesisReport />;
+      default:
+        return;
+    }
+  };
 
   const renderComponent = () => {
-    if (!isImport && !isImportThesisReport)
+    if (!isImport && isImportCompleteAction === -1)
       return (
         <div>
           <div className="flex justify-end mb-3">
@@ -40,190 +52,53 @@ const Courses = () => {
           </div>
 
           {/* //TODO: TODO WITH CLASS */}
-          {/* Chưa nhập ds sinh viên */}
-          <Dropdown
-            className="z-30 rounded-lg"
-            label=""
-            renderTrigger={() => (
-              <div className="cursor-pointer border-[1px] border-[#17a1fa] w-full h-12  rounded-lg flex-between mb-2 relative">
-                <Image
-                  src={"/assets/icons/chevron-down.svg"}
-                  width={22}
-                  height={22}
-                  alt="close"
-                  className="absolute left-0 ml-4 cursor-pointer"
-                />
-                <div className="ml-12 bg-[#17a1fa] w-7 h-7 my-2 rounded-full flex-center text-white">
-                  1
-                </div>
-                <p className="text-[#17a1fa] body-medium">
-                  Bạn chưa nhập danh sách sinh viên cho các lớp. Nhấn vào để xem
-                  danh sách lớp.
-                </p>
-                <IconButtonStopPropagation
-                  text="Đi tới"
-                  green
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    setIsImportThesisReport(true);
-                  }}
-                  otherClasses="mr-4"
-                />
-              </div>
-            )}
-          >
-            <div className="scroll-container scroll-container-dropdown-content">
-              <p className="flex items-center justify-start w-full px-4 py-2 text-sm text-left text-gray-700 cursor-default">
-                STT 01: SE100.PMCL2021.2, STT 01: SE100.PMCL2021.2, STT 01:
-                SE100.PMCL2021.2, STT 01: SE100.PMCL2021.2, STT 01:
-                SE100.PMCL2021.2, STT 01: SE100.PMCL2021.2, STT 01:
-                SE100.PMCL2021.2, STT 01: SE100.PMCL2021.2, STT 01:
-                SE100.PMCL2021.2, STT 01: SE100.PMCL2021.2, STT 01:
-                SE100.PMCL2021.2, STT 01: SE100.PMCL2021.2, STT 01:
-                SE100.PMCL2021.2, STT 01: SE100.PMCL2021.2, STT 01:
-                SE100.PMCL2021.2, STT 01: SE100.PMCL2021.2, STT 01:
-                SE100.PMCL2021.2, STT 01: SE100.PMCL2021.2,
-              </p>
-            </div>
-          </Dropdown>
+          <div className="w-full">
+            <p className="text-sm font-semibold whitespace-nowrap">
+              Bạn chưa hoàn thành các bước sau:
+            </p>
+            <div className="mt-4 flex gap-4 w-full flex-wrap">
+              {mockNotCompleteActions.map((item, index) => (
+                <Dropdown
+                  key={item.id}
+                  className="z-30 rounded-lg"
+                  label=""
+                  renderTrigger={() => (
+                    <div className="cursor-pointer px-2 border-[1px] border-[#17a1fa] h-12  rounded-lg flex items-center gap-2 mb-2 relative">
+                      <div className="cursor-pointer bg-[#17a1fa] w-5 h-5 my-2 rounded-full flex-center text-sm text-white">
+                        {item.id}
+                      </div>
 
-          {/* Chưa nhập ds GV chấm GK, CK */}
-          <Dropdown
-            className="z-30 rounded-lg"
-            label=""
-            renderTrigger={() => (
-              <div className="cursor-pointer border-[1px] border-[#17a1fa] w-full h-12  rounded-lg flex-between mb-2 relative">
-                <Image
-                  src={"/assets/icons/chevron-down.svg"}
-                  width={22}
-                  height={22}
-                  alt="close"
-                  className="absolute left-0 ml-4 cursor-pointer"
-                />
-                <div className="ml-12 bg-[#17a1fa] w-7 h-7 my-2 rounded-full flex-center text-white">
-                  2
-                </div>
-                <p className="text-[#17a1fa] body-medium">
-                  Bạn chưa nhập danh sách giảng viên chấm điểm thi Giữa kỳ -
-                  Cuối kỳ cho các lớp. Nhấn vào để xem danh sách lớp.
-                </p>
-                <IconButtonStopPropagation
-                  text="Đi tới"
-                  green
-                  onClick={(e) => {
-                    e.stopPropagation();
-                  }}
-                  otherClasses="mr-4"
-                />
-              </div>
-            )}
-          >
-            <div className="scroll-container scroll-container-dropdown-content">
-              <p className="flex items-center justify-start w-full px-4 py-2 text-sm text-left text-gray-700 cursor-default">
-                STT 01: SE100.PMCL2021.2, STT 01: SE100.PMCL2021.2, STT 01:
-                SE100.PMCL2021.2, STT 01: SE100.PMCL2021.2, STT 01:
-                SE100.PMCL2021.2, STT 01: SE100.PMCL2021.2, STT 01:
-                SE100.PMCL2021.2, STT 01: SE100.PMCL2021.2, STT 01:
-                SE100.PMCL2021.2, STT 01: SE100.PMCL2021.2, STT 01:
-                SE100.PMCL2021.2, STT 01: SE100.PMCL2021.2, STT 01:
-                SE100.PMCL2021.2, STT 01: SE100.PMCL2021.2, STT 01:
-                SE100.PMCL2021.2, STT 01: SE100.PMCL2021.2, STT 01:
-                SE100.PMCL2021.2, STT 01: SE100.PMCL2021.2,
-              </p>
+                      <p className="text-[#17a1fa] body-medium whitespace-nowrap ">
+                        {item.action}
+                      </p>
+                    </div>
+                  )}
+                >
+                  <div className="relative">
+                    <div className="scroll-container scroll-container-dropdown-content">
+                      <span className="px-4 py-2 text-sm text-left text-gray-700 cursor-default font-semibold">
+                        {item.desc}
+                      </span>
+                      <span className="flex items-center justify-start px-4 py-2 text-sm text-left text-gray-700 cursor-default">
+                        {item.data}
+                      </span>
+                      <div className="flex justify-end mb-2">
+                        <IconButtonStopPropagation
+                          text="Đi tới"
+                          green
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            setIsImportCompleteAction(item.id);
+                          }}
+                          otherClasses="mr-4"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </Dropdown>
+              ))}
             </div>
-          </Dropdown>
-
-          {/* Chưa import lịch thi tập trung Giữa kỳ - Cuối kỳ*/}
-          <Dropdown
-            className="z-30 rounded-lg"
-            label=""
-            renderTrigger={() => (
-              <div className="cursor-pointer border-[1px] border-[#17a1fa] w-full h-12  rounded-lg flex-between mb-2 relative">
-                <Image
-                  src={"/assets/icons/chevron-down.svg"}
-                  width={22}
-                  height={22}
-                  alt="close"
-                  className="absolute left-0 ml-4 cursor-pointer"
-                />
-                <div className="ml-12 bg-[#17a1fa] w-7 h-7 my-2 rounded-full flex-center text-white">
-                  3
-                </div>
-                <p className="text-[#17a1fa] body-medium">
-                  Bạn chưa import lịch thi tập trung Giữa kỳ - Cuối kỳ. Nhấn vào
-                  để xem danh sách lớp.
-                </p>
-                <IconButtonStopPropagation
-                  text="Đi tới"
-                  green
-                  onClick={(e) => {
-                    e.stopPropagation();
-                  }}
-                  otherClasses="mr-4"
-                />
-              </div>
-            )}
-          >
-            <div className="scroll-container scroll-container-dropdown-content">
-              <p className="flex items-center justify-start w-full px-4 py-2 text-sm text-left text-gray-700 cursor-default">
-                STT 01: Thực tập doanh nghiệp, STT 01: Thực tập doanh nghiệp,
-                STT 01: Thực tập doanh nghiệp, STT 01: Thực tập doanh nghiệp,
-                STT 01: Thực tập doanh nghiệp, STT 01: Thực tập doanh nghiệp,
-                STT 01: Thực tập doanh nghiệp, STT 01: Thực tập doanh nghiệp,
-                STT 01: Thực tập doanh nghiệp, STT 01: Thực tập doanh nghiệp,
-                STT 01: Thực tập doanh nghiệp, STT 01: Thực tập doanh nghiệp,
-                STT 01: Thực tập doanh nghiệp, STT 01: Thực tập doanh nghiệp,
-                STT 01: Thực tập doanh nghiệp, STT 01: Thực tập doanh nghiệp,
-                STT 01: Thực tập doanh nghiệp, STT 01: Thực tập doanh nghiệp,
-              </p>
-            </div>
-          </Dropdown>
-
-          {/* Chưa nhập ds sinh viên và chia nhóm cho lớp*/}
-          <Dropdown
-            className="z-30 rounded-lg"
-            label=""
-            renderTrigger={() => (
-              <div className="cursor-pointer border-[1px] border-[#17a1fa] w-full h-12  rounded-lg flex-between mb-2 relative">
-                <Image
-                  src={"/assets/icons/chevron-down.svg"}
-                  width={22}
-                  height={22}
-                  alt="close"
-                  className="absolute left-0 ml-4 cursor-pointer"
-                />
-                <div className="ml-12 bg-[#17a1fa] w-7 h-7 my-2 rounded-full flex-center text-white">
-                  4
-                </div>
-                <p className="text-[#17a1fa] body-medium">
-                  Bạn chưa nhập danh sách sinh viên và chia nhóm cho các lớp.
-                  Nhấn vào để xem danh sách lớp.
-                </p>
-                <IconButtonStopPropagation
-                  text="Đi tới"
-                  green
-                  onClick={(e) => {
-                    e.stopPropagation();
-                  }}
-                  otherClasses="mr-4"
-                />
-              </div>
-            )}
-          >
-            <div className="scroll-container scroll-container-dropdown-content">
-              <p className="flex items-center justify-start w-full px-4 py-2 text-sm text-left text-gray-700 cursor-default">
-                STT 01: Thực tập doanh nghiệp, STT 01: Thực tập doanh nghiệp,
-                STT 01: Thực tập doanh nghiệp, STT 01: Thực tập doanh nghiệp,
-                STT 01: Thực tập doanh nghiệp, STT 01: Thực tập doanh nghiệp,
-                STT 01: Thực tập doanh nghiệp, STT 01: Thực tập doanh nghiệp,
-                STT 01: Thực tập doanh nghiệp, STT 01: Thực tập doanh nghiệp,
-                STT 01: Thực tập doanh nghiệp, STT 01: Thực tập doanh nghiệp,
-                STT 01: Thực tập doanh nghiệp, STT 01: Thực tập doanh nghiệp,
-                STT 01: Thực tập doanh nghiệp, STT 01: Thực tập doanh nghiệp,
-                STT 01: Thực tập doanh nghiệp, STT 01: Thực tập doanh nghiệp,
-              </p>
-            </div>
-          </Dropdown>
+          </div>
         </div>
       );
     else if (isImport) {
@@ -245,10 +120,10 @@ const Courses = () => {
           <BackToPrev
             text={"Quay lại danh sách lớp học"}
             onClickPrev={() => {
-              setIsImportThesisReport(false);
+              setIsImportCompleteAction(-1);
             }}
           />
-          <ThesisReportDataTable />
+          {getImportCompleteActionComponent()}
         </>
       );
   };
