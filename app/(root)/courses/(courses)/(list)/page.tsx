@@ -4,15 +4,18 @@ import IconButton from "@/components/shared/Button/IconButton";
 import IconButtonStopPropagation from "@/components/shared/Button/IconButtonStopPropagation";
 import DetailFilterComponent from "@/components/shared/DetailFilterComponent";
 import CoursesDataTable from "@/components/shared/Table/TableImport/CoursesDataTable";
+import ThesisReportDataTable from "@/components/shared/Table/TableImport/ThesisReportDataTable";
 import { Dropdown } from "flowbite-react";
 import Image from "next/image";
 import { useState } from "react";
 
 const Courses = () => {
   const [isImport, setIsImport] = useState(false);
-  return (
-    <>
-      {!isImport ? (
+  const [isImportThesisReport, setIsImportThesisReport] = useState(false);
+
+  const renderComponent = () => {
+    if (!isImport && !isImportThesisReport)
+      return (
         <div>
           <div className="flex justify-end mb-3">
             <IconButton
@@ -62,6 +65,7 @@ const Courses = () => {
                   green
                   onClick={(e) => {
                     e.stopPropagation();
+                    setIsImportThesisReport(true);
                   }}
                   otherClasses="mr-4"
                 />
@@ -221,7 +225,9 @@ const Courses = () => {
             </div>
           </Dropdown>
         </div>
-      ) : (
+      );
+    else if (isImport) {
+      return (
         <>
           <BackToPrev
             text={"Quay lại danh sách lớp học"}
@@ -232,9 +238,22 @@ const Courses = () => {
 
           <CoursesDataTable />
         </>
-      )}
-    </>
-  );
+      );
+    } else
+      return (
+        <>
+          <BackToPrev
+            text={"Quay lại danh sách lớp học"}
+            onClickPrev={() => {
+              setIsImportThesisReport(false);
+            }}
+          />
+          <ThesisReportDataTable />
+        </>
+      );
+  };
+
+  return renderComponent();
 };
 
 export default Courses;
