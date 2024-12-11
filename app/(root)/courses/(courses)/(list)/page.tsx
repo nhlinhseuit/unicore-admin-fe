@@ -4,6 +4,8 @@ import IconButton from "@/components/shared/Button/IconButton";
 import IconButtonStopPropagation from "@/components/shared/Button/IconButtonStopPropagation";
 import DetailFilterComponent from "@/components/shared/DetailFilterComponent";
 import CoursesDataTable from "@/components/shared/Table/TableImport/CoursesDataTable";
+import ImportCentralizedExam from "@/components/shared/Table/TableImport/ImportCentralizedExam";
+import ImportInternReport from "@/components/shared/Table/TableImport/ImportInternReport";
 import ImportStudentsListInCourse from "@/components/shared/Table/TableImport/ImportStudentsListInCourse";
 import ImportThesisReport from "@/components/shared/Table/TableImport/ImportThesisReport";
 import { mockNotCompleteActions } from "@/mocks";
@@ -18,8 +20,14 @@ const Courses = () => {
     switch (isImportCompleteAction) {
       case 1:
         return <ImportStudentsListInCourse />;
-      case 6:
+      case 2:
+        return <ImportCentralizedExam />;
+        // doing
+      case 5:
         return <ImportThesisReport />;
+      case 6:
+        return <ImportInternReport />;
+        // doing
       default:
         return;
     }

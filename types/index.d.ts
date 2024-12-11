@@ -33,6 +33,23 @@ export interface CourseData {
   "Học kỳ": number;
   "Năm học": number;
 }
+export interface CentralizedExamData {
+  "Mã môn học": string;
+  "Mã lớp": string;
+  "Tên môn học": string;
+  "Mã GV": string;
+  "Tên GV": string;
+  "Sĩ số": string;
+  "Ngày thi": string;
+  Thứ: string;
+  "Ca Thi": string;
+  "Phòng Thi": string;
+  "Hệ ĐT": string;
+  "Đợt thi": string;
+  "Lần thi": string;
+  "Học kỳ": number;
+  "Năm học": number;
+}
 
 // nếu giữ như này thì phải đổi lại tên vì đây là data của 1 student
 export interface RegisterGroupData {
@@ -214,6 +231,12 @@ export interface CourseDataItem {
   STT: string;
   isDeleted: boolean;
   data: CourseData;
+}
+export interface CentralizedExamDataItem {
+  type: "string";
+  STT: string;
+  isDeleted: boolean;
+  data: CentralizedExamData;
 }
 
 export interface SubjectDataItem {

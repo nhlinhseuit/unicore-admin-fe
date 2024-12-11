@@ -34,7 +34,7 @@ const MyDropdown = (params: Props) => {
       <TableSearch
         setSearchTerm={() => {}}
         searchTerm={""}
-        otherClasses="pr-2"
+        otherClasses="p-2"
       />
       <div className="scroll-container scroll-container-dropdown-content">
         {params.dataOptions.map((option: any, index: number) => (

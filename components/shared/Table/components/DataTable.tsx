@@ -20,6 +20,7 @@ import useDebounceSearchDataTable from "@/hooks/table/useDebounceSearchDataTable
 import useDetailFilter from "@/hooks/table/useDetailFilter";
 import useSetDebounceSearchTerm from "@/hooks/table/useSetDebounceSearchTerm";
 import {
+  CentralizedExamDataItem,
   CourseDataItem,
   StudentDataItem,
   SubjectDataItem,
@@ -55,7 +56,14 @@ interface DataTableParams {
     | SubjectDataItem[]
     | StudentDataItem[]
     | TeacherDataItem[]
-    | (CourseDataItem | SubjectDataItem | StudentDataItem | TeacherDataItem)[];
+    | CentralizedExamDataItem[]
+    | (
+        | CourseDataItem
+        | SubjectDataItem
+        | StudentDataItem
+        | TeacherDataItem
+        | CentralizedExamDataItem
+      )[];
 }
 
 const DataTable = (params: DataTableParams) => {
@@ -85,7 +93,9 @@ const DataTable = (params: DataTableParams) => {
 
     const updatedDataTable = dataTable.map((item) => {
       // Tìm item tương ứng trong localDataTable dựa vào STT (hoặc một identifier khác)
-      const localItem = localDataTableRef.current.find((local) => local.STT === item.STT);
+      const localItem = localDataTableRef.current.find(
+        (local) => local.STT === item.STT
+      );
 
       // * Nếu tìm thấy, cập nhật giá trị bằng localItem, ngược lại giữ nguyên item
       // * Trải item và localitem ra, nếu trùng nhau thì localItem ghi đè
@@ -112,11 +122,10 @@ const DataTable = (params: DataTableParams) => {
 
   // * Local dataTable sử dụng để edit lại data import hoặc PATCH API
   // const [localDataTable, setLocalDataTable] = useState(currentItems);
-  const localDataTableRef = useRef(currentItems)
+  const localDataTableRef = useRef(currentItems);
   const updateLocalDataTableRef = (newValue: any) => {
-    localDataTableRef.current = newValue
-  }
-
+    localDataTableRef.current = newValue;
+  };
 
   const applyFilter = () => {
     let filteredData;
@@ -197,6 +206,7 @@ const DataTable = (params: DataTableParams) => {
       | SubjectDataItem
       | StudentDataItem
       | TeacherDataItem
+      | CentralizedExamDataItem
     )[];
 
     sortedNewerDataTable = sortDataTable(dataTable, type);
@@ -227,7 +237,13 @@ const DataTable = (params: DataTableParams) => {
   const [debouncedSearchTerm, setDebouncedSearchTerm] = useState(searchTerm);
   const [filteredDataTable, setFilteredDataTable] =
     useState<
-      (CourseDataItem | SubjectDataItem | StudentDataItem | TeacherDataItem)[]
+      (
+        | CourseDataItem
+        | SubjectDataItem
+        | StudentDataItem
+        | TeacherDataItem
+        | CentralizedExamDataItem
+      )[]
     >(currentItems);
 
   useSetDebounceSearchTerm(setDebouncedSearchTerm, searchTerm);
@@ -355,11 +371,13 @@ const DataTable = (params: DataTableParams) => {
       | SubjectDataItem[]
       | StudentDataItem[]
       | TeacherDataItem[]
+      | CentralizedExamDataItem[]
       | (
           | CourseDataItem
           | SubjectDataItem
           | StudentDataItem
           | TeacherDataItem
+          | CentralizedExamDataItem
         )[],
     sortOrder: FilterType
   ) => {

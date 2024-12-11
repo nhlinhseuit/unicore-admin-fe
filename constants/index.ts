@@ -115,6 +115,7 @@ export enum DataTableType {
   Subject = "Môn học",
   Student = "Sinh viên",
   Teacher = "Giảng viên",
+  Exam = "Lịch thi",
 }
 
 export enum FilterType {

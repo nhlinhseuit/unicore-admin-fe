@@ -12,6 +12,7 @@ import {
   StudentData,
   TeacherData,
   TeacherDataItem,
+  CentralizedExamDataItem,
 } from "@/types";
 import IconButton from "../../Button/IconButton";
 import Image from "next/image";
@@ -21,6 +22,7 @@ interface RowParams {
     | CourseDataItem
     | SubjectDataItem
     | StudentDataItem
+    | CentralizedExamDataItem
     | TeacherDataItem;
   isEditTable?: boolean;
   isMultipleDelete?: boolean;
@@ -77,6 +79,7 @@ const Row = React.memo(
         | CourseDataItem
         | SubjectDataItem
         | StudentDataItem
+        | CentralizedExamDataItem
         | TeacherDataItem = {
         ...refInput.current,
         data: {
