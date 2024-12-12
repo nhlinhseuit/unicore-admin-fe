@@ -511,6 +511,9 @@ export const mockTeacherList = [
   { id: 2, value: "Nguyễn Thị Thanh Trúc" },
   { id: 3, value: "Đặng Việt Dũng" },
 ];
+export const mockOfficerList = [
+  { id: 1, value: "Trần Hạnh Xuân" },
+];
 
 //
 // TODO: Approve Topic Options

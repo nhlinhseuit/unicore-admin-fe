@@ -22,7 +22,6 @@ const Courses = () => {
         return <ImportStudentsListInCourse />;
       case 2:
         return <ImportCentralizedExam />;
-        // doing
       case 5:
         return <ImportThesisReport />;
       case 6:

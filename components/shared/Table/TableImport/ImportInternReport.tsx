@@ -6,31 +6,35 @@ import IconButton from "../../Button/IconButton";
 import MyDropdown from "../../MyDropdown";
 import ErrorComponent from "../../Status/ErrorComponent";
 
-type Group = {
+type Student = {
   STT: string;
-  studentIds: string[];
-  names: string[];
-  "Tên đề tài Tiếng Việt": string;
-  "Tên đề tài Tiếng Anh": string;
+  "Mã số SV": string;
+  "Họ và tên sinh viên": string;
+  "Giảng viên hướng dẫn": string;
+  "Thông tin liên lạc": string;
+  "Nơi thực tập (tên DN)": string;
+  "Nội dung thực tập": string;
+  "Vị trí thực tập": string;
+  "Ngày bắt đầu": string;
+  "Ngày kết thúc": string;
+  "Điểm đánh giá của DN": string;
+  "Ghi chú": string;
+  "Báo cáo": string;
 };
 
 type Council = {
   STT: string;
   "Tên hội đồng": string;
-  "Thư ký": string; // Thêm trường thư ký vào Council
-  data: Group[];
+  "Hội đồng chấm": string; // Danh sách thành viên hội đồng
+  data: Student[];
 };
 
 export default function ImportInternReport() {
-  let council = 0;
-
-  const [selectedSecretaries, setSelectedSecretaries] = useState<string[]>([]);
   const [uploadedFileName, setUploadedFileName] = useState<string | null>(null);
   const [errorMessages, setErrorMessages] = useState<string[]>([
     "Bạn cần phải import danh sách môn học trước khi import danh sách lớp",
   ]);
   const [councilsData, setCountcilsData] = useState<Council[]>([]);
-  const [isLoading, setIsLoading] = useState(false);
 
   // XỬ LÝ UPLOAD FILE LỚP HỌC
   const handleCoursesFileUpload = (e: any) => {
@@ -40,7 +44,6 @@ export default function ImportInternReport() {
     }
 
     setCountcilsData([]);
-    setIsLoading(true);
     setErrorMessages([]);
 
     const reader = new FileReader();
@@ -51,83 +54,69 @@ export default function ImportInternReport() {
       const sheetName = workbook.SheetNames[0];
       const sheet = workbook.Sheets[sheetName];
 
-      // Bỏ qua 7 hàng đầu tiên của file
+      // Bỏ qua 8 hàng đầu tiên của file
       const parsedData = XLSX.utils.sheet_to_json(sheet, {
-        range: 7, // Chỉ số 7 đại diện cho hàng 8 (vì index bắt đầu từ 0)
+        range: 8, // Chỉ số 8 đại diện cho hàng 9 (vì index bắt đầu từ 0)
         defval: "",
       });
 
-      let errorMessages: string[] = [];
       let councils: Council[] = []; // Danh sách các hội đồng
       let currentCouncil: Council | null = null; // Hội đồng hiện tại
-      let currentGroup: Group | null = null; // Nhóm sinh viên hiện tại
 
       parsedData.forEach((item: any) => {
         const isCouncilRow =
           item.STT && Object.values(item).filter((val) => val).length === 1;
 
         if (isCouncilRow) {
-          // Gặp một hội đồng mới
+          // Nếu gặp một hội đồng mới
           if (currentCouncil) {
-            // Thêm nhóm cuối cùng vào hội đồng nếu còn nhóm
-            if (currentGroup && currentGroup.studentIds.length > 0) {
-              currentCouncil.data.push(currentGroup);
-              currentGroup = null; // Reset nhóm hiện tại
-            }
             councils.push(currentCouncil); // Thêm hội đồng hiện tại vào danh sách
           }
           // Tạo hội đồng mới
           currentCouncil = {
-            STT: (++council).toString(),
-            "Tên hội đồng": `${item.STT}`,
-            "Thư ký": "", // Thư ký mặc định rỗng
+            STT: (councils.length + 1).toString(), // Tự động đánh số hội đồng
+            "Tên hội đồng": item.STT,
+            "Hội đồng chấm": "", // Sẽ được cập nhật từ sinh viên đầu tiên
             data: [],
           };
-        } else if (
-          item["TÊN ĐỀ TÀI TIẾNG VIỆT"] ||
-          item["TÊN ĐỀ TÀI TIẾNG ANH"]
-        ) {
-          // Sinh viên có đầy đủ thông tin, tạo nhóm mới
-          if (currentGroup && currentGroup.studentIds.length > 0) {
-            currentCouncil?.data.push(currentGroup); // Thêm nhóm hiện tại vào hội đồng
-          }
-          currentGroup = {
+        } else if (currentCouncil) {
+          // Xử lý từng sinh viên
+          const student: Student = {
             STT: item.STT || "",
-            studentIds: [item["MSSV"] || ""],
-            names: [item["HỌ TÊN"] || ""],
-            "Tên đề tài Tiếng Việt": item["TÊN ĐỀ TÀI TIẾNG VIỆT"] || "",
-            "Tên đề tài Tiếng Anh": item["TÊN ĐỀ TÀI TIẾNG ANH"] || "",
+            "Mã số SV": item["Mã số SV"] || "",
+            "Họ và tên sinh viên": item["Họ và tên sinh viên"] || "",
+            "Giảng viên hướng dẫn": item["Giảng viên hướng dẫn"] || "",
+            "Thông tin liên lạc": item["Thông tin liên lạc"] || "",
+            "Nơi thực tập (tên DN)": item["Nơi thực tập (tên DN)"] || "",
+            "Nội dung thực tập": item["Nội dung thực tập"] || "",
+            "Vị trí thực tập": item["Vị trí thực tập"] || "",
+            "Ngày bắt đầu": item["Ngày bắt đầu"] || "",
+            "Ngày kết thúc": item["Ngày kết thúc"] || "",
+            "Điểm đánh giá của DN":
+              item["Điểm đánh giá của DN"]?.toString() || "",
+            "Ghi chú": item["Ghi chú"] || "",
+            "Báo cáo": item["Báo cáo"] || "",
           };
-        } else if (currentGroup) {
-          // Thêm sinh viên vào nhóm hiện tại (nếu topic rỗng)
-          const studentName = item["HỌ TÊN"] || "";
-          const studentId = item["MSSV"] || "";
-          if (studentName || studentId) {
-            currentGroup.studentIds.push(studentId);
-            currentGroup.names.push(studentName);
+
+          // Cập nhật thông tin "Hội đồng chấm" nếu có
+          if (item["Hội đồng chấm"]) {
+            currentCouncil["Hội đồng chấm"] = item["Hội đồng chấm"];
           }
+
+          // Thêm sinh viên vào danh sách
+          currentCouncil.data.push(student);
         }
       });
 
-      // Xử lý nhóm và hội đồng cuối cùng nếu còn tồn đọng
-      //@ts-ignore
-      if (currentGroup && currentGroup.studentIds.length > 0) {
-        //@ts-ignore
-        currentCouncil?.data.push(currentGroup);
-      }
+      // Thêm hội đồng cuối cùng nếu còn tồn đọng
       if (currentCouncil) {
         councils.push(currentCouncil);
       }
 
-      // Nếu có lỗi, hiển thị lỗi
-      if (errorMessages.length > 0) {
-        setErrorMessages(errorMessages);
-      } else {
-        //! POST API LƯU DỮ LIỆU LÊN BACKEND
-        setCountcilsData(councils);
-      }
+      console.log("councils", councils);
 
-      setIsLoading(false);
+      //! POST API LƯU DỮ LIỆU LÊN BACKEND
+      setCountcilsData(councils);
     };
   };
 
@@ -135,17 +124,6 @@ export default function ImportInternReport() {
   const fileInputRef = useRef<HTMLInputElement | null>(null);
   const handleButtonClick = () => {
     fileInputRef.current?.click();
-  };
-
-  // Cập nhật thông tin thư ký khi chọn từ dropdown
-  const handleSecretaryChange = (value: number, councilIndex: number) => {
-    const updatedSecretaries = [...selectedSecretaries];
-    updatedSecretaries[councilIndex] = mockTeacherList[value - 1]?.value || "";
-    setSelectedSecretaries(updatedSecretaries);
-
-    const updatedCouncils = [...councilsData];
-    updatedCouncils[councilIndex]["Thư ký"] = updatedSecretaries[councilIndex];
-    setCountcilsData(updatedCouncils);
   };
 
   return (
@@ -180,7 +158,7 @@ export default function ImportInternReport() {
               />
 
               <IconButton
-                text="Import danh sách hội đồng phản biện"
+                text="Import danh sách hội đồng chấm Thực tập doanh nghiệp"
                 onClick={handleButtonClick}
                 iconLeft="/assets/icons/upload-white.svg"
                 iconWidth={16}
@@ -196,35 +174,14 @@ export default function ImportInternReport() {
             download
             className="text-blue-500 underline text-base italic"
           >
-            Tải xuống template file import hội đồng chấm Khoá luận tốt nghiệp
+            Tải xuống template file import hội đồng chấm Thực tập doanh nghiệp
           </a>
         </div>
       </div>
 
       {councilsData.length > 0 ? (
-        <div className="mt-12 flex flex-col gap-4">
-          <p className="paragraph-semibold">Chọn thư ký cho hội đồng</p>
-
-          {councilsData.map((item, index) => (
-            <div key={item.STT} className="flex gap-4 items-center">
-              <BorderContainer key={item.STT} otherClasses="p-3">
-                <p>{item["Tên hội đồng"]}</p>
-              </BorderContainer>
-
-              <MyDropdown
-                text={`${
-                  selectedSecretaries[index] || "Chọn thư ký"
-                }`}
-                dataOptions={mockTeacherList}
-                onClick={(value: number) => handleSecretaryChange(value, index)}
-                selectedItem={selectedSecretaries[index]}
-              />
-            </div>
-          ))}
-
-          <div>
-            <IconButton text="Lưu" onClick={() => {}} />
-          </div>
+        <div>
+          <IconButton text="Lưu" onClick={() => {}} otherClasses="mt-4" />
         </div>
       ) : null}
     </div>

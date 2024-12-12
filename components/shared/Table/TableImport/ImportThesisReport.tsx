@@ -1,5 +1,5 @@
-import { mockTeacherList } from "@/mocks";
-import { useRef, useState } from "react";
+import { mockOfficerList } from "@/mocks";
+import { useEffect, useRef, useState } from "react";
 import * as XLSX from "xlsx";
 import BorderContainer from "../../BorderContainer";
 import IconButton from "../../Button/IconButton";
@@ -24,12 +24,25 @@ type Council = {
 export default function ImportThesisReport() {
   let council = 0;
 
-  const [selectedSecretaries, setSelectedSecretaries] = useState<string[]>([]);
+  const [selectedOfficers, setSelectedOfficers] = useState<string[]>(
+    mockOfficerList.length === 1 ? [mockOfficerList[0].value] : []
+  );
   const [uploadedFileName, setUploadedFileName] = useState<string | null>(null);
   const [errorMessages, setErrorMessages] = useState<string[]>([
     "Bạn cần phải import danh sách môn học trước khi import danh sách lớp",
   ]);
   const [councilsData, setCountcilsData] = useState<Council[]>([]);
+
+  useEffect(() => {
+    if (councilsData.length > 0) {
+      // Khởi tạo selectedOfficers với số phần tử bằng councilsData.length
+      const updatedOfficers = new Array(councilsData.length).fill(
+        mockOfficerList.length === 1 ? mockOfficerList[0].value : ""
+      );
+      setSelectedOfficers(updatedOfficers);
+    }
+  }, [councilsData]);
+
   const [isLoading, setIsLoading] = useState(false);
 
   // XỬ LÝ UPLOAD FILE LỚP HỌC
@@ -139,9 +152,9 @@ export default function ImportThesisReport() {
 
   // Cập nhật thông tin thư ký khi chọn từ dropdown
   const handleSecretaryChange = (value: number, councilIndex: number) => {
-    const updatedSecretaries = [...selectedSecretaries];
-    updatedSecretaries[councilIndex] = mockTeacherList[value - 1]?.value || "";
-    setSelectedSecretaries(updatedSecretaries);
+    const updatedSecretaries = [...selectedOfficers];
+    updatedSecretaries[councilIndex] = mockOfficerList[value - 1]?.value || "";
+    setSelectedOfficers(updatedSecretaries);
 
     const updatedCouncils = [...councilsData];
     updatedCouncils[councilIndex]["Thư ký"] = updatedSecretaries[councilIndex];
@@ -203,7 +216,7 @@ export default function ImportThesisReport() {
 
       {councilsData.length > 0 ? (
         <div className="mt-12 flex flex-col gap-4">
-          <p className="paragraph-semibold">Chọn thư ký cho hội đồng</p>
+          <p className="paragraph-semibold">Chọn giáo vụ nhập điểm</p>
 
           {councilsData.map((item, index) => (
             <div key={item.STT} className="flex gap-4 items-center">
@@ -212,12 +225,10 @@ export default function ImportThesisReport() {
               </BorderContainer>
 
               <MyDropdown
-                text={`${
-                  selectedSecretaries[index] || "Chọn thư ký"
-                }`}
-                dataOptions={mockTeacherList}
+                text={`${selectedOfficers[index] || "Chọn giáo vụ"}`}
+                dataOptions={mockOfficerList}
                 onClick={(value: number) => handleSecretaryChange(value, index)}
-                selectedItem={selectedSecretaries[index]}
+                selectedItem={selectedOfficers[index]}
               />
             </div>
           ))}
