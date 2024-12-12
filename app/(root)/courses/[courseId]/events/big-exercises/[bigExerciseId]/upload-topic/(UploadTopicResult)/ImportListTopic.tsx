@@ -66,11 +66,7 @@ const ImportListTopic = (params: Props) => {
           type: "topic",
           STT: item.STT,
           isDeleted: false,
-          data: {
-            "Tên đề tài": item["Tên đề tài"],
-            "Mô tả": item["Mô tả"],
-            "GV phụ trách": item["GV phụ trách"],
-          },
+          data: requiredFields,
         };
       });
 
@@ -133,7 +129,7 @@ const ImportListTopic = (params: Props) => {
         </div>
 
         <a
-          href="/assets/KTLN - template import ds đề tài.xlsx"
+          href="/assets/template_import_danh_sach_de_tai.xlsx"
           download
           className=" text-blue-500 underline text-base italic"
         >

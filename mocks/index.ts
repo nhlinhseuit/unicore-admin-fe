@@ -22,18 +22,12 @@ export const mockNotCompleteActions = [
   },
   {
     id: 4,
-    action: "Nhập lịch báo cáo Khoá luận tốt nghiệp",
-    desc: "Bạn chưa nhập danh sách sinh viên và chia nhóm cho các lớp TTDN",
-    data: "STT 01: SE100.PMCL2021.2, STT 01: SE100.PMCL2021.2, STT 01: SE100.PMCL2021.2, STT 01: SE100.PMCL2021.2, STT 01: SE100.PMCL2021.2, STT 01: SE100.PMCL2021.2, STT 01: SE100.PMCL2021.2, STT 01: SE100.PMCL2021.2, STT 01: SE100.PMCL2021.2",
-  },
-  {
-    id: 5,
     action: "Nhập lịch báo cáo & danh sách GV phản biện Khoá luận tốt nghiệp",
     desc: "Bạn chưa nhập danh sách sinh viên cho các lớp:",
     data: "STT 01: SE100.PMCL2021.2, STT 01: SE100.PMCL2021.2, STT 01: SE100.PMCL2021.2, STT 01: SE100.PMCL2021.2, STT 01: SE100.PMCL2021.2, STT 01: SE100.PMCL2021.2, STT 01: SE100.PMCL2021.2, STT 01: SE100.PMCL2021.2, STT 01: SE100.PMCL2021.2",
   },
   {
-    id: 6,
+    id: 5,
     action:
       "Nhập lịch báo cáo & danh sách Hội đồng chấm Thực tập doanh nghiệp",
     desc: "Bạn chưa nhập danh sách sinh viên và chia nhóm cho các lớp TTDN",
@@ -266,50 +260,50 @@ export const mockPostData = [
 export const mockCourses = [
   {
     id: "SE114.N21.PMCL",
-    type: "regularCourseWithProject",
+    type: "regular",
     name: "Nhập môn ứng dụng di động",
     semester: "HK1/2024",
     teachers: "Trịnh Văn A, Nguyễn Văn H, +1",
     subCourses: [
       {
         id: "SE114.N21.PMCL",
-        type: "theory",
+        type: "LT",
         teacher: "Trịnh Văn A",
       },
       {
         id: "SE114.N21.PMCL.1",
-        type: "pratice",
+        type: "TH",
         teacher: "Nguyễn Văn H",
       },
       {
         id: "SE114.N21.PMCL.2",
-        type: "pratice",
+        type: "TH",
         teacher: "Lê Minh T",
       },
     ],
   },
   {
     id: "SE100.N23.PMCL",
-    type: "regularCourseWithProject",
+    type: "regular",
     name: "Phương pháp phát triển phần mềm hướng đối tượng",
     semester: "HK2/2024",
     teachers: "Nguyễn Hoàng Linh, Nguyễn Văn H",
     subCourses: [
       {
         id: "SE100.N23.PMCL",
-        type: "theory",
+        type: "LT",
         teacher: "Trịnh Văn A",
       },
       {
         id: "SE100.N23.PMCL.1",
-        type: "pratice",
+        type: "TH",
         teacher: "Nguyễn Văn H",
       },
     ],
   },
   {
     id: "SE501.N21.PMCL",
-    type: "internCourse",
+    type: "intern",
     name: "Thực tập doanh nghiệp",
     semester: "HK1/2024",
     teachers: "Nguyễn Ngọc Quí, Trịnh Văn A, Nguyễn Văn H, +12",
@@ -373,7 +367,7 @@ export const mockCourses = [
   },
   {
     id: "SE121.O21.PMCL",
-    type: "thesisCourse",
+    type: "project",
     name: "Đồ án 1",
     semester: "HK1/2024",
     teachers: "Nguyễn Ngọc Quí, Trịnh Văn A, Nguyễn Văn H, +12",
@@ -2178,7 +2172,6 @@ export const mockDbStudent = [
     class: "SE502.N25",
   },
 ];
-
 
 //
 //// TODO: Courses List from Db

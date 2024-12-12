@@ -1,15 +1,15 @@
 "use client";
 
-import IconButton from "../../Button/IconButton";
+import { DataTableType } from "@/constants";
+import { useToast } from "@/hooks/use-toast";
+import { SubjectDataItem } from "@/types";
 import { useRef, useState } from "react";
 import * as XLSX from "xlsx";
-import { SubjectDataItem } from "@/types";
-import DataTable from "../components/DataTable";
+import IconButton from "../../Button/IconButton";
 import ErrorComponent from "../../Status/ErrorComponent";
-import TableSkeleton from "../components/TableSkeleton";
-import { useToast } from "@/hooks/use-toast";
 import NoResult from "../../Status/NoResult";
-import { DataTableType } from "@/constants";
+import DataTable from "../components/DataTable";
+import TableSkeleton from "../components/TableSkeleton";
 
 export default function SubjectsDataTable() {
   const [isEditTable, setIsEditTable] = useState(false);
@@ -74,25 +74,7 @@ export default function SubjectsDataTable() {
           type: "subject",
           STT: item.STT,
           isDeleted: false,
-          data: {
-            "Khoa QL": item["Khoa QL"],
-            "Mã MH": item["Mã MH"],
-            "Tên môn học": item["Tên Môn học"],
-            "Hình thức thi LT GIỮA KỲ": item["Hình thức thi\r\nLT GIỮA KỲ"],
-            "Thời gian thi LT GIỮA KỲ": item["Thời gian thi\r\nLT GIỮA KỲ"],
-            "Hình thức thi LT CUỐI KỲ": item["Hình thức thi\r\nLT CUỐI KỲ"],
-            "Thời gian thi CUỐI KỲ": item["Thời gian thi\r\nCUỐI KỲ"],
-            "Hình thức thi THỰC HÀNH CUỐI KỲ":
-              item["Hình thức thi \r\nTHỰC HÀNH CUỐI KỲ"],
-            "Trọng số QUÁ TRÌNH": item["Trọng số\r\nQUÁ TRÌNH"],
-            "Trọng số THỰC HÀNH": item["Trọng số\r\nTHỰC HÀNH"],
-            "Trọng số GIỮA KỲ": item["Trọng số\r\nGIỮA KỲ"],
-            "Trọng số CUỐI KỲ": item["Trọng số\r\nCUỐI KỲ"],
-            "Hệ ĐT": item["Hệ ĐT"],
-            "Lớp CDIO": item["Lớp\r\nCDIO"],
-            "Học kỳ": item["Học kỳ"],
-            "Năm học": item[" Năm học"],
-          },
+          data: requiredFields,
         };
       });
 
@@ -159,7 +141,7 @@ export default function SubjectsDataTable() {
           </div>
 
           <a
-            href="/assets/KLTN - template import môn.xlsx"
+            href="/assets/template_import_danh_sach_mon_hoc.xlsx"
             download
             className="text-blue-500 underline text-base italic"
           >

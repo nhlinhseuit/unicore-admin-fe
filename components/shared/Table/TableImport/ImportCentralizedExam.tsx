@@ -102,21 +102,7 @@ export default function ImportCentralizedExam() {
           type: "course",
           STT: item.STT,
           isDeleted: false,
-          data: {
-            "Mã môn học": item["Mã MH"],
-            "Mã lớp": item["Mã lớp"],
-            "Tên môn học": item["Tên MH"],
-            "Tên GV": item["Giảng Viên LT"],
-            "Ngày thi": item["Ngày thi"],
-            Thứ: item["Thứ"],
-            "Ca Thi": item["Ca Thi"],
-            "Phòng Thi": item["Phòng Thi"],
-            "Hệ ĐT": item["Hệ ĐT"],
-            "Đợt thi": item["Đợt thi"],
-            "Lần thi": item["Lần thi"],
-            "Học kỳ": item["Học kỳ"],
-            "Năm học": item["Năm học"],
-          },
+          data: requiredFields,
         };
       });
 
@@ -182,7 +168,7 @@ export default function ImportCentralizedExam() {
           </div>
 
           <a
-            href="/assets/KLTN - Template lịch thi vấn đáp, đồ án.xlsx"
+            href="/assets/template_import_lich_thi.xlsx"
             download
             className="text-blue-500 underline text-base italic"
           >
@@ -257,7 +243,7 @@ export default function ImportCentralizedExam() {
         <NoResult
           title="Không có dữ liệu!"
           description="🚀 Import file danh sách để thấy được dữ liệu."
-          linkTitle="Import danh sách lớp"
+          linkTitle="Import lịch thi"
           handleFileUpload={handleCoursesFileUpload}
         />
       )}

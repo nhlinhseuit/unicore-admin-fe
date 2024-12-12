@@ -170,7 +170,7 @@ export default function ImportInternReport() {
           </div>
 
           <a
-            href="/assets/KLTN - template Hội đồng KLTN.xlsx"
+            href="/assets/template_hoi_dong_cham_TTDN.xlsx"
             download
             className="text-blue-500 underline text-base italic"
           >

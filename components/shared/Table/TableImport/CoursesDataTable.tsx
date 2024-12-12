@@ -70,21 +70,7 @@ export default function CoursesDataTable() {
           type: "course",
           STT: item.STT,
           isDeleted: false,
-          data: {
-            "Mã môn học": item["MÃ MH"],
-            "Mã lớp": item["MÃ LỚP"],
-            "Tên môn học": item["TÊN MÔN HỌC"],
-            "Mã GV": item["MÃ GIẢNG VIÊN"],
-            "Tên GV": item["TÊN GIẢNG VIÊN"],
-            "Sĩ số": "Chưa cập nhật",
-            "Số TC": item["TỐ TC"],
-            HTGD: item["HTGD"],
-            "Khoa quản lý": item["TÊN GIẢNG VIÊN"] ? false : true,
-            "Ngày BĐ": item["NBD"],
-            "Ngày KT": item["NKT"],
-            "Học kỳ": item["HỌC KỲ"],
-            "Năm học": item["NĂM HỌC"],
-          },
+          data: requiredFields,
         };
       });
 
@@ -152,7 +138,7 @@ export default function CoursesDataTable() {
           </div>
 
           <a
-            href="/assets/KLTN - template import ds lớp.xlsx"
+            href="/assets/template_import_danh_sach_lop.xlsx"
             download
             className="text-blue-500 underline text-base italic"
           >

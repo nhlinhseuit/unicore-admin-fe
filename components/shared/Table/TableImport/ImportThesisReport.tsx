@@ -205,7 +205,7 @@ export default function ImportThesisReport() {
           </div>
 
           <a
-            href="/assets/KLTN - template Hội đồng KLTN.xlsx"
+            href="/assets/template_hoi_dong_cham_KLTN.xlsx"
             download
             className="text-blue-500 underline text-base italic"
           >

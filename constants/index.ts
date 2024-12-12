@@ -20,7 +20,6 @@ export const ALLOWED_FILE_TYPES = [
 ];
 export const MAX_CATEGORIES = 5; // Số danh mục tối đa chọn khi đăng thông báo
 
-
 // TODO: NAVBAR TAB
 export const DepartmentAnnouncementsTabItems = [
   { value: "listAnnouncements", label: "Danh sách thông báo", route: "/" },
@@ -125,19 +124,19 @@ export enum FilterType {
   None,
 }
 
-
 export enum CourseType {
-  RegularCourseWithProject = "regularCourseWithProject",
-  InternCourse = "internCourse",
-  ThesisCourse = "thesisCourse",
+  RegularCourseWithProject = "regular",
+  InternCourse = "intern",
+  ProjectCourse = "project",
+  ThesisCourse = "thesis",
 }
 
 export const ListCourseColors = [
   { type: CourseType.RegularCourseWithProject, color: "#e8f7ff" },
   { type: CourseType.InternCourse, color: "#fef5e5" },
+  { type: CourseType.ProjectCourse, color: "#ecf2ff" },
   { type: CourseType.ThesisCourse, color: "#ecf2ff" },
 ];
-
 
 export enum DetailFilter {
   Semester,
