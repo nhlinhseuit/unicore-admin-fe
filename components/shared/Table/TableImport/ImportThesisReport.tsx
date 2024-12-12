@@ -12,11 +12,15 @@ type Group = {
   names: string[];
   "Tên đề tài Tiếng Việt": string;
   "Tên đề tài Tiếng Anh": string;
+  "Cán bộ hướng dẫn": string;
+  "Cán bộ phản biện": string;
+  "Hội đồng chấm khóa luận": string;
 };
 
 type Council = {
   STT: string;
   "Tên hội đồng": string;
+  "Ghi chú": string;
   "Thư ký": string; // Thêm trường thư ký vào Council
   data: Group[];
 };
@@ -70,6 +74,8 @@ export default function ImportThesisReport() {
         defval: "",
       });
 
+      console.log('parsedData', parsedData)
+
       let errorMessages: string[] = [];
       let councils: Council[] = []; // Danh sách các hội đồng
       let currentCouncil: Council | null = null; // Hội đồng hiện tại
@@ -93,6 +99,7 @@ export default function ImportThesisReport() {
           currentCouncil = {
             STT: (++council).toString(),
             "Tên hội đồng": `${item.STT}`,
+            "Ghi chú": `${item["GHI CHÚ"]}`,
             "Thư ký": "", // Thư ký mặc định rỗng
             data: [],
           };
@@ -110,6 +117,9 @@ export default function ImportThesisReport() {
             names: [item["HỌ TÊN"] || ""],
             "Tên đề tài Tiếng Việt": item["TÊN ĐỀ TÀI TIẾNG VIỆT"] || "",
             "Tên đề tài Tiếng Anh": item["TÊN ĐỀ TÀI TIẾNG ANH"] || "",
+            "Cán bộ hướng dẫn": `${item["CÁN BỘ HƯỚNG DẪN"]}`,
+            "Cán bộ phản biện": `${item["CÁN BỘ PHẢN BIỆN"]}`,
+            "Hội đồng chấm khóa luận": `${item["HỘI ĐỒNG CHẤM KHOÁ LUẬN\r\n(Ghi rõ chức vụ trong HĐ)"]}`,
           };
         } else if (currentGroup) {
           // Thêm sinh viên vào nhóm hiện tại (nếu topic rỗng)
@@ -131,6 +141,8 @@ export default function ImportThesisReport() {
       if (currentCouncil) {
         councils.push(currentCouncil);
       }
+
+      console.log("councils", councils);
 
       // Nếu có lỗi, hiển thị lỗi
       if (errorMessages.length > 0) {
