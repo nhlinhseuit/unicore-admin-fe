@@ -13,6 +13,7 @@ import {
   TeacherData,
   TeacherDataItem,
   CentralizedExamDataItem,
+  QAandProjectExamDataItem,
 } from "@/types";
 import IconButton from "../../Button/IconButton";
 import Image from "next/image";
@@ -23,6 +24,7 @@ interface RowParams {
     | SubjectDataItem
     | StudentDataItem
     | CentralizedExamDataItem
+    | QAandProjectExamDataItem
     | TeacherDataItem;
   isEditTable?: boolean;
   isMultipleDelete?: boolean;
@@ -80,6 +82,7 @@ const Row = React.memo(
         | SubjectDataItem
         | StudentDataItem
         | CentralizedExamDataItem
+        | QAandProjectExamDataItem
         | TeacherDataItem = {
         ...refInput.current,
         data: {
@@ -263,8 +266,6 @@ const Row = React.memo(
           );
       }
     };
-
-    console.log("rederrow number: ", params.dataItem.STT);
 
     return (
       <Table.Row

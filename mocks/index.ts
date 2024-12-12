@@ -1,36 +1,34 @@
-
 //// TODO: Not Complete Actions
 //
 export const mockNotCompleteActions = [
   {
     id: 1,
-    action: "Nhập danh sách lớp (lớp thường - lớp TTDN)",
+    action: "Nhập danh sách sinh viên lớp (lớp thường - lớp TTDN)",
     desc: "Bạn chưa nhập danh sách sinh viên cho các lớp:",
     data: "STT 01: SE100.PMCL2021.2, STT 01: SE100.PMCL2021.2, STT 01: SE100.PMCL2021.2, STT 01: SE100.PMCL2021.2, STT 01: SE100.PMCL2021.2, STT 01: SE100.PMCL2021.2, STT 01: SE100.PMCL2021.2, STT 01: SE100.PMCL2021.2, STT 01: SE100.PMCL2021.2",
   },
   {
     id: 2,
     action: "Nhập lịch thi giữa kỳ (Lớp thường, lớp đồ án)",
-    desc: "Bạn chưa nhập danh sách sinh viên và chia nhóm cho các lớp TTDN",
+    desc: "Bạn chưa nhập lịch thi giữa kỳ (Lớp thường, lớp đồ án):",
     data: "STT 01: SE100.PMCL2021.2, STT 01: SE100.PMCL2021.2, STT 01: SE100.PMCL2021.2, STT 01: SE100.PMCL2021.2, STT 01: SE100.PMCL2021.2, STT 01: SE100.PMCL2021.2, STT 01: SE100.PMCL2021.2, STT 01: SE100.PMCL2021.2, STT 01: SE100.PMCL2021.2",
   },
   {
     id: 3,
     action: "Nhập lịch thi cuối kỳ (Lớp thường, lớp đồ án)",
-    desc: "Bạn chưa nhập danh sách sinh viên và chia nhóm cho các lớp TTDN",
+    desc: "Bạn chưa nhập lịch thi cuối kỳ (Lớp thường, lớp đồ án):",
     data: "STT 01: SE100.PMCL2021.2, STT 01: SE100.PMCL2021.2, STT 01: SE100.PMCL2021.2, STT 01: SE100.PMCL2021.2, STT 01: SE100.PMCL2021.2, STT 01: SE100.PMCL2021.2, STT 01: SE100.PMCL2021.2, STT 01: SE100.PMCL2021.2, STT 01: SE100.PMCL2021.2",
   },
   {
     id: 4,
     action: "Nhập lịch báo cáo & danh sách GV phản biện Khoá luận tốt nghiệp",
-    desc: "Bạn chưa nhập danh sách sinh viên cho các lớp:",
+    desc: "Bạn chưa nhập lịch báo cáo & danh sách GV phản biện Khoá luận tốt nghiệp:",
     data: "STT 01: SE100.PMCL2021.2, STT 01: SE100.PMCL2021.2, STT 01: SE100.PMCL2021.2, STT 01: SE100.PMCL2021.2, STT 01: SE100.PMCL2021.2, STT 01: SE100.PMCL2021.2, STT 01: SE100.PMCL2021.2, STT 01: SE100.PMCL2021.2, STT 01: SE100.PMCL2021.2",
   },
   {
     id: 5,
-    action:
-      "Nhập lịch báo cáo & danh sách Hội đồng chấm Thực tập doanh nghiệp",
-    desc: "Bạn chưa nhập danh sách sinh viên và chia nhóm cho các lớp TTDN",
+    action: "Nhập lịch báo cáo & danh sách Hội đồng chấm Thực tập doanh nghiệp",
+    desc: "Bạn chưa nhập báo cáo & danh sách Hội đồng chấm Thực tập doanh nghiệp:",
     data: "STT 01: SE100.PMCL2021.2, STT 01: SE100.PMCL2021.2, STT 01: SE100.PMCL2021.2, STT 01: SE100.PMCL2021.2, STT 01: SE100.PMCL2021.2, STT 01: SE100.PMCL2021.2, STT 01: SE100.PMCL2021.2, STT 01: SE100.PMCL2021.2, STT 01: SE100.PMCL2021.2",
   },
 ];
@@ -505,8 +503,27 @@ export const mockTeacherList = [
   { id: 2, value: "Nguyễn Thị Thanh Trúc" },
   { id: 3, value: "Đặng Việt Dũng" },
 ];
-export const mockOfficerList = [
-  { id: 1, value: "Trần Hạnh Xuân" },
+export const mockOfficerList = [{ id: 1, value: "Trần Hạnh Xuân" }];
+
+//
+// TODO: Mock Db Semester
+//
+export const mockSemesterList = [
+  { id: 1, value: 1 },
+  { id: 2, value: 2 },
+  { id: 3, value: 3 },
+];
+
+//
+// TODO: Mock Db Year
+//
+export const mockYearList = [
+  { id: 1, value: 2020 },
+  { id: 2, value: 2021 },
+  { id: 3, value: 2022 },
+  { id: 4, value: 2023 },
+  { id: 5, value: 2024 },
+  { id: 6, value: 2025 },
 ];
 
 //
@@ -1344,7 +1361,7 @@ export const mockDataStudentRegisterTopic = [
     isDeleted: false,
     data: {
       "Mã nhóm": "1",
-      "GV phụ trách": 'Huỳnh Hồ Thị Mộng Trinh',
+      "GV phụ trách": "Huỳnh Hồ Thị Mộng Trinh",
       "Tên đề tài": "Ứng dụng hẹn hò",
       "Mô tả":
         "Kết nối người dùng với những người có sở thích tương tự Nơi người dùng có thể đăng tải và chia sẻ hình ảnh Một ứng dụng áp dụng phiếu giảm giá tự động để đảm bảo cung cấp phiếu giảm giá và giảm giá cho khách hàng",
@@ -1358,7 +1375,7 @@ export const mockDataStudentRegisterTopic = [
     isDeleted: false,
     data: {
       "Mã nhóm": "2",
-      "GV phụ trách": 'Huỳnh Hồ Thị Mộng Trinh',
+      "GV phụ trách": "Huỳnh Hồ Thị Mộng Trinh",
       "Tên đề tài": "Ứng dụng chia sẻ hình ảnh",
       "Mô tả":
         "Nơi người dùng có thể đăng tải và chia sẻ hình ảnh Nơi người dùng có thể đăng tải và chia sẻ hình ảnh Nơi người dùng có thể đăng tải và chia sẻ hình ảnh Nơi người dùng có thể đăng tải và chia sẻ hình ảnh Nơi người dùng có thể đăng tải và chia sẻ hình ảnh Nơi người dùng có thể đăng tải và chia sẻ hình ảnh Nơi người dùng có thể đăng tải và chia sẻ hình ảnh Nơi người dùng có thể đăng tải và chia sẻ hình ảnh Nơi người dùng có thể đăng tải và chia sẻ hình ảnh Nơi người dùng có thể đăng tải và chia sẻ hình ảnh Nơi người dùng có thể đăng tải và chia sẻ hình ảnh",
@@ -1372,7 +1389,7 @@ export const mockDataStudentRegisterTopic = [
     isDeleted: false,
     data: {
       "Mã nhóm": "3",
-      "GV phụ trách": 'Huỳnh Hồ Thị Mộng Trinh',
+      "GV phụ trách": "Huỳnh Hồ Thị Mộng Trinh",
       "Tên đề tài": "Ứng dụng nhà thông minh",
       "Mô tả": "Giúp người dùng xây dựng một ngôi nhà thông minh và tiện lợi",
       MSSV: ["21522289", "21522289"],
@@ -1385,7 +1402,7 @@ export const mockDataStudentRegisterTopic = [
     isDeleted: false,
     data: {
       "Mã nhóm": "4",
-      "GV phụ trách": 'Huỳnh Hồ Thị Mộng Trinh',
+      "GV phụ trách": "Huỳnh Hồ Thị Mộng Trinh",
       "Tên đề tài": "Ứng dụng ghi chú",
       "Mô tả": "Giúp người dùng ghi lại và tổ chức các ghi chú của mình",
       MSSV: ["21522289"],
@@ -2242,5 +2259,129 @@ export const mockDataOfficerPermissions = [
       createAnnouncement: true,
       createBigExercise: true,
     },
+  },
+];
+
+//
+// TODO: Thesis Review Detail
+//
+export const mockThesisCommentTickets = [
+  {
+    id: "1",
+    reviewer: "Nguyễn Thị Thanh Trúc",
+  },
+  {
+    id: "2",
+    reviewer: "Đặng Việt Dũng",
+  },
+];
+
+//
+// TODO: Thesis Course Review
+//
+export const mockThesisCourseReview = [
+  {
+    id: "1",
+    name: "Ứng dụng quản lý môn học",
+    supervisor: "Huỳnh Hồ Thị Mộng Trinh",
+    studentIds: ["21522289", "21521087"],
+    names: ["Nguyễn Tiến Vĩ", "Võ Hữu"],
+    reportAt: "29/8/2024 7:23AM",
+  },
+  {
+    id: "2",
+    name: "Ứng dụng chia sẻ hình ảnh",
+    supervisor: "Huỳnh Hồ Thị Mộng Trinh",
+    studentIds: ["21522289", "21521087"],
+    names: ["Nguyễn Hoàng Linh", "Lê Thành Lộc"],
+    reportAt: "29/8/2024 7:23AM",
+  },
+];
+
+//
+// TODO: Intern Review Detail
+//
+export const mockInternReviewDetail = [
+  {
+    STT: "1",
+    data: {
+      MSSV: "21522289",
+      "Họ và tên": "Nguyễn Hoàng Linh",
+      "Vị trí thực tập": "Mobile Devloper",
+      "Công ty thực tập": "iZOTA",
+      "Giảng viên chấm điểm": [
+        "Huỳnh Hồ Thị Mộng Trinh",
+        "Đặng Việt Dũng",
+        " Nguyễn Thị Thanh Trúc",
+      ],
+      Điểm: ["", "", ""],
+    },
+  },
+  {
+    STT: "2",
+    data: {
+      MSSV: "21521087",
+      "Họ và tên": "Lê Thành Lộc",
+      "Vị trí thực tập": "Frontend Devloper",
+      "Công ty thực tập": "Phúc Long",
+      "Giảng viên chấm điểm": [
+        "Huỳnh Hồ Thị Mộng Trinh",
+        "Đặng Việt Dũng",
+        " Nguyễn Thị Thanh Trúc",
+      ],
+      Điểm: ["", "", ""],
+    },
+  },
+  {
+    STT: "3",
+    data: {
+      MSSV: "21522289",
+      "Họ và tên": "Võ Hữu",
+      "Vị trí thực tập": "Mobile Devloper",
+      "Công ty thực tập": "DevOps",
+      "Giảng viên chấm điểm": [
+        "Huỳnh Hồ Thị Mộng Trinh",
+        "Đặng Việt Dũng",
+        " Nguyễn Thị Thanh Trúc",
+      ],
+      Điểm: ["", "", ""],
+    },
+  },
+  {
+    STT: "4",
+    data: {
+      MSSV: "21522289",
+      "Họ và tên": "Nguyễn Tiến Vĩ",
+      "Vị trí thực tập": "Mobile Devloper",
+      "Công ty thực tập": "Korea",
+      "Giảng viên chấm điểm": [
+        "Huỳnh Hồ Thị Mộng Trinh",
+        "Đặng Việt Dũng",
+        " Nguyễn Thị Thanh Trúc",
+      ],
+      Điểm: ["", "", ""],
+    },
+  },
+];
+
+//
+// TODO: Intern Review
+//
+export const mockInternReviewTopic = [
+  {
+    id: "1",
+    name: "Mobile Developer - iZOTA",
+    supervisor: "Nguyễn Ngọc Quí",
+    studentId: "21522289",
+    studentName: "Nguyễn Hoàng Linh",
+    reportAt: "29/8/2024 7:23AM",
+  },
+  {
+    id: "2",
+    name: "DevOps Engineer - BOSCH",
+    supervisor: "Nguyễn Ngọc Quí",
+    studentId: "21521087",
+    studentName: "Lê Thành Lộc",
+    reportAt: "29/8/2024 7:23AM",
   },
 ];

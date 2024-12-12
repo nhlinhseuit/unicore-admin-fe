@@ -8,27 +8,50 @@ import ImportCentralizedExam from "@/components/shared/Table/TableImport/ImportC
 import ImportInternReport from "@/components/shared/Table/TableImport/ImportInternReport";
 import ImportStudentsListInCourse from "@/components/shared/Table/TableImport/ImportStudentsListInCourse";
 import ImportThesisReport from "@/components/shared/Table/TableImport/ImportThesisReport";
-import { mockNotCompleteActions } from "@/mocks";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from "@/components/ui/alert-dialog";
+import {
+  mockNotCompleteActions,
+  mockSemesterList,
+  mockYearList,
+} from "@/mocks";
+
 import { Dropdown } from "flowbite-react";
+import Image from "next/image";
 import { useState } from "react";
 
 const Courses = () => {
   const [isImport, setIsImport] = useState(false);
+  const [isShowDialog, setIsShowDialog] = useState(false);
   const [isImportCompleteAction, setIsImportCompleteAction] = useState(-1);
+
+  // [1, 2, 3]
+
+  // [
+  //   2020, 2021, 2022, 2023, 2024,
+  // ]
+
+  const [selectedSemester, setSelectedSemester] = useState(1);
+  const [selectedYear, setSelectedYear] = useState(1);
 
   const getImportCompleteActionComponent = () => {
     switch (isImportCompleteAction) {
       case 1:
         return <ImportStudentsListInCourse />;
       case 2:
-        return <ImportCentralizedExam />;
+        return <ImportCentralizedExam typeExam="midterm" />;
       case 3:
-        return <ImportCentralizedExam />;
+        return <ImportCentralizedExam typeExam="final" />;
       case 4:
-        return <ImportCentralizedExam />;
-      case 5:
         return <ImportThesisReport />;
-      case 6:
+      case 5:
         return <ImportInternReport />;
       default:
         return;
@@ -43,7 +66,7 @@ const Courses = () => {
             <IconButton
               text="Import danh sách lớp mới"
               onClick={() => {
-                setIsImport(true);
+                setIsShowDialog(true);
               }}
               iconLeft={"/assets/icons/upload-white.svg"}
               iconWidth={16}
@@ -77,10 +100,16 @@ const Courses = () => {
                       <div className="cursor-pointer bg-[#17a1fa] w-5 h-5 my-2 rounded-full flex-center text-sm text-white">
                         {item.id}
                       </div>
-
-                      <p className="text-[#17a1fa] body-medium whitespace-nowrap ">
+                      <p className="text-[#17a1fa] body-medium whitespace-nowrap mr-8">
                         {item.action}
                       </p>
+                      <Image
+                        src={"/assets/icons/chevron-down.svg"}
+                        width={22}
+                        height={22}
+                        alt="close"
+                        className="absolute right-0 mr-2 cursor-pointer"
+                      />
                     </div>
                   )}
                 >
@@ -120,7 +149,6 @@ const Courses = () => {
               setIsImport(false);
             }}
           />
-
           <CoursesDataTable />
         </>
       );
@@ -138,7 +166,154 @@ const Courses = () => {
       );
   };
 
-  return renderComponent();
+  return (
+    <div>
+      {renderComponent()}
+
+      <AlertDialog open={isShowDialog}>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle className="text-center">
+              Chọn học kỳ, năm học để import danh sách lớp
+            </AlertDialogTitle>
+          </AlertDialogHeader>
+          <div className="my-12 w-full flex flex-col gap-8">
+            <div className="flex-center gap-6">
+              <p className="w-[20%] inline-flex justify-start text-sm whitespace-nowrap">
+                Chọn học kỳ
+              </p>
+              <Dropdown
+                className="min-w-max z-30 rounded-lg"
+                label=""
+                dismissOnClick={true}
+                renderTrigger={() => (
+                  <div>
+                    <IconButton
+                      text={`${mockSemesterList[selectedSemester - 1].value}`}
+                      onClick={() => {}}
+                      iconRight={"/assets/icons/chevron-down.svg"}
+                      bgColor="bg-white"
+                      textColor="text-black"
+                      border
+                      otherClasses="w-[300px]"
+                    />
+                  </div>
+                )}
+              >
+                <div className="w-full scroll-container scroll-container-dropdown-content">
+                  {mockSemesterList.map((semester, index) => (
+                    <Dropdown.Item
+                      key={`${semester.id}_${index}`}
+                      onClick={() => {
+                        if (selectedSemester === semester.id) {
+                          setSelectedSemester(1);
+                        } else {
+                          setSelectedSemester(semester.id);
+                        }
+                      }}
+                      className="w-[300px] min-w-max"
+                    >
+                      <div className="flex justify-between w-full">
+                        <p className="w-[80%] text-left line-clamp-1">
+                          {semester.value}
+                        </p>
+                        {selectedSemester === semester.id ? (
+                          <Image
+                            src="/assets/icons/check.svg"
+                            alt="search"
+                            width={21}
+                            height={21}
+                            className="cursor-pointer mr-2"
+                          />
+                        ) : (
+                          <></>
+                        )}
+                      </div>
+                    </Dropdown.Item>
+                  ))}
+                </div>
+              </Dropdown>
+            </div>
+
+            <div className="flex-center gap-6">
+              <p className="w-[20%] inline-flex justify-start text-sm whitespace-nowrap">
+                Chọn năm học
+              </p>
+              <Dropdown
+                className="min-w-max z-30 rounded-lg"
+                label=""
+                dismissOnClick={true}
+                renderTrigger={() => (
+                  <div>
+                    <IconButton
+                      text={`${mockYearList[selectedYear - 1].value}`}
+                      onClick={() => {}}
+                      iconRight={"/assets/icons/chevron-down.svg"}
+                      bgColor="bg-white"
+                      textColor="text-black"
+                      border
+                      otherClasses="w-[300px]"
+                    />
+                  </div>
+                )}
+              >
+                <div className="w-full scroll-container scroll-container-dropdown-small">
+                  {mockYearList.map((year, index) => (
+                    <Dropdown.Item
+                      key={`${year.id}_${index}`}
+                      onClick={() => {
+                        if (selectedYear === year.id) {
+                          setSelectedYear(1);
+                        } else {
+                          setSelectedYear(year.id);
+                        }
+                      }}
+                      className="w-[300px] min-w-max"
+                    >
+                      <div className="flex justify-between w-full">
+                        <p className="w-[80%] text-left line-clamp-1">
+                          {year.value}
+                        </p>
+                        {selectedYear === year.id ? (
+                          <Image
+                            src="/assets/icons/check.svg"
+                            alt="search"
+                            width={21}
+                            height={21}
+                            className="cursor-pointer mr-2"
+                          />
+                        ) : (
+                          <></>
+                        )}
+                      </div>
+                    </Dropdown.Item>
+                  ))}
+                </div>
+              </Dropdown>
+            </div>
+          </div>
+          <AlertDialogFooter>
+            <AlertDialogCancel
+              onClick={() => {
+                setIsShowDialog(false);
+              }}
+            >
+              Đóng
+            </AlertDialogCancel>
+            <AlertDialogAction
+              onClick={() => {
+                setIsShowDialog(false);
+                setIsImport(true);
+              }}
+              className="bg-primary-500 hover:bg-primary-500/90"
+            >
+              Đồng ý
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
+    </div>
+  );
 };
 
 export default Courses;

@@ -3,6 +3,7 @@ import { normalizeSearchItem } from "@/lib/utils";
 import {
   CentralizedExamDataItem,
   CourseDataItem,
+  QAandProjectExamDataItem,
   StudentDataItem,
   SubjectDataItem,
   TeacherDataItem,
@@ -21,12 +22,14 @@ const useDebounceSearchDataTable = (
     | StudentDataItem[]
     | TeacherDataItem[]
     | CentralizedExamDataItem[]
+    | QAandProjectExamDataItem[]
     | (
         | CourseDataItem
         | SubjectDataItem
         | StudentDataItem
         | TeacherDataItem
         | CentralizedExamDataItem
+        | QAandProjectExamDataItem
       )[],
   currentItems:
     | CourseDataItem[]
@@ -34,12 +37,14 @@ const useDebounceSearchDataTable = (
     | StudentDataItem[]
     | TeacherDataItem[]
     | CentralizedExamDataItem[]
+    | QAandProjectExamDataItem[]
     | (
         | CourseDataItem
         | SubjectDataItem
         | StudentDataItem
         | TeacherDataItem
         | CentralizedExamDataItem
+        | QAandProjectExamDataItem
       )[]
 ) => {
   useEffect(() => {

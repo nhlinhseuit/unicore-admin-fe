@@ -235,6 +235,9 @@
 
   /* ! SCROLL CONTAINER */
 
+  .scroll-container-dropdown-small {
+    @apply overflow-y-auto max-h-36; /* Kết hợp các lớp Tailwind */
+  }
   .scroll-container-dropdown-content {
     @apply overflow-y-auto max-h-44; /* Kết hợp các lớp Tailwind */
   }

@@ -1,22 +1,124 @@
-import { mockTeacherList } from "@/mocks";
+import { DataTableType } from "@/constants";
+import { CentralizedExamDataItem, QAandProjectExamDataItem } from "@/types";
 import { useRef, useState } from "react";
 import * as XLSX from "xlsx";
-import BorderContainer from "../../BorderContainer";
 import IconButton from "../../Button/IconButton";
-import MyDropdown from "../../MyDropdown";
 import ErrorComponent from "../../Status/ErrorComponent";
-import { CentralizedExamDataItem } from "@/types";
-import NoResult from "../../Status/NoResult";
-import { DataTableType } from "@/constants";
-import { Fascinate } from "next/font/google";
 import DataTable from "../components/DataTable";
 import TableSkeleton from "../components/TableSkeleton";
 
-export default function ImportCentralizedExam() {
+interface Props {
+  typeExam: string;
+}
+
+export default function ImportCentralizedExam(params: Props) {
   const [uploadedFileName, setUploadedFileName] = useState<string | null>(null);
   const [errorMessages, setErrorMessages] = useState<string[]>([]);
-  const [dataTable, setDataTable] = useState<CentralizedExamDataItem[]>([]);
+  const [dataTableCentralized, setDataTableCentralized] = useState<
+    CentralizedExamDataItem[]
+  >([]);
+  const [dataTableQAandProject, setDataTableQAandProject] = useState<
+    QAandProjectExamDataItem[]
+  >([]);
   const [isLoading, setIsLoading] = useState(false);
+
+  const getCentralizedExamRequiredField = (item: any) => {
+    return {
+      "Mã môn học": item["Mã MH"],
+      "Mã lớp": item["Mã lớp"],
+      "Khóa học": item["Khóa học"],
+      "Tên môn học": item["Tên MH"],
+      "Tên GV": item["Giảng Viên LT"],
+      "Ngày thi": item["Ngày thi"],
+      Thứ: item["Thứ"],
+      "Ca Thi": item["Ca Thi"],
+      "Phòng Thi": item["Phòng Thi"],
+      "Đợt thi": item["Đợt thi"],
+      "Lần thi": item["Lần thi"],
+      "Học kỳ": item["Học kỳ"],
+      "Năm học": item["Năm học"],
+    };
+  };
+
+  const getQAandProjectRequiredField = (item: any) => {
+    return {
+      "Mã môn học": item["Mã MH"],
+      "Mã lớp": item["Mã lớp"],
+      "Khóa học": item["Khóa học"],
+      "Tên môn học": item["Tên MH"],
+      "Ngày thi": item["Ngày thi"],
+      Thứ: item["Thứ"],
+      Tiết: item["Tiết"],
+      "Phòng Thi": item["Phòng Thi"],
+      "Số SV": item["Số SV"],
+      "Đợt thi": item["Đợt thi"],
+      "Lần thi": item["Lần thi"],
+      "Học kỳ": item["Học kỳ"],
+      "Năm học": item["Năm học"],
+      "Hình thức": item["Hình thức"],
+    };
+  };
+
+  const processSheet = (
+    sheet: XLSX.WorkSheet,
+    range: number,
+    type: string,
+    getRequiredFields: (item: any) => Record<string, any>,
+    errorMessagePrefix: string
+  ) => {
+    const parsedData = XLSX.utils.sheet_to_json(sheet, {
+      range, // Bắt đầu từ hàng được chỉ định
+      defval: "",
+    });
+
+    let errorMessages: string[] = [];
+    let filteredData: any[] = [];
+
+    for (const item of parsedData) {
+      // Kiểm tra nếu STT chứa ghi chú
+
+      //@ts-ignore
+      if (typeof item.STT === "string" && item.STT.startsWith("Ghi chú")) {
+        break; // Dừng việc xử lý ngay khi gặp ghi chú
+      }
+
+      // Kiểm tra nếu tất cả các trường khác ngoài STT đều rỗng
+
+      //@ts-ignore
+      const { STT, ...rest } = item;
+      const hasMeaningfulFields = Object.values(rest).some(
+        (value) => value !== ""
+      );
+
+      if (hasMeaningfulFields) {
+        filteredData.push(item); // Thêm vào danh sách nếu hợp lệ
+      }
+    }
+
+    const transformedData = filteredData.map((item: any, index: number) => {
+      const requiredFields = getRequiredFields(item);
+
+      // Lặp qua các trường để kiểm tra nếu có giá trị undefined
+      if (index === 0) {
+        Object.entries(requiredFields).forEach(([fieldName, value]) => {
+          if (value === undefined) {
+            errorMessages.push(
+              `${errorMessagePrefix} "${fieldName}" bị thiếu hoặc lỗi.`
+            );
+          }
+        });
+      }
+
+      return {
+        type,
+        STT: item.STT,
+        isDeleted: false,
+        data: requiredFields,
+      };
+    });
+
+    return { transformedData, errorMessages };
+  };
 
   // XỬ LÝ UPLOAD FILE LỚP HỌC
   const handleCoursesFileUpload = (e: any) => {
@@ -29,89 +131,54 @@ export default function ImportCentralizedExam() {
     setErrorMessages([]);
 
     const reader = new FileReader();
+
     reader.readAsArrayBuffer(e.target.files[0]);
     reader.onload = (e) => {
       const data = e.target?.result || [];
       const workbook = XLSX.read(data, { type: "binary" });
-      const sheetName = workbook.SheetNames[0];
-      const sheet = workbook.Sheets[sheetName];
-      // Bỏ 6 dòng đầu của tên file
-      const parsedData = XLSX.utils.sheet_to_json(sheet, {
-        range: 6, // Chỉ số 6 đại diện cho hàng 7 (vì index bắt đầu từ 0)
-        defval: "",
-      });
 
-      console.log("parsedData", parsedData);
+      //! SHEET 1
+      const sheetNameCentralizedItem = workbook.SheetNames[0];
+      const sheetCentralizedItem = workbook.Sheets[sheetNameCentralizedItem];
 
-      let errorMessages: string[] = [];
+      const {
+        transformedData: transformedDataCentralizedExam,
+        errorMessages: errorMessagesCentralized,
+      } = processSheet(
+        sheetCentralizedItem,
+        6, // Bắt đầu từ hàng thứ 7
+        "exam",
+        getCentralizedExamRequiredField,
+        "Trường của lịch thi tập trung"
+      );
 
-      // Loại bỏ các object không hợp lệ
-      const filteredData: any[] = [];
-      for (const item of parsedData) {
-        console.log("item", item);
-
-        // Kiểm tra nếu STT chứa ghi chú
-
-        //@ts-ignore
-        if (typeof item.STT === "string" && item.STT.startsWith("Ghi chú")) {
-          console.log("here");
-          break; // Dừng việc xử lý ngay khi gặp ghi chú
-        }
-
-        // Kiểm tra nếu tất cả các trường khác ngoài STT đều rỗng
-
-        //@ts-ignore
-        const { STT, ...rest } = item;
-        const hasMeaningfulFields = Object.values(rest).some(
-          (value) => value !== ""
-        );
-
-        if (hasMeaningfulFields) {
-          filteredData.push(item); // Thêm vào danh sách nếu hợp lệ
-        }
+      if (errorMessagesCentralized.length > 0) {
+        setErrorMessages(errorMessagesCentralized);
+      } else {
+        //! CALL API centralized với type là midterm (true) hoặc final (false)
+        setDataTableCentralized(transformedDataCentralizedExam as []);
       }
 
-      const transformedData = filteredData.map((item: any, index: number) => {
-        // Kiểm tra các trường quan trọng (required fields)
-        const requiredFields = {
-          "Mã môn học": item["Mã MH"],
-          "Mã lớp": item["Mã lớp"],
-          "Tên môn học": item["Tên MH"],
-          "Tên GV": item["Giảng Viên LT"],
-          "Ngày thi": item["Ngày thi"],
-          Thứ: item["Thứ"],
-          "Ca Thi": item["Ca Thi"],
-          "Phòng Thi": item["Phòng Thi"],
-          "Hệ ĐT": item["Hệ ĐT"],
-          "Đợt thi": item["Đợt thi"],
-          "Lần thi": item["Lần thi"],
-          "Học kỳ": item["Học kỳ"],
-          "Năm học": item["Năm học"],
-        };
+      //! SHEET 2
+      const sheetNameQAandProject = workbook.SheetNames[1];
+      const sheetQAandProject = workbook.Sheets[sheetNameQAandProject];
 
-        // Lặp qua các trường để kiểm tra nếu có giá trị undefined
-        if (index === 0) {
-          Object.entries(requiredFields).forEach(([fieldName, value]) => {
-            if (value === undefined) {
-              errorMessages.push(`Trường "${fieldName}" bị thiếu hoặc lỗi.`);
-            }
-          });
-        }
+      const {
+        transformedData: transformedDataQAandProject,
+        errorMessages: errorMessagesQAandProject,
+      } = processSheet(
+        sheetQAandProject,
+        6, // Bắt đầu từ hàng thứ 7
+        "exam",
+        getQAandProjectRequiredField,
+        "Trường của lịch vấn đáp, đồ án"
+      );
 
-        return {
-          type: "course",
-          STT: item.STT,
-          isDeleted: false,
-          data: requiredFields,
-        };
-      });
-
-      if (errorMessages.length > 0) {
-        setErrorMessages(errorMessages);
+      if (errorMessagesQAandProject.length > 0) {
+        setErrorMessages(errorMessagesQAandProject);
       } else {
-        console.log("transformedData", transformedData);
-
-        setDataTable(transformedData as []);
+        //! CALL API QA and project với type là midterm (true) hoặc final (false)
+        setDataTableQAandProject(transformedDataQAandProject as []);
       }
 
       setIsLoading(false);
@@ -179,11 +246,12 @@ export default function ImportCentralizedExam() {
 
       {isLoading ? (
         <TableSkeleton />
-      ) : dataTable.length > 0 ? (
+      ) : dataTableCentralized.length > 0 ? (
         <>
+          <p className="mt-10 mb-10 paragraph-semibold">Lịch thi tập trung</p>
           <DataTable
             type={DataTableType.Exam}
-            dataTable={dataTable}
+            dataTable={dataTableCentralized}
             isEditTable={false}
             isMultipleDelete={false}
             onClickEditTable={() => {
@@ -239,14 +307,74 @@ export default function ImportCentralizedExam() {
             }}
           />
         </>
-      ) : (
-        <NoResult
-          title="Không có dữ liệu!"
-          description="🚀 Import file danh sách để thấy được dữ liệu."
-          linkTitle="Import lịch thi"
-          handleFileUpload={handleCoursesFileUpload}
-        />
-      )}
+      ) : null}
+
+      {isLoading ? (
+        <TableSkeleton />
+      ) : dataTableQAandProject.length > 0 ? (
+        <>
+          <p className="mt-10 mb-10 paragraph-semibold">
+            Lịch thi vấn đáp, đồ án
+          </p>
+          <DataTable
+            type={DataTableType.Exam}
+            dataTable={dataTableQAandProject}
+            isEditTable={false}
+            isMultipleDelete={false}
+            onClickEditTable={() => {
+              // setIsEditTable(true);
+            }}
+            onSaveEditTable={(localDataTable) => {
+              // setIsEditTable(false);
+              // // set lại data import hoặc patch API
+              // localDataTable = localDataTable as CourseDataItem[];
+              // setDataTable(localDataTable);
+            }}
+            onClickMultipleDelete={() => {
+              // setIsMultipleDelete(true);
+            }}
+            onClickDeleteAll={() => {
+              // setDataTable((prevData) => {
+              //   return prevData.map((item) => ({
+              //     ...item,
+              //     isDeleted: true,
+              //   }));
+              // });
+              // toast({
+              //   title: "Xóa thành công",
+              //   description: `Đã xóa tất cả lớp học`,
+              //   variant: "success",
+              //   duration: 3000,
+              // });
+            }}
+            onClickDelete={(itemsSelected: string[]) => {
+              // // ? DELETE THEO MÃ LỚP
+              // setDataTable((prevData) => {
+              //   return prevData.map((item) => {
+              //     if (itemsSelected.includes(item.data["Mã lớp"])) {
+              //       return {
+              //         ...item,
+              //         isDeleted: true,
+              //       };
+              //     }
+              //     return item;
+              //   });
+              // });
+              // toast({
+              //   title: "Xóa thành công",
+              //   description: `${`Các lớp ${itemsSelected.join(
+              //     ", "
+              //   )} đã được xóa.`}`,
+              //   variant: "success",
+              //   duration: 3000,
+              // });
+            }}
+            onClickGetOut={() => {
+              // setIsMultipleDelete(false);
+            }}
+          />
+        </>
+      ) : null}
     </div>
   );
 }

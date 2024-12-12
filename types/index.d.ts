@@ -50,6 +50,22 @@ export interface CentralizedExamData {
   "Học kỳ": number;
   "Năm học": number;
 }
+export interface QAandProjectExamData {
+  "Mã môn học": string;
+  "Mã lớp": string;
+  "Tên môn học": string;
+  "Tên GV": string;
+  "Ngày thi": string;
+  Thứ: string;
+  Tiết: string;
+  "Phòng Thi": string;
+  "Số SV": string;
+  "Đợt thi": string;
+  "Lần thi": string;
+  "Học kỳ": number;
+  "Năm học": number;
+  "Hình thức": string;
+}
 
 // nếu giữ như này thì phải đổi lại tên vì đây là data của 1 student
 export interface RegisterGroupData {
@@ -237,6 +253,12 @@ export interface CentralizedExamDataItem {
   STT: string;
   isDeleted: boolean;
   data: CentralizedExamData;
+}
+export interface QAandProjectExamDataItem {
+  type: "string";
+  STT: string;
+  isDeleted: boolean;
+  data: QAandProjectExamData;
 }
 
 export interface SubjectDataItem {

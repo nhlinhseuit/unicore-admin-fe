@@ -138,6 +138,38 @@ export const ListCourseColors = [
   { type: CourseType.ThesisCourse, color: "#ecf2ff" },
 ];
 
+export const DepartmentScoreReportTabItems = [
+  {
+    value: "scoreThesisReport",
+    label: "Nhập điểm cán bộ phản biện KLTN",
+    route: "/score-report/reviewer-thesis-report",
+  },
+  {
+    value: "scoreInternReport",
+    label: "Nhập điểm hội đồng Thực tập doanh nghiệp",
+    route: "/score-report/reviewer-intern-report",
+  },
+];
+
+export const TeacherScoreReportTabItems = [
+  {
+    value: "scoreThesisReport",
+    label: "Phản biện KLTN",
+    route: "/score-report/reviewer-thesis-report",
+  },
+  {
+    value: "scoreInternReport",
+    label: "Thực tập doanh nghiệp",
+    route: "/score-report/reviewer-intern-report",
+  },
+];
+
+export const ReviewThesisFilterType = [
+  { id: 1, value: "Tất cả" },
+  { id: 2, value: "Đã nhận xét" },
+  { id: 3, value: "Chưa nhận xét" },
+];
+
 export enum DetailFilter {
   Semester,
   Year,
@@ -229,6 +261,12 @@ export const sidebarDepartmentLinks: SidebarLink[] = [
   },
   {
     id: "7",
+    imgURL: "/assets/icons/reward.svg",
+    route: "/score-report",
+    label: "Chấm điểm báo cáo",
+  },
+  {
+    id: "8",
     imgURL: "/assets/icons/setting.svg",
     route: "/setting",
     label: "Cài đặt",

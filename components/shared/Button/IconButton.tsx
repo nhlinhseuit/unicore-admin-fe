@@ -68,6 +68,8 @@ const IconButton = (params: IconButtonProps) => {
              : ""
          }
         ${params.otherClasses}
+
+        flex justify-end
         `}
     >
       {/* LEFT ICON */}

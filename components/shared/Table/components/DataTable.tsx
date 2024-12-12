@@ -20,6 +20,7 @@ import useDebounceSearchDataTable from "@/hooks/table/useDebounceSearchDataTable
 import useDetailFilter from "@/hooks/table/useDetailFilter";
 import useSetDebounceSearchTerm from "@/hooks/table/useSetDebounceSearchTerm";
 import {
+  QAandProjectExamDataItem,
   CentralizedExamDataItem,
   CourseDataItem,
   StudentDataItem,
@@ -57,12 +58,14 @@ interface DataTableParams {
     | StudentDataItem[]
     | TeacherDataItem[]
     | CentralizedExamDataItem[]
+    | QAandProjectExamDataItem[]
     | (
         | CourseDataItem
         | SubjectDataItem
         | StudentDataItem
         | TeacherDataItem
         | CentralizedExamDataItem
+        | QAandProjectExamDataItem
       )[];
 }
 
@@ -207,6 +210,7 @@ const DataTable = (params: DataTableParams) => {
       | StudentDataItem
       | TeacherDataItem
       | CentralizedExamDataItem
+      | QAandProjectExamDataItem
     )[];
 
     sortedNewerDataTable = sortDataTable(dataTable, type);
@@ -243,6 +247,7 @@ const DataTable = (params: DataTableParams) => {
         | StudentDataItem
         | TeacherDataItem
         | CentralizedExamDataItem
+        | QAandProjectExamDataItem
       )[]
     >(currentItems);
 
@@ -372,12 +377,14 @@ const DataTable = (params: DataTableParams) => {
       | StudentDataItem[]
       | TeacherDataItem[]
       | CentralizedExamDataItem[]
+      | QAandProjectExamDataItem[]
       | (
           | CourseDataItem
           | SubjectDataItem
           | StudentDataItem
           | TeacherDataItem
           | CentralizedExamDataItem
+          | QAandProjectExamDataItem
         )[],
     sortOrder: FilterType
   ) => {
