@@ -32,12 +32,6 @@ const Courses = () => {
   const [isShowDialog, setIsShowDialog] = useState(false);
   const [isImportCompleteAction, setIsImportCompleteAction] = useState(-1);
 
-  // [1, 2, 3]
-
-  // [
-  //   2020, 2021, 2022, 2023, 2024,
-  // ]
-
   const [selectedSemester, setSelectedSemester] = useState(1);
   const [selectedYear, setSelectedYear] = useState(1);
 

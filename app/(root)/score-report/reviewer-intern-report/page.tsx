@@ -7,6 +7,7 @@ import { useState } from "react";
 
 const ReviewerInternReport = () => {
   const [isEditTable, setIsEditTable] = useState(true);
+  const [dataTable, setDataTable] = useState(mockInternReviewDetail)
   return (
     <>
       <TitleDescription
@@ -15,10 +16,27 @@ const ReviewerInternReport = () => {
       />
 
       <InternTopicGradeTable
-        dataTable={mockInternReviewDetail}
+        dataTable={dataTable}
         isEditTable={isEditTable}
-        handleSaveTable={() => {
+        handleSaveTable={(updatedData) => {
           setIsEditTable(false);
+          
+          setDataTable((prevDataTable) =>
+            prevDataTable.map((item) => {
+              const updatedItem = updatedData[item.data.MSSV];
+              if (updatedItem) {
+                return {
+                  ...item,
+                  data: {
+                    ...item.data,
+                    Điểm: updatedItem["Điểm"], // Cập nhật điểm từ updatedData
+                  },
+                };
+              }
+              return item; // Giữ nguyên nếu không có trong updatedData
+            })
+          );
+          
         }}
         handleEditTable={() => {
           setIsEditTable(true);

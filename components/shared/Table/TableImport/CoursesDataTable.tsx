@@ -77,7 +77,6 @@ export default function CoursesDataTable() {
       if (errorMessages.length > 0) {
         setErrorMessages(errorMessages);
       } else {
-        console.log("transformedData", transformedData);
         setDataTable(transformedData as []);
       }
 

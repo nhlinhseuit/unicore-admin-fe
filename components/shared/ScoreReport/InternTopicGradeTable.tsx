@@ -11,7 +11,7 @@ interface DataTableParams {
   isEditTable: boolean;
   dataTable: InternReviewDataItem[];
   handleEditTable: () => void;
-  handleSaveTable: () => void;
+  handleSaveTable: (updatedData: any) => void;
 }
 
 const InternTopicGradeTable = (params: DataTableParams) => {
@@ -54,7 +54,7 @@ const InternTopicGradeTable = (params: DataTableParams) => {
     //! POST DATA
     console.log("Updated Data:", updatedData);
 
-    params.handleSaveTable();
+    params.handleSaveTable(updatedData);
   };
 
   const handleEdit = () => {

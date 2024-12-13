@@ -33,11 +33,6 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
           "
       >
         {DepartmentScoreReportTabItems.map((item) => {
-          console.log('pathName', pathName)
-          console.log('item.route', item.route)
-          
-          console.log('pathName.includes(`/${item.route}`)', pathName.includes(`/${item.route}`))
-
           const isActive =
             pathName === item.route || pathName.includes(`${item.route}`);
 

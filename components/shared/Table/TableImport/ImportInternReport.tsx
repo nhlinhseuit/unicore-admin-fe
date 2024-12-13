@@ -1,9 +1,6 @@
-import { mockTeacherList } from "@/mocks";
 import { useRef, useState } from "react";
 import * as XLSX from "xlsx";
-import BorderContainer from "../../BorderContainer";
 import IconButton from "../../Button/IconButton";
-import MyDropdown from "../../MyDropdown";
 import ErrorComponent from "../../Status/ErrorComponent";
 
 type Student = {
