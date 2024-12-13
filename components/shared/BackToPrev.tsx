@@ -36,7 +36,6 @@ const BackToPrev = (params: Props) => {
         height={21}
         className="cursor-pointer mr-2"
       />
-      {/* // ! HERE */}
       <p className={`${params.bold ? "paragraph-semibold" : ""}`}>
         {params.text}
       </p>

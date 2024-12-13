@@ -18,9 +18,6 @@ interface RowParams {
   isEditTable?: boolean;
   isMultipleDelete?: boolean;
   isHasSubCourses?: boolean;
-  onClickGetOut?: () => void;
-  saveSingleRow?: (item: any) => void;
-  deleteSingleRow?: (itemsSelected: string[]) => void;
   onClickCheckBoxSelect?: (item: string) => void;
   onChangeRow?: (item: any) => void;
 }
@@ -38,22 +35,9 @@ interface handleInputChangeParams {
 
 const RowRegisterTopicTable = React.memo(
   (params: RowParams) => {
-    const [isEdit, setIsEdit] = useState(false);
     const [editDataItem, setEditDataItem] = useState(params.dataItem);
 
     const refInput = useRef({});
-
-    useEffect(() => {
-      if (params.isEditTable) setIsEdit(false);
-    }, [[params.isEditTable]]);
-
-    const handleEdit = () => {
-      if (isEdit === false) {
-        setIsEdit(true);
-      } else {
-        setIsEdit(false);
-      }
-    };
 
     const handleInputChange = ({
       key,
@@ -79,12 +63,6 @@ const RowRegisterTopicTable = React.memo(
         },
       };
 
-      // TODO: inputref for save single row
-      if (isEdit) {
-        refInput.current = updatedDataItem;
-        return;
-      }
-
       // setEditDataItem(updatedDataItem); // ??
 
       params.onChangeRow && params.onChangeRow(updatedDataItem); // Gọi callback để truyền dữ liệu đã chỉnh sửa lên DataTable
@@ -97,19 +75,17 @@ const RowRegisterTopicTable = React.memo(
       value,
       keyId,
       params,
-      isEdit,
     }: {
       key: string;
       value: string | number | Array<string | number>;
       keyId: string | number;
       params: any;
-      isEdit: boolean;
     }) => {
       switch (key) {
         case "MSSV":
         case "Họ và tên":
         case "SĐT":
-          return isEdit || params.isEditTable ? (
+          return params.isEditTable ? (
             Array.isArray(value) ? (
               <div className="flex flex-col gap-1">
                 {value.map((item, index) => (
@@ -150,7 +126,7 @@ const RowRegisterTopicTable = React.memo(
           );
 
         default:
-          return isEdit || params.isEditTable ? (
+          return params.isEditTable ? (
             <InputComponent
               key={`${keyId}_input_${key}_${value}`}
               value={value as string | number}
@@ -176,13 +152,11 @@ const RowRegisterTopicTable = React.memo(
       value,
       keyId,
       params,
-      isEdit,
     }: {
       key: string;
       value: string | number | Array<string | number>;
       keyId: string | number;
       params: any;
-      isEdit: boolean;
     }) => {
       if (key === "Mã nhóm") return null;
 
@@ -203,7 +177,7 @@ const RowRegisterTopicTable = React.memo(
               : "whitespace-nowrap"
           }`}
         >
-          {renderCellValue({ key, value, keyId, params, isEdit })}
+          {renderCellValue({ key, value, keyId, params })}
         </Table.Cell>
       );
     };
@@ -213,7 +187,7 @@ const RowRegisterTopicTable = React.memo(
         key={params.dataItem.STT}
         onClick={() => {}}
         className={`bg-background-secondary  text-left ${
-          isEdit || params.isEditTable
+          params.isEditTable
             ? "hover:bg-white cursor-default"
             : "hover:bg-light-800 cursor-default"
         } duration-100`}
@@ -241,39 +215,7 @@ const RowRegisterTopicTable = React.memo(
                   className="w-4 h-4 bg-gray-100 border-gray-300 rounded cursor-pointer text-primary-600"
                 />
               </div>
-            ) : isEdit ? (
-              <IconButton
-                text="Lưu"
-                onClick={() => {
-                  params.saveSingleRow &&
-                    params.saveSingleRow(refInput.current);
-                  setIsEdit(false);
-                }}
-              />
-            ) : params.type === RegisterTopicTableType.approveTopic ? (
-              <input
-                id="approveTopic"
-                type="checkbox"
-                name="approveTopic"
-                value={valueUniqueInput}
-                onChange={() => {
-                  {
-                    params.onClickCheckBoxSelect &&
-                      params.onClickCheckBoxSelect(valueUniqueInput);
-                  }
-                }}
-                className="w-4 h-4 bg-gray-100 border-gray-300 rounded cursor-pointer text-primary-600"
-              />
-            ) : (
-              <MoreButtonComponent
-                handleEdit={handleEdit}
-                onClickGetOut={params.onClickGetOut}
-                onClickDelete={() => {
-                  params.deleteSingleRow &&
-                    params.deleteSingleRow([valueUniqueInput]);
-                }}
-              />
-            )}
+            ) : null}
           </div>
         </Table.Cell>
 
@@ -290,7 +232,6 @@ const RowRegisterTopicTable = React.memo(
             value,
             keyId,
             params,
-            isEdit,
           });
         })}
       </Table.Row>

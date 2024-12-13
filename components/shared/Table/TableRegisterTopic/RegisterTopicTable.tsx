@@ -333,24 +333,6 @@ const RegisterTopicTable = (params: DataTableParams) => {
                               //     )
                               //   );
                             }}
-                            saveSingleRow={(updatedDataItem: any) => {
-                              const updatedDataTable = dataTable.map(
-                                (item, index) =>
-                                  item.STT === updatedDataItem.STT
-                                    ? updatedDataItem
-                                    : item
-                              );
-
-                              //   if (params.onSaveEditTable) {
-                              //     params.onSaveEditTable(updatedDataTable);
-                              //   }
-                            }}
-                            onClickGetOut={() => {
-                              // params.onClickGetOut
-                            }}
-                            deleteSingleRow={() => {
-                              //  params.onClickDelete
-                            }}
                           />
                         </>
                       )
@@ -369,7 +351,7 @@ const RegisterTopicTable = (params: DataTableParams) => {
               currentPage={currentPage}
               itemsPerPage={itemsPerPageRegisterTable}
               totalItems={totalItems}
-              onPageChange={(newPage) => setCurrentPage(newPage)} //HERE
+              onPageChange={(newPage) => setCurrentPage(newPage)}
             />
           )}
         </div>

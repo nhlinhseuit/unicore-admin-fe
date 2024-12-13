@@ -17,9 +17,6 @@ interface RowParams {
   isEditTable?: boolean;
   isMultipleDelete?: boolean;
   isHasSubCourses?: boolean;
-  onClickGetOut?: () => void;
-  saveSingleRow?: (item: any) => void;
-  deleteSingleRow?: (itemsSelected: string[]) => void;
   onClickCheckBoxSelect?: (item: string) => void;
   onChangeRow?: (item: any) => void;
 }
@@ -37,22 +34,9 @@ interface handleInputChangeParams {
 
 const RowRegisterGroupTable = React.memo(
   (params: RowParams) => {
-    const [isEdit, setIsEdit] = useState(false);
     const [editDataItem, setEditDataItem] = useState(params.dataItem);
 
     const refInput = useRef({});
-
-    useEffect(() => {
-      if (params.isEditTable) setIsEdit(false);
-    }, [[params.isEditTable]]);
-
-    const handleEdit = () => {
-      if (isEdit === false) {
-        setIsEdit(true);
-      } else {
-        setIsEdit(false);
-      }
-    };
 
     const handleInputChange = ({
       key,
@@ -78,12 +62,6 @@ const RowRegisterGroupTable = React.memo(
         },
       };
 
-      // TODO: inputref for save single row
-      if (isEdit) {
-        refInput.current = updatedDataItem;
-        return;
-      }
-
       // setEditDataItem(updatedDataItem); // ??
 
       params.onChangeRow && params.onChangeRow(updatedDataItem); // Gọi callback để truyền dữ liệu đã chỉnh sửa lên DataTable
@@ -96,7 +74,7 @@ const RowRegisterGroupTable = React.memo(
         key={params.dataItem.STT}
         onClick={() => {}}
         className={`bg-background-secondary  text-left ${
-          isEdit || params.isEditTable
+          params.isEditTable
             ? "hover:bg-white cursor-default"
             : "hover:bg-light-800 cursor-default"
         } duration-100`}
@@ -124,25 +102,7 @@ const RowRegisterGroupTable = React.memo(
                   className="w-4 h-4 bg-gray-100 border-gray-300 rounded cursor-pointer text-primary-600"
                 />
               </div>
-            ) : isEdit ? (
-              <IconButton
-                text="Lưu"
-                onClick={() => {
-                  params.saveSingleRow &&
-                    params.saveSingleRow(refInput.current);
-                  setIsEdit(false);
-                }}
-              />
-            ) : (
-              <MoreButtonComponent
-                handleEdit={handleEdit}
-                onClickGetOut={params.onClickGetOut}
-                onClickDelete={() => {
-                  params.deleteSingleRow &&
-                    params.deleteSingleRow([valueUniqueInput]);
-                }}
-              />
-            )}
+            ) : null}
           </div>
         </Table.Cell>
 
@@ -173,7 +133,7 @@ const RowRegisterGroupTable = React.memo(
               }}
               className={`border-r-[1px] px-2 py-4 normal-case whitespace-nowrap text-left`}
             >
-              {isEdit || params.isEditTable ? (
+              {params.isEditTable ? (
                 <InputComponent
                   key={`${keyId}_input_${key}_${value}`}
                   value={value as string | number}

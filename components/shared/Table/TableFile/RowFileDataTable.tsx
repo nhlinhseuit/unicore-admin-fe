@@ -18,16 +18,6 @@ interface handleInputChangeParams {
 }
 
 const RowTopicDataTable = (params: RowParams) => {
-  const [isEdit, setIsEdit] = useState(false);
-
-  const handleEdit = () => {
-    if (isEdit === false) {
-      setIsEdit(true);
-    } else {
-      setIsEdit(false);
-    }
-  };
-
   const getFileIcon = (nameFile: string) => {
     if (nameFile === undefined) return;
 
@@ -121,17 +111,6 @@ const RowTopicDataTable = (params: RowParams) => {
         >
           <MoreButtonComponent
             actions={FileTableDataMoreComponentItems}
-            handleEdit={handleEdit}
-            onClickGetOut={() => {
-              // params.onClickGetOut
-            }}
-            onClickDelete={(id: any) => {
-
-              // params.onClickDelete && params.onClickDelete(id)
-              
-              // params.deleteSingleRow &&
-              //   params.deleteSingleRow([valueUniqueInput]);
-            }}
           />
         </div>
       </Table.Cell>

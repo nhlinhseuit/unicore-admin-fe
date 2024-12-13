@@ -10,9 +10,6 @@ interface RowParams {
   isEditTable?: boolean;
   isMultipleDelete?: boolean;
   isHasSubCourses?: boolean;
-  onClickGetOut?: () => void;
-  saveSingleRow?: (item: any) => void;
-  deleteSingleRow?: (itemsSelected: string[]) => void;
   onClickCheckBoxSelect?: (item: string) => void;
   onChangeRow?: (item: any) => void;
   viewDetailGradeColumn: () => void;
@@ -27,22 +24,9 @@ interface handleInputChangeParams {
 
 const RowGradingGroupTable = React.memo(
   (params: RowParams) => {
-    const [isEdit, setIsEdit] = useState(false);
     const [editDataItem, setEditDataItem] = useState(params.dataItem);
 
     const refInput = useRef({});
-
-    useEffect(() => {
-      if (params.isEditTable) setIsEdit(false);
-    }, [[params.isEditTable]]);
-
-    const handleEdit = () => {
-      if (isEdit === false) {
-        setIsEdit(true);
-      } else {
-        setIsEdit(false);
-      }
-    };
 
     const handleInputChange = ({
       key,
@@ -69,12 +53,6 @@ const RowGradingGroupTable = React.memo(
         },
       };
 
-      // TODO: inputref for save single row
-      if (isEdit) {
-        refInput.current = updatedDataItem;
-        return;
-      }
-
       // setEditDataItem(updatedDataItem); // ??
 
       params.onChangeRow && params.onChangeRow(updatedDataItem); // Gọi callback để truyền dữ liệu đã chỉnh sửa lên DataTable
@@ -86,7 +64,6 @@ const RowGradingGroupTable = React.memo(
       keyId: string,
       key: string,
       value: any,
-      isEdit: boolean
     ) => {
       if (
         key === "Quá trình" ||
@@ -94,7 +71,7 @@ const RowGradingGroupTable = React.memo(
         key === "Cuối kỳ" ||
         key === "Thực hành"
       ) {
-        if (isEdit || params.isEditTable) {
+        if (params.isEditTable) {
           return (
             <InputComponent
               key={`${keyId}_input_${key}_${value}`}
@@ -127,7 +104,7 @@ const RowGradingGroupTable = React.memo(
         key={params.dataItem.STT}
         onClick={() => {}}
         className={`bg-background-secondary  text-left ${
-          isEdit || params.isEditTable
+          params.isEditTable
             ? "hover:bg-white cursor-default"
             : "hover:bg-light-800 cursor-default"
         } duration-100`}
@@ -155,25 +132,7 @@ const RowGradingGroupTable = React.memo(
                   className="w-4 h-4 bg-gray-100 border-gray-300 rounded cursor-pointer text-primary-600"
                 />
               </div>
-            ) : isEdit ? (
-              <IconButton
-                text="Lưu"
-                onClick={() => {
-                  params.saveSingleRow &&
-                    params.saveSingleRow(refInput.current);
-                  setIsEdit(false);
-                }}
-              />
-            ) : (
-              <MoreButtonComponent
-                handleEdit={handleEdit}
-                onClickGetOut={params.onClickGetOut}
-                onClickDelete={() => {
-                  params.deleteSingleRow &&
-                    params.deleteSingleRow([valueUniqueInput]);
-                }}
-              />
-            )}
+            ) : null}
           </div>
         </Table.Cell>
 
@@ -202,7 +161,7 @@ const RowGradingGroupTable = React.memo(
                 }
             `}
             >
-              {renderTableCellValue(keyId, key, value, isEdit)}
+              {renderTableCellValue(keyId, key, value)}
             </Table.Cell>
           );
         })}

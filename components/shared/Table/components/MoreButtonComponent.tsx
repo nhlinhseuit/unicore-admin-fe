@@ -23,10 +23,7 @@ import Image from "next/image";
 import { useState } from "react";
 
 interface MoreButtonParams {
-  handleEdit: () => void;
   actions?: any;
-  onClickGetOut?: () => void;
-  onClickDelete?: (id: any) => void;
 }
 
 const MoreButtonComponent = (params: MoreButtonParams) => {
@@ -67,13 +64,7 @@ const MoreButtonComponent = (params: MoreButtonParams) => {
                       dark:focus:bg-dark-400 cursor-pointer"
                 key={item.value}
                 onClick={
-                  item.value === "edit"
-                    ? params.handleEdit
-                    : item.value === "delete"
-                    ? () => {
-                        setIsShowDialog(true);
-                      }
-                    : undefined
+                  undefined
                 }
               >
                 <p
@@ -89,40 +80,6 @@ const MoreButtonComponent = (params: MoreButtonParams) => {
         </MenubarMenu>
       </Menubar>
 
-      {isShowDialog ? (
-        <AlertDialog open={isShowDialog}>
-          <AlertDialogContent>
-            <AlertDialogHeader>
-              <AlertDialogTitle>Bạn có chắc chắn muốn xóa?</AlertDialogTitle>
-              <AlertDialogDescription>
-                Thao tác này không thể hoàn tác, dữ liệu của bạn sẽ bị xóa vĩnh
-                viễn và không thể khôi phục.
-              </AlertDialogDescription>
-            </AlertDialogHeader>
-            <AlertDialogFooter>
-              <AlertDialogCancel
-                onClick={() => {
-                  setIsShowDialog(false);
-                  params.onClickGetOut && params.onClickGetOut();
-                }}
-              >
-                Hủy
-              </AlertDialogCancel>
-              <AlertDialogAction
-                onClick={() => {
-                  setIsShowDialog(false);
-                  // params.onClickDelete && params.onClickDelete();
-                }}
-                className="bg-primary-500 hover:bg-primary-500/90"
-              >
-                Đồng ý
-              </AlertDialogAction>
-            </AlertDialogFooter>
-          </AlertDialogContent>
-        </AlertDialog>
-      ) : (
-        <></>
-      )}
     </>
   );
 };

@@ -49,10 +49,6 @@ const TopicDataTable = (params: DataTableParams) => {
             theme={tableTheme?.head}
             className="sticky top-0 z-10 uppercase border-b bg-gray"
           >
-            <Table.HeadCell
-              theme={tableTheme?.head?.cell}
-              className={` w-10 border-r-[1px] uppercase`}
-            ></Table.HeadCell>
 
             <Table.HeadCell
               theme={tableTheme?.head?.cell}

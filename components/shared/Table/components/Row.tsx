@@ -1,22 +1,19 @@
-import { Dropdown, Table } from "flowbite-react";
-import React, { useEffect, useRef } from "react";
-import InputComponent from "./InputComponent";
-import { useState } from "react";
-import MoreButtonComponent from "./MoreButtonComponent";
 import {
+  CentralizedExamDataItem,
   CourseData,
-  SubjectData,
   CourseDataItem,
-  SubjectDataItem,
-  StudentDataItem,
+  QAandProjectExamDataItem,
   StudentData,
+  StudentDataItem,
+  SubjectData,
+  SubjectDataItem,
   TeacherData,
   TeacherDataItem,
-  CentralizedExamDataItem,
-  QAandProjectExamDataItem,
 } from "@/types";
-import IconButton from "../../Button/IconButton";
+import { Dropdown, Table } from "flowbite-react";
 import Image from "next/image";
+import React, { useRef, useState } from "react";
+import InputComponent from "./InputComponent";
 
 interface RowParams {
   dataItem:
@@ -26,12 +23,12 @@ interface RowParams {
     | CentralizedExamDataItem
     | QAandProjectExamDataItem
     | TeacherDataItem;
+  isChecked: boolean;
+  itemsSelected: string[];
+  valueUniqueInput: string;
   isEditTable?: boolean;
   isMultipleDelete?: boolean;
   isHasSubCourses?: boolean;
-  onClickGetOut?: () => void;
-  saveSingleRow?: (item: any) => void;
-  deleteSingleRow?: (itemsSelected: string[]) => void;
   onClickCheckBoxSelect?: (item: string) => void;
   onChangeRow?: (item: any) => void;
 }
@@ -49,25 +46,12 @@ interface handleInputChangeParams {
 
 const Row = React.memo(
   (params: RowParams) => {
-    const [isEdit, setIsEdit] = useState(false);
     const [isChecked, setIsChecked] = useState(
       //@ts-ignore
       params.dataItem.data["Khoa quản lý"] as boolean
     );
 
     const refInput = useRef(params.dataItem);
-
-    useEffect(() => {
-      if (params.isEditTable) setIsEdit(false);
-    }, [[params.isEditTable]]);
-
-    const handleEdit = () => {
-      if (isEdit === false) {
-        setIsEdit(true);
-      } else {
-        setIsEdit(false);
-      }
-    };
 
     const handleInputChange = ({
       key,
@@ -101,38 +85,13 @@ const Row = React.memo(
 
       refInput.current = updatedDataItem;
 
-      // TODO:  save single row
-      if (isEdit) {
-        return;
-      }
-
-
       params.onChangeRow && params.onChangeRow(updatedDataItem); // Gọi callback để truyền dữ liệu đã chỉnh sửa lên DataTable
     };
-
-    var valueUniqueInput = "";
-    switch (params.dataItem.type) {
-      case "course":
-        valueUniqueInput = (params.dataItem as CourseDataItem).data["Mã lớp"];
-        break;
-      case "subject":
-        valueUniqueInput = (params.dataItem as SubjectDataItem).data["Mã MH"];
-        break;
-      case "student":
-        valueUniqueInput = (params.dataItem as StudentDataItem).data["MSSV"];
-        break;
-      case "teacher":
-        valueUniqueInput = (params.dataItem as TeacherDataItem).data[
-          "Mã cán bộ"
-        ];
-        break;
-    }
 
     const renderTableCell = ({
       key,
       value,
       keyId,
-      isEdit,
       isChecked,
       setIsChecked,
       handleInputChange,
@@ -141,7 +100,6 @@ const Row = React.memo(
       key: string;
       value: string | number;
       keyId: string;
-      isEdit: boolean;
       isChecked: boolean;
       setIsChecked: (checked: boolean) => void;
       handleInputChange: Function;
@@ -149,7 +107,7 @@ const Row = React.memo(
     }) => {
       switch (key) {
         case "Mã lớp":
-          return isEdit || params.isEditTable ? (
+          return params.isEditTable ? (
             <InputComponent
               key={`${keyId}_input_${key}_${value}`}
               value={value as string | number}
@@ -198,7 +156,7 @@ const Row = React.memo(
           );
 
         case "Khoa quản lý":
-          return isEdit || params.isEditTable ? (
+          return params.isEditTable ? (
             <input
               type="checkbox"
               checked={isChecked}
@@ -222,7 +180,7 @@ const Row = React.memo(
           );
 
         default:
-          return isEdit || params.isEditTable ? (
+          return params.isEditTable ? (
             typeof value === "string" ? (
               <div className="flex flex-col gap-1">
                 {value
@@ -267,12 +225,14 @@ const Row = React.memo(
       }
     };
 
+    console.log('Row')
+
     return (
       <Table.Row
         key={params.dataItem.STT}
         onClick={() => {}}
         className={`bg-background-secondary  text-left ${
-          isEdit || params.isEditTable
+          params.isEditTable || params.isEditTable
             ? "hover:bg-white cursor-default"
             : "hover:bg-light-800 cursor-default"
         } duration-100`}
@@ -284,41 +244,22 @@ const Row = React.memo(
               e.stopPropagation(); // Ngăn sự kiện lan truyền đến Table.Row
             }}
           >
-            {params.isMultipleDelete ? (
               <div className="flex items-center justify-center w-10 h-10">
                 <input
                   id="apple"
                   type="checkbox"
                   name="filterOptions"
-                  value={valueUniqueInput}
+                  value={params.valueUniqueInput}
+                  checked={params.itemsSelected.includes(params.valueUniqueInput)}
                   onChange={() => {
                     {
                       params.onClickCheckBoxSelect &&
-                        params.onClickCheckBoxSelect(valueUniqueInput);
+                        params.onClickCheckBoxSelect(params.valueUniqueInput);
                     }
                   }}
                   className="w-4 h-4 bg-gray-100 border-gray-300 rounded cursor-pointer text-primary-600"
                 />
               </div>
-            ) : isEdit ? (
-              <IconButton
-                text="Lưu"
-                onClick={() => {
-                  params.saveSingleRow &&
-                    params.saveSingleRow(refInput.current);
-                  setIsEdit(false);
-                }}
-              />
-            ) : (
-              <MoreButtonComponent
-                handleEdit={handleEdit}
-                onClickGetOut={params.onClickGetOut}
-                onClickDelete={() => {
-                  params.deleteSingleRow &&
-                    params.deleteSingleRow([valueUniqueInput]);
-                }}
-              />
-            )}
           </div>
         </Table.Cell>
 
@@ -372,7 +313,6 @@ const Row = React.memo(
                 key,
                 value,
                 keyId,
-                isEdit,
                 isChecked,
                 setIsChecked,
                 handleInputChange,
@@ -387,6 +327,7 @@ const Row = React.memo(
   (prevProps, nextProps) => {
     // Kiểm tra nếu `dataItem` của Row không thay đổi thì không cần re-render
     return (
+      prevProps.isChecked === nextProps.isChecked &&
       prevProps.dataItem === nextProps.dataItem &&
       prevProps.isEditTable === nextProps.isEditTable &&
       prevProps.isMultipleDelete === nextProps.isMultipleDelete

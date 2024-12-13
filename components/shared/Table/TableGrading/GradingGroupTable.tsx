@@ -148,44 +148,7 @@ const GradingGroupTable = (params: DataTableParams) => {
                         //     )
                         //   );
                       }}
-                      saveSingleRow={(updatedDataItem: any) => {
-                        const updatedDataTable = dataTable.map((item, index) =>
-                          item.STT === updatedDataItem.STT
-                            ? updatedDataItem
-                            : item
-                        );
-
-                        //   if (params.onSaveEditTable) {
-                        //     params.onSaveEditTable(updatedDataTable);
-                        //   }
-                      }}
-                      onClickGetOut={() => {
-                        // params.onClickGetOut
-                      }}
-                      deleteSingleRow={() => {
-                        //  params.onClickDelete
-                      }}
                     />
-
-                    {/* //TODO: MEMBER */}
-                    {/* {dataItem.data.listStudent
-                      .filter((student) => !student.isLeader)
-                      .map((student, index) => (
-                        <RowGradingGroupTable
-                          key={`${dataItem.STT}-${index}`}
-                          dataItem={{
-                            ...dataItem,
-                            data: { ...dataItem.data, student },
-                          }}
-                          isEditTable={params.isEditTable}
-                          isMultipleDelete={params.isMultipleDelete}
-                          onClickCheckBoxSelect={() => {}}
-                          onChangeRow={() => {}}
-                          saveSingleRow={() => {}}
-                          onClickGetOut={() => {}}
-                          deleteSingleRow={() => {}}
-                        />
-                      ))} */}
                   </>
                 )
               )}
@@ -202,7 +165,7 @@ const GradingGroupTable = (params: DataTableParams) => {
           currentPage={currentPage}
           itemsPerPage={itemsPerPageRegisterTable}
           totalItems={totalItems}
-          onPageChange={(newPage) => setCurrentPage(newPage)} //HERE
+          onPageChange={(newPage) => setCurrentPage(newPage)}
         />
       )}
 

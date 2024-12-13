@@ -93,6 +93,8 @@ export default function CoursesDataTable() {
 
   const { toast } = useToast();
 
+  console.log("coursedatatable databTable", dataTable);
+
   return (
     <div>
       {errorMessages.length > 0 && (
@@ -158,7 +160,7 @@ export default function CoursesDataTable() {
 
       {isLoading ? (
         <TableSkeleton />
-      ) : dataTable.length > 0 ? (
+      ) : dataTable.filter((item) => !item.isDeleted).length > 0 ? (
         <>
           <DataTable
             type={DataTableType.Course}

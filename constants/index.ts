@@ -212,7 +212,6 @@ export const TableDataMoreComponentItems = [
 export const FileTableDataMoreComponentItems = [
   { value: "rename", label: "Đổi tên" },
   { value: "download", label: "Tải xuống" },
-  { value: "delete", label: "Xóa" },
 ];
 
 export const CourseItemMoreComponentItems = [

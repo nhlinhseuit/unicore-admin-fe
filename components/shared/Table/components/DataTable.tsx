@@ -20,9 +20,9 @@ import useDebounceSearchDataTable from "@/hooks/table/useDebounceSearchDataTable
 import useDetailFilter from "@/hooks/table/useDetailFilter";
 import useSetDebounceSearchTerm from "@/hooks/table/useSetDebounceSearchTerm";
 import {
-  QAandProjectExamDataItem,
   CentralizedExamDataItem,
   CourseDataItem,
+  QAandProjectExamDataItem,
   StudentDataItem,
   SubjectDataItem,
   TeacherDataItem,
@@ -428,6 +428,16 @@ const DataTable = (params: DataTableParams) => {
     }
   };
 
+  const [isShowDeleteInfo, setIsShowDeleteInfo] = useState(false);
+
+  useEffect(() => {
+    if (itemsSelected.length > 0 || params.isMultipleDelete) {
+      if (!isShowDeleteInfo) setIsShowDeleteInfo(true);
+    } else {
+      if (isShowDeleteInfo) setIsShowDeleteInfo(false);
+    }
+  }, [itemsSelected, params.isMultipleDelete]);
+
   return (
     <div>
       <div className="flex flex-col items-center justify-between p-4 space-y-3 md:flex-row md:space-y-0">
@@ -444,7 +454,7 @@ const DataTable = (params: DataTableParams) => {
         </div>
         <div className="flex flex-col items-stretch justify-end flex-shrink-0 w-full space-y-2 md:w-auto md:flex-row md:space-y-0 md:items-center">
           <div className="flex items-center w-full gap-2 md:w-auto">
-            {params.isEditTable || params.isMultipleDelete ? (
+            {params.isEditTable || isShowDeleteInfo ? (
               <></>
             ) : (
               <IconButton
@@ -456,7 +466,7 @@ const DataTable = (params: DataTableParams) => {
 
             {params.isEditTable ? (
               <IconButton text="Lưu" onClick={saveDataTable} />
-            ) : params.isMultipleDelete ? (
+            ) : isShowDeleteInfo ? (
               <>
                 <p className="text-sm font-medium">
                   Đã chọn:
@@ -517,7 +527,7 @@ const DataTable = (params: DataTableParams) => {
             )}
 
             {params.isEditTable ||
-            params.isMultipleDelete ||
+            isShowDeleteInfo ||
             params.type === DataTableType.Student ||
             params.type === DataTableType.Teacher ? (
               <></>
@@ -851,8 +861,32 @@ const DataTable = (params: DataTableParams) => {
 
             {/* BODY */}
             <Table.Body className="text-left divide-y">
-              {filteredDataTable.map((dataItem) =>
-                dataItem.isDeleted ? (
+              {filteredDataTable.map((dataItem) => {
+                var valueUniqueInput = "";
+                switch (dataItem.type) {
+                  case "course":
+                    valueUniqueInput = (dataItem as CourseDataItem).data[
+                      "Mã lớp"
+                    ];
+                    break;
+                  case "subject":
+                    valueUniqueInput = (dataItem as SubjectDataItem).data[
+                      "Mã MH"
+                    ];
+                    break;
+                  case "student":
+                    valueUniqueInput = (dataItem as StudentDataItem).data[
+                      "MSSV"
+                    ];
+                    break;
+                  case "teacher":
+                    valueUniqueInput = (dataItem as TeacherDataItem).data[
+                      "Mã cán bộ"
+                    ];
+                    break;
+                }
+
+                return dataItem.isDeleted ? (
                   <></>
                 ) : (
                   <Row
@@ -864,7 +898,11 @@ const DataTable = (params: DataTableParams) => {
                     }
                     isEditTable={params.isEditTable}
                     isMultipleDelete={params.isMultipleDelete}
+                    valueUniqueInput={valueUniqueInput}
+                    isChecked={itemsSelected.includes(valueUniqueInput)}
+                    itemsSelected={itemsSelected}
                     onClickCheckBoxSelect={(item: string) => {
+                      console.log("item", item);
                       setItemsSelected((prev) => {
                         if (prev.includes(item)) {
                           return prev.filter((i) => i !== item);
@@ -889,22 +927,9 @@ const DataTable = (params: DataTableParams) => {
                       //   )
                       // );
                     }}
-                    saveSingleRow={(updatedDataItem: any) => {
-                      const updatedDataTable = dataTable.map((item) =>
-                        item.STT === updatedDataItem.STT
-                          ? updatedDataItem
-                          : item
-                      );
-
-                      if (params.onSaveEditTable) {
-                        params.onSaveEditTable(updatedDataTable);
-                      }
-                    }}
-                    onClickGetOut={params.onClickGetOut}
-                    deleteSingleRow={params.onClickDelete}
                   />
-                )
-              )}
+                );
+              })}
             </Table.Body>
           </Table>
         </div>
@@ -920,7 +945,7 @@ const DataTable = (params: DataTableParams) => {
           currentPage={currentPage}
           itemsPerPage={itemsPerPage}
           totalItems={totalItems}
-          onPageChange={(newPage) => setCurrentPage(newPage)} //HERE
+          onPageChange={(newPage) => setCurrentPage(newPage)}
         />
       )}
       {/* ALERT CONFIRM */}
