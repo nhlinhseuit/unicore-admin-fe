@@ -15,10 +15,19 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
   // TODO: Get API lấy tên lớp học
 
   //! CALL API để xem course này có phải có type là internCourse hay thesisCourse hay không
-  const isNotRegularCourse = false;
+  //! bản thân nó là bigExercise, nên kh có tab events
+  //! còn regular course mới có tab events có bài tập lớn và thi tập trung
+
+  //TODO: KHOA thì được tương tác với internCourse / thesisCourse (các tab của bigExercise nhưng move ra ngoài course)
+  //TODO: Còn lớp thường chỉ được giới hạn các action trong DepartmentCourseTabItems
+
+  //? !!!CẦN HANDLE: Nếu lớp thường của GV thì Khoa kh được làm action gì, chỉ vào xem (trong bigExercise có lịch sv đky đề tài bla bla)
+
+  const isNotRegularCourse = true;
+
   const renderDepartmentCourseTabItems = isNotRegularCourse
-    ? DepartmentCourseTabItems
-    : BigExerciseTabItems;
+    ? BigExerciseTabItems
+    : DepartmentCourseTabItems;
 
   return (
     <main

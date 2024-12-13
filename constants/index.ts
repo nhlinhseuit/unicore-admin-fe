@@ -61,6 +61,11 @@ export const DepartmentSubjectsTabItems = [
 export const DepartmentCourseTabItems = [
   { value: "generalPost", label: "Thông báo chung", route: "/" },
   {
+    value: "events",
+    label: "Sự kiện",
+    route: "/events",
+  },
+  {
     value: "scoreTranscript",
     label: "Bảng điểm",
     route: "/score-transcript",
