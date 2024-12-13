@@ -561,7 +561,6 @@ const CreateAnnouncement = () => {
 
           <div className="flex mt-12 gap-2">
             <SubmitButton text="Đăng" otherClasses="w-fit" />
-            <IconButton text="Tạm lưu" temp otherClasses="w-fit" />
             <IconButton text="Hủy" red otherClasses="w-fit" />
           </div>
         </form>

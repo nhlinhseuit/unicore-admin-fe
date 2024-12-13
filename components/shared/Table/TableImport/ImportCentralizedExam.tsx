@@ -250,61 +250,17 @@ export default function ImportCentralizedExam(params: Props) {
         <>
           <p className="mt-10 mb-10 paragraph-semibold">Lịch thi tập trung</p>
           <DataTable
+            isSimpleTable
             type={DataTableType.Exam}
             dataTable={dataTableCentralized}
             isEditTable={false}
             isMultipleDelete={false}
-            onClickEditTable={() => {
-              // setIsEditTable(true);
-            }}
-            onSaveEditTable={(localDataTable) => {
-              // setIsEditTable(false);
-              // // set lại data import hoặc patch API
-              // localDataTable = localDataTable as CourseDataItem[];
-              // setDataTable(localDataTable);
-            }}
-            onClickMultipleDelete={() => {
-              // setIsMultipleDelete(true);
-            }}
-            onClickDeleteAll={() => {
-              // setDataTable((prevData) => {
-              //   return prevData.map((item) => ({
-              //     ...item,
-              //     isDeleted: true,
-              //   }));
-              // });
-              // toast({
-              //   title: "Xóa thành công",
-              //   description: `Đã xóa tất cả lớp học`,
-              //   variant: "success",
-              //   duration: 3000,
-              // });
-            }}
-            onClickDelete={(itemsSelected: string[]) => {
-              // // ? DELETE THEO MÃ LỚP
-              // setDataTable((prevData) => {
-              //   return prevData.map((item) => {
-              //     if (itemsSelected.includes(item.data["Mã lớp"])) {
-              //       return {
-              //         ...item,
-              //         isDeleted: true,
-              //       };
-              //     }
-              //     return item;
-              //   });
-              // });
-              // toast({
-              //   title: "Xóa thành công",
-              //   description: `${`Các lớp ${itemsSelected.join(
-              //     ", "
-              //   )} đã được xóa.`}`,
-              //   variant: "success",
-              //   duration: 3000,
-              // });
-            }}
-            onClickGetOut={() => {
-              // setIsMultipleDelete(false);
-            }}
+            onClickEditTable={() => {}}
+            onSaveEditTable={() => {}}
+            onClickMultipleDelete={() => {}}
+            onClickDeleteAll={() => {}}
+            onClickDelete={(itemsSelected: string[]) => {}}
+            onClickGetOut={() => {}}
           />
         </>
       ) : null}
@@ -317,61 +273,17 @@ export default function ImportCentralizedExam(params: Props) {
             Lịch thi vấn đáp, đồ án
           </p>
           <DataTable
+            isSimpleTable
             type={DataTableType.Exam}
             dataTable={dataTableQAandProject}
             isEditTable={false}
             isMultipleDelete={false}
-            onClickEditTable={() => {
-              // setIsEditTable(true);
-            }}
-            onSaveEditTable={(localDataTable) => {
-              // setIsEditTable(false);
-              // // set lại data import hoặc patch API
-              // localDataTable = localDataTable as CourseDataItem[];
-              // setDataTable(localDataTable);
-            }}
-            onClickMultipleDelete={() => {
-              // setIsMultipleDelete(true);
-            }}
-            onClickDeleteAll={() => {
-              // setDataTable((prevData) => {
-              //   return prevData.map((item) => ({
-              //     ...item,
-              //     isDeleted: true,
-              //   }));
-              // });
-              // toast({
-              //   title: "Xóa thành công",
-              //   description: `Đã xóa tất cả lớp học`,
-              //   variant: "success",
-              //   duration: 3000,
-              // });
-            }}
-            onClickDelete={(itemsSelected: string[]) => {
-              // // ? DELETE THEO MÃ LỚP
-              // setDataTable((prevData) => {
-              //   return prevData.map((item) => {
-              //     if (itemsSelected.includes(item.data["Mã lớp"])) {
-              //       return {
-              //         ...item,
-              //         isDeleted: true,
-              //       };
-              //     }
-              //     return item;
-              //   });
-              // });
-              // toast({
-              //   title: "Xóa thành công",
-              //   description: `${`Các lớp ${itemsSelected.join(
-              //     ", "
-              //   )} đã được xóa.`}`,
-              //   variant: "success",
-              //   duration: 3000,
-              // });
-            }}
-            onClickGetOut={() => {
-              // setIsMultipleDelete(false);
-            }}
+            onClickEditTable={() => {}}
+            onSaveEditTable={(localDataTable) => {}}
+            onClickMultipleDelete={() => {}}
+            onClickDeleteAll={() => {}}
+            onClickDelete={(itemsSelected: string[]) => {}}
+            onClickGetOut={() => {}}
           />
         </>
       ) : null}

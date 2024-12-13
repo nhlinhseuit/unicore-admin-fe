@@ -163,7 +163,7 @@ export default function TeachersDataTable() {
 
       {isLoading ? (
         <TableSkeleton />
-      ) : dataTable.length > 0 ? (
+      ) : dataTable.filter((item) => !item.isDeleted).length > 0 ? (
         <>
           <DataTable
             type={DataTableType.Teacher}

@@ -46,6 +46,7 @@ interface DataTableParams {
   type: DataTableType;
   isEditTable: boolean;
   isMultipleDelete: boolean;
+  isSimpleTable?: boolean;
   onClickEditTable?: () => void;
   onSaveEditTable?: (localDataTable: any) => void;
   onClickMultipleDelete?: () => void;
@@ -440,196 +441,206 @@ const DataTable = (params: DataTableParams) => {
 
   return (
     <div>
-      <div className="flex flex-col items-center justify-between p-4 space-y-3 md:flex-row md:space-y-0">
-        {/* ACTION VỚI TABLE */}
-        <div className="w-full mr-3 md:w-1/2">
-          {params.isEditTable || params.isMultipleDelete ? (
-            <></>
-          ) : (
-            <TableSearch
-              setSearchTerm={(value) => setSearchTerm(value)}
-              searchTerm={searchTerm}
-            />
-          )}
-        </div>
-        <div className="flex flex-col items-stretch justify-end flex-shrink-0 w-full space-y-2 md:w-auto md:flex-row md:space-y-0 md:items-center">
-          <div className="flex items-center w-full gap-2 md:w-auto">
-            {params.isEditTable || isShowDeleteInfo ? (
+      {params.isSimpleTable ? null : (
+        <div className="flex flex-col items-center justify-between p-4 space-y-3 md:flex-row md:space-y-0">
+          {/* ACTION VỚI TABLE */}
+          <div className="w-full mr-3 md:w-1/2">
+            {params.isEditTable || params.isMultipleDelete ? (
               <></>
             ) : (
-              <IconButton
-                text={`Tạo ${params.type.toLowerCase()}`}
-                onClick={() => {}}
-                iconLeft={"/assets/icons/add.svg"}
+              <TableSearch
+                setSearchTerm={(value) => setSearchTerm(value)}
+                searchTerm={searchTerm}
               />
             )}
-
-            {params.isEditTable ? (
-              <IconButton text="Lưu" onClick={saveDataTable} />
-            ) : isShowDeleteInfo ? (
-              <>
-                <p className="text-sm font-medium">
-                  Đã chọn:
-                  <span className="font-semibold">
-                    {` ${itemsSelected.length}`}
-                  </span>
-                </p>
+          </div>
+          <div className="flex flex-col items-stretch justify-end flex-shrink-0 w-full space-y-2 md:w-auto md:flex-row md:space-y-0 md:items-center">
+            <div className="flex items-center w-full gap-2 md:w-auto">
+              {params.isEditTable || isShowDeleteInfo ? (
+                <></>
+              ) : (
                 <IconButton
-                  text="Xóa"
-                  onClick={() => {
-                    setIsShowDialog(1);
-                  }}
-                  bgColor="bg-red"
+                  text={`Tạo ${params.type.toLowerCase()}`}
+                  onClick={() => {}}
+                  iconLeft={"/assets/icons/add.svg"}
                 />
-                <IconButton
-                  text="Thoát"
-                  onClick={() => {
-                    setItemsSelected([]);
-                    params.onClickGetOut && params.onClickGetOut();
-                  }}
-                  bgColor="bg-gray-500"
-                />
-              </>
-            ) : (
-              <Dropdown
-                className="z-30 rounded-lg"
-                label=""
-                dismissOnClick={false}
-                renderTrigger={() => (
-                  <div>
-                    <IconButton
-                      text="Hành động"
-                      onClick={() => {}}
-                      iconRight={"/assets/icons/chevron-down.svg"}
-                      bgColor="bg-white"
-                      textColor="text-black"
-                      border
-                    />
-                  </div>
-                )}
-              >
-                <Dropdown.Item onClick={params.onClickEditTable}>
-                  Chỉnh sửa
-                </Dropdown.Item>
+              )}
 
-                <Dropdown.Item onClick={params.onClickMultipleDelete}>
-                  Xóa nhiều
-                </Dropdown.Item>
-
-                <Dropdown.Item
-                  onClick={() => {
-                    setIsShowDialog(2);
-                  }}
-                >
-                  Xóa tất cả
-                </Dropdown.Item>
-              </Dropdown>
-            )}
-
-            {params.isEditTable ||
-            isShowDeleteInfo ||
-            params.type === DataTableType.Student ||
-            params.type === DataTableType.Teacher ? (
-              <></>
-            ) : (
-              <Dropdown
-                className="z-30 rounded-lg"
-                label=""
-                dismissOnClick={false}
-                renderTrigger={() => (
-                  <div>
-                    <IconButton
-                      text="Bộ lọc"
-                      iconLeft={
-                        typeFilter === FilterType.None
-                          ? "/assets/icons/filter.svg"
-                          : "/assets/icons/filter_active.svg"
-                      }
-                      iconRight={"/assets/icons/chevron-down.svg"}
-                      bgColor="bg-white"
-                      textColor="text-black"
-                      border
-                      isFilter={typeFilter === FilterType.DetailFilter}
-                    />
-                  </div>
-                )}
-              >
-                <Dropdown.Header>
-                  <span
+              {params.isEditTable ? (
+                <IconButton text="Lưu" onClick={saveDataTable} />
+              ) : isShowDeleteInfo ? (
+                <>
+                  <p className="text-sm font-medium">
+                    Đã chọn:
+                    <span className="font-semibold">
+                      {` ${itemsSelected.length}`}
+                    </span>
+                  </p>
+                  <IconButton
+                    text="Xóa"
                     onClick={() => {
-                      cancelDetailFilter();
-                      handleChooseFilter(FilterType.None);
+                      setIsShowDialog(1);
                     }}
-                    className="block text-sm font-medium truncate cursor-pointer"
-                  >
-                    Bỏ bộ lọc
-                  </span>
-                </Dropdown.Header>
-                <ul className="text-sm " aria-labelledby="filterDropdownButton">
-                  <li className="flex items-center justify-start w-full px-4 py-2 text-sm text-gray-700 focus:outline-none ">
-                    <input
-                      checked={typeFilter === FilterType.SortNewer}
-                      id="SortNewer"
-                      type="radio"
-                      name="filterOptions"
-                      value={FilterType.SortNewer}
-                      onChange={() => handleChooseFilter(FilterType.SortNewer)}
-                      className="w-4 h-4 bg-gray-100 border-gray-300 rounded cursor-pointer text-primary-600"
-                    />
-                    <label
-                      htmlFor="SortNewer"
-                      className="ml-2 text-sm font-medium text-gray-900 cursor-pointer dark:text-gray-100"
-                    >
-                      Mới nhất
-                    </label>
-                  </li>
+                    bgColor="bg-red"
+                  />
+                  <IconButton
+                    text="Thoát"
+                    onClick={() => {
+                      setItemsSelected([]);
+                      params.onClickGetOut && params.onClickGetOut();
+                    }}
+                    bgColor="bg-gray-500"
+                  />
+                </>
+              ) : (
+                <Dropdown
+                  className="z-30 rounded-lg"
+                  label=""
+                  dismissOnClick={false}
+                  renderTrigger={() => (
+                    <div>
+                      <IconButton
+                        text="Hành động"
+                        onClick={() => {}}
+                        iconRight={"/assets/icons/chevron-down.svg"}
+                        bgColor="bg-white"
+                        textColor="text-black"
+                        border
+                      />
+                    </div>
+                  )}
+                >
+                  <Dropdown.Item onClick={params.onClickEditTable}>
+                    Chỉnh sửa
+                  </Dropdown.Item>
 
-                  <li className="flex items-center justify-start w-full px-4 py-2 text-sm text-gray-700 focus:outline-none ">
-                    <input
-                      checked={typeFilter === FilterType.SortOlder}
-                      id="SortOlder"
-                      type="radio"
-                      name="filterOptions"
-                      value={FilterType.SortOlder}
-                      onChange={() => handleChooseFilter(FilterType.SortOlder)}
-                      className="w-4 h-4 bg-gray-100 border-gray-300 rounded cursor-pointer text-primary-600"
-                    />
-                    <label
-                      htmlFor="SortOlder"
-                      className="ml-2 text-sm font-medium text-gray-900 cursor-pointer dark:text-gray-100"
+                  <Dropdown.Item onClick={params.onClickMultipleDelete}>
+                    Xóa nhiều
+                  </Dropdown.Item>
+
+                  <Dropdown.Item
+                    onClick={() => {
+                      setIsShowDialog(2);
+                    }}
+                  >
+                    Xóa tất cả
+                  </Dropdown.Item>
+                </Dropdown>
+              )}
+
+              {params.isEditTable ||
+              isShowDeleteInfo ||
+              params.type === DataTableType.Student ||
+              params.type === DataTableType.Teacher ? (
+                <></>
+              ) : (
+                <Dropdown
+                  className="z-30 rounded-lg"
+                  label=""
+                  dismissOnClick={false}
+                  renderTrigger={() => (
+                    <div>
+                      <IconButton
+                        text="Bộ lọc"
+                        iconLeft={
+                          typeFilter === FilterType.None
+                            ? "/assets/icons/filter.svg"
+                            : "/assets/icons/filter_active.svg"
+                        }
+                        iconRight={"/assets/icons/chevron-down.svg"}
+                        bgColor="bg-white"
+                        textColor="text-black"
+                        border
+                        isFilter={typeFilter === FilterType.DetailFilter}
+                      />
+                    </div>
+                  )}
+                >
+                  <Dropdown.Header>
+                    <span
+                      onClick={() => {
+                        cancelDetailFilter();
+                        handleChooseFilter(FilterType.None);
+                      }}
+                      className="block text-sm font-medium truncate cursor-pointer"
                     >
-                      Cũ nhất
-                    </label>
-                  </li>
-                  {params.type !== DataTableType.Subject ? (
-                    <li className="flex items-center justify-start w-full px-4 py-2 text-sm text-gray-700 focus:outline-none">
+                      Bỏ bộ lọc
+                    </span>
+                  </Dropdown.Header>
+                  <ul
+                    className="text-sm "
+                    aria-labelledby="filterDropdownButton"
+                  >
+                    <li className="flex items-center justify-start w-full px-4 py-2 text-sm text-gray-700 focus:outline-none ">
                       <input
-                        checked={typeFilter === FilterType.DetailFilter}
-                        id="DetailFilter"
+                        checked={typeFilter === FilterType.SortNewer}
+                        id="SortNewer"
                         type="radio"
                         name="filterOptions"
-                        value={FilterType.DetailFilter}
+                        value={FilterType.SortNewer}
                         onChange={() =>
-                          handleChooseFilter(FilterType.DetailFilter)
+                          handleChooseFilter(FilterType.SortNewer)
                         }
                         className="w-4 h-4 bg-gray-100 border-gray-300 rounded cursor-pointer text-primary-600"
                       />
                       <label
-                        htmlFor="DetailFilter"
+                        htmlFor="SortNewer"
                         className="ml-2 text-sm font-medium text-gray-900 cursor-pointer dark:text-gray-100"
                       >
-                        Bộ lọc chi tiết
+                        Mới nhất
                       </label>
                     </li>
-                  ) : (
-                    <></>
-                  )}
-                </ul>
-              </Dropdown>
-            )}
+
+                    <li className="flex items-center justify-start w-full px-4 py-2 text-sm text-gray-700 focus:outline-none ">
+                      <input
+                        checked={typeFilter === FilterType.SortOlder}
+                        id="SortOlder"
+                        type="radio"
+                        name="filterOptions"
+                        value={FilterType.SortOlder}
+                        onChange={() =>
+                          handleChooseFilter(FilterType.SortOlder)
+                        }
+                        className="w-4 h-4 bg-gray-100 border-gray-300 rounded cursor-pointer text-primary-600"
+                      />
+                      <label
+                        htmlFor="SortOlder"
+                        className="ml-2 text-sm font-medium text-gray-900 cursor-pointer dark:text-gray-100"
+                      >
+                        Cũ nhất
+                      </label>
+                    </li>
+                    {params.type !== DataTableType.Subject ? (
+                      <li className="flex items-center justify-start w-full px-4 py-2 text-sm text-gray-700 focus:outline-none">
+                        <input
+                          checked={typeFilter === FilterType.DetailFilter}
+                          id="DetailFilter"
+                          type="radio"
+                          name="filterOptions"
+                          value={FilterType.DetailFilter}
+                          onChange={() =>
+                            handleChooseFilter(FilterType.DetailFilter)
+                          }
+                          className="w-4 h-4 bg-gray-100 border-gray-300 rounded cursor-pointer text-primary-600"
+                        />
+                        <label
+                          htmlFor="DetailFilter"
+                          className="ml-2 text-sm font-medium text-gray-900 cursor-pointer dark:text-gray-100"
+                        >
+                          Bộ lọc chi tiết
+                        </label>
+                      </li>
+                    ) : (
+                      <></>
+                    )}
+                  </ul>
+                </Dropdown>
+              )}
+            </div>
           </div>
         </div>
-      </div>
+      )}
+
       {/* DETAIL FILTER typeFilter */}
       {params.type !== DataTableType.Subject &&
         typeFilter === FilterType.DetailFilter && (
@@ -836,10 +847,12 @@ const DataTable = (params: DataTableParams) => {
               theme={tableTheme?.head}
               className="sticky top-0 z-10 uppercase border-b bg-gray"
             >
-              <Table.HeadCell
-                theme={tableTheme?.head?.cell}
-                className={`border-r-[1px] uppercase`}
-              ></Table.HeadCell>
+              {params.isSimpleTable ? null : (
+                <Table.HeadCell
+                  theme={tableTheme?.head?.cell}
+                  className={`border-r-[1px] uppercase`}
+                ></Table.HeadCell>
+              )}
 
               <Table.HeadCell
                 theme={tableTheme?.head?.cell}
@@ -891,6 +904,7 @@ const DataTable = (params: DataTableParams) => {
                 ) : (
                   <Row
                     key={dataItem.STT}
+                    isSimpleTable={params.isSimpleTable}
                     dataItem={dataItem}
                     isHasSubCourses={
                       params.type === DataTableType.Course &&

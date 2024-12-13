@@ -1,8 +1,22 @@
 import { BADGE_CRITERIA } from "@/constants";
 
+//TODO: reviewer-thesis-report
+
+export interface ReviewTopicDataItem {
+   id: string;
+   isReviewd: int,
+   nameTopic: string;
+   supervisor: string[];
+   studentIds: string[];
+   studentNames: string[];
+   council: string;
+   councilInfo: string;
+   reviewTeachers: string[];
+}
+
 // TODO: PAGE INTERFACE
 
-interface ReportDataOption {
+export interface ReportDataOption {
   id: number;
   dateSchedule: Date | undefined;
   timeSchedule: string;

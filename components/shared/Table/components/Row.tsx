@@ -26,6 +26,7 @@ interface RowParams {
   isChecked: boolean;
   itemsSelected: string[];
   valueUniqueInput: string;
+  isSimpleTable?: boolean;
   isEditTable?: boolean;
   isMultipleDelete?: boolean;
   isHasSubCourses?: boolean;
@@ -225,7 +226,7 @@ const Row = React.memo(
       }
     };
 
-    console.log('Row')
+    console.log("Row");
 
     return (
       <Table.Row
@@ -238,19 +239,22 @@ const Row = React.memo(
         } duration-100`}
       >
         {/* checkbox */}
-        <Table.Cell className="w-10 border-r-[1px] z-100 ">
-          <div
-            onClick={(e) => {
-              e.stopPropagation(); // Ngăn sự kiện lan truyền đến Table.Row
-            }}
-          >
+        {params.isSimpleTable ? null : (
+          <Table.Cell className="w-10 border-r-[1px] z-100 ">
+            <div
+              onClick={(e) => {
+                e.stopPropagation(); // Ngăn sự kiện lan truyền đến Table.Row
+              }}
+            >
               <div className="flex items-center justify-center w-10 h-10">
                 <input
                   id="apple"
                   type="checkbox"
                   name="filterOptions"
                   value={params.valueUniqueInput}
-                  checked={params.itemsSelected.includes(params.valueUniqueInput)}
+                  checked={params.itemsSelected.includes(
+                    params.valueUniqueInput
+                  )}
                   onChange={() => {
                     {
                       params.onClickCheckBoxSelect &&
@@ -260,8 +264,9 @@ const Row = React.memo(
                   className="w-4 h-4 bg-gray-100 border-gray-300 rounded cursor-pointer text-primary-600"
                 />
               </div>
-          </div>
-        </Table.Cell>
+            </div>
+          </Table.Cell>
+        )}
 
         {/* STT */}
         <Table.Cell className="w-10 border-r-[1px]  text-left">
@@ -288,7 +293,7 @@ const Row = React.memo(
               keyId = data.data["MSSV"];
 
               break;
-            case "student":
+            case "teacher":
               data = params.dataItem as TeacherDataItem;
               keyId = data.data["Mã cán bộ"];
 

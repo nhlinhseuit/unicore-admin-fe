@@ -1,7 +1,7 @@
 "use client";
 
 import NavbarButton from "@/components/shared/NavbarButton";
-import { TeacherScoreReportTabItems } from "@/constants";
+import { DepartmentScoreReportTabItems } from "@/constants";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import React from "react";
@@ -32,9 +32,14 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
           mt-2 border-b border-gray
           "
       >
-        {TeacherScoreReportTabItems.map((item) => {
+        {DepartmentScoreReportTabItems.map((item) => {
+          console.log('pathName', pathName)
+          console.log('item.route', item.route)
+          
+          console.log('pathName.includes(`/${item.route}`)', pathName.includes(`/${item.route}`))
+
           const isActive =
-            pathName === item.route || pathName.includes(`/${item.route}`);
+            pathName === item.route || pathName.includes(`${item.route}`);
 
           return (
             <Link key={item.route} href={item.route}>
@@ -43,6 +48,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
           );
         })}
       </div>
+
       <section>
         <div className="w-full">{children}</div>
       </section>

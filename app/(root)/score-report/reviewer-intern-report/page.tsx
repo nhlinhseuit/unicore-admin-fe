@@ -1,11 +1,12 @@
 "use client";
 
-import IconButton from "@/components/shared/Button/IconButton";
 import InternTopicGradeTable from "@/components/shared/ScoreReport/InternTopicGradeTable";
 import TitleDescription from "@/components/shared/TitleDescription";
 import { mockInternReviewDetail } from "@/mocks";
+import { useState } from "react";
 
 const ReviewerInternReport = () => {
+  const [isEditTable, setIsEditTable] = useState(true);
   return (
     <>
       <TitleDescription
@@ -13,13 +14,15 @@ const ReviewerInternReport = () => {
         description={["Thời hạn: 7/12/2024 - 28/12/2024"]}
       />
 
-      <div className="flex justify-end mb-4">
-        <IconButton text="Lưu" />
-      </div>
-
       <InternTopicGradeTable
         dataTable={mockInternReviewDetail}
-        isEditTable={true}
+        isEditTable={isEditTable}
+        handleSaveTable={() => {
+          setIsEditTable(false);
+        }}
+        handleEditTable={() => {
+          setIsEditTable(true);
+        }}
       />
     </>
   );

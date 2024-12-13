@@ -20,6 +20,17 @@ export const ALLOWED_FILE_TYPES = [
 ];
 export const MAX_CATEGORIES = 5; // Số danh mục tối đa chọn khi đăng thông báo
 
+export const statusThesis = [
+  { id: 1, value: "Đạt" },
+  { id: 2, value: "Không đạt" },
+];
+export const ratingThesis = [
+  { id: 1, value: "Xuất sắc" },
+  { id: 2, value: "Giỏi" },
+  { id: 3, value: "Khá" },
+  { id: 4, value: "Trung bình" },
+];
+
 // TODO: NAVBAR TAB
 export const DepartmentAnnouncementsTabItems = [
   { value: "listAnnouncements", label: "Danh sách thông báo", route: "/" },
@@ -37,7 +48,6 @@ export const DepartmentCoursesTabItems = [
     label: "Lớp học đã tham gia",
     route: "/courses/joined",
   },
-  { value: "createCourse", label: "Tạo lớp học", route: "/courses/create" },
 ];
 
 export const DepartmentSettingTabItems = [
@@ -46,7 +56,6 @@ export const DepartmentSettingTabItems = [
 
 export const DepartmentSubjectsTabItems = [
   { value: "listSubjects", label: "Danh sách môn học", route: "/subjects" },
-  { value: "subjectTypes", label: "Loại môn học", route: "/subjects/types" },
 ];
 
 export const DepartmentCourseTabItems = [
@@ -151,23 +160,9 @@ export const DepartmentScoreReportTabItems = [
   },
 ];
 
-export const TeacherScoreReportTabItems = [
-  {
-    value: "scoreThesisReport",
-    label: "Phản biện KLTN",
-    route: "/score-report/reviewer-thesis-report",
-  },
-  {
-    value: "scoreInternReport",
-    label: "Thực tập doanh nghiệp",
-    route: "/score-report/reviewer-intern-report",
-  },
-];
-
 export const ReviewThesisFilterType = [
-  { id: 1, value: "Tất cả" },
-  { id: 2, value: "Đã nhận xét" },
-  { id: 3, value: "Chưa nhận xét" },
+  { id: 0, value: "Đề tài chưa nhận xét" },
+  { id: 1, value: "Đề tài đã nhận xét" },
 ];
 
 export enum DetailFilter {

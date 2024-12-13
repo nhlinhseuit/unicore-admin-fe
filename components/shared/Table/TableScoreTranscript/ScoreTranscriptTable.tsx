@@ -1,17 +1,5 @@
-import {
-  AlertDialogFooter,
-  AlertDialogHeader,
-} from "@/components/ui/alert-dialog";
 import { itemsPerPageRegisterTable } from "@/constants";
 import { GradeColumnPercentDataItem, ScoreTranscriptDataItem } from "@/types";
-import {
-  AlertDialog,
-  AlertDialogAction,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogTitle,
-} from "@radix-ui/react-alert-dialog";
 import { Table } from "flowbite-react";
 import { useMemo, useState } from "react";
 import NoResult from "../../Status/NoResult";
@@ -20,8 +8,6 @@ import MyFooter from "../components/MyFooter";
 import RowScoreTranscriptTable from "./RowScoreTranscriptTable";
 
 interface DataTableParams {
-  isEditTable: boolean;
-  isMultipleDelete: boolean;
   dataTable: ScoreTranscriptDataItem[];
   dataGradeColumnPercent: GradeColumnPercentDataItem;
   viewDetailGradeColumn: () => void;
@@ -32,11 +18,7 @@ const ScoreTranscriptTable = (params: DataTableParams) => {
     return params.dataTable.filter((dataItem) => dataItem.isDeleted !== true);
   }, [params.dataTable]);
 
-  const [itemsSelected, setItemsSelected] = useState<string[]>([]);
-  const [isShowDialog, setIsShowDialog] = useState(-1);
-
   const [currentPage, setCurrentPage] = useState(1);
-  const [isShowFooter, setIsShowFooter] = useState(true);
   const totalItems = dataTable.length;
 
   const currentItems = useMemo(() => {
@@ -53,7 +35,6 @@ const ScoreTranscriptTable = (params: DataTableParams) => {
     let filteredData;
 
     filteredData = currentItems;
-    setIsShowFooter(true);
     setFilteredDataTable(filteredData);
   };
 
@@ -83,11 +64,6 @@ const ScoreTranscriptTable = (params: DataTableParams) => {
               theme={tableTheme?.head}
               className="sticky top-0 z-10 uppercase border-b bg-gray"
             >
-              <Table.HeadCell
-                theme={tableTheme?.head?.cell}
-                className={`border-r-[1px] uppercase`}
-              ></Table.HeadCell>
-
               <Table.HeadCell
                 theme={tableTheme?.head?.cell}
                 className={` w-10 border-r-[1px] uppercase`}
@@ -132,26 +108,6 @@ const ScoreTranscriptTable = (params: DataTableParams) => {
                   <RowScoreTranscriptTable
                     key={dataItem.STT}
                     dataItem={dataItem}
-                    isEditTable={params.isEditTable}
-                    isMultipleDelete={params.isMultipleDelete}
-                    onClickCheckBoxSelect={(item: string) => {
-                      //   setItemsSelected((prev) => {
-                      //   if (prev.includes(item)) {
-                      //     return prev.filter((i) => i !== item);
-                      //   } else {
-                      //     return [...prev, item];
-                      //   }
-                      // });
-                    }}
-                    onChangeRow={(updatedDataItem: any) => {
-                      //   setLocalDataTable((prevTable) =>
-                      //     prevTable.map((item) =>
-                      //       item.STT === updatedDataItem.STT
-                      //         ? updatedDataItem
-                      //         : item
-                      //     )
-                      //   );
-                    }}
                     viewDetailGradeColumn={params.viewDetailGradeColumn}
                   />
                 )
@@ -162,59 +118,12 @@ const ScoreTranscriptTable = (params: DataTableParams) => {
       )}
 
       {/* FOOTER */}
-      {!isShowFooter || params.isEditTable || params.isMultipleDelete ? (
-        <></>
-      ) : (
-        <MyFooter
-          currentPage={currentPage}
-          itemsPerPage={itemsPerPageRegisterTable}
-          totalItems={totalItems}
-          onPageChange={(newPage) => setCurrentPage(newPage)}
-        />
-      )}
-
-      {/* ALERT CONFIRM */}
-      {isShowDialog !== -1 ? (
-        <AlertDialog open={isShowDialog !== -1}>
-          <AlertDialogContent>
-            <AlertDialogHeader>
-              <AlertDialogTitle>Bạn có chắc chắn muốn xóa?</AlertDialogTitle>
-              <AlertDialogDescription>
-                Thao tác này không thể hoàn tác, dữ liệu của bạn sẽ bị xóa vĩnh
-                viễn và không thể khôi phục.
-              </AlertDialogDescription>
-            </AlertDialogHeader>
-            <AlertDialogFooter>
-              <AlertDialogCancel
-                onClick={() => {
-                  setIsShowDialog(-1);
-                  setItemsSelected([]);
-                  // params.onClickGetOut && params.onClickGetOut();
-                }}
-              >
-                Hủy
-              </AlertDialogCancel>
-              <AlertDialogAction
-                onClick={() => {
-                  setItemsSelected([]);
-                  // params.onClickGetOut && params.onClickGetOut();
-                  // if (isShowDialog === 1) {
-                  //   params.onClickDelete && params.onClickDelete(itemsSelected);
-                  // } else if (isShowDialog === 2) {
-                  //   params.onClickDeleteAll && params.onClickDeleteAll();
-                  // }
-                  setIsShowDialog(-1);
-                }}
-                className="bg-primary-500 hover:bg-primary-500/90"
-              >
-                Đồng ý
-              </AlertDialogAction>
-            </AlertDialogFooter>
-          </AlertDialogContent>
-        </AlertDialog>
-      ) : (
-        <></>
-      )}
+      <MyFooter
+        currentPage={currentPage}
+        itemsPerPage={itemsPerPageRegisterTable}
+        totalItems={totalItems}
+        onPageChange={(newPage) => setCurrentPage(newPage)}
+      />
     </div>
   );
 };

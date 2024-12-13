@@ -2263,38 +2263,85 @@ export const mockDataOfficerPermissions = [
 ];
 
 //
-// TODO: Thesis Review Detail
-//
-export const mockThesisCommentTickets = [
-  {
-    id: "1",
-    reviewer: "Nguyễn Thị Thanh Trúc",
-  },
-  {
-    id: "2",
-    reviewer: "Đặng Việt Dũng",
-  },
-];
-
-//
 // TODO: Thesis Course Review
 //
-export const mockThesisCourseReview = [
+export const mockThesisReviewTopic = [
   {
     id: "1",
-    name: "Ứng dụng quản lý môn học",
-    supervisor: "Huỳnh Hồ Thị Mộng Trinh",
-    studentIds: ["21522289", "21521087"],
-    names: ["Nguyễn Tiến Vĩ", "Võ Hữu"],
-    reportAt: "29/8/2024 7:23AM",
+    isReviewd: 0,
+    nameTopic:
+      "Nghiên cứu giải thuật khuyến nghị và kĩ thuật livestream ứng dụng vào hệ thống thương mại điện tử",
+    supervisor: ["Đỗ Thị Thanh Tuyền", "Nguyễn Tấn Toàn"],
+    studentIds: ["20521785", "20521761"],
+    studentNames: ["Đặng Hồ Anh Quân", "Lê Hoàng Phúc"],
+    council: "Hội đồng 1",
+    councilInfo: "8h00 sáng thứ 3 ngày 30/07/2024 tại phòng E4.1",
+    reviewTeachers: [
+      "Đỗ Trọng Hợp",
+      "Trần Thị Hồng Yến",
+      "Nguyễn Thị Thanh Trúc",
+    ],
   },
   {
     id: "2",
-    name: "Ứng dụng chia sẻ hình ảnh",
-    supervisor: "Huỳnh Hồ Thị Mộng Trinh",
+    isReviewd: 1,
+    nameTopic: "Ứng dụng chia sẻ hình ảnh",
+    supervisor: ["Huỳnh Hồ Thị Mộng Trinh"],
     studentIds: ["21522289", "21521087"],
-    names: ["Nguyễn Hoàng Linh", "Lê Thành Lộc"],
-    reportAt: "29/8/2024 7:23AM",
+    studentNames: ["Nguyễn Hoàng Linh", "Lê Thành Lộc"],
+    council: "Hội đồng 1",
+    councilInfo: "8h00 sáng thứ 3 ngày 30/07/2024 tại phòng E4.1",
+    reviewTeachers: [
+      "Đỗ Trọng Hợp",
+      "Trần Thị Hồng Yến",
+      "Nguyễn Thị Thanh Trúc",
+    ],
+  },
+  {
+    id: "3",
+    isReviewd: 0,
+    nameTopic:
+      "Nghiên cứu các thuật toán và ứng dụng phát triển Game 3D với hệ thống AI NPC",
+    supervisor: ["Nguyễn Thị Xuân Hương", "Nguyễn Thị Thanh Trúc"],
+    studentIds: ["20521785", "20521761"],
+    studentNames: ["Đặng Hồ Anh Quân", "Lê Hoàng Phúc"],
+    council: "Hội đồng 2",
+    councilInfo: "8h00 sáng thứ 3 ngày 30/07/2024 tại phòng E4.2",
+    reviewTeachers: [
+      "Đỗ Trọng Hợp",
+      "Trần Thị Hồng Yến",
+      "Nguyễn Thị Thanh Trúc",
+    ],
+  },
+  {
+    id: "4",
+    isReviewd: 0,
+    nameTopic: "Thiết kế hệ thống hỏi đáp về du lịch",
+    supervisor: ["Nguyễn Đình Hiển", "Huỳnh Tuấn Anh"],
+    studentIds: ["21522289", "21521087"],
+    studentNames: ["Nguyễn Hoàng Linh", "Lê Thành Lộc"],
+    council: "Hội đồng 2",
+    councilInfo: "8h00 sáng thứ 3 ngày 30/07/2024 tại phòng E4.2",
+    reviewTeachers: [
+      "Đỗ Trọng Hợp",
+      "Trần Thị Hồng Yến",
+      "Nguyễn Thị Thanh Trúc",
+    ],
+  },
+  {
+    id: "5",
+    isReviewd: 1,
+    nameTopic: "Thiết kế hệ thống hỏi đáp về du lịch",
+    supervisor: ["Đỗ Thị Thanh Tuyền", "Đỗ Thị Thanh Tuyền"],
+    studentIds: ["20520727", "20521318"],
+    studentNames: ["Lê Hoàng Quý", "Huỳnh Trung Hiếu"],
+    council: "Hội đồng 2",
+    councilInfo: "8h00 sáng thứ 3 ngày 30/07/2024 tại phòng E4.2",
+    reviewTeachers: [
+      "Đỗ Trọng Hợp",
+      "Trần Thị Hồng Yến",
+      "Nguyễn Thị Thanh Trúc",
+    ],
   },
 ];
 
@@ -2314,7 +2361,7 @@ export const mockInternReviewDetail = [
         "Đặng Việt Dũng",
         " Nguyễn Thị Thanh Trúc",
       ],
-      Điểm: ["", "", ""],
+      Điểm: ["8", "8", "8"],
     },
   },
   {
@@ -2329,7 +2376,7 @@ export const mockInternReviewDetail = [
         "Đặng Việt Dũng",
         " Nguyễn Thị Thanh Trúc",
       ],
-      Điểm: ["", "", ""],
+      Điểm: ["9", "9", "9"],
     },
   },
   {
@@ -2344,7 +2391,7 @@ export const mockInternReviewDetail = [
         "Đặng Việt Dũng",
         " Nguyễn Thị Thanh Trúc",
       ],
-      Điểm: ["", "", ""],
+      Điểm: ["7", "8", "9"],
     },
   },
   {
@@ -2359,7 +2406,7 @@ export const mockInternReviewDetail = [
         "Đặng Việt Dũng",
         " Nguyễn Thị Thanh Trúc",
       ],
-      Điểm: ["", "", ""],
+      Điểm: ["6", "6", "6"],
     },
   },
 ];
