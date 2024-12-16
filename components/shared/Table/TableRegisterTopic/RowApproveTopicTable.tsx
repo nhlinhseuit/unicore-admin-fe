@@ -15,11 +15,8 @@ import MoreButtonComponent from "../components/MoreButtonComponent";
 interface RowParams {
   type: RegisterTopicTableType;
   dataItem: RegisterTopicDataItem;
-  isEditTable?: boolean;
-  isMultipleDelete?: boolean;
   isHasSubCourses?: boolean;
   onClickCheckBoxSelect?: (item: string) => void;
-  onChangeRow?: (item: any) => void;
 }
 interface handleInputChangeParams {
   key:
@@ -35,39 +32,6 @@ interface handleInputChangeParams {
 
 const RowApproveTopicTable = React.memo(
   (params: RowParams) => {
-    const [editDataItem, setEditDataItem] = useState(params.dataItem);
-
-    const refInput = useRef({});
-
-    const handleInputChange = ({
-      key,
-      newValue,
-      isMultipleInput,
-      currentIndex,
-      isCheckbox,
-    }: handleInputChangeParams) => {
-      //@ts-ignore
-      const updatedDataItem: RegisterTopicDataItem = {
-        ...editDataItem,
-        data: {
-          ...editDataItem.data,
-          [key]: isMultipleInput
-            ? //@ts-ignore
-              (editDataItem.data[key] as string)
-                .split(/\r\n|\n/)
-                .map((line, index) =>
-                  index === currentIndex ? newValue : line
-                )
-                .join("\r\n")
-            : newValue,
-        },
-      };
-
-      // setEditDataItem(updatedDataItem); // ??
-
-      params.onChangeRow && params.onChangeRow(updatedDataItem); // Gọi callback để truyền dữ liệu đã chỉnh sửa lên DataTable
-    };
-
     var valueUniqueInput = params.dataItem.data["Mã nhóm"];
 
     const renderCellValue = ({
@@ -186,11 +150,9 @@ const RowApproveTopicTable = React.memo(
       <Table.Row
         key={params.dataItem.STT}
         onClick={() => {}}
-        className={`bg-background-secondary  text-left ${
-          params.isEditTable
-            ? "hover:bg-white cursor-default"
-            : "hover:bg-light-800 cursor-default"
-        } duration-100`}
+        className={`bg-background-secondary  text-left 
+          hover:bg-light-800 cursor-default
+         duration-100`}
       >
         {/* checkbox */}
         <Table.Cell className="w-10 border-r-[1px] z-100 ">
@@ -199,23 +161,21 @@ const RowApproveTopicTable = React.memo(
               e.stopPropagation(); // Ngăn sự kiện lan truyền đến Table.RowApproveTopicTable
             }}
           >
-            {params.isMultipleDelete ? (
-              <div className="flex items-center justify-center w-10 h-10">
-                <input
-                  id="apple"
-                  type="checkbox"
-                  name="filterOptions"
-                  value={valueUniqueInput}
-                  onChange={() => {
-                    {
-                      params.onClickCheckBoxSelect &&
-                        params.onClickCheckBoxSelect(valueUniqueInput);
-                    }
-                  }}
-                  className="w-4 h-4 bg-gray-100 border-gray-300 rounded cursor-pointer text-primary-600"
-                />
-              </div>
-            ) : null}
+            <div className="flex items-center justify-center w-10 h-10">
+              <input
+                id="apple"
+                type="checkbox"
+                name="filterOptions"
+                value={valueUniqueInput}
+                onChange={() => {
+                  {
+                    params.onClickCheckBoxSelect &&
+                      params.onClickCheckBoxSelect(valueUniqueInput);
+                  }
+                }}
+                className="w-4 h-4 bg-gray-100 border-gray-300 rounded cursor-pointer text-primary-600"
+              />
+            </div>
           </div>
         </Table.Cell>
 
@@ -239,11 +199,7 @@ const RowApproveTopicTable = React.memo(
   },
   (prevProps, nextProps) => {
     // Kiểm tra nếu `dataItem` của RowApproveTopicTable không thay đổi thì không cần re-render
-    return (
-      prevProps.dataItem === nextProps.dataItem &&
-      prevProps.isEditTable === nextProps.isEditTable &&
-      prevProps.isMultipleDelete === nextProps.isMultipleDelete
-    );
+    return prevProps.dataItem === nextProps.dataItem;
   }
 );
 

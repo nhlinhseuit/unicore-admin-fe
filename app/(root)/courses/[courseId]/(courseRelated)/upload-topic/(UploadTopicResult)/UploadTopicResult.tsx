@@ -4,9 +4,9 @@ import TopicGroupTable from "@/components/shared/Table/TableTopic/TopicDataTable
 import { mockTopicDataTable } from "@/mocks";
 import { useState } from "react";
 
+import NoResult from "@/components/shared/Status/NoResult";
 import { toast } from "@/hooks/use-toast";
 import { TopicDataItem } from "@/types";
-import NoResult from "@/components/shared/Status/NoResult";
 
 const UploadTopicResult = () => {
   const [isEditTable, setIsEditTable] = useState(false);

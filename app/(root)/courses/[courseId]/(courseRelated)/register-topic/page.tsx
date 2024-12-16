@@ -33,11 +33,11 @@ import { CalendarIcon } from "lucide-react";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 
+import NoResult from "@/components/shared/Status/NoResult";
+import { RegisterTopicDataItem } from "@/types";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import { RegisterTopicDataItem } from "@/types";
-import NoResult from "@/components/shared/Status/NoResult";
 
 const RegisterTopic = () => {
   const router = useRouter();

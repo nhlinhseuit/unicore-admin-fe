@@ -17,19 +17,13 @@ import { tableTheme } from "../components/DataTable";
 import RowRegisterTopicTable from "./RowRegisterTopicTable";
 
 import { RegisterTopicTableType, itemsPerPageRegisterTable } from "@/constants";
-import { toast } from "@/hooks/use-toast";
-import { mockTeacherList } from "@/mocks";
 import { Dropdown } from "flowbite-react";
-import Image from "next/image";
 import IconButton from "../../Button/IconButton";
-import SubmitButton from "../../Button/SubmitButton";
 import MyFooter from "../components/MyFooter";
 
-import BorderContainer from "../../BorderContainer";
-import TableSearch from "../../Search/TableSearch";
-import TextAreaComponent from "../../TextAreaComponent";
-import useSetDebounceSearchTerm from "@/hooks/table/useSetDebounceSearchTerm";
 import useDebounceSearchDataTable from "@/hooks/table/useDebounceSearchDataTable";
+import useSetDebounceSearchTerm from "@/hooks/table/useSetDebounceSearchTerm";
+import TableSearch from "../../Search/TableSearch";
 
 interface DataTableParams {
   type: RegisterTopicTableType;
@@ -51,9 +45,6 @@ const RegisterTopicTable = (params: DataTableParams) => {
   }, [params.dataTable]);
 
   const [itemsSelected, setItemsSelected] = useState<string[]>([]);
-  const [selectedTeacher, setSelectedTeacher] = useState(1);
-
-  const [feedback, setFeedback] = useState("");
   const [isShowDialog, setIsShowDialog] = useState(-1);
 
   const [currentPage, setCurrentPage] = useState(1);

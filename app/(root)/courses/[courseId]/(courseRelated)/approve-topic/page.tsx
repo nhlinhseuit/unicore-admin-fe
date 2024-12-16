@@ -1,10 +1,9 @@
 "use client";
 
 import IconButton from "@/components/shared/Button/IconButton";
+import NoResult from "@/components/shared/Status/NoResult";
 import ApproveTopicTable from "@/components/shared/Table/TableRegisterTopic/ApproveTopicTable";
-import RegisterTopicTable from "@/components/shared/Table/TableRegisterTopic/RegisterTopicTable";
 import { RegisterTopicTableType } from "@/constants";
-import { mockDataStudentRegisterTopic, } from "@/mocks";
 import {
   mockApproveTopicOptions,
   mockDataAllAppproveTopic,
@@ -14,7 +13,7 @@ import {
 } from "@/mocks";
 import { Dropdown } from "flowbite-react";
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const ApproveTopic = () => {
   const [selectedApproveTopicOption, setSelectedApproveTopicOption] =
@@ -35,9 +34,22 @@ const ApproveTopic = () => {
     }
   };
 
+  const [renderDataTable, setRenderDataTable] = useState(getDataTable());
+
+  useEffect(() => {
+    setRenderDataTable(getDataTable());
+  }, [selectedApproveTopicOption]);
+
+  const onSaveTable = (itemsSelected: string[]) => {
+    const updatedTable = renderDataTable.filter(
+      (item) => !itemsSelected.includes(item.data["Mã nhóm"])
+    );
+    setRenderDataTable(updatedTable);
+  };
+
   return (
     <>
-    <div className="mb-6 flex justify-start ml-10 w-1/2 items-center gap-4">
+      <div className="mb-6 flex justify-start ml-10 w-1/2 items-center gap-4">
         <p className="inline-flex justify-start text-sm whitespace-nowrap">
           Bộ lọc
         </p>
@@ -95,12 +107,20 @@ const ApproveTopic = () => {
         </Dropdown>
       </div>
 
-      <ApproveTopicTable
-        type={RegisterTopicTableType.approveTopic}
-        isEditTable={false}
-        isMultipleDelete={false}
-        dataTable={getDataTable()}
-      />
+      {renderDataTable.filter((item) => !item.isDeleted).length > 0 ? (
+        <ApproveTopicTable
+          type={RegisterTopicTableType.approveTopic}
+          dataTable={renderDataTable}
+          onSaveTable={(itemsSelected: string[]) => {
+            onSaveTable(itemsSelected);
+          }}
+        />
+      ) : (
+        <NoResult
+          title="Không có dữ liệu!"
+          description="🚀 Import file danh sách để thấy được dữ liệu."
+        />
+      )}
     </>
   );
 };

@@ -24,9 +24,8 @@ import RowApproveTopicTable from "./RowApproveTopicTable";
 
 interface DataTableParams {
   type: RegisterTopicTableType;
-  isEditTable: boolean;
-  isMultipleDelete: boolean;
   dataTable: RegisterTopicDataItem[];
+  onSaveTable: (itemsSelected: string[]) => void;
 }
 
 const ApproveTopicTable = (params: DataTableParams) => {
@@ -41,7 +40,6 @@ const ApproveTopicTable = (params: DataTableParams) => {
   const [isShowDialog, setIsShowDialog] = useState(-1);
 
   const [currentPage, setCurrentPage] = useState(1);
-  const [isShowFooter, setIsShowFooter] = useState(true);
   const totalItems = dataTable.length;
 
   const currentItems = useMemo(() => {
@@ -67,6 +65,7 @@ const ApproveTopicTable = (params: DataTableParams) => {
   async function onSubmit(values: any) {
     try {
       setIsShowDialog(-1);
+      params.onSaveTable(itemsSelected);
 
       if (isShowDialog === 1) {
         toast({
@@ -202,6 +201,7 @@ const ApproveTopicTable = (params: DataTableParams) => {
                               variant: "success",
                               duration: 3000,
                             });
+                            params.onSaveTable(itemsSelected);
                             setItemsSelected([]);
                           }}
                           iconWidth={16}
@@ -250,7 +250,7 @@ const ApproveTopicTable = (params: DataTableParams) => {
                         onChange={(e) => {
                           setFeedback(e.target.value);
                         }}
-                        otherClassess={'mt-3.5'}
+                        otherClassess={"mt-3.5"}
                       />
                     </div>
                   </div>
@@ -313,8 +313,6 @@ const ApproveTopicTable = (params: DataTableParams) => {
                             type={params.type}
                             key={`${dataItem.STT}_${index}`}
                             dataItem={dataItem}
-                            isEditTable={params.isEditTable}
-                            isMultipleDelete={params.isMultipleDelete}
                             onClickCheckBoxSelect={(item: string) => {
                               setItemsSelected((prev) => {
                                 if (prev.includes(item)) {
@@ -323,15 +321,6 @@ const ApproveTopicTable = (params: DataTableParams) => {
                                   return [...prev, item];
                                 }
                               });
-                            }}
-                            onChangeRow={(updatedDataItem: any) => {
-                              //   setLocalDataTable((prevTable) =>
-                              //     prevTable.map((item) =>
-                              //       item.STT === updatedDataItem.STT
-                              //         ? updatedDataItem
-                              //         : item
-                              //     )
-                              //   );
                             }}
                           />
                         </>
@@ -344,16 +333,12 @@ const ApproveTopicTable = (params: DataTableParams) => {
           )}
 
           {/* FOOTER */}
-          {!isShowFooter || params.isEditTable || params.isMultipleDelete ? (
-            <></>
-          ) : (
-            <MyFooter
-              currentPage={currentPage}
-              itemsPerPage={itemsPerPageRegisterTable}
-              totalItems={totalItems}
-              onPageChange={(newPage) => setCurrentPage(newPage)}
-            />
-          )}
+          <MyFooter
+            currentPage={currentPage}
+            itemsPerPage={itemsPerPageRegisterTable}
+            totalItems={totalItems}
+            onPageChange={(newPage) => setCurrentPage(newPage)}
+          />
         </div>
       </form>
     </Form>

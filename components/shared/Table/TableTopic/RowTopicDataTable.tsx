@@ -1,6 +1,6 @@
+import { TopicData, TopicDataItem } from "@/types";
 import { Table } from "flowbite-react";
 import React, { useRef } from "react";
-import { TopicData, TopicDataItem } from "@/types";
 import InputComponent from "../components/InputComponent";
 
 interface RowParams {

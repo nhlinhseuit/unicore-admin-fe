@@ -7,10 +7,8 @@ import {
   TeacherData,
 } from "@/types";
 import { Table } from "flowbite-react";
-import React, { useEffect, useRef, useState } from "react";
-import IconButton from "../../Button/IconButton";
+import React, { useRef, useState } from "react";
 import InputComponent from "../components/InputComponent";
-import MoreButtonComponent from "../components/MoreButtonComponent";
 
 interface RowParams {
   type: RegisterTopicTableType;
