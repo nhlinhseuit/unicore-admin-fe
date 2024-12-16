@@ -57,6 +57,12 @@ export const DepartmentSettingTabItems = [
 export const DepartmentSubjectsTabItems = [
   { value: "listSubjects", label: "Danh sách môn học", route: "/subjects" },
 ];
+export const DepartmentTeachersTabItems = [
+  { value: "listTeachers", label: "Danh sách giảng viên", route: "/teachers" },
+];
+export const DepartmentStudentsTabItems = [
+  { value: "listStudents", label: "Danh sách sinh viên", route: "/students" },
+];
 
 export const DepartmentCourseTabItems = [
   { value: "generalPost", label: "Thông báo chung", route: "/" },

@@ -1,65 +1,90 @@
 "use client";
 
-import IconButton from "@/components/shared/Button/IconButton";
 import TopicGroupTable from "@/components/shared/Table/TableTopic/TopicDataTable";
 import { mockTopicDataTable } from "@/mocks";
 import { useState } from "react";
 
-import AlertCreateNewTopic from './AlertCreateNewTopic';
-import ImportListTopic from "./ImportListTopic";
+import { toast } from "@/hooks/use-toast";
+import { TopicDataItem } from "@/types";
+import NoResult from "@/components/shared/Status/NoResult";
 
 const UploadTopicResult = () => {
-    const [isImport, setIsImport] = useState(false);
-    const handleSetImport = (value: boolean) => {
-      setIsImport(value);
-    };
-    const [isCreateNew, setIsCreateNew] = useState(false);
-    const handleSetCreateNew = (value: boolean) => {
-      setIsCreateNew(value);
-    };
-    
-  return <>
-  {!isImport ? (
+  const [isEditTable, setIsEditTable] = useState(false);
+  const [isMultipleDelete, setIsMultipleDelete] = useState(false);
+  const [dataTable, setDataTable] =
+    useState<TopicDataItem[]>(mockTopicDataTable);
+
+  return (
     <>
-      <div className="flex justify-end mb-3 gap-2">
-        <IconButton
-          text="Import danh sách đề tài"
-          onClick={() => {
-            setIsImport(true);
+      {dataTable.filter((item) => !item.isDeleted).length > 0 ? (
+        <TopicGroupTable
+          isEditTable={isEditTable}
+          isMultipleDelete={isMultipleDelete}
+          // @ts-ignore
+          dataTable={dataTable}
+          onClickEditTable={() => {
+            setIsEditTable(true);
           }}
-          iconLeft={"/assets/icons/upload-white.svg"}
-          iconWidth={16}
-          iconHeight={16}
-        />
-
-        <IconButton
-          text="Đăng đề tài mới"
-          green
-          onClick={() => {
-            setIsCreateNew(true);
+          onSaveEditTable={(localDataTable) => {
+            console.log("here");
+            setIsEditTable(false);
+            // set lại data import hoặc patch API
+            localDataTable = localDataTable as TopicDataItem[];
+            setDataTable(localDataTable);
           }}
-          iconLeft={"/assets/icons/add.svg"}
-          iconWidth={16}
-          iconHeight={16}
-        />
-      </div>
+          onClickMultipleDelete={() => {
+            setIsMultipleDelete(true);
+          }}
+          onClickDeleteAll={() => {
+            setDataTable((prevData) => {
+              return prevData.map((item) => ({
+                ...item,
+                isDeleted: true,
+              }));
+            });
 
-      <TopicGroupTable
-        isEditTable={false}
-        isMultipleDelete={false}
-        // @ts-ignore
-        dataTable={mockTopicDataTable}
-      />
+            toast({
+              title: "Xóa thành công",
+              description: `Đã xóa tất cả lớp học`,
+              variant: "success",
+              duration: 3000,
+            });
+          }}
+          onClickDelete={(itemsSelected: string[]) => {
+            // ? DELETE THEO MÃ LỚP
+            setDataTable((prevData) => {
+              return prevData.map((item) => {
+                if (itemsSelected.includes(item.STT.toString())) {
+                  return {
+                    ...item,
+                    isDeleted: true,
+                  };
+                }
+                return item;
+              });
+            });
+
+            toast({
+              title: "Xóa thành công",
+              description: `${`Các lớp ${itemsSelected.join(
+                ", "
+              )} đã được xóa.`}`,
+              variant: "success",
+              duration: 3000,
+            });
+          }}
+          onClickGetOut={() => {
+            setIsMultipleDelete(false);
+          }}
+        />
+      ) : (
+        <NoResult
+          title="Không có dữ liệu!"
+          description="🚀 Import file danh sách để thấy được dữ liệu."
+        />
+      )}
     </>
-  ) : (
-    <ImportListTopic handleSetImport={handleSetImport}/>
-  )}
+  );
+};
 
-  <AlertCreateNewTopic
-    isCreateNew={isCreateNew}
-    handleSetCreateNew={handleSetCreateNew}
-  />
-</>
-}
-
-export default UploadTopicResult
+export default UploadTopicResult;

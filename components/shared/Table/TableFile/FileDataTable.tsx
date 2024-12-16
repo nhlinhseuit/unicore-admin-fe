@@ -13,7 +13,7 @@ interface DataTableParams {
   dataTable: FileDataItem[];
 }
 
-const TopicDataTable = (params: DataTableParams) => {
+const FileDataTable = (params: DataTableParams) => {
   const dataTable = useMemo(() => {
     return params.dataTable.filter((dataItem) => dataItem.isDeleted !== true);
   }, [params.dataTable]);
@@ -118,4 +118,4 @@ const TopicDataTable = (params: DataTableParams) => {
   );
 };
 
-export default TopicDataTable;
+export default FileDataTable;

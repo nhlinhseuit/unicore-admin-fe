@@ -195,9 +195,6 @@ const UploadTopic = () => {
               handleClick={handleClickViewTable}
               value={isToggleViewTable}
             />
-            <p className="px-6 pb-6 italic text-sm text-red-500">
-              * Table cho Khoa thì có GV phụ trách, table cho GV thì kh có
-            </p>
           </div>
 
           {isToggleViewTable ? <UploadTopicResult /> : <></>}

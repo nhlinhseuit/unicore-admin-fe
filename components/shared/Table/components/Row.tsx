@@ -23,7 +23,6 @@ interface RowParams {
     | CentralizedExamDataItem
     | QAandProjectExamDataItem
     | TeacherDataItem;
-  isChecked: boolean;
   itemsSelected: string[];
   valueUniqueInput: string;
   isSimpleTable?: boolean;
@@ -35,7 +34,7 @@ interface RowParams {
 }
 interface handleInputChangeParams {
   key:
-    | keyof CourseData
+    | keyof CourseData  
     | keyof SubjectData
     | keyof StudentData
     | keyof TeacherData;
@@ -332,7 +331,7 @@ const Row = React.memo(
   (prevProps, nextProps) => {
     // Kiểm tra nếu `dataItem` của Row không thay đổi thì không cần re-render
     return (
-      prevProps.isChecked === nextProps.isChecked &&
+      prevProps.itemsSelected === nextProps.itemsSelected &&
       prevProps.dataItem === nextProps.dataItem &&
       prevProps.isEditTable === nextProps.isEditTable &&
       prevProps.isMultipleDelete === nextProps.isMultipleDelete

@@ -20,9 +20,7 @@ import useDebounceSearchDataTable from "@/hooks/table/useDebounceSearchDataTable
 import useDetailFilter from "@/hooks/table/useDetailFilter";
 import useSetDebounceSearchTerm from "@/hooks/table/useSetDebounceSearchTerm";
 import {
-  CentralizedExamDataItem,
   CourseDataItem,
-  QAandProjectExamDataItem,
   StudentDataItem,
   SubjectDataItem,
   TeacherDataItem,
@@ -58,15 +56,11 @@ interface DataTableParams {
     | SubjectDataItem[]
     | StudentDataItem[]
     | TeacherDataItem[]
-    | CentralizedExamDataItem[]
-    | QAandProjectExamDataItem[]
     | (
         | CourseDataItem
         | SubjectDataItem
         | StudentDataItem
         | TeacherDataItem
-        | CentralizedExamDataItem
-        | QAandProjectExamDataItem
       )[];
 }
 
@@ -210,8 +204,6 @@ const DataTable = (params: DataTableParams) => {
       | SubjectDataItem
       | StudentDataItem
       | TeacherDataItem
-      | CentralizedExamDataItem
-      | QAandProjectExamDataItem
     )[];
 
     sortedNewerDataTable = sortDataTable(dataTable, type);
@@ -247,8 +239,6 @@ const DataTable = (params: DataTableParams) => {
         | SubjectDataItem
         | StudentDataItem
         | TeacherDataItem
-        | CentralizedExamDataItem
-        | QAandProjectExamDataItem
       )[]
     >(currentItems);
 
@@ -377,15 +367,11 @@ const DataTable = (params: DataTableParams) => {
       | SubjectDataItem[]
       | StudentDataItem[]
       | TeacherDataItem[]
-      | CentralizedExamDataItem[]
-      | QAandProjectExamDataItem[]
       | (
           | CourseDataItem
           | SubjectDataItem
           | StudentDataItem
           | TeacherDataItem
-          | CentralizedExamDataItem
-          | QAandProjectExamDataItem
         )[],
     sortOrder: FilterType
   ) => {
@@ -913,7 +899,7 @@ const DataTable = (params: DataTableParams) => {
                     isEditTable={params.isEditTable}
                     isMultipleDelete={params.isMultipleDelete}
                     valueUniqueInput={valueUniqueInput}
-                    isChecked={itemsSelected.includes(valueUniqueInput)}
+                    //? Truyền vào để checkbox 
                     itemsSelected={itemsSelected}
                     onClickCheckBoxSelect={(item: string) => {
                       console.log("item", item);

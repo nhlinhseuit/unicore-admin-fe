@@ -103,6 +103,7 @@ export interface TopicRegisterGroupData {
 }
 
 export interface TopicData {
+  "GV phụ trách": string;
   "Tên đề tài": string;
   "Mô tả": string;
 }
@@ -209,7 +210,8 @@ export interface TopicRegisterGroupDataItem {
   data: TopicRegisterGroupData;
 }
 export interface TopicDataItem {
-  STT: string;
+  type: string;
+  STT: string | number;
   isDeleted: boolean;
   data: TopicData;
 }

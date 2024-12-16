@@ -57,7 +57,7 @@ const InputComponent = (params: InputParams) => {
             active:outline-none
             focus:border-inherit
             text-sm
-            paragraph-regular no-focus placeholder
+            paragraph-regular placeholder
             shadow-none outline-none
             custom-scrollbar-desc
             background-light800_darkgradient 

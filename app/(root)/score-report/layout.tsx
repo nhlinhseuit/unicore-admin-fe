@@ -33,6 +33,8 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
           "
       >
         {DepartmentScoreReportTabItems.map((item) => {
+          //! Cần lưu ý các trường hợp cùng tabbars, nhưng item sau là nối từ / của item trước
+          //! Và navigate sang các item nhỏ của 1 tab, thì vẫn giữ tab đó active
           const isActive =
             pathName === item.route || pathName.includes(`${item.route}`);
 
