@@ -2,11 +2,15 @@ import { Table } from "flowbite-react";
 import React, { useState } from "react";
 import { FileDataItem } from "@/types";
 import MoreButtonComponent from "../components/MoreButtonComponent";
-import { FileTableDataMoreComponentItems } from "@/constants";
+import {
+  FileTableDataMoreComponentItems,
+  FileTableDataOnlyViewMoreComponentItems,
+} from "@/constants";
 import Image from "next/image";
 
 interface RowParams {
   dataItem: FileDataItem;
+  isOnlyView?: boolean;
   onClickDelete?: () => void;
 }
 interface handleInputChangeParams {
@@ -110,7 +114,11 @@ const RowTopicDataTable = (params: RowParams) => {
           }}
         >
           <MoreButtonComponent
-            actions={FileTableDataMoreComponentItems}
+            actions={
+              params.isOnlyView
+                ? FileTableDataOnlyViewMoreComponentItems
+                : FileTableDataMoreComponentItems
+            }
           />
         </div>
       </Table.Cell>

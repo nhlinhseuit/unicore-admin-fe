@@ -219,6 +219,9 @@ export const FileTableDataMoreComponentItems = [
   { value: "rename", label: "Đổi tên" },
   { value: "download", label: "Tải xuống" },
 ];
+export const FileTableDataOnlyViewMoreComponentItems = [
+  { value: "download", label: "Tải xuống" },
+];
 
 export const CourseItemMoreComponentItems = [
   { value: "edit", label: "Chỉnh sửa" },

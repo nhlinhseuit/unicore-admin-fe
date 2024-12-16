@@ -438,7 +438,7 @@ export const mockPostDataCourseIdPage = [
     typePost: "report",
     creator: "Huỳnh Hồ Thị Mộng Trinh",
     createdAt: "29/8/2024 7:23AM",
-    title: "Báo cáo ngày 29/9/2024",
+    title: "Báo cáo Cuối kỳ ngày 29/9/2024",
     fileName: "Requirements.docx",
     comments: [
       {
@@ -736,7 +736,7 @@ export const mockPostDataWithReport = [
     typePost: "report",
     creator: "Huỳnh Hồ Thị Mộng Trinh",
     createdAt: "29/8/2024 7:23AM",
-    title: "Báo cáo ngày 29/9/2024",
+    title: "Báo cáo Cuối kỳ ngày 29/9/2024",
     fileName: "Requirements.docx",
     comments: [
       {

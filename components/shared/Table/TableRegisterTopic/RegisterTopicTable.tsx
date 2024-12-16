@@ -30,6 +30,7 @@ interface DataTableParams {
   isEditTable: boolean;
   isMultipleDelete: boolean;
   dataTable: RegisterTopicDataItem[];
+  isOnlyView?: boolean;
 
   onClickEditTable?: () => void;
   onSaveEditTable?: (localDataTable: any) => void;
@@ -135,69 +136,71 @@ const RegisterTopicTable = (params: DataTableParams) => {
               )}
             </div>
 
-            <div className="flex flex-col items-stretch justify-end flex-shrink-0 w-full space-y-2 md:w-auto md:flex-row md:space-y-0 md:items-center">
-              {params.isEditTable ? (
-                <IconButton text="Lưu" onClick={saveDataTable} />
-              ) : isShowDeleteInfo ? (
-                <div className="flex items-center gap-2">
-                  <p className="text-sm font-medium">
-                    Đã chọn:
-                    <span className="font-semibold">
-                      {` ${itemsSelected.length}`}
-                    </span>
-                  </p>
-                  <IconButton
-                    text="Xóa"
-                    onClick={() => {
-                      setIsShowDialog(1);
-                    }}
-                    bgColor="bg-red"
-                  />
-                  <IconButton
-                    text="Thoát"
-                    onClick={() => {
-                      setItemsSelected([]);
-                      params.onClickGetOut && params.onClickGetOut();
-                    }}
-                    bgColor="bg-gray-500"
-                  />
-                </div>
-              ) : (
-                <Dropdown
-                  className="z-30 rounded-lg"
-                  label=""
-                  dismissOnClick={false}
-                  renderTrigger={() => (
-                    <div>
-                      <IconButton
-                        text="Hành động"
-                        onClick={() => {}}
-                        iconRight={"/assets/icons/chevron-down.svg"}
-                        bgColor="bg-white"
-                        textColor="text-black"
-                        border
-                      />
-                    </div>
-                  )}
-                >
-                  <Dropdown.Item onClick={params.onClickEditTable}>
-                    Chỉnh sửa
-                  </Dropdown.Item>
-
-                  <Dropdown.Item onClick={params.onClickMultipleDelete}>
-                    Xóa nhiều
-                  </Dropdown.Item>
-
-                  <Dropdown.Item
-                    onClick={() => {
-                      setIsShowDialog(2);
-                    }}
+            {params.isOnlyView ? null : (
+              <div className="flex flex-col items-stretch justify-end flex-shrink-0 w-full space-y-2 md:w-auto md:flex-row md:space-y-0 md:items-center">
+                {params.isEditTable ? (
+                  <IconButton text="Lưu" onClick={saveDataTable} />
+                ) : isShowDeleteInfo ? (
+                  <div className="flex items-center gap-2">
+                    <p className="text-sm font-medium">
+                      Đã chọn:
+                      <span className="font-semibold">
+                        {` ${itemsSelected.length}`}
+                      </span>
+                    </p>
+                    <IconButton
+                      text="Xóa"
+                      onClick={() => {
+                        setIsShowDialog(1);
+                      }}
+                      bgColor="bg-red"
+                    />
+                    <IconButton
+                      text="Thoát"
+                      onClick={() => {
+                        setItemsSelected([]);
+                        params.onClickGetOut && params.onClickGetOut();
+                      }}
+                      bgColor="bg-gray-500"
+                    />
+                  </div>
+                ) : (
+                  <Dropdown
+                    className="z-30 rounded-lg"
+                    label=""
+                    dismissOnClick={false}
+                    renderTrigger={() => (
+                      <div>
+                        <IconButton
+                          text="Hành động"
+                          onClick={() => {}}
+                          iconRight={"/assets/icons/chevron-down.svg"}
+                          bgColor="bg-white"
+                          textColor="text-black"
+                          border
+                        />
+                      </div>
+                    )}
                   >
-                    Xóa tất cả
-                  </Dropdown.Item>
-                </Dropdown>
-              )}
-            </div>
+                    <Dropdown.Item onClick={params.onClickEditTable}>
+                      Chỉnh sửa
+                    </Dropdown.Item>
+
+                    <Dropdown.Item onClick={params.onClickMultipleDelete}>
+                      Xóa nhiều
+                    </Dropdown.Item>
+
+                    <Dropdown.Item
+                      onClick={() => {
+                        setIsShowDialog(2);
+                      }}
+                    >
+                      Xóa tất cả
+                    </Dropdown.Item>
+                  </Dropdown>
+                )}
+              </div>
+            )}
           </div>
 
           <div

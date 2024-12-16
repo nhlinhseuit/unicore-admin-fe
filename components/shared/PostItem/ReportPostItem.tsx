@@ -2,7 +2,6 @@ import { getAvatarName } from "@/lib/utils";
 import { mockSubmissionPost } from "@/mocks";
 import Image from "next/image";
 import MyAvatar from "../../courses/MyAvatar";
-import GradingInPost from "../../courses/GradingInPost";
 import MyComment from "../../courses/MyComment";
 import OtherComment from "../../courses/OtherComment";
 import RenderFile from "../Annoucements/RenderFile";
@@ -72,16 +71,6 @@ const ReportPostItem = (params: Props) => {
         </div>
 
         <RenderFile _id={1} name={"exercise.docx"} otherClasses={"mt-2 px-2"} />
-
-        <Divider />
-
-        <GradingInPost
-          onClickBack={params.setGrading}
-          submissionNumber={mockSubmissionPost.submissionNumber}
-          totalNumber={mockSubmissionPost.totalNumber}
-          lateTime={mockSubmissionPost.lateTime}
-          columnGrade={mockSubmissionPost.columnGrade}
-        />
 
         <Divider />
 

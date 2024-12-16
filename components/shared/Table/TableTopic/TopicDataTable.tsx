@@ -28,6 +28,7 @@ interface DataTableParams {
   isEditTable: boolean;
   isMultipleDelete: boolean;
   dataTable: TopicDataItem[];
+  isOnlyView?: boolean;
 
   onClickEditTable?: () => void;
   onSaveEditTable?: (localDataTable: any) => void;
@@ -166,7 +167,7 @@ const TopicDataTable: React.FC<DataTableParams> = (params) => {
               </>
             )} */}
 
-            {params.isEditTable ? (
+            {params.isOnlyView ? null : params.isEditTable ? (
               <IconButton text="Lưu" onClick={saveDataTable} />
             ) : isShowDeleteInfo ? (
               <>
