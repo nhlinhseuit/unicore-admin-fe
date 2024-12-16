@@ -1,6 +1,7 @@
 "use client";
 
 import IconButton from "@/components/shared/Button/IconButton";
+import ApproveTopicTable from "@/components/shared/Table/TableRegisterTopic/ApproveTopicTable";
 import RegisterTopicTable from "@/components/shared/Table/TableRegisterTopic/RegisterTopicTable";
 import { RegisterTopicTableType } from "@/constants";
 import { mockDataStudentRegisterTopic, } from "@/mocks";
@@ -94,7 +95,7 @@ const ApproveTopic = () => {
         </Dropdown>
       </div>
 
-      <RegisterTopicTable
+      <ApproveTopicTable
         type={RegisterTopicTableType.approveTopic}
         isEditTable={false}
         isMultipleDelete={false}

@@ -139,7 +139,7 @@ const TopicDataTable: React.FC<DataTableParams> = (params) => {
         </div>
         <div className="flex flex-col items-stretch justify-end flex-shrink-0 w-full space-y-2 md:w-auto md:flex-row md:space-y-0 md:items-center">
           <div className="flex items-center w-full gap-2 md:w-auto">
-            {params.isEditTable || isShowDeleteInfo ? (
+            {/* {params.isEditTable || isShowDeleteInfo ? (
               <></>
             ) : (
               <>
@@ -164,7 +164,7 @@ const TopicDataTable: React.FC<DataTableParams> = (params) => {
                   iconHeight={16}
                 />
               </>
-            )}
+            )} */}
 
             {params.isEditTable ? (
               <IconButton text="Lưu" onClick={saveDataTable} />

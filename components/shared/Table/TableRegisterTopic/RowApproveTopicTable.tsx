@@ -14,8 +14,6 @@ import MoreButtonComponent from "../components/MoreButtonComponent";
 
 interface RowParams {
   type: RegisterTopicTableType;
-  valueUniqueInput: string;
-  itemsSelected: string[];
   dataItem: RegisterTopicDataItem;
   isEditTable?: boolean;
   isMultipleDelete?: boolean;
@@ -35,7 +33,7 @@ interface handleInputChangeParams {
   isCheckbox?: boolean;
 }
 
-const RowRegisterTopicTable = React.memo(
+const RowApproveTopicTable = React.memo(
   (params: RowParams) => {
     const [editDataItem, setEditDataItem] = useState(params.dataItem);
 
@@ -198,25 +196,26 @@ const RowRegisterTopicTable = React.memo(
         <Table.Cell className="w-10 border-r-[1px] z-100 ">
           <div
             onClick={(e) => {
-              e.stopPropagation(); // Ngăn sự kiện lan truyền đến Table.Row
+              e.stopPropagation(); // Ngăn sự kiện lan truyền đến Table.RowApproveTopicTable
             }}
           >
-            <div className="flex items-center justify-center w-10 h-10">
-              <input
-                id="apple"
-                type="checkbox"
-                name="filterOptions"
-                value={params.valueUniqueInput}
-                checked={params.itemsSelected.includes(params.valueUniqueInput)}
-                onChange={() => {
-                  {
-                    params.onClickCheckBoxSelect &&
-                      params.onClickCheckBoxSelect(params.valueUniqueInput);
-                  }
-                }}
-                className="w-4 h-4 bg-gray-100 border-gray-300 rounded cursor-pointer text-primary-600"
-              />
-            </div>
+            {params.isMultipleDelete ? (
+              <div className="flex items-center justify-center w-10 h-10">
+                <input
+                  id="apple"
+                  type="checkbox"
+                  name="filterOptions"
+                  value={valueUniqueInput}
+                  onChange={() => {
+                    {
+                      params.onClickCheckBoxSelect &&
+                        params.onClickCheckBoxSelect(valueUniqueInput);
+                    }
+                  }}
+                  className="w-4 h-4 bg-gray-100 border-gray-300 rounded cursor-pointer text-primary-600"
+                />
+              </div>
+            ) : null}
           </div>
         </Table.Cell>
 
@@ -239,9 +238,8 @@ const RowRegisterTopicTable = React.memo(
     );
   },
   (prevProps, nextProps) => {
-    // Kiểm tra nếu `dataItem` của RowRegisterTopicTable không thay đổi thì không cần re-render
+    // Kiểm tra nếu `dataItem` của RowApproveTopicTable không thay đổi thì không cần re-render
     return (
-      prevProps.itemsSelected === nextProps.itemsSelected &&
       prevProps.dataItem === nextProps.dataItem &&
       prevProps.isEditTable === nextProps.isEditTable &&
       prevProps.isMultipleDelete === nextProps.isMultipleDelete
@@ -249,4 +247,4 @@ const RowRegisterTopicTable = React.memo(
   }
 );
 
-export default RowRegisterTopicTable;
+export default RowApproveTopicTable;

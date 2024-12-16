@@ -22,8 +22,9 @@ const MyFooter: React.FC<MyFooterProps> = ({
     return [start, end];
   };
 
-  const [visibleRange, setVisibleRange] = useState<number[]>(getRangeForCurrentPage(currentPage));
-
+  const [visibleRange, setVisibleRange] = useState<number[]>(
+    getRangeForCurrentPage(currentPage)
+  );
 
   const handleNextRange = () => {
     const start = visibleRange[0] + 5;
@@ -58,6 +59,7 @@ const MyFooter: React.FC<MyFooterProps> = ({
         {/* Chuyển trang trước */}
         <li>
           <button
+            type="button"
             onClick={() => onPageChange(Math.max(currentPage - 1, 1))}
             className="flex items-center justify-center h-full py-1.5 px-3 ml-0 text-gray-500 bg-white rounded-l-lg border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
           >
@@ -75,6 +77,7 @@ const MyFooter: React.FC<MyFooterProps> = ({
         {visibleRange[0] > 1 && (
           <li>
             <button
+              type="button"
               onClick={handlePrevRange}
               className="flex items-center justify-center h-full py-1.5 px-3 ml-0 text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
             >
@@ -107,6 +110,7 @@ const MyFooter: React.FC<MyFooterProps> = ({
         ).map((page) => (
           <li key={page}>
             <button
+              type="button"
               onClick={() => onPageChange(page)}
               className={`flex items-center justify-center text-sm py-2 px-3 leading-tight ${
                 currentPage === page
@@ -132,6 +136,7 @@ const MyFooter: React.FC<MyFooterProps> = ({
         {visibleRange[1] < totalPages && (
           <li>
             <button
+              type="button"
               onClick={handleNextRange}
               className="flex items-center justify-center h-full py-1.5 px-3 text-gray-500 bg-white border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
             >
@@ -149,6 +154,7 @@ const MyFooter: React.FC<MyFooterProps> = ({
         {/* Chuyển trang sau */}
         <li>
           <button
+            type="button"
             onClick={() => onPageChange(Math.min(currentPage + 1, totalPages))}
             className="flex items-center justify-center h-full py-1.5 px-3 leading-tight text-gray-500 bg-white rounded-r-lg border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white"
           >

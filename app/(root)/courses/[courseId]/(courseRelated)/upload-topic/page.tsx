@@ -191,7 +191,7 @@ const UploadTopic = () => {
 
           <div className="mt-10">
             <ToggleTitle
-              text="Danh sách đăng ký đề tài"
+              text="Danh sách đăng đề tài"
               handleClick={handleClickViewTable}
               value={isToggleViewTable}
             />

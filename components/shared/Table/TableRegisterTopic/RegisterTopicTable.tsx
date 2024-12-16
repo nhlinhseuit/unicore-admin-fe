@@ -1,6 +1,17 @@
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from "@/components/ui/alert-dialog";
+
 import { RegisterTopicDataItem } from "@/types";
 import { Table } from "flowbite-react";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import NoResult from "../../Status/NoResult";
 import { tableTheme } from "../components/DataTable";
 import RowRegisterTopicTable from "./RowRegisterTopicTable";
@@ -14,19 +25,24 @@ import IconButton from "../../Button/IconButton";
 import SubmitButton from "../../Button/SubmitButton";
 import MyFooter from "../components/MyFooter";
 
-import { Form } from "@/components/ui/form";
-
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
-import { z } from "zod";
 import BorderContainer from "../../BorderContainer";
+import TableSearch from "../../Search/TableSearch";
 import TextAreaComponent from "../../TextAreaComponent";
+import useSetDebounceSearchTerm from "@/hooks/table/useSetDebounceSearchTerm";
+import useDebounceSearchDataTable from "@/hooks/table/useDebounceSearchDataTable";
 
 interface DataTableParams {
   type: RegisterTopicTableType;
   isEditTable: boolean;
   isMultipleDelete: boolean;
   dataTable: RegisterTopicDataItem[];
+
+  onClickEditTable?: () => void;
+  onSaveEditTable?: (localDataTable: any) => void;
+  onClickMultipleDelete?: () => void;
+  onClickDelete?: (itemsSelected: string[]) => void;
+  onClickDeleteAll?: () => void;
+  onClickGetOut?: () => void;
 }
 
 const RegisterTopicTable = (params: DataTableParams) => {
@@ -41,7 +57,6 @@ const RegisterTopicTable = (params: DataTableParams) => {
   const [isShowDialog, setIsShowDialog] = useState(-1);
 
   const [currentPage, setCurrentPage] = useState(1);
-  const [isShowFooter, setIsShowFooter] = useState(true);
   const totalItems = dataTable.length;
 
   const currentItems = useMemo(() => {
@@ -51,214 +66,151 @@ const RegisterTopicTable = (params: DataTableParams) => {
     );
   }, [dataTable, currentPage]);
 
-  const AnnoucementSchema = z.object({
-    title: z.string().optional(),
-    description: z.string().optional(),
-  });
+  const localDataTableRef = useRef(currentItems);
+  const updateLocalDataTableRef = (newValue: any) => {
+    localDataTableRef.current = newValue;
+  };
 
-  const form = useForm<z.infer<typeof AnnoucementSchema>>({
-    resolver: zodResolver(AnnoucementSchema),
-    defaultValues: {
-      title: "",
-      description: "",
-    },
-  });
+  //TODO: SEARCH
+  const applyFilter = () => {
+    setFilteredDataTable(currentItems);
+  };
 
-  async function onSubmit(values: any) {
-    try {
-      setIsShowDialog(-1);
+  useEffect(() => {
+    applyFilter();
+  }, [currentItems]);
 
-      if (isShowDialog === 1) {
-        toast({
-          title: "Duyệt đề xuất các đề tài thành công.",
-          description: `Các đề tài ${itemsSelected.join(", ")} đã dược duyệt.`,
-          variant: "success",
-          duration: 3000,
-        });
-        setItemsSelected([]);
-        // TODO: Xóa local
-      } else if (isShowDialog === 2) {
-        toast({
-          title: "Phản hồi đề tài thành công.",
-          description: `Các đề tài ${itemsSelected.join(", ")} đã dược duyệt.`,
-          variant: "success",
-          duration: 3000,
-        });
-        setItemsSelected([]);
-      } else {
-        toast({
-          title: "Từ chối các đề tài thành công.",
-          description: `Các đề tài ${itemsSelected.join(", ")} đã bị từ chối.`,
-          variant: "success",
-          duration: 3000,
-        });
-        setItemsSelected([]);
-      }
-    } catch {
-    } finally {
+  const [searchTerm, setSearchTerm] = useState("");
+  const [debouncedSearchTerm, setDebouncedSearchTerm] = useState(searchTerm);
+  const [filteredDataTable, setFilteredDataTable] = useState(currentItems);
+
+  useSetDebounceSearchTerm(setDebouncedSearchTerm, searchTerm);
+  useDebounceSearchDataTable(
+    debouncedSearchTerm,
+    setFilteredDataTable,
+    applyFilter,
+    () => {},
+    () => {},
+    dataTable,
+    currentItems
+  );
+
+  const [isShowDeleteInfo, setIsShowDeleteInfo] = useState(false);
+  useEffect(() => {
+    if (itemsSelected.length > 0 || params.isMultipleDelete) {
+      if (!isShowDeleteInfo) setIsShowDeleteInfo(true);
+    } else {
+      if (isShowDeleteInfo) setIsShowDeleteInfo(false);
     }
-  }
+  }, [itemsSelected, params.isMultipleDelete]);
+
+  const saveDataTable = () => {
+    const updatedDataTable = dataTable.map((item) => {
+      // Tìm item tương ứng trong localDataTable dựa vào STT (hoặc một identifier khác)
+      const localItem = localDataTableRef.current.find(
+        (local) => local.STT === item.STT
+      );
+
+      // * Nếu tìm thấy, cập nhật giá trị bằng localItem, ngược lại giữ nguyên item
+      // * Trải item và localitem ra, nếu trùng nhau thì localItem ghi đè
+      return localItem ? { ...item, ...localItem } : item;
+    });
+
+    if (params.onSaveEditTable) {
+      params.onSaveEditTable(updatedDataTable);
+    }
+  };
 
   return (
-    <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)}>
-        <div>
-          {/* TABLE */}
-          {currentItems.length > 0 && currentItems.length === 0 ? (
-            <NoResult
-              title="Không có dữ liệu!"
-              description="💡 Bạn hãy thử tìm kiếm 1 từ khóa khác nhé."
-            />
-          ) : (
-            <>
-              {params.type === RegisterTopicTableType.approveTopic ? (
-                isShowDialog === -1 ? (
-                  <BorderContainer otherClasses="mb-4 p-6">
-                    <div className="flex justify-between items-center gap-2">
-                      <div className="flex gap-2 items-center">
-                        <p className="inline-flex justify-start text-sm whitespace-nowrap">
-                          Chọn giảng viên
-                        </p>
-                        <Dropdown
-                          className="min-w-max z-30 rounded-lg"
-                          label=""
-                          dismissOnClick={true}
-                          renderTrigger={() => (
-                            <div>
-                              <IconButton
-                                text={`${
-                                  mockTeacherList[selectedTeacher - 1].value
-                                }`}
-                                onClick={() => {}}
-                                iconRight={"/assets/icons/chevron-down.svg"}
-                                bgColor="bg-white"
-                                textColor="text-black"
-                                border
-                              />
-                            </div>
-                          )}
-                        >
-                          <div className="w-full scroll-container scroll-container-dropdown-content">
-                            {mockTeacherList.map((teacher, index) => (
-                              <Dropdown.Item
-                                key={`${teacher.id}_${index}`}
-                                onClick={() => {
-                                  if (selectedTeacher === teacher.id) {
-                                    setSelectedTeacher(1);
-                                  } else {
-                                    setSelectedTeacher(teacher.id);
-                                  }
-                                }}
-                                className="min-w-max"
-                              >
-                                <div className="flex justify-between w-full">
-                                  <p className="w-[80%] text-left line-clamp-1">
-                                    {teacher.value}
-                                  </p>
-                                  {selectedTeacher === teacher.id ? (
-                                    <Image
-                                      src="/assets/icons/check.svg"
-                                      alt="search"
-                                      width={21}
-                                      height={21}
-                                      className="cursor-pointer mr-2"
-                                    />
-                                  ) : (
-                                    <></>
-                                  )}
-                                </div>
-                              </Dropdown.Item>
-                            ))}
-                          </div>
-                        </Dropdown>
-                      </div>
+    <div>
+      {/* TABLE */}
+      {currentItems.length > 0 && filteredDataTable.length === 0 ? (
+        <NoResult
+          title="Không có dữ liệu!"
+          description="💡 Bạn hãy thử tìm kiếm 1 từ khóa khác nhé."
+        />
+      ) : (
+        <>
+          <div className="flex flex-col items-center justify-between p-4 space-y-3 md:flex-row md:space-y-0">
+            {/* ACTION VỚI TABLE */}
+            <div className="w-full mr-3 md:w-1/3">
+              {params.isEditTable || params.isMultipleDelete ? (
+                <></>
+              ) : (
+                <TableSearch
+                  setSearchTerm={(value) => setSearchTerm(value)}
+                  searchTerm={searchTerm}
+                />
+              )}
+            </div>
 
-                      <div className="flex items-center gap-2">
-                        <p className="text-sm font-medium">
-                          Đã chọn:
-                          <span className="font-semibold">
-                            {` ${itemsSelected.length}`}
-                          </span>
-                        </p>
-                        <IconButton
-                          text="Chỉ định giảng viên"
-                          onClick={() => {
-                            if (itemsSelected.length === 0) {
-                              toast({
-                                title: "Vui lòng chọn đề tài!",
-                                variant: "error",
-                                duration: 3000,
-                              });
-                              return;
-                            }
-                            toast({
-                              title:
-                                "Chỉ định giảng viên duyệt đề tài thành công.",
-                              description: `Đề tài ${itemsSelected.join(
-                                ", "
-                              )} sẽ dược duyệt bởi ${
-                                mockTeacherList[selectedTeacher - 1].value
-                              }.`,
-                              variant: "success",
-                              duration: 3000,
-                            });
-                            setItemsSelected([]);
-                          }}
-                          iconWidth={16}
-                          iconHeight={16}
-                        />
-                        <IconButton
-                          text="Từ chối đề tài"
-                          red
-                          onClick={() => {
-                            if (itemsSelected.length === 0) {
-                              toast({
-                                title: "Vui lòng chọn đề tài!",
-                                variant: "error",
-                                duration: 3000,
-                              });
-                              return;
-                            }
-                            setIsShowDialog(3);
-                          }}
-                          iconWidth={16}
-                          iconHeight={16}
-                        />
-                      </div>
-                    </div>
-                  </BorderContainer>
-                ) : null
-              ) : null}
-
-              {itemsSelected.length > 0 && isShowDialog !== -1 ? (
-                <BorderContainer otherClasses="mb-4 p-6">
-                  <div>
-                    <div className="flex justify-end items-center mb-3 gap-2">
-                      <SubmitButton text="Lưu" iconWidth={16} iconHeight={16} />
-                    </div>
-
-                    <div className="mb-4">
-                      <p className="text-dark400_light800 text-[14px] font-semibold leading-[20.8px]">
-                        Phản hồi cho đề tài (nếu có)
-                      </p>
-                      <p className="body-regular mt-3.5 text-light-500">
-                        Không bắt buộc.
-                      </p>
-                      <TextAreaComponent
-                        value={feedback}
-                        placeholder="Nhập phản hồi đề tài..."
-                        onChange={(e) => {
-                          setFeedback(e.target.value);
-                        }}
-                        otherClassess={'mt-3.5'}
+            <div className="flex flex-col items-stretch justify-end flex-shrink-0 w-full space-y-2 md:w-auto md:flex-row md:space-y-0 md:items-center">
+              {params.isEditTable ? (
+                <IconButton text="Lưu" onClick={saveDataTable} />
+              ) : isShowDeleteInfo ? (
+                <div className="flex items-center gap-2">
+                  <p className="text-sm font-medium">
+                    Đã chọn:
+                    <span className="font-semibold">
+                      {` ${itemsSelected.length}`}
+                    </span>
+                  </p>
+                  <IconButton
+                    text="Xóa"
+                    onClick={() => {
+                      setIsShowDialog(1);
+                    }}
+                    bgColor="bg-red"
+                  />
+                  <IconButton
+                    text="Thoát"
+                    onClick={() => {
+                      setItemsSelected([]);
+                      params.onClickGetOut && params.onClickGetOut();
+                    }}
+                    bgColor="bg-gray-500"
+                  />
+                </div>
+              ) : (
+                <Dropdown
+                  className="z-30 rounded-lg"
+                  label=""
+                  dismissOnClick={false}
+                  renderTrigger={() => (
+                    <div>
+                      <IconButton
+                        text="Hành động"
+                        onClick={() => {}}
+                        iconRight={"/assets/icons/chevron-down.svg"}
+                        bgColor="bg-white"
+                        textColor="text-black"
+                        border
                       />
                     </div>
-                  </div>
-                </BorderContainer>
-              ) : null}
+                  )}
+                >
+                  <Dropdown.Item onClick={params.onClickEditTable}>
+                    Chỉnh sửa
+                  </Dropdown.Item>
 
-              <div
-                className="
+                  <Dropdown.Item onClick={params.onClickMultipleDelete}>
+                    Xóa nhiều
+                  </Dropdown.Item>
+
+                  <Dropdown.Item
+                    onClick={() => {
+                      setIsShowDialog(2);
+                    }}
+                  >
+                    Xóa tất cả
+                  </Dropdown.Item>
+                </Dropdown>
+              )}
+            </div>
+          </div>
+
+          <div
+            className="
             scroll-container 
             overflow-auto
             max-w-full
@@ -267,96 +219,142 @@ const RegisterTopicTable = (params: DataTableParams) => {
             border-[1px]
             border-secondary-200
             "
+          >
+            <Table hoverable theme={tableTheme}>
+              {/* HEADER */}
+              <Table.Head
+                theme={tableTheme?.head}
+                className="sticky top-0 z-10 uppercase border-b bg-gray"
               >
-                <Table hoverable theme={tableTheme}>
-                  {/* HEADER */}
-                  <Table.Head
-                    theme={tableTheme?.head}
-                    className="sticky top-0 z-10 uppercase border-b bg-gray"
-                  >
-                    <Table.HeadCell
-                      theme={tableTheme?.head?.cell}
-                      className={`border-r-[1px] uppercase`}
-                    ></Table.HeadCell>
+                <Table.HeadCell
+                  theme={tableTheme?.head?.cell}
+                  className={`border-r-[1px] uppercase`}
+                ></Table.HeadCell>
 
-                    <Table.HeadCell
-                      theme={tableTheme?.head?.cell}
-                      className={` w-10 border-r-[1px] uppercase`}
-                    >
-                      STT
-                    </Table.HeadCell>
+                <Table.HeadCell
+                  theme={tableTheme?.head?.cell}
+                  className={` w-10 border-r-[1px] uppercase`}
+                >
+                  STT
+                </Table.HeadCell>
 
-                    {Object.keys(currentItems[0]?.data || {}).map((key) => {
-                      if (key === "Mã nhóm") return null;
+                {Object.keys(filteredDataTable[0]?.data || {}).map(
+                  (key, index) => {
+                    if (key === "Mã nhóm") return null;
 
-                      return (
-                        <Table.HeadCell
-                          key={key}
-                          theme={tableTheme?.head?.cell}
-                          className={`px-2 py-4 border-r-[1px] uppercase whitespace-nowrap`}
-                        >
-                          {key}
-                        </Table.HeadCell>
-                      );
-                    })}
-                  </Table.Head>
+                    return (
+                      <Table.HeadCell
+                        key={`${key}_${index}`}
+                        theme={tableTheme?.head?.cell}
+                        className={`px-2 py-4 border-r-[1px] uppercase whitespace-nowrap`}
+                      >
+                        {key}
+                      </Table.HeadCell>
+                    );
+                  }
+                )}
+              </Table.Head>
 
-                  {/* BODY */}
-                  <Table.Body className="text-left divide-y">
-                    {currentItems.map((dataItem, index) =>
-                      dataItem.isDeleted ? (
-                        <></>
-                      ) : (
-                        <>
-                          {/* //TODO: Main Row: Leader */}
-                          <RowRegisterTopicTable
-                            type={params.type}
-                            key={`${dataItem.STT}_${index}`}
-                            dataItem={dataItem}
-                            isEditTable={params.isEditTable}
-                            isMultipleDelete={params.isMultipleDelete}
-                            onClickCheckBoxSelect={(item: string) => {
-                              setItemsSelected((prev) => {
-                                if (prev.includes(item)) {
-                                  return prev.filter((i) => i !== item);
-                                } else {
-                                  return [...prev, item];
-                                }
-                              });
-                            }}
-                            onChangeRow={(updatedDataItem: any) => {
-                              //   setLocalDataTable((prevTable) =>
-                              //     prevTable.map((item) =>
-                              //       item.STT === updatedDataItem.STT
-                              //         ? updatedDataItem
-                              //         : item
-                              //     )
-                              //   );
-                            }}
-                          />
-                        </>
-                      )
-                    )}
-                  </Table.Body>
-                </Table>
-              </div>
-            </>
-          )}
+              {/* BODY */}
+              <Table.Body className="text-left divide-y">
+                {filteredDataTable.map((dataItem, index) => {
+                  var valueUniqueInput = dataItem.STT;
 
-          {/* FOOTER */}
-          {!isShowFooter || params.isEditTable || params.isMultipleDelete ? (
-            <></>
-          ) : (
-            <MyFooter
-              currentPage={currentPage}
-              itemsPerPage={itemsPerPageRegisterTable}
-              totalItems={totalItems}
-              onPageChange={(newPage) => setCurrentPage(newPage)}
-            />
-          )}
-        </div>
-      </form>
-    </Form>
+                  return dataItem.isDeleted ? (
+                    <></>
+                  ) : (
+                    // {/* //TODO: Main Row: Leader */}
+                    <RowRegisterTopicTable
+                      type={params.type}
+                      key={`${dataItem.STT}_${index}`}
+                      dataItem={dataItem}
+                      valueUniqueInput={valueUniqueInput.toString()}
+                      itemsSelected={itemsSelected}
+                      isEditTable={params.isEditTable}
+                      isMultipleDelete={params.isMultipleDelete}
+                      onClickCheckBoxSelect={(item: string) => {
+                        console.log("item", item);
+                        setItemsSelected((prev) => {
+                          if (prev.includes(item)) {
+                            return prev.filter((i) => i !== item);
+                          } else {
+                            return [...prev, item];
+                          }
+                        });
+                      }}
+                      onChangeRow={(updatedDataItem: any) => {
+                        updateLocalDataTableRef(
+                          localDataTableRef.current.map((item) =>
+                            item.STT === updatedDataItem.STT
+                              ? updatedDataItem
+                              : item
+                          )
+                        );
+                      }}
+                    />
+                  );
+                })}
+              </Table.Body>
+            </Table>
+          </div>
+        </>
+      )}
+
+      {/* FOOTER */}
+      {searchTerm !== "" || params.isEditTable || params.isMultipleDelete ? (
+        <></>
+      ) : (
+        <MyFooter
+          currentPage={currentPage}
+          itemsPerPage={itemsPerPageRegisterTable}
+          totalItems={totalItems}
+          onPageChange={(newPage) => setCurrentPage(newPage)}
+        />
+      )}
+
+      {/* ALERT CONFIRM */}
+      {isShowDialog !== -1 ? (
+        <AlertDialog open={isShowDialog !== -1}>
+          <AlertDialogContent>
+            <AlertDialogHeader>
+              <AlertDialogTitle>Bạn có chắc chắn muốn xóa?</AlertDialogTitle>
+              <AlertDialogDescription>
+                Thao tác này không thể hoàn tác, dữ liệu của bạn sẽ bị xóa vĩnh
+                viễn và không thể khôi phục.
+              </AlertDialogDescription>
+            </AlertDialogHeader>
+            <AlertDialogFooter>
+              <AlertDialogCancel
+                onClick={() => {
+                  setIsShowDialog(-1);
+                  setItemsSelected([]);
+                  params.onClickGetOut && params.onClickGetOut();
+                }}
+              >
+                Hủy
+              </AlertDialogCancel>
+              <AlertDialogAction
+                onClick={() => {
+                  setItemsSelected([]);
+                  params.onClickGetOut && params.onClickGetOut();
+                  if (isShowDialog === 1) {
+                    params.onClickDelete && params.onClickDelete(itemsSelected);
+                  } else if (isShowDialog === 2) {
+                    params.onClickDeleteAll && params.onClickDeleteAll();
+                  }
+                  setIsShowDialog(-1);
+                }}
+                className="bg-primary-500 hover:bg-primary-500/90"
+              >
+                Đồng ý
+              </AlertDialogAction>
+            </AlertDialogFooter>
+          </AlertDialogContent>
+        </AlertDialog>
+      ) : (
+        <></>
+      )}
+    </div>
   );
 };
 
