@@ -100,9 +100,6 @@ const FileDataTable = (params: DataTableParams) => {
                   key={dataItem.STT}
                   dataItem={dataItem}
                   isOnlyView={params.isOnlyView}
-                  // onClickDelete={(id: any) => {
-                  //   console.log('id', id)
-                  // }}
                 />
               )
             )}

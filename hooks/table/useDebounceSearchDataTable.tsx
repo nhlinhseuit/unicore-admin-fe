@@ -1,7 +1,9 @@
 import { FilterType } from "@/constants";
 import { normalizeSearchItem } from "@/lib/utils";
 import {
+  CentralizedExamDataItem,
   CourseDataItem,
+  QAandProjectExamDataItem,
   RegisterTopicDataItem,
   StudentDataItem,
   SubjectDataItem,
@@ -23,6 +25,8 @@ const useDebounceSearchDataTable = (
     | TeacherDataItem[]
     | TopicDataItem[]
     | RegisterTopicDataItem[]
+    | QAandProjectExamDataItem[]
+    | CentralizedExamDataItem[]
     | (
         | CourseDataItem
         | SubjectDataItem
@@ -30,6 +34,8 @@ const useDebounceSearchDataTable = (
         | TeacherDataItem
         | TopicDataItem
         | RegisterTopicDataItem
+        | QAandProjectExamDataItem
+        | CentralizedExamDataItem
       )[],
   currentItems:
     | CourseDataItem[]
@@ -38,6 +44,8 @@ const useDebounceSearchDataTable = (
     | TeacherDataItem[]
     | TopicDataItem[]
     | RegisterTopicDataItem[]
+    | QAandProjectExamDataItem[]
+    | CentralizedExamDataItem[]
     | (
         | CourseDataItem
         | SubjectDataItem
@@ -45,6 +53,8 @@ const useDebounceSearchDataTable = (
         | TeacherDataItem
         | TopicDataItem
         | RegisterTopicDataItem
+        | QAandProjectExamDataItem
+        | CentralizedExamDataItem
       )[]
 ) => {
   useEffect(() => {

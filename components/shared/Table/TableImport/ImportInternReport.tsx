@@ -27,7 +27,10 @@ type Council = {
 };
 
 export default function ImportInternReport() {
-  const [uploadedFileName, setUploadedFileName] = useState<string | null>(null);
+  const [uploadedFileName, setUploadedFileName] = useState<{
+    name: string;
+    file: File | null;
+  }>({ name: "", file: null });
   const [errorMessages, setErrorMessages] = useState<string[]>([
     "Bạn cần phải import danh sách môn học trước khi import danh sách lớp",
   ]);
@@ -37,7 +40,10 @@ export default function ImportInternReport() {
   const handleCoursesFileUpload = (e: any) => {
     const file = e.target.files[0];
     if (file) {
-      setUploadedFileName(file.name);
+      setUploadedFileName({
+        name: file.name,
+        file: file,
+      });
     }
 
     setCountcilsData([]);
@@ -110,7 +116,12 @@ export default function ImportInternReport() {
         councils.push(currentCouncil);
       }
 
-      console.log("councils", councils);
+      if (councils.length === 0) {
+        errorMessages.push(
+          "Import lỗi. Vui lòng chọn đúng file import danh sách hội đồng phản biện!"
+        );
+      }
+
 
       //! POST API LƯU DỮ LIỆU LÊN BACKEND
       setCountcilsData(councils);
@@ -163,7 +174,15 @@ export default function ImportInternReport() {
               />
             </div>
 
-            <p className="text-sm italic">{uploadedFileName}</p>
+            {uploadedFileName.file && (
+              <a
+                href={URL.createObjectURL(uploadedFileName.file)}
+                download={uploadedFileName.name}
+                className="text-blue-500 underline text-base italic"
+              >
+                <p className="text-sm italic">{uploadedFileName.name}</p>
+              </a>
+            )}
           </div>
 
           <a

@@ -31,7 +31,6 @@ type TransformedDataItem = {
 
 const transformedData: TransformedDataItem[] = [];
 
-
 export default function ImportStudentsListInCourse() {
   let count = 0;
 
@@ -42,7 +41,7 @@ export default function ImportStudentsListInCourse() {
 
   const [isLoading, setIsLoading] = useState(false);
   const [uploadedFileName, setUploadedFileName] = useState<
-    Record<string, string>
+    Record<string, { name: string; file: File | null }>
   >({});
 
   const fileInputRefs = useRef<(HTMLInputElement | null)[]>([]);
@@ -52,12 +51,6 @@ export default function ImportStudentsListInCourse() {
 
   const handleStudentFileUpload = (e: any, courseId: string) => {
     const file = e.target.files[0];
-    if (file) {
-      setUploadedFileName((prevData: any) => ({
-        ...prevData,
-        [courseId]: file.name,
-      }));
-    }
 
     setIsLoading(true);
     setErrorMessages([]);
@@ -96,7 +89,7 @@ export default function ImportStudentsListInCourse() {
               if (file) {
                 setUploadedFileName((prevData: any) => ({
                   ...prevData,
-                  [courseId]: "Import lỗi",
+                  [courseId]: { name: "Import lỗi", file: null },
                 }));
               }
             }
@@ -111,7 +104,6 @@ export default function ImportStudentsListInCourse() {
         };
       });
 
-      console.log("transformedData", transformedData);
 
       if (errorMessages.length > 0) {
         setErrorMessages(errorMessages);
@@ -120,20 +112,24 @@ export default function ImportStudentsListInCourse() {
           ...prevData,
           [courseId]: transformedData,
         }));
+        if (file) {
+          setUploadedFileName((prevData) => ({
+            ...prevData,
+            [courseId]: {
+              name: file.name,
+              file: file, // Lưu cả file
+            },
+          }));
+        }
       }
 
       setIsLoading(false);
     };
   };
 
+
   const handleStudentInternCourseFileUpload = (e: any, courseId: string) => {
     const file = e.target.files[0];
-    if (file) {
-      setUploadedFileName((prevData: any) => ({
-        ...prevData,
-        [courseId]: file.name,
-      }));
-    }
 
     setIsLoading(true);
     setErrorMessages([]);
@@ -154,7 +150,8 @@ export default function ImportStudentsListInCourse() {
       const transformedData: TransformedDataItem[] = [];
 
       for (const item of parsedData as any[]) {
-        // Kiểm tra nếu STT và MSSV đều trống, dừng việc xử lý
+        //? Kiểm tra nếu STT và MSSV đều trống, dừng việc xử lý
+        //? Có có các dòng cán bộ coi  thi... thừa ở dưới
         if (!item.STT && !item["Mã số SV"]) {
           break; // Dừng vòng lặp
         }
@@ -183,7 +180,7 @@ export default function ImportStudentsListInCourse() {
               if (file) {
                 setUploadedFileName((prevData: any) => ({
                   ...prevData,
-                  [courseId]: "Import lỗi",
+                  [courseId]: { name: "Import lỗi", file: null },
                 }));
               }
             }
@@ -198,7 +195,18 @@ export default function ImportStudentsListInCourse() {
         });
       }
 
-      console.log("transformedData", transformedData);
+
+      if (transformedData.length === 0) {
+        errorMessages.push(
+          "Import lỗi. Vui lòng chọn đúng file import sinh viên lớp Thực tập doanh nghiệp!"
+        );
+        if (file) {
+          setUploadedFileName((prevData: any) => ({
+            ...prevData,
+            [courseId]: { name: "Import lỗi", file: null },
+          }));
+        }
+      }
 
       if (errorMessages.length > 0) {
         setErrorMessages(errorMessages);
@@ -207,6 +215,15 @@ export default function ImportStudentsListInCourse() {
           ...prevData,
           [courseId]: transformedData,
         }));
+        if (file) {
+          setUploadedFileName((prevData) => ({
+            ...prevData,
+            [courseId]: {
+              name: file.name,
+              file: file, // Lưu cả file
+            },
+          }));
+        }
       }
 
       setIsLoading(false);
@@ -215,11 +232,6 @@ export default function ImportStudentsListInCourse() {
 
   return (
     <div>
-      <NoteComponent
-        text="- Lớp thực tập doanh nghiệp phải được import danh sách sinh viên có
-        Giảng viên hướng dẫn như template bên dưới."
-      />
-
       {errorMessages.length > 0 && (
         <div className="mb-6">
           {errorMessages.map((item, index) => (
@@ -235,6 +247,11 @@ export default function ImportStudentsListInCourse() {
           ))}
         </div>
       )}
+
+      <NoteComponent
+        text="- Lớp thực tập doanh nghiệp phải được import danh sách sinh viên có
+        Giảng viên hướng dẫn như template bên dưới."
+      />
 
       <BorderContainer otherClasses="p-6 flex flex-col gap-4">
         <p className="paragraph-semibold">
@@ -344,15 +361,27 @@ export default function ImportStudentsListInCourse() {
                   className={`border-r-[1px] px-2 py-4 normal-case text-left max-w-[800px]`}
                 >
                   <div className="flex-center gap-4">
-                    <p
-                      className={`text-sm italic ${
-                        uploadedFileName[dataItem.id] === "Import lỗi"  
-                          ? "text-[#D4423E] font-semibold"
-                          : ""
-                      }`}
-                    >
-                      {uploadedFileName[dataItem.id]}
-                    </p>
+                    {uploadedFileName[dataItem.id] ? (
+                      uploadedFileName[dataItem.id].name === "Import lỗi" ? (
+                        <p
+                          className={`text-sm italic text-[#D4423E] font-semibold`}
+                        >
+                          {uploadedFileName[dataItem.id].name}
+                        </p>
+                      ) : (
+                        uploadedFileName[dataItem.id].file && (
+                          <a
+                            href={URL.createObjectURL(
+                              uploadedFileName[dataItem.id].file!
+                            )} // Dùng dấu `!` vì đã kiểm tra null trước đó
+                            download={uploadedFileName[dataItem.id].name}
+                            className="text-blue-500 underline text-base italic"
+                          >
+                            <p className="text-sm italic">{uploadedFileName[dataItem.id].name}</p>
+                          </a>
+                        )
+                      )
+                    ) : null}
 
                     <input
                       ref={(el) => {

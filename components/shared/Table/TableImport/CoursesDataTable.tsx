@@ -92,8 +92,6 @@ export default function CoursesDataTable() {
 
   const { toast } = useToast();
 
-  console.log("coursedatatable databTable", dataTable);
-
   return (
     <div>
       {errorMessages.length > 0 && (

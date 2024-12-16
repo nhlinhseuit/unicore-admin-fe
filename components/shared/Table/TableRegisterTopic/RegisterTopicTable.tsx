@@ -267,7 +267,6 @@ const RegisterTopicTable = (params: DataTableParams) => {
                       isEditTable={params.isEditTable}
                       isMultipleDelete={params.isMultipleDelete}
                       onClickCheckBoxSelect={(item: string) => {
-                        console.log("item", item);
                         setItemsSelected((prev) => {
                           if (prev.includes(item)) {
                             return prev.filter((i) => i !== item);
