@@ -1,5 +1,12 @@
 import { BADGE_CRITERIA } from "@/constants";
 
+//! SUBJECT
+
+
+//! endof SUBJECT
+
+
+
 // TODO: PAGE INTERFACE
 
 interface ReportDataOption {
@@ -100,24 +107,6 @@ export interface ScoreTranscriptData {
   "Điểm trung bình": number;
 }
 
-export interface SubjectData {
-  "Khoa QL": string;
-  "Mã MH": string;
-  "Hình thức thi LT GIỮA KỲ": string;
-  "Thời gian thi LT GIỮA KỲ": number;
-  "Hình thức thi LT CUỐI KỲ": string;
-  "Thời gian thi CUỐI KỲ": number;
-  "Hình thức thi THỰC HÀNH CUỐI KỲ": string;
-  "Trọng số QUÁ TRÌNH": number;
-  "Trọng số THỰC HÀNH": number;
-  "Trọng số GIỮA KỲ": number;
-  "Trọng số CUỐI KỲ": number;
-  "Hệ ĐT": string;
-  "Lớp CDIO": string;
-  "Học kỳ": number;
-  "Năm học": number;
-  "Tên môn học": string;
-}
 
 export interface StudentData {
   MSSV: string;
@@ -216,12 +205,6 @@ export interface CourseDataItem {
   data: CourseData;
 }
 
-export interface SubjectDataItem {
-  type: string;
-  STT: string;
-  isDeleted: boolean;
-  data: SubjectData;
-}
 export interface StudentDataItem {
   type: string;
   STT: string;

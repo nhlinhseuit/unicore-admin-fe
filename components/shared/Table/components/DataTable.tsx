@@ -22,7 +22,6 @@ import useSetDebounceSearchTerm from "@/hooks/table/useSetDebounceSearchTerm";
 import {
   CourseDataItem,
   StudentDataItem,
-  SubjectDataItem,
   TeacherDataItem,
 } from "@/types";
 import { CustomFlowbiteTheme, Dropdown, Table } from "flowbite-react";
@@ -33,6 +32,7 @@ import TableSearch from "../../Search/TableSearch";
 import NoResult from "../../Status/NoResult";
 import MyFooter from "./MyFooter";
 import Row from "./Row";
+import { SubjectDataItem } from "@/types/entity/Subject";
 
 // TODO: filteredData là để render giao diện (search, filter old new, detail filter)
 // TODO: localData là để handle save (khi edit từ search, filter old new, detail filter, pagination)
