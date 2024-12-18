@@ -3,7 +3,6 @@ import {
   GradingExerciseDataItem,
   GradingReportDataItem,
   StudentData,
-  SubjectData,
   TeacherData,
 } from "@/types";
 import { Table } from "flowbite-react";
@@ -11,6 +10,7 @@ import React, { useEffect, useRef, useState } from "react";
 import IconButton from "../../Button/IconButton";
 import InputComponent from "../components/InputComponent";
 import MoreButtonComponent from "../components/MoreButtonComponent";
+import { SubjectData } from "@/types/entity/Subject";
 
 interface RowParams {
   isMemberOfAboveGroup: boolean;
