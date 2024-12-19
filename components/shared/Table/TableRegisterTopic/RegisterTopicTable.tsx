@@ -109,6 +109,7 @@ const RegisterTopicTable = (params: DataTableParams) => {
     });
 
     if (params.onSaveEditTable) {
+      console.log('updatedDataTable', updatedDataTable)
       params.onSaveEditTable(updatedDataTable);
     }
   };
@@ -276,6 +277,8 @@ const RegisterTopicTable = (params: DataTableParams) => {
                         });
                       }}
                       onChangeRow={(updatedDataItem: any) => {
+                        console.log('updatedDataItem', updatedDataItem)
+                        
                         updateLocalDataTableRef(
                           localDataTableRef.current.map((item) =>
                             item.STT === updatedDataItem.STT

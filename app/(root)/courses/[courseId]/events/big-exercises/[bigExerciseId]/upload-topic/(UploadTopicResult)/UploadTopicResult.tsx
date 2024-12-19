@@ -1,11 +1,11 @@
 "use client";
 
-import TopicGroupTable from "@/components/shared/Table/TableTopic/TopicDataTable";
+import TopicDataTable from "@/components/shared/Table/TableTopic/TopicDataTable";
 import { mockTopicDataTable } from "@/mocks";
 
 const UploadTopicResult = () => {
   return (
-    <TopicGroupTable
+    <TopicDataTable
       isOnlyView
       isEditTable={false}
       isMultipleDelete={false}

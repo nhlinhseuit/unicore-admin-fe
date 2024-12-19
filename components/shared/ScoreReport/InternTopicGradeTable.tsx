@@ -1,11 +1,9 @@
 import { InternReviewDataItem } from "@/types";
 import { Table } from "flowbite-react";
 import React, { useState } from "react";
+import IconButton from "../Button/IconButton";
 import { tableTheme } from "../Table/components/DataTable";
 import InputComponent from "../Table/components/InputComponent";
-import IconButton from "../Button/IconButton";
-import MyErrorText from "../MyErrorText";
-import { text } from "stream/consumers";
 
 interface DataTableParams {
   isEditTable: boolean;

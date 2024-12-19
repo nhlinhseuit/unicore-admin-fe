@@ -162,12 +162,12 @@ export const DepartmentScoreReportTabItems = [
   {
     value: "scoreThesisReport",
     label: "Nhập điểm cán bộ phản biện KLTN",
-    route: "/score-report/reviewer-thesis-report",
+    route: "/score-report/thesis-report",
   },
   {
     value: "scoreInternReport",
     label: "Nhập điểm hội đồng Thực tập doanh nghiệp",
-    route: "/score-report/reviewer-intern-report",
+    route: "/score-report/intern-report",
   },
 ];
 

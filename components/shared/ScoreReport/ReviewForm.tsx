@@ -4,18 +4,20 @@ import BorderContainer from "@/components/shared/BorderContainer";
 import IconButton from "@/components/shared/Button/IconButton";
 import SubmitButton from "@/components/shared/Button/SubmitButton";
 import { ratingThesis, statusThesis } from "@/constants";
+import { ReviewTopicDataItem } from "@/types";
 import { Dropdown } from "flowbite-react";
 import Image from "next/image";
 import React, { useState } from "react";
 import GeneralOfReport from "./GeneralOfReport";
 import InputForm from "./InputForm";
-import SubGeneralOfReport from "./SubGeneralOfReport";
 import TableForm from "./TableForm";
-import { ReviewTopicDataItem } from "@/types";
+import SubGeneralOfReport from "./SubGeneralOfReport";
 
 interface Props {
   topic: ReviewTopicDataItem;
-  reviewerName: string;
+  ownerName: string;
+
+  isReviewer: boolean;
 }
 
 const ReviewForm = (params: Props) => {
@@ -57,16 +59,16 @@ const ReviewForm = (params: Props) => {
     }));
   };
 
-  const handleClick = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => {
-    const target = e.target as HTMLInputElement;
-    const { name, checked } = target;
-    setFormData((prevState) => ({
-      ...prevState,
-      [name]: checked,
-    }));
-  };
+    const handleClick = (
+      e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+    ) => {
+      const target = e.target as HTMLInputElement;
+      const { name, checked } = target;
+      setFormData((prevState) => ({
+        ...prevState,
+        [name]: checked,
+      }));
+    };
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -94,8 +96,11 @@ const ReviewForm = (params: Props) => {
 
         <div className="text-center flex flex-col gap-4">
           <p className="paragraph-semibold">NHẬN XÉT KHÓA LUẬN TỐT NGHIỆP</p>
-
-          <p className="paragraph-semibold">CỦA CÁN BỘ PHẢN BIỆN</p>
+          {params.isReviewer ? (
+            <p className="paragraph-semibold">CỦA CÁN BỘ PHẢN BIỆN</p>
+          ) : (
+            <p className="paragraph-semibold">CỦA CÁN BỘ HƯỚNG DẪN</p>
+          )}
         </div>
 
         <div className="mt-10 flex flex-col gap-6">
@@ -126,9 +131,9 @@ const ReviewForm = (params: Props) => {
 
             {/*  CÁN BỘ */}
             <div className="w-[40%]">
-              <label className="base-semibold">Cán bộ phản biện: </label>
+              <label className="base-semibold">Cán bộ {params.isReviewer ? 'phản biện':'hướng dẫn'}: </label>
               <div className="mt-2 flex items-center gap-4">
-                <label className="base-regular">{params.reviewerName}</label>
+                <label className="base-regular">{params.ownerName}</label>
               </div>
             </div>
           </div>
@@ -148,15 +153,41 @@ const ReviewForm = (params: Props) => {
                 </label>
               </div>
 
-              <GeneralOfReport
-                totalPages={formData.totalPages}
-                totalChapters={formData.totalChapters}
-                totalFigures={formData.totalFigures}
-                totalTables={formData.totalTables}
-                totalReferences={formData.totalReferences}
-                overviewComment={formData.overviewComment}
-                handleChange={handleChange}
-              />
+              {params.isReviewer ? (
+                <GeneralOfReport
+                  totalPages={formData.totalPages}
+                  totalChapters={formData.totalChapters}
+                  totalFigures={formData.totalFigures}
+                  totalTables={formData.totalTables}
+                  totalReferences={formData.totalReferences}
+                  overviewComment={formData.overviewComment}
+                  handleChange={handleChange}
+                />
+              ) : (
+                <div className="flex gap-20">
+                  <div className="w-[60%]">
+                    <GeneralOfReport
+                      totalPages={formData.totalPages}
+                      totalChapters={formData.totalChapters}
+                      totalFigures={formData.totalFigures}
+                      totalTables={formData.totalTables}
+                      totalReferences={formData.totalReferences}
+                      overviewComment={formData.overviewComment}
+                      handleChange={handleChange}
+                    />
+                  </div>
+                  <div className="w-[30%]">
+                    <SubGeneralOfReport
+                      acknowledgements={formData.acknowledgements}
+                      overviewVN={formData.overviewVN}
+                      overviewEN={formData.overviewEN}
+                      abbreviations={formData.abbreviations}
+                      tableOfContents={formData.tableOfContents}
+                      handleClick={handleClick}
+                    />
+                  </div>
+                </div>
+              )}
 
               <label className="base-regular italic">
                 &lt;nhận xét về định dạng, cách thức viết báo cáo, văn phong,

@@ -1,33 +1,15 @@
 import { RegisterTopicTableType } from "@/constants";
 import {
-  CourseData,
-  RegisterTopicDataItem,
-  StudentData,
-  SubjectData,
-  TeacherData,
+  RegisterTopicDataItem
 } from "@/types";
 import { Table } from "flowbite-react";
-import React, { useEffect, useRef, useState } from "react";
-import IconButton from "../../Button/IconButton";
-import InputComponent from "../components/InputComponent";
-import MoreButtonComponent from "../components/MoreButtonComponent";
+import React from "react";
 
 interface RowParams {
   type: RegisterTopicTableType;
   dataItem: RegisterTopicDataItem;
   isHasSubCourses?: boolean;
   onClickCheckBoxSelect?: (item: string) => void;
-}
-interface handleInputChangeParams {
-  key:
-    | keyof CourseData
-    | keyof SubjectData
-    | keyof StudentData
-    | keyof TeacherData;
-  newValue: any;
-  isMultipleInput?: boolean;
-  currentIndex?: number;
-  isCheckbox?: boolean;
 }
 
 const RowApproveTopicTable = React.memo(
@@ -49,36 +31,7 @@ const RowApproveTopicTable = React.memo(
         case "MSSV":
         case "Họ và tên":
         case "SĐT":
-          return params.isEditTable ? (
-            Array.isArray(value) ? (
-              <div className="flex flex-col gap-1">
-                {value.map((item, index) => (
-                  <InputComponent
-                    key={`${keyId}_${item}_${index}`}
-                    value={item}
-                    placeholder={item as string | number}
-                    onChange={(newValue) => {
-                      // handleInputChange({
-                      //   key,
-                      //   newValue,
-                      //   isMultipleInput: true,
-                      //   currentIndex: index,
-                      // })
-                    }}
-                  />
-                ))}
-              </div>
-            ) : (
-              <InputComponent
-                key={`${keyId}_input_${value}`}
-                value={value as string | number}
-                placeholder={value as string | number}
-                onChange={(newValue) => {
-                  // handleInputChange({ key, newValue });
-                }}
-              />
-            )
-          ) : Array.isArray(value) ? (
+          return Array.isArray(value) ? (
             value.map((item, index) => (
               <React.Fragment key={index}>
                 {item}
@@ -90,24 +43,7 @@ const RowApproveTopicTable = React.memo(
           );
 
         default:
-          return params.isEditTable ? (
-            <InputComponent
-              key={`${keyId}_input_${key}_${value}`}
-              value={value as string | number}
-              placeholder={value as string | number}
-              //@ts-ignore
-              onChange={
-                (newValue) => {}
-                //@ts-ignore
-                // handleInputChange({ key: key, newValue: newValue })
-              }
-              //! NOTE: Đặt w-full cho ô input Mô tả
-              isDescription={key === "Mô tả"}
-              isInTable
-            />
-          ) : (
-            value
-          );
+          return value
       }
     };
 

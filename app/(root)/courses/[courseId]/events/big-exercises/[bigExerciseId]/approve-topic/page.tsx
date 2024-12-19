@@ -31,8 +31,8 @@ const ApproveTopic = () => {
 
   return (
     <RegisterTopicTable
-    isOnlyView  
-    type={RegisterTopicTableType.approveTopic}
+      isOnlyView
+      type={RegisterTopicTableType.approveTopic}
       isEditTable={false}
       isMultipleDelete={false}
       dataTable={getDataTable()}

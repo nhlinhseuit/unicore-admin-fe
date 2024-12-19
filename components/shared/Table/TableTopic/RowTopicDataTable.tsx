@@ -48,7 +48,7 @@ const RowTopicDataTable = React.memo(
         },
       };
 
-      refInput.current = updatedDataItem;
+      refInput.current = updatedDataItem; //? ĐỂ UPATE ĐƯỢC NHIỀU FIELD TRÊN 1 HÀNG
 
       params.onChangeRow && params.onChangeRow(updatedDataItem); // Gọi callback để truyền dữ liệu đã chỉnh sửa lên DataTable
     };
@@ -96,7 +96,7 @@ const RowTopicDataTable = React.memo(
 
         {/* Các giá trị khác */}
         {Object.entries(params.dataItem.data).map(([key, value]) => {
-          const keyId = params.dataItem.data["Tên đề tài"];
+          const keyId = params.dataItem.data["Tên đề tài tiếng Việt"];
 
           return params.isEditTable ? (
             key === "Mô tả" ? (

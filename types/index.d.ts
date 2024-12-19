@@ -1,17 +1,17 @@
 import { BADGE_CRITERIA } from "@/constants";
 
-//TODO: reviewer-thesis-report
+//TODO: thesis-report
 
 export interface ReviewTopicDataItem {
-   id: string;
-   isReviewd: int,
-   nameTopic: string;
-   supervisor: string[];
-   studentIds: string[];
-   studentNames: string[];
-   council: string;
-   councilInfo: string;
-   reviewTeachers: string[];
+  id: string;
+  isReviewd: int;
+  nameTopic: string;
+  supervisor: string[];
+  studentIds: string[];
+  studentNames: string[];
+  council: string;
+  councilInfo: string;
+  reviewTeacher: string;
 }
 
 // TODO: PAGE INTERFACE
@@ -89,12 +89,27 @@ export interface RegisterGroupData {
   "Họ và tên": string;
 }
 export interface RegisterTopicData {
-  "Tên đề tài": string;
+  "Tên đề tài tiếng Việt": string;
+  "Tên đề tài tiếng Anh": string;
   "Mô tả": string;
   "Mã nhóm": string;
   MSSV: string[];
   SĐT: string[];
   "Họ và tên": string[];
+}
+
+export interface ThesisTopicGradeData {
+  "Mã nhóm": string;
+  MSSV: string[];
+  "Họ và tên": string[];
+  "Tên đề tài tiếng Việt": string;
+  "Tên đề tài tiếng Anh": string;
+  "Phản biện": string;
+  "Hướng dẫn": string;
+  "Chủ tịch": string;
+  "Thư ký": string;
+  "Ủy viên": string;
+  "Điểm tổng": string;
 }
 export interface TopicRegisterGroupData {
   MSSV: string;
@@ -104,7 +119,8 @@ export interface TopicRegisterGroupData {
 
 export interface TopicData {
   "GV phụ trách": string;
-  "Tên đề tài": string;
+  "Tên đề tài tiếng Việt": string;
+  "Tên đề tài tiếng Anh": string;
   "Mô tả": string;
 }
 export interface FileData {
@@ -204,6 +220,10 @@ export interface RegisterTopicDataItem {
   isDeleted: boolean;
   data: RegisterTopicData;
 }
+export interface ThesisTopicGradeDataItem {
+  STT: string;
+  data: ThesisTopicGradeData;
+}
 
 export interface TopicRegisterGroupDataItem {
   STT: string;
@@ -251,8 +271,20 @@ export interface InternReviewDataItem {
   STT: string;
   data: InternReviewData;
 }
+export interface ThesisReviewDataItem {
+  STT: string;
+  data: ThesisReviewData;
+}
 
 export interface InternReviewData {
+  MSSV: string;
+  "Họ và tên": string;
+  "Vị trí thực tập": string;
+  "Công ty thực tập": string;
+  "Giảng viên chấm điểm": string[];
+  Điểm: string[];
+}
+export interface ThesisReviewData {
   MSSV: string;
   "Họ và tên": string;
   "Vị trí thực tập": string;

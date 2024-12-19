@@ -152,16 +152,16 @@ const LeftSideBar = () => {
             } else {
               return (
                 <Link
-                key={
-                  item.route === "/score-report"
-                    ? `/score-report/reviewer-thesis-report`
-                    : item.route
-                }
-                href={
-                  item.route === "/score-report"
-                    ? `/score-report/reviewer-thesis-report`
-                    : item.route
-                }
+                  key={
+                    item.route === "/score-report"
+                      ? `/score-report/thesis-report`
+                      : item.route
+                  }
+                  href={
+                    item.route === "/score-report"
+                      ? `/score-report/thesis-report`
+                      : item.route
+                  }
                   className={getStyle(isActive)}
                 >
                   <Image

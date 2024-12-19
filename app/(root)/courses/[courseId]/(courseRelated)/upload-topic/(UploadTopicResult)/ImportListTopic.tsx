@@ -5,7 +5,7 @@ import IconButton from "@/components/shared/Button/IconButton";
 import ErrorComponent from "@/components/shared/Status/ErrorComponent";
 import NoResult from "@/components/shared/Status/NoResult";
 import TableSkeleton from "@/components/shared/Table/components/TableSkeleton";
-import TopicGroupTable from "@/components/shared/Table/TableTopic/TopicDataTable";
+import TopicDataTable from "@/components/shared/Table/TableTopic/TopicDataTable";
 
 import { TopicDataItem } from "@/types";
 import { useRef, useState } from "react";
@@ -48,7 +48,8 @@ const ImportListTopic = (params: Props) => {
       const transformedData = parsedData.map((item: any, index: number) => {
         // Kiểm tra các trường quan trọng (required fields)
         const requiredFields = {
-          "Tên đề tài": item["Tên đề tài"],
+          "Tên đề tài tiếng Việt": item["Tên đề tài tiếng Việt"],
+          "Tên đề tài tiếng Anh": item["Tên đề tài tiếng Anh"],
           "Mô tả": item["Mô tả"],
           "GV phụ trách": item["GV phụ trách"],
         };
@@ -129,7 +130,7 @@ const ImportListTopic = (params: Props) => {
         </div>
 
         <a
-          href="/assets/template_import_danh_sach_de_tai.xlsx"
+          href="/assets/KTLN - template import ds đề tài.xlsx"
           download
           className=" text-blue-500 underline text-base italic"
         >
@@ -140,7 +141,7 @@ const ImportListTopic = (params: Props) => {
       {isLoading ? (
         <TableSkeleton />
       ) : dataTable.length > 0 ? (
-        <TopicGroupTable
+        <TopicDataTable
           isEditTable={false}
           isMultipleDelete={false}
           dataTable={dataTable}

@@ -793,7 +793,8 @@ export const mockTopicDataTable = [
     isDeleted: false,
     data: {
       "GV phụ trách": "Huỳnh Hồ Thị Mộng Trinh",
-      "Tên đề tài": "Ứng dụng hẹn hò",
+      "Tên đề tài tiếng Việt": "Ứng dụng hẹn hò",
+      "Tên đề tài tiếng Anh": "English name for topic",
       "Mô tả":
         "Kết nối người dùng với những người có sở thích tương tự Nơi người dùng có thể đăng tải và chia sẻ hình ảnh Một ứng dụng áp dụng phiếu giảm giá tự động để đảm bảo cung cấp phiếu giảm giá và giảm giá cho khách hàng",
     },
@@ -804,7 +805,8 @@ export const mockTopicDataTable = [
     isDeleted: false,
     data: {
       "GV phụ trách": "Huỳnh Tuấn Anh",
-      "Tên đề tài": "Ứng dụng chia sẻ hình ảnh",
+      "Tên đề tài tiếng Việt": "Ứng dụng chia sẻ hình ảnh",
+      "Tên đề tài tiếng Anh": "English name for topic",
       "Mô tả": "Nơi người dùng có thể đăng tải và chia sẻ hình ảnh",
     },
   },
@@ -814,7 +816,8 @@ export const mockTopicDataTable = [
     isDeleted: false,
     data: {
       "GV phụ trách": "Nguyễn Thị Thanh Trúc",
-      "Tên đề tài": "Ứng dụng đặt hàng và giao đồ ăn",
+      "Tên đề tài tiếng Việt": "Ứng dụng đặt hàng và giao đồ ăn",
+      "Tên đề tài tiếng Anh": "English name for topic",
       "Mô tả":
         "Một ứng dụng áp dụng phiếu giảm giá tự động để đảm bảo cung cấp phiếu giảm giá và giảm giá cho khách hàng",
     },
@@ -825,7 +828,8 @@ export const mockTopicDataTable = [
     isDeleted: false,
     data: {
       "GV phụ trách": "Huỳnh Hồ Thị Mộng Trinh",
-      "Tên đề tài": "Ứng dụng nhà thông minh",
+      "Tên đề tài tiếng Việt": "Ứng dụng nhà thông minh",
+      "Tên đề tài tiếng Anh": "English name for topic",
       "Mô tả": "Giúp người dùng xây dựng một ngôi nhà thông minh và tiện lợi",
     },
   },
@@ -835,7 +839,8 @@ export const mockTopicDataTable = [
     isDeleted: false,
     data: {
       "GV phụ trách": "Huỳnh Tuấn Anh",
-      "Tên đề tài": "Ứng dụng học ngôn ngữ",
+      "Tên đề tài tiếng Việt": "Ứng dụng học ngôn ngữ",
+      "Tên đề tài tiếng Anh": "English name for topic",
       "Mô tả":
         "Một nền tảng giúp người dùng học các ngôn ngữ mới thông qua bài tập và trò chơi",
     },
@@ -846,7 +851,8 @@ export const mockTopicDataTable = [
     isDeleted: false,
     data: {
       "GV phụ trách": "Nguyễn Thị Thanh Trúc",
-      "Tên đề tài": "Ứng dụng ghi chú",
+      "Tên đề tài tiếng Việt": "Ứng dụng ghi chú",
+      "Tên đề tài tiếng Anh": "English name for topic",
       "Mô tả": "Giúp người dùng ghi lại và tổ chức các ghi chú của mình",
     },
   },
@@ -856,7 +862,8 @@ export const mockTopicDataTable = [
     isDeleted: false,
     data: {
       "GV phụ trách": "Huỳnh Hồ Thị Mộng Trinh",
-      "Tên đề tài": "Ứng dụng quản lý tài chính cá nhân",
+      "Tên đề tài tiếng Việt": "Ứng dụng quản lý tài chính cá nhân",
+      "Tên đề tài tiếng Anh": "English name for topic",
       "Mô tả": "Giúp người dùng theo dõi chi tiêu và lập kế hoạch ngân sách",
     },
   },
@@ -866,7 +873,8 @@ export const mockTopicDataTable = [
     isDeleted: false,
     data: {
       "GV phụ trách": "Huỳnh Tuấn Anh",
-      "Tên đề tài": "Ứng dụng chia sẻ xe",
+      "Tên đề tài tiếng Việt": "Ứng dụng chia sẻ xe",
+      "Tên đề tài tiếng Anh": "English name for topic",
       "Mô tả": "Kết nối người dùng có nhu cầu di chuyển với các tài xế gần đó",
     },
   },
@@ -876,7 +884,8 @@ export const mockTopicDataTable = [
     isDeleted: false,
     data: {
       "GV phụ trách": "Nguyễn Thị Thanh Trúc",
-      "Tên đề tài": "Ứng dụng chăm sóc sức khỏe",
+      "Tên đề tài tiếng Việt": "Ứng dụng chăm sóc sức khỏe",
+      "Tên đề tài tiếng Anh": "English name for topic",
       "Mô tả":
         "Theo dõi các chỉ số sức khỏe và cung cấp các bài tập luyện tập cá nhân hóa",
     },
@@ -887,7 +896,8 @@ export const mockTopicDataTable = [
     isDeleted: false,
     data: {
       "GV phụ trách": "Huỳnh Hồ Thị Mộng Trinh",
-      "Tên đề tài": "Ứng dụng nấu ăn",
+      "Tên đề tài tiếng Việt": "Ứng dụng nấu ăn",
+      "Tên đề tài tiếng Anh": "English name for topic",
       "Mô tả": "Chia sẻ công thức nấu ăn và gợi ý món ăn hàng ngày",
     },
   },
@@ -897,7 +907,8 @@ export const mockTopicDataTable = [
     isDeleted: false,
     data: {
       "GV phụ trách": "Huỳnh Tuấn Anh",
-      "Tên đề tài": "Ứng dụng kết nối bạn bè",
+      "Tên đề tài tiếng Việt": "Ứng dụng kết nối bạn bè",
+      "Tên đề tài tiếng Anh": "English name for topic",
       "Mô tả":
         "Giúp người dùng tìm kiếm và kết nối với bạn bè có sở thích chung",
     },
@@ -908,7 +919,8 @@ export const mockTopicDataTable = [
     isDeleted: false,
     data: {
       "GV phụ trách": "Nguyễn Thị Thanh Trúc",
-      "Tên đề tài": "Ứng dụng học tập trực tuyến",
+      "Tên đề tài tiếng Việt": "Ứng dụng học tập trực tuyến",
+      "Tên đề tài tiếng Anh": "English name for topic",
       "Mô tả": "Cung cấp các khóa học trực tuyến về nhiều lĩnh vực khác nhau",
     },
   },
@@ -918,7 +930,8 @@ export const mockTopicDataTable = [
     isDeleted: false,
     data: {
       "GV phụ trách": "Huỳnh Hồ Thị Mộng Trinh",
-      "Tên đề tài": "Ứng dụng đặt phòng khách sạn",
+      "Tên đề tài tiếng Việt": "Ứng dụng đặt phòng khách sạn",
+      "Tên đề tài tiếng Anh": "English name for topic",
       "Mô tả": "Đặt phòng khách sạn với giá ưu đãi và nhiều tùy chọn tiện ích",
     },
   },
@@ -928,7 +941,8 @@ export const mockTopicDataTable = [
     isDeleted: false,
     data: {
       "GV phụ trách": "Huỳnh Tuấn Anh",
-      "Tên đề tài": "Ứng dụng theo dõi thể dục",
+      "Tên đề tài tiếng Việt": "Ứng dụng theo dõi thể dục",
+      "Tên đề tài tiếng Anh": "English name for topic",
       "Mô tả": "Giúp người dùng theo dõi các hoạt động thể dục và sức khỏe",
     },
   },
@@ -938,7 +952,8 @@ export const mockTopicDataTable = [
     isDeleted: false,
     data: {
       "GV phụ trách": "Nguyễn Thị Thanh Trúc",
-      "Tên đề tài": "Ứng dụng thời tiết",
+      "Tên đề tài tiếng Việt": "Ứng dụng thời tiết",
+      "Tên đề tài tiếng Anh": "English name for topic",
       "Mô tả": "Cập nhật thời tiết hiện tại và dự báo thời tiết trong tuần",
     },
   },
@@ -948,7 +963,8 @@ export const mockTopicDataTable = [
     isDeleted: false,
     data: {
       "GV phụ trách": "Huỳnh Hồ Thị Mộng Trinh",
-      "Tên đề tài": "Ứng dụng quản lý dự án",
+      "Tên đề tài tiếng Việt": "Ứng dụng quản lý dự án",
+      "Tên đề tài tiếng Anh": "English name for topic",
       "Mô tả": "Giúp nhóm lên kế hoạch và theo dõi tiến độ công việc của dự án",
     },
   },
@@ -958,7 +974,8 @@ export const mockTopicDataTable = [
     isDeleted: false,
     data: {
       "GV phụ trách": "Huỳnh Tuấn Anh",
-      "Tên đề tài": "Ứng dụng nhắn tin tức thời",
+      "Tên đề tài tiếng Việt": "Ứng dụng nhắn tin tức thời",
+      "Tên đề tài tiếng Anh": "English name for topic",
       "Mô tả": "Cho phép người dùng gửi tin nhắn văn bản và gọi video miễn phí",
     },
   },
@@ -968,7 +985,8 @@ export const mockTopicDataTable = [
     isDeleted: false,
     data: {
       "GV phụ trách": "Nguyễn Thị Thanh Trúc",
-      "Tên đề tài": "Ứng dụng quản lý tài liệu",
+      "Tên đề tài tiếng Việt": "Ứng dụng quản lý tài liệu",
+      "Tên đề tài tiếng Anh": "English name for topic",
       "Mô tả": "Giúp người dùng lưu trữ, tìm kiếm và chia sẻ tài liệu",
     },
   },
@@ -978,7 +996,8 @@ export const mockTopicDataTable = [
     isDeleted: false,
     data: {
       "GV phụ trách": "Huỳnh Hồ Thị Mộng Trinh",
-      "Tên đề tài": "Ứng dụng tìm việc làm",
+      "Tên đề tài tiếng Việt": "Ứng dụng tìm việc làm",
+      "Tên đề tài tiếng Anh": "English name for topic",
       "Mô tả":
         "Cung cấp thông tin tuyển dụng và kết nối ứng viên với nhà tuyển dụng",
     },
@@ -989,7 +1008,8 @@ export const mockTopicDataTable = [
     isDeleted: false,
     data: {
       "GV phụ trách": "Huỳnh Tuấn Anh",
-      "Tên đề tài": "Ứng dụng đọc sách điện tử",
+      "Tên đề tài tiếng Việt": "Ứng dụng đọc sách điện tử",
+      "Tên đề tài tiếng Anh": "English name for topic",
       "Mô tả": "Một nền tảng để người dùng tải và đọc sách điện tử",
     },
   },
@@ -999,7 +1019,8 @@ export const mockTopicDataTable = [
     isDeleted: false,
     data: {
       "GV phụ trách": "Nguyễn Thị Thanh Trúc",
-      "Tên đề tài": "Ứng dụng nghe nhạc trực tuyến",
+      "Tên đề tài tiếng Việt": "Ứng dụng nghe nhạc trực tuyến",
+      "Tên đề tài tiếng Anh": "English name for topic",
       "Mô tả": "Cho phép người dùng nghe và chia sẻ nhạc trực tuyến",
     },
   },
@@ -1009,7 +1030,8 @@ export const mockTopicDataTable = [
     isDeleted: false,
     data: {
       "GV phụ trách": "Huỳnh Hồ Thị Mộng Trinh",
-      "Tên đề tài": "Ứng dụng mua sắm trực tuyến",
+      "Tên đề tài tiếng Việt": "Ứng dụng mua sắm trực tuyến",
+      "Tên đề tài tiếng Anh": "English name for topic",
       "Mô tả": "Cung cấp các sản phẩm đa dạng và giao hàng tận nơi",
     },
   },
@@ -1019,7 +1041,8 @@ export const mockTopicDataTable = [
     isDeleted: false,
     data: {
       "GV phụ trách": "Huỳnh Tuấn Anh",
-      "Tên đề tài": "Ứng dụng đặt lịch khám bệnh",
+      "Tên đề tài tiếng Việt": "Ứng dụng đặt lịch khám bệnh",
+      "Tên đề tài tiếng Anh": "English name for topic",
       "Mô tả": "Đặt lịch hẹn với bác sĩ và quản lý thông tin sức khỏe cá nhân",
     },
   },
@@ -1029,7 +1052,8 @@ export const mockTopicDataTable = [
     isDeleted: false,
     data: {
       "GV phụ trách": "Nguyễn Thị Thanh Trúc",
-      "Tên đề tài": "Ứng dụng quản lý thời gian",
+      "Tên đề tài tiếng Việt": "Ứng dụng quản lý thời gian",
+      "Tên đề tài tiếng Anh": "English name for topic",
       "Mô tả": "Giúp người dùng lập lịch và theo dõi các nhiệm vụ hàng ngày",
     },
   },
@@ -1039,7 +1063,8 @@ export const mockTopicDataTable = [
     isDeleted: false,
     data: {
       "GV phụ trách": "Huỳnh Hồ Thị Mộng Trinh",
-      "Tên đề tài": "Ứng dụng đồ họa",
+      "Tên đề tài tiếng Việt": "Ứng dụng đồ họa",
+      "Tên đề tài tiếng Anh": "English name for topic",
       "Mô tả": "Một công cụ thiết kế cho người dùng tạo ảnh và video đồ họa",
     },
   },
@@ -1049,7 +1074,8 @@ export const mockTopicDataTable = [
     isDeleted: false,
     data: {
       "GV phụ trách": "Huỳnh Tuấn Anh",
-      "Tên đề tài": "Ứng dụng hẹn hò",
+      "Tên đề tài tiếng Việt": "Ứng dụng hẹn hò",
+      "Tên đề tài tiếng Anh": "English name for topic",
       "Mô tả": "Kết nối người dùng với những người có sở thích tương tự",
     },
   },
@@ -1059,7 +1085,8 @@ export const mockTopicDataTable = [
     isDeleted: false,
     data: {
       "GV phụ trách": "Nguyễn Thị Thanh Trúc",
-      "Tên đề tài": "Ứng dụng học lập trình",
+      "Tên đề tài tiếng Việt": "Ứng dụng học lập trình",
+      "Tên đề tài tiếng Anh": "English name for topic",
       "Mô tả":
         "Hướng dẫn người dùng học các ngôn ngữ lập trình qua các bài tập thực hành",
     },
@@ -1070,7 +1097,8 @@ export const mockTopicDataTable = [
     isDeleted: false,
     data: {
       "GV phụ trách": "Huỳnh Hồ Thị Mộng Trinh",
-      "Tên đề tài": "Ứng dụng podcast",
+      "Tên đề tài tiếng Việt": "Ứng dụng podcast",
+      "Tên đề tài tiếng Anh": "English name for topic",
       "Mô tả": "Cung cấp các kênh podcast đa dạng về nhiều chủ đề",
     },
   },
@@ -1080,7 +1108,8 @@ export const mockTopicDataTable = [
     isDeleted: false,
     data: {
       "GV phụ trách": "Huỳnh Tuấn Anh",
-      "Tên đề tài": "Ứng dụng từ điển trực tuyến",
+      "Tên đề tài tiếng Việt": "Ứng dụng từ điển trực tuyến",
+      "Tên đề tài tiếng Anh": "English name for topic",
       "Mô tả": "Cho phép người dùng tra từ điển và học từ mới",
     },
   },
@@ -1090,7 +1119,8 @@ export const mockTopicDataTable = [
     isDeleted: false,
     data: {
       "GV phụ trách": "Nguyễn Thị Thanh Trúc",
-      "Tên đề tài": "Ứng dụng thực tế ảo",
+      "Tên đề tài tiếng Việt": "Ứng dụng thực tế ảo",
+      "Tên đề tài tiếng Anh": "English name for topic",
       "Mô tả": "Giúp người dùng trải nghiệm các môi trường thực tế ảo",
     },
   },
@@ -1100,7 +1130,8 @@ export const mockTopicDataTable = [
     isDeleted: false,
     data: {
       "GV phụ trách": "Huỳnh Hồ Thị Mộng Trinh",
-      "Tên đề tài": "Ứng dụng quản lý nhân sự",
+      "Tên đề tài tiếng Việt": "Ứng dụng quản lý nhân sự",
+      "Tên đề tài tiếng Anh": "English name for topic",
       "Mô tả":
         "Quản lý thông tin và hiệu suất làm việc của nhân viên trong công ty",
     },
@@ -1111,7 +1142,8 @@ export const mockTopicDataTable = [
     isDeleted: false,
     data: {
       "GV phụ trách": "Huỳnh Tuấn Anh",
-      "Tên đề tài": "Ứng dụng đồ họa",
+      "Tên đề tài tiếng Việt": "Ứng dụng đồ họa",
+      "Tên đề tài tiếng Anh": "English name for topic",
       "Mô tả": "Một công cụ thiết kế cho người dùng tạo ảnh và video đồ họa",
     },
   },
@@ -1121,7 +1153,8 @@ export const mockTopicDataTable = [
     isDeleted: false,
     data: {
       "GV phụ trách": "Nguyễn Thị Thanh Trúc",
-      "Tên đề tài": "Ứng dụng chia sẻ hình ảnh",
+      "Tên đề tài tiếng Việt": "Ứng dụng chia sẻ hình ảnh",
+      "Tên đề tài tiếng Anh": "English name for topic",
       "Mô tả": "Nơi người dùng có thể đăng tải và chia sẻ hình ảnh",
     },
   },
@@ -1131,7 +1164,8 @@ export const mockTopicDataTable = [
     isDeleted: false,
     data: {
       "GV phụ trách": "Huỳnh Hồ Thị Mộng Trinh",
-      "Tên đề tài": "Ứng dụng đặt hàng và giao đồ ăn",
+      "Tên đề tài tiếng Việt": "Ứng dụng đặt hàng và giao đồ ăn",
+      "Tên đề tài tiếng Anh": "English name for topic",
       "Mô tả":
         "Một ứng dụng áp dụng phiếu giảm giá tự động để đảm bảo cung cấp phiếu giảm giá và giảm giá cho khách hàng",
     },
@@ -1142,7 +1176,8 @@ export const mockTopicDataTable = [
     isDeleted: false,
     data: {
       "GV phụ trách": "Huỳnh Tuấn Anh",
-      "Tên đề tài": "Ứng dụng nhà thông minh",
+      "Tên đề tài tiếng Việt": "Ứng dụng nhà thông minh",
+      "Tên đề tài tiếng Anh": "English name for topic",
       "Mô tả": "Giúp người dùng xây dựng một ngôi nhà thông minh và tiện lợi",
     },
   },
@@ -1152,7 +1187,8 @@ export const mockTopicDataTable = [
     isDeleted: false,
     data: {
       "GV phụ trách": "Nguyễn Thị Thanh Trúc",
-      "Tên đề tài": "Ứng dụng học ngôn ngữ",
+      "Tên đề tài tiếng Việt": "Ứng dụng học ngôn ngữ",
+      "Tên đề tài tiếng Anh": "English name for topic",
       "Mô tả":
         "Một nền tảng giúp người dùng học các ngôn ngữ mới thông qua bài tập và trò chơi",
     },
@@ -1163,7 +1199,8 @@ export const mockTopicDataTable = [
     isDeleted: false,
     data: {
       "GV phụ trách": "Huỳnh Hồ Thị Mộng Trinh",
-      "Tên đề tài": "Ứng dụng ghi chú",
+      "Tên đề tài tiếng Việt": "Ứng dụng ghi chú",
+      "Tên đề tài tiếng Anh": "English name for topic",
       "Mô tả": "Giúp người dùng ghi lại và tổ chức các ghi chú của mình",
     },
   },
@@ -1173,7 +1210,8 @@ export const mockTopicDataTable = [
     isDeleted: false,
     data: {
       "GV phụ trách": "Huỳnh Tuấn Anh",
-      "Tên đề tài": "Ứng dụng quản lý tài chính cá nhân",
+      "Tên đề tài tiếng Việt": "Ứng dụng quản lý tài chính cá nhân",
+      "Tên đề tài tiếng Anh": "English name for topic",
       "Mô tả": "Giúp người dùng theo dõi chi tiêu và lập kế hoạch ngân sách",
     },
   },
@@ -1183,7 +1221,8 @@ export const mockTopicDataTable = [
     isDeleted: false,
     data: {
       "GV phụ trách": "Nguyễn Thị Thanh Trúc",
-      "Tên đề tài": "Ứng dụng chia sẻ xe",
+      "Tên đề tài tiếng Việt": "Ứng dụng chia sẻ xe",
+      "Tên đề tài tiếng Anh": "English name for topic",
       "Mô tả": "Kết nối người dùng có nhu cầu di chuyển với các tài xế gần đó",
     },
   },
@@ -1193,7 +1232,8 @@ export const mockTopicDataTable = [
     isDeleted: false,
     data: {
       "GV phụ trách": "Huỳnh Hồ Thị Mộng Trinh",
-      "Tên đề tài": "Ứng dụng chăm sóc sức khỏe",
+      "Tên đề tài tiếng Việt": "Ứng dụng chăm sóc sức khỏe",
+      "Tên đề tài tiếng Anh": "English name for topic",
       "Mô tả":
         "Theo dõi các chỉ số sức khỏe và cung cấp các bài tập luyện tập cá nhân hóa",
     },
@@ -1204,7 +1244,8 @@ export const mockTopicDataTable = [
     isDeleted: false,
     data: {
       "GV phụ trách": "Huỳnh Hồ Thị Mộng Trinh",
-      "Tên đề tài": "Ứng dụng nấu ăn",
+      "Tên đề tài tiếng Việt": "Ứng dụng nấu ăn",
+      "Tên đề tài tiếng Anh": "English name for topic",
       "Mô tả": "Chia sẻ công thức nấu ăn và gợi ý món ăn hàng ngày",
     },
   },
@@ -1214,7 +1255,8 @@ export const mockTopicDataTable = [
     isDeleted: false,
     data: {
       "GV phụ trách": "Huỳnh Tuấn Anh",
-      "Tên đề tài": "Ứng dụng kết nối bạn bè",
+      "Tên đề tài tiếng Việt": "Ứng dụng kết nối bạn bè",
+      "Tên đề tài tiếng Anh": "English name for topic",
       "Mô tả":
         "Giúp người dùng tìm kiếm và kết nối với bạn bè có sở thích chung",
     },
@@ -1225,7 +1267,8 @@ export const mockTopicDataTable = [
     isDeleted: false,
     data: {
       "GV phụ trách": "Nguyễn Thị Thanh Trúc",
-      "Tên đề tài": "Ứng dụng học tập trực tuyến",
+      "Tên đề tài tiếng Việt": "Ứng dụng học tập trực tuyến",
+      "Tên đề tài tiếng Anh": "English name for topic",
       "Mô tả": "Cung cấp các khóa học trực tuyến về nhiều lĩnh vực khác nhau",
     },
   },
@@ -1235,7 +1278,8 @@ export const mockTopicDataTable = [
     isDeleted: false,
     data: {
       "GV phụ trách": "Huỳnh Hồ Thị Mộng Trinh",
-      "Tên đề tài": "Ứng dụng đặt phòng khách sạn",
+      "Tên đề tài tiếng Việt": "Ứng dụng đặt phòng khách sạn",
+      "Tên đề tài tiếng Anh": "English name for topic",
       "Mô tả": "Đặt phòng khách sạn với giá ưu đãi và nhiều tùy chọn tiện ích",
     },
   },
@@ -1245,7 +1289,8 @@ export const mockTopicDataTable = [
     isDeleted: false,
     data: {
       "GV phụ trách": "Huỳnh Tuấn Anh",
-      "Tên đề tài": "Ứng dụng theo dõi thể dục",
+      "Tên đề tài tiếng Việt": "Ứng dụng theo dõi thể dục",
+      "Tên đề tài tiếng Anh": "English name for topic",
       "Mô tả": "Giúp người dùng theo dõi các hoạt động thể dục và sức khỏe",
     },
   },
@@ -1255,7 +1300,8 @@ export const mockTopicDataTable = [
     isDeleted: false,
     data: {
       "GV phụ trách": "Nguyễn Thị Thanh Trúc",
-      "Tên đề tài": "Ứng dụng thời tiết",
+      "Tên đề tài tiếng Việt": "Ứng dụng thời tiết",
+      "Tên đề tài tiếng Anh": "English name for topic",
       "Mô tả": "Cập nhật thời tiết hiện tại và dự báo thời tiết trong tuần",
     },
   },
@@ -1265,7 +1311,8 @@ export const mockTopicDataTable = [
     isDeleted: false,
     data: {
       "GV phụ trách": "Huỳnh Hồ Thị Mộng Trinh",
-      "Tên đề tài": "Ứng dụng quản lý dự án",
+      "Tên đề tài tiếng Việt": "Ứng dụng quản lý dự án",
+      "Tên đề tài tiếng Anh": "English name for topic",
       "Mô tả": "Giúp nhóm lên kế hoạch và theo dõi tiến độ công việc của dự án",
     },
   },
@@ -1275,7 +1322,8 @@ export const mockTopicDataTable = [
     isDeleted: false,
     data: {
       "GV phụ trách": "Huỳnh Tuấn Anh",
-      "Tên đề tài": "Ứng dụng nhắn tin tức thời",
+      "Tên đề tài tiếng Việt": "Ứng dụng nhắn tin tức thời",
+      "Tên đề tài tiếng Anh": "English name for topic",
       "Mô tả": "Cho phép người dùng gửi tin nhắn văn bản và gọi video miễn phí",
     },
   },
@@ -1285,7 +1333,8 @@ export const mockTopicDataTable = [
     isDeleted: false,
     data: {
       "GV phụ trách": "Nguyễn Thị Thanh Trúc",
-      "Tên đề tài": "Ứng dụng quản lý tài liệu",
+      "Tên đề tài tiếng Việt": "Ứng dụng quản lý tài liệu",
+      "Tên đề tài tiếng Anh": "English name for topic",
       "Mô tả": "Giúp người dùng lưu trữ, tìm kiếm và chia sẻ tài liệu",
     },
   },
@@ -1295,7 +1344,8 @@ export const mockTopicDataTable = [
     isDeleted: false,
     data: {
       "GV phụ trách": "Huỳnh Hồ Thị Mộng Trinh",
-      "Tên đề tài": "Ứng dụng tìm việc làm",
+      "Tên đề tài tiếng Việt": "Ứng dụng tìm việc làm",
+      "Tên đề tài tiếng Anh": "English name for topic",
       "Mô tả":
         "Cung cấp thông tin tuyển dụng và kết nối ứng viên với nhà tuyển dụng",
     },
@@ -1306,7 +1356,8 @@ export const mockTopicDataTable = [
     isDeleted: false,
     data: {
       "GV phụ trách": "Huỳnh Tuấn Anh",
-      "Tên đề tài": "Ứng dụng đọc sách điện tử",
+      "Tên đề tài tiếng Việt": "Ứng dụng đọc sách điện tử",
+      "Tên đề tài tiếng Anh": "English name for topic",
       "Mô tả": "Một nền tảng để người dùng tải và đọc sách điện tử",
     },
   },
@@ -1316,7 +1367,8 @@ export const mockTopicDataTable = [
     isDeleted: false,
     data: {
       "GV phụ trách": "Nguyễn Thị Thanh Trúc",
-      "Tên đề tài": "Ứng dụng nghe nhạc trực tuyến",
+      "Tên đề tài tiếng Việt": "Ứng dụng nghe nhạc trực tuyến",
+      "Tên đề tài tiếng Anh": "English name for topic",
       "Mô tả": "Cho phép người dùng nghe và chia sẻ nhạc trực tuyến",
     },
   },
@@ -1326,7 +1378,8 @@ export const mockTopicDataTable = [
     isDeleted: false,
     data: {
       "GV phụ trách": "Huỳnh Hồ Thị Mộng Trinh",
-      "Tên đề tài": "Ứng dụng mua sắm trực tuyến",
+      "Tên đề tài tiếng Việt": "Ứng dụng mua sắm trực tuyến",
+      "Tên đề tài tiếng Anh": "English name for topic",
       "Mô tả": "Cung cấp các sản phẩm đa dạng và giao hàng tận nơi",
     },
   },
@@ -1336,7 +1389,8 @@ export const mockTopicDataTable = [
     isDeleted: false,
     data: {
       "GV phụ trách": "Huỳnh Tuấn Anh",
-      "Tên đề tài": "Ứng dụng đặt lịch khám bệnh",
+      "Tên đề tài tiếng Việt": "Ứng dụng đặt lịch khám bệnh",
+      "Tên đề tài tiếng Anh": "English name for topic",
       "Mô tả": "Đặt lịch hẹn với bác sĩ và quản lý thông tin sức khỏe cá nhân",
     },
   },
@@ -1346,7 +1400,8 @@ export const mockTopicDataTable = [
     isDeleted: false,
     data: {
       "GV phụ trách": "Nguyễn Thị Thanh Trúc",
-      "Tên đề tài": "Ứng dụng quản lý thời gian",
+      "Tên đề tài tiếng Việt": "Ứng dụng quản lý thời gian",
+      "Tên đề tài tiếng Anh": "English name for topic",
       "Mô tả": "Giúp người dùng lập lịch và theo dõi các nhiệm vụ hàng ngày",
     },
   },
@@ -1362,7 +1417,8 @@ export const mockDataStudentRegisterTopic = [
     data: {
       "Mã nhóm": "1",
       "GV phụ trách": "Huỳnh Hồ Thị Mộng Trinh",
-      "Tên đề tài": "Ứng dụng hẹn hò",
+      "Tên đề tài tiếng Việt": "Ứng dụng hẹn hò",
+      "Tên đề tài tiếng Anh": "English name for topic",
       "Mô tả":
         "Kết nối người dùng với những người có sở thích tương tự Nơi người dùng có thể đăng tải và chia sẻ hình ảnh Một ứng dụng áp dụng phiếu giảm giá tự động để đảm bảo cung cấp phiếu giảm giá và giảm giá cho khách hàng",
       MSSV: ["21522289"],
@@ -1376,7 +1432,8 @@ export const mockDataStudentRegisterTopic = [
     data: {
       "Mã nhóm": "2",
       "GV phụ trách": "Huỳnh Hồ Thị Mộng Trinh",
-      "Tên đề tài": "Ứng dụng chia sẻ hình ảnh",
+      "Tên đề tài tiếng Việt": "Ứng dụng chia sẻ hình ảnh",
+      "Tên đề tài tiếng Anh": "English name for topic",
       "Mô tả":
         "Nơi người dùng có thể đăng tải và chia sẻ hình ảnh Nơi người dùng có thể đăng tải và chia sẻ hình ảnh Nơi người dùng có thể đăng tải và chia sẻ hình ảnh Nơi người dùng có thể đăng tải và chia sẻ hình ảnh Nơi người dùng có thể đăng tải và chia sẻ hình ảnh Nơi người dùng có thể đăng tải và chia sẻ hình ảnh Nơi người dùng có thể đăng tải và chia sẻ hình ảnh Nơi người dùng có thể đăng tải và chia sẻ hình ảnh Nơi người dùng có thể đăng tải và chia sẻ hình ảnh Nơi người dùng có thể đăng tải và chia sẻ hình ảnh Nơi người dùng có thể đăng tải và chia sẻ hình ảnh",
       MSSV: ["21522289", "21522289"],
@@ -1390,7 +1447,8 @@ export const mockDataStudentRegisterTopic = [
     data: {
       "Mã nhóm": "3",
       "GV phụ trách": "Huỳnh Hồ Thị Mộng Trinh",
-      "Tên đề tài": "Ứng dụng nhà thông minh",
+      "Tên đề tài tiếng Việt": "Ứng dụng nhà thông minh",
+      "Tên đề tài tiếng Anh": "English name for topic",
       "Mô tả": "Giúp người dùng xây dựng một ngôi nhà thông minh và tiện lợi",
       MSSV: ["21522289", "21522289"],
       "Họ và tên": ["Nguyễn Tiến Vĩ", "Nguyễn Vĩ"],
@@ -1403,11 +1461,82 @@ export const mockDataStudentRegisterTopic = [
     data: {
       "Mã nhóm": "4",
       "GV phụ trách": "Huỳnh Hồ Thị Mộng Trinh",
-      "Tên đề tài": "Ứng dụng ghi chú",
+      "Tên đề tài tiếng Việt": "Ứng dụng ghi chú",
+      "Tên đề tài tiếng Anh": "English name for topic",
       "Mô tả": "Giúp người dùng ghi lại và tổ chức các ghi chú của mình",
       MSSV: ["21522289"],
       "Họ và tên": ["Võ Hữu Xike"],
       SĐT: ["0378060972"],
+    },
+  },
+];
+
+//
+// TODO: BigExerciseId Register topic
+//
+export const mockThesisTopicGrade = [
+  {
+    STT: "1",
+    data: {
+      "Mã nhóm": "1",
+      MSSV: ["21522289"],
+      "Họ và tên": ["Nguyễn Hoàng Linh"],
+      "Tên đề tài tiếng Việt": "Ứng dụng hẹn hò",
+      "Tên đề tài tiếng Anh": "English name for topic",
+      "Phản biện": "8",
+      "Hướng dẫn": "9",
+      "Chủ tịch": "8",
+      "Thư ký": "9",
+      "Ủy viên": "9",
+      "Điểm tổng": "9.2",
+    },
+  },
+  {
+    STT: "2",
+    data: {
+      "Mã nhóm": "2",
+      MSSV: ["21522289", "21522289"],
+      "Họ và tên": ["Lê Thành Lộc", "Huỳnh Hồ Thị Mộng Trinh"],
+      "Tên đề tài tiếng Việt": "Ứng dụng chia sẻ hình ảnh",
+      "Tên đề tài tiếng Anh": "English name for topic",
+      "Phản biện": "8",
+      "Hướng dẫn": "9",
+      "Chủ tịch": "8",
+      "Thư ký": "9",
+      "Ủy viên": "9",
+      "Điểm tổng": "9.2",
+    },
+  },
+  {
+    STT: "3",
+    data: {
+      "Mã nhóm": "3",
+      MSSV: ["21522289", "21522289"],
+      "Họ và tên": ["Nguyễn Tiến Vĩ", "Nguyễn Vĩ"],
+      "Tên đề tài tiếng Việt": "Ứng dụng nhà thông minh",
+      "Tên đề tài tiếng Anh": "English name for topic",
+      "Phản biện": "8",
+      "Hướng dẫn": "9",
+      "Chủ tịch": "8",
+      "Thư ký": "9",
+      "Ủy viên": "9",
+      "Điểm tổng": "9.2",
+    },
+  },
+  {
+    STT: "4",
+    data: {
+      "Mã nhóm": "4",
+      MSSV: ["21522289"],
+      "Họ và tên": ["Võ Hữu Xike"],
+      "Tên đề tài tiếng Việt": "Ứng dụng ghi chú",
+      "Tên đề tài tiếng Anh": "English name for topic",
+      "Phản biện": "8",
+      "Hướng dẫn": "9",
+      "Chủ tịch": "8",
+      "Thư ký": "9",
+      "Ủy viên": "9",
+      "Điểm tổng": "9.2",
     },
   },
 ];
@@ -1421,7 +1550,8 @@ export const mockDataAllAppproveTopic = [
     isDeleted: false,
     data: {
       "Trạng thái": "Đã chỉ định giảng viên",
-      "Tên đề tài": "Ứng dụng hẹn hò",
+      "Tên đề tài tiếng Việt": "Ứng dụng hẹn hò",
+      "Tên đề tài tiếng Anh": "English name for topic",
       "Mô tả":
         "Kết nối người dùng với những người có sở thích tương tự Nơi người dùng có thể đăng tải và chia sẻ hình ảnh Một ứng dụng áp dụng phiếu giảm giá tự động để đảm bảo cung cấp phiếu giảm giá và giảm giá cho khách hàng",
       "GV phụ trách": "Huỳnh Hồ Thị Mộng Trinh",
@@ -1436,7 +1566,8 @@ export const mockDataAllAppproveTopic = [
     isDeleted: false,
     data: {
       "Trạng thái": "Chưa chỉ định giảng viên",
-      "Tên đề tài": "Ứng dụng chia sẻ hình ảnh",
+      "Tên đề tài tiếng Việt": "Ứng dụng chia sẻ hình ảnh",
+      "Tên đề tài tiếng Anh": "English name for topic",
       "Mô tả":
         "Nơi người dùng có thể đăng tải và chia sẻ hình ảnh Nơi người dùng có thể đăng tải và chia sẻ hình ảnh Nơi người dùng có thể đăng tải và chia sẻ hình ảnh Nơi người dùng có thể đăng tải và chia sẻ hình ảnh Nơi người dùng có thể đăng tải và chia sẻ hình ảnh Nơi người dùng có thể đăng tải và chia sẻ hình ảnh Nơi người dùng có thể đăng tải và chia sẻ hình ảnh Nơi người dùng có thể đăng tải và chia sẻ hình ảnh Nơi người dùng có thể đăng tải và chia sẻ hình ảnh Nơi người dùng có thể đăng tải và chia sẻ hình ảnh Nơi người dùng có thể đăng tải và chia sẻ hình ảnh",
       "GV phụ trách": "Huỳnh Tuấn Anh",
@@ -1451,7 +1582,8 @@ export const mockDataAllAppproveTopic = [
     isDeleted: false,
     data: {
       "Trạng thái": "Đã từ chối",
-      "Tên đề tài": "Ứng dụng đặt hàng và giao đồ ăn",
+      "Tên đề tài tiếng Việt": "Ứng dụng đặt hàng và giao đồ ăn",
+      "Tên đề tài tiếng Anh": "English name for topic",
       "Mô tả":
         "Nơi người dùng có thể đăng tải và chia sẻ hình ảnh Nơi người dùng có thể đăng tải và chia sẻ hình ảnh Nơi người dùng có thể đăng tải và chia sẻ hình ảnh Nơi người dùng có thể đăng tải và chia sẻ hình ảnh Nơi người dùng có thể đăng tải và chia sẻ hình ảnh Nơi người dùng có thể đăng tải và chia sẻ hình ảnh Nơi người dùng có thể đăng tải và chia sẻ hình ảnh Nơi người dùng có thể đăng tải và chia sẻ hình ảnh Nơi người dùng có thể đăng tải và chia sẻ hình ảnh Nơi người dùng có thể đăng tải và chia sẻ hình ảnh Nơi người dùng có thể đăng tải và chia sẻ hình ảnh",
       "GV phụ trách": "Huỳnh Tuấn Anh",
@@ -1466,7 +1598,8 @@ export const mockDataAllAppproveTopic = [
     isDeleted: false,
     data: {
       "Trạng thái": "Đã chỉ định giảng viên",
-      "Tên đề tài": "Ứng dụng nhà thông minh",
+      "Tên đề tài tiếng Việt": "Ứng dụng nhà thông minh",
+      "Tên đề tài tiếng Anh": "English name for topic",
       "Mô tả": "Giúp người dùng xây dựng một ngôi nhà thông minh và tiện lợi",
       "GV phụ trách": "Huỳnh Hồ Thị Mộng Trinh",
       "Mã nhóm": "4",
@@ -1480,7 +1613,8 @@ export const mockDataAllAppproveTopic = [
     isDeleted: false,
     data: {
       "Trạng thái": "Chưa chỉ định giảng viên",
-      "Tên đề tài": "Ứng dụng học ngôn ngữ",
+      "Tên đề tài tiếng Việt": "Ứng dụng học ngôn ngữ",
+      "Tên đề tài tiếng Anh": "English name for topic",
       "Mô tả": "Giúp người dùng xây dựng một ngôi nhà thông minh và tiện lợi",
       "GV phụ trách": "Huỳnh Hồ Thị Mộng Trinh",
       "Mã nhóm": "5",
@@ -1494,7 +1628,8 @@ export const mockDataAllAppproveTopic = [
     isDeleted: false,
     data: {
       "Trạng thái": "Đã từ chối",
-      "Tên đề tài": "Ứng dụng ghi chú",
+      "Tên đề tài tiếng Việt": "Ứng dụng ghi chú",
+      "Tên đề tài tiếng Anh": "English name for topic",
       "Mô tả": "Giúp người dùng ghi lại và tổ chức các ghi chú của mình",
       "GV phụ trách": "Nguyễn Thị Thanh Trúc",
       "Mã nhóm": "6",
@@ -1510,7 +1645,8 @@ export const mockDataAssignedTopic = [
     isDeleted: false,
     data: {
       "Trạng thái": "Đã chỉ định giảng viên",
-      "Tên đề tài": "Ứng dụng hẹn hò",
+      "Tên đề tài tiếng Việt": "Ứng dụng hẹn hò",
+      "Tên đề tài tiếng Anh": "English name for topic",
       "Mô tả":
         "Kết nối người dùng với những người có sở thích tương tự Nơi người dùng có thể đăng tải và chia sẻ hình ảnh Một ứng dụng áp dụng phiếu giảm giá tự động để đảm bảo cung cấp phiếu giảm giá và giảm giá cho khách hàng",
       "GV phụ trách": "Huỳnh Hồ Thị Mộng Trinh",
@@ -1525,7 +1661,8 @@ export const mockDataAssignedTopic = [
     isDeleted: false,
     data: {
       "Trạng thái": "Đã chỉ định giảng viên",
-      "Tên đề tài": "Ứng dụng chia sẻ hình ảnh",
+      "Tên đề tài tiếng Việt": "Ứng dụng chia sẻ hình ảnh",
+      "Tên đề tài tiếng Anh": "English name for topic",
       "Mô tả":
         "Nơi người dùng có thể đăng tải và chia sẻ hình ảnh Nơi người dùng có thể đăng tải và chia sẻ hình ảnh Nơi người dùng có thể đăng tải và chia sẻ hình ảnh Nơi người dùng có thể đăng tải và chia sẻ hình ảnh Nơi người dùng có thể đăng tải và chia sẻ hình ảnh Nơi người dùng có thể đăng tải và chia sẻ hình ảnh Nơi người dùng có thể đăng tải và chia sẻ hình ảnh Nơi người dùng có thể đăng tải và chia sẻ hình ảnh Nơi người dùng có thể đăng tải và chia sẻ hình ảnh Nơi người dùng có thể đăng tải và chia sẻ hình ảnh Nơi người dùng có thể đăng tải và chia sẻ hình ảnh",
       "GV phụ trách": "Huỳnh Tuấn Anh",
@@ -1540,7 +1677,8 @@ export const mockDataAssignedTopic = [
     isDeleted: false,
     data: {
       "Trạng thái": "Đã chỉ định giảng viên",
-      "Tên đề tài": "Ứng dụng đặt hàng và giao đồ ăn",
+      "Tên đề tài tiếng Việt": "Ứng dụng đặt hàng và giao đồ ăn",
+      "Tên đề tài tiếng Anh": "English name for topic",
       "Mô tả":
         "Nơi người dùng có thể đăng tải và chia sẻ hình ảnh Nơi người dùng có thể đăng tải và chia sẻ hình ảnh Nơi người dùng có thể đăng tải và chia sẻ hình ảnh Nơi người dùng có thể đăng tải và chia sẻ hình ảnh Nơi người dùng có thể đăng tải và chia sẻ hình ảnh Nơi người dùng có thể đăng tải và chia sẻ hình ảnh Nơi người dùng có thể đăng tải và chia sẻ hình ảnh Nơi người dùng có thể đăng tải và chia sẻ hình ảnh Nơi người dùng có thể đăng tải và chia sẻ hình ảnh Nơi người dùng có thể đăng tải và chia sẻ hình ảnh Nơi người dùng có thể đăng tải và chia sẻ hình ảnh",
       "GV phụ trách": "Huỳnh Tuấn Anh",
@@ -1557,7 +1695,8 @@ export const mockDataNotAssignedTopic = [
     isDeleted: false,
     data: {
       "Trạng thái": "Chưa chỉ định giảng viên",
-      "Tên đề tài": "Ứng dụng hẹn hò",
+      "Tên đề tài tiếng Việt": "Ứng dụng hẹn hò",
+      "Tên đề tài tiếng Anh": "English name for topic",
       "Mô tả":
         "Kết nối người dùng với những người có sở thích tương tự Nơi người dùng có thể đăng tải và chia sẻ hình ảnh Một ứng dụng áp dụng phiếu giảm giá tự động để đảm bảo cung cấp phiếu giảm giá và giảm giá cho khách hàng",
       "GV phụ trách": "Huỳnh Hồ Thị Mộng Trinh",
@@ -1572,7 +1711,8 @@ export const mockDataNotAssignedTopic = [
     isDeleted: false,
     data: {
       "Trạng thái": "Chưa chỉ định giảng viên",
-      "Tên đề tài": "Ứng dụng chia sẻ hình ảnh",
+      "Tên đề tài tiếng Việt": "Ứng dụng chia sẻ hình ảnh",
+      "Tên đề tài tiếng Anh": "English name for topic",
       "Mô tả":
         "Nơi người dùng có thể đăng tải và chia sẻ hình ảnh Nơi người dùng có thể đăng tải và chia sẻ hình ảnh Nơi người dùng có thể đăng tải và chia sẻ hình ảnh Nơi người dùng có thể đăng tải và chia sẻ hình ảnh Nơi người dùng có thể đăng tải và chia sẻ hình ảnh Nơi người dùng có thể đăng tải và chia sẻ hình ảnh Nơi người dùng có thể đăng tải và chia sẻ hình ảnh Nơi người dùng có thể đăng tải và chia sẻ hình ảnh Nơi người dùng có thể đăng tải và chia sẻ hình ảnh Nơi người dùng có thể đăng tải và chia sẻ hình ảnh Nơi người dùng có thể đăng tải và chia sẻ hình ảnh",
       "GV phụ trách": "Huỳnh Tuấn Anh",
@@ -1587,7 +1727,8 @@ export const mockDataNotAssignedTopic = [
     isDeleted: false,
     data: {
       "Trạng thái": "Chưa chỉ định giảng viên",
-      "Tên đề tài": "Ứng dụng đặt hàng và giao đồ ăn",
+      "Tên đề tài tiếng Việt": "Ứng dụng đặt hàng và giao đồ ăn",
+      "Tên đề tài tiếng Anh": "English name for topic",
       "Mô tả":
         "Nơi người dùng có thể đăng tải và chia sẻ hình ảnh Nơi người dùng có thể đăng tải và chia sẻ hình ảnh Nơi người dùng có thể đăng tải và chia sẻ hình ảnh Nơi người dùng có thể đăng tải và chia sẻ hình ảnh Nơi người dùng có thể đăng tải và chia sẻ hình ảnh Nơi người dùng có thể đăng tải và chia sẻ hình ảnh Nơi người dùng có thể đăng tải và chia sẻ hình ảnh Nơi người dùng có thể đăng tải và chia sẻ hình ảnh Nơi người dùng có thể đăng tải và chia sẻ hình ảnh Nơi người dùng có thể đăng tải và chia sẻ hình ảnh Nơi người dùng có thể đăng tải và chia sẻ hình ảnh",
       "GV phụ trách": "Huỳnh Tuấn Anh",
@@ -1604,7 +1745,8 @@ export const mockDataRefuseTopic = [
     isDeleted: false,
     data: {
       "Trạng thái": "Đã từ chối",
-      "Tên đề tài": "Ứng dụng hẹn hò",
+      "Tên đề tài tiếng Việt": "Ứng dụng hẹn hò",
+      "Tên đề tài tiếng Anh": "English name for topic",
       "Mô tả":
         "Kết nối người dùng với những người có sở thích tương tự Nơi người dùng có thể đăng tải và chia sẻ hình ảnh Một ứng dụng áp dụng phiếu giảm giá tự động để đảm bảo cung cấp phiếu giảm giá và giảm giá cho khách hàng",
       "GV phụ trách": "Huỳnh Hồ Thị Mộng Trinh",
@@ -1619,7 +1761,8 @@ export const mockDataRefuseTopic = [
     isDeleted: false,
     data: {
       "Trạng thái": "Đã từ chối",
-      "Tên đề tài": "Ứng dụng chia sẻ hình ảnh",
+      "Tên đề tài tiếng Việt": "Ứng dụng chia sẻ hình ảnh",
+      "Tên đề tài tiếng Anh": "English name for topic",
       "Mô tả":
         "Nơi người dùng có thể đăng tải và chia sẻ hình ảnh Nơi người dùng có thể đăng tải và chia sẻ hình ảnh Nơi người dùng có thể đăng tải và chia sẻ hình ảnh Nơi người dùng có thể đăng tải và chia sẻ hình ảnh Nơi người dùng có thể đăng tải và chia sẻ hình ảnh Nơi người dùng có thể đăng tải và chia sẻ hình ảnh Nơi người dùng có thể đăng tải và chia sẻ hình ảnh Nơi người dùng có thể đăng tải và chia sẻ hình ảnh Nơi người dùng có thể đăng tải và chia sẻ hình ảnh Nơi người dùng có thể đăng tải và chia sẻ hình ảnh Nơi người dùng có thể đăng tải và chia sẻ hình ảnh",
       "GV phụ trách": "Huỳnh Tuấn Anh",
@@ -1634,7 +1777,8 @@ export const mockDataRefuseTopic = [
     isDeleted: false,
     data: {
       "Trạng thái": "Đã từ chối",
-      "Tên đề tài": "Ứng dụng đặt hàng và giao đồ ăn",
+      "Tên đề tài tiếng Việt": "Ứng dụng đặt hàng và giao đồ ăn",
+      "Tên đề tài tiếng Anh": "English name for topic",
       "Mô tả":
         "Nơi người dùng có thể đăng tải và chia sẻ hình ảnh Nơi người dùng có thể đăng tải và chia sẻ hình ảnh Nơi người dùng có thể đăng tải và chia sẻ hình ảnh Nơi người dùng có thể đăng tải và chia sẻ hình ảnh Nơi người dùng có thể đăng tải và chia sẻ hình ảnh Nơi người dùng có thể đăng tải và chia sẻ hình ảnh Nơi người dùng có thể đăng tải và chia sẻ hình ảnh Nơi người dùng có thể đăng tải và chia sẻ hình ảnh Nơi người dùng có thể đăng tải và chia sẻ hình ảnh Nơi người dùng có thể đăng tải và chia sẻ hình ảnh Nơi người dùng có thể đăng tải và chia sẻ hình ảnh",
       "GV phụ trách": "Huỳnh Tuấn Anh",
@@ -2276,11 +2420,7 @@ export const mockThesisReviewTopic = [
     studentNames: ["Đặng Hồ Anh Quân", "Lê Hoàng Phúc"],
     council: "Hội đồng 1",
     councilInfo: "8h00 sáng thứ 3 ngày 30/07/2024 tại phòng E4.1",
-    reviewTeachers: [
-      "Đỗ Trọng Hợp",
-      "Trần Thị Hồng Yến",
-      "Nguyễn Thị Thanh Trúc",
-    ],
+    reviewTeacher: "Đỗ Trọng Hợp",
   },
   {
     id: "2",
@@ -2291,11 +2431,7 @@ export const mockThesisReviewTopic = [
     studentNames: ["Nguyễn Hoàng Linh", "Lê Thành Lộc"],
     council: "Hội đồng 1",
     councilInfo: "8h00 sáng thứ 3 ngày 30/07/2024 tại phòng E4.1",
-    reviewTeachers: [
-      "Đỗ Trọng Hợp",
-      "Trần Thị Hồng Yến",
-      "Nguyễn Thị Thanh Trúc",
-    ],
+    reviewTeacher: "Đỗ Thị Thanh Tuyền",
   },
   {
     id: "3",
@@ -2307,11 +2443,7 @@ export const mockThesisReviewTopic = [
     studentNames: ["Đặng Hồ Anh Quân", "Lê Hoàng Phúc"],
     council: "Hội đồng 2",
     councilInfo: "8h00 sáng thứ 3 ngày 30/07/2024 tại phòng E4.2",
-    reviewTeachers: [
-      "Đỗ Trọng Hợp",
-      "Trần Thị Hồng Yến",
-      "Nguyễn Thị Thanh Trúc",
-    ],
+    reviewTeacher: "Nguyễn Thị Thanh Trúc",
   },
   {
     id: "4",
@@ -2322,11 +2454,7 @@ export const mockThesisReviewTopic = [
     studentNames: ["Nguyễn Hoàng Linh", "Lê Thành Lộc"],
     council: "Hội đồng 2",
     councilInfo: "8h00 sáng thứ 3 ngày 30/07/2024 tại phòng E4.2",
-    reviewTeachers: [
-      "Đỗ Trọng Hợp",
-      "Trần Thị Hồng Yến",
-      "Nguyễn Thị Thanh Trúc",
-    ],
+    reviewTeacher: "Đỗ Trọng Hợp",
   },
   {
     id: "5",
@@ -2337,11 +2465,7 @@ export const mockThesisReviewTopic = [
     studentNames: ["Lê Hoàng Quý", "Huỳnh Trung Hiếu"],
     council: "Hội đồng 2",
     councilInfo: "8h00 sáng thứ 3 ngày 30/07/2024 tại phòng E4.2",
-    reviewTeachers: [
-      "Đỗ Trọng Hợp",
-      "Trần Thị Hồng Yến",
-      "Nguyễn Thị Thanh Trúc",
-    ],
+    reviewTeacher: "Đỗ Thị Thanh Tuyền",
   },
 ];
 

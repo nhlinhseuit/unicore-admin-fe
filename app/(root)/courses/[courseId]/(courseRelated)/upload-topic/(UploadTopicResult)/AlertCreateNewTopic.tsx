@@ -1,24 +1,24 @@
 import IconButton from "@/components/shared/Button/IconButton";
 import {
-    AlertDialog,
-    AlertDialogContent,
-    AlertDialogHeader,
-    AlertDialogTitle,
+  AlertDialog,
+  AlertDialogContent,
+  AlertDialogHeader,
+  AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
 import {
-    Form,
-    FormControl,
-    FormDescription,
-    FormField,
-    FormItem,
-    FormLabel,
-    FormMessage,
+  Form,
+  FormControl,
+  FormDescription,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { toast } from "@/hooks/use-toast";
 import { mockDbStudent } from "@/mocks";
 import { zodResolver } from "@hookform/resolvers/zod";
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
@@ -31,12 +31,12 @@ import { usePathname } from "next/navigation";
 import TextAreaComponent from "@/components/shared/TextAreaComponent";
 
 interface Props {
-    isCreateNew: boolean;
-    handleSetCreateNew: (value: boolean) => void;
-  }
+  isCreateNew: boolean;
+  handleSetCreateNew: (value: boolean) => void;
+}
 
 const AlertCreateNewTopic = (params: Props) => {
-    const pathName = usePathname();
+  const pathName = usePathname();
   const courseId = pathName.split("/")[2];
   const [selectedStudents, setSelectedStudents] = useState<Student[]>([]);
   const [description, setDescription] = useState("");
@@ -113,16 +113,17 @@ const AlertCreateNewTopic = (params: Props) => {
   }, []);
   //
 
-
-
   const AnnoucementSchema = z
     .object({
-      title: z
+      titleVi: z
         .string()
         .min(5, { message: "Tên đề tài phải chứa ít nhất 5 ký tự" })
         .max(130),
-        description: z
-        .string().optional(),
+      titleEn: z
+        .string()
+        .min(5, { message: "Tên đề tài phải chứa ít nhất 5 ký tự" })
+        .max(130),
+      description: z.string().optional(),
       studentList: z.string().optional(),
     })
     .refine(() => description.length >= 20, {
@@ -145,7 +146,8 @@ const AlertCreateNewTopic = (params: Props) => {
   const form = useForm<z.infer<typeof AnnoucementSchema>>({
     resolver: zodResolver(AnnoucementSchema),
     defaultValues: {
-      title: "",
+      titleVi: "",
+      titleEn: "",
       description: "",
     },
   });
@@ -155,7 +157,8 @@ const AlertCreateNewTopic = (params: Props) => {
   async function onSubmit(values: any) {
     try {
       console.log({
-        title: values.title,
+        titleVi: values.titleVi,
+        titleEn: values.titleEn,
         description: description,
       });
 
@@ -170,160 +173,181 @@ const AlertCreateNewTopic = (params: Props) => {
 
       params.handleSetCreateNew(false);
       reset({
-        title: "",
+        titleVi: "",
+        titleEn: "",
         description: "",
       });
     } catch {
     } finally {
     }
   }
-  
-  return <AlertDialog open={params.isCreateNew}>
-  <AlertDialogContent>
-    <AlertDialogHeader>
-      <AlertDialogTitle className="text-center">
-        Đăng đề tài mới
-      </AlertDialogTitle>
-    </AlertDialogHeader>
 
-    <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)}>
-        {/* NAME ANNOUCEMENT */}
-        <div className="flex flex-col gap-6">
-          <FormField
-            control={form.control}
-            name="title"
-            render={({ field }) => (
-              <FormItem className="flex w-full flex-col">
-                <FormLabel className="text-dark400_light800 text-[14px] font-semibold leading-[20.8px]">
-                  Tên đề tài <span className="text-red-600">*</span>
-                </FormLabel>
-                <FormControl className="mt-3.5 ">
-                  <Input
-                    {...field}
-                    placeholder="Nhập tên đề tài..."
-                    className="
+  return (
+    <AlertDialog open={params.isCreateNew}>
+      <AlertDialogContent>
+        <AlertDialogHeader>
+          <AlertDialogTitle className="text-center">
+            Đăng đề tài mới
+          </AlertDialogTitle>
+        </AlertDialogHeader>
+
+        <Form {...form}>
+          <form onSubmit={form.handleSubmit(onSubmit)}>
+            {/* NAME ANNOUCEMENT */}
+            <div className="flex flex-col gap-6">
+              <FormField
+                control={form.control}
+                name="titleVi"
+                render={({ field }) => (
+                  <FormItem className="flex w-full flex-col">
+                    <FormLabel className="text-dark400_light800 text-[14px] font-semibold leading-[20.8px]">
+                      Tên đề tài tiếng Việt<span className="text-red-600">*</span>
+                    </FormLabel>
+                    <FormControl className="mt-3.5 ">
+                      <Input
+                        {...field}
+                        placeholder="Nhập tên đề tài tiếng Việt..."
+                        className="
                           no-focus paragraph-regular background-light900_dark300 light-border-2 text-dark300_light700 min-h-[56px] border"
-                  />
-                </FormControl>
-                <FormMessage className="text-red-500" />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
-            name="description"
-            render={({ field }) => (
-              <FormItem className="flex w-full flex-col">
-                <FormLabel className="text-dark400_light800 text-[14px] font-semibold leading-[20.8px]">
-                  Mô tả đề tài <span className="text-red-600">*</span>
-                </FormLabel>
-                <FormControl className="mt-3.5 ">
-                <TextAreaComponent
-                          value={description}
-                          placeholder="Nhập mô tả..."
-                          onChange={(e) => {
-                            setDescription(e.target.value);
-                          }}
-                        />
-                </FormControl>
-                <FormMessage className="text-red-500" />
-              </FormItem>
-            )}
-          />
+                      />
+                    </FormControl>
+                    <FormMessage className="text-red-500" />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="titleEn"
+                render={({ field }) => (
+                  <FormItem className="flex w-full flex-col">
+                    <FormLabel className="text-dark400_light800 text-[14px] font-semibold leading-[20.8px]">
+                      Tên đề tài tiếng Anh<span className="text-red-600">*</span>
+                    </FormLabel>
+                    <FormControl className="mt-3.5 ">
+                      <Input
+                        {...field}
+                        placeholder="Nhập tên đề tài tiếng Anh..."
+                        className="
+                          no-focus paragraph-regular background-light900_dark300 light-border-2 text-dark300_light700 min-h-[56px] border"
+                      />
+                    </FormControl>
+                    <FormMessage className="text-red-500" />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="description"
+                render={({ field }) => (
+                  <FormItem className="flex w-full flex-col">
+                    <FormLabel className="text-dark400_light800 text-[14px] font-semibold leading-[20.8px]">
+                      Mô tả đề tài <span className="text-red-600">*</span>
+                    </FormLabel>
+                    <FormControl className="mt-3.5 ">
+                      <TextAreaComponent
+                        value={description}
+                        placeholder="Nhập mô tả..."
+                        onChange={(e) => {
+                          setDescription(e.target.value);
+                        }}
+                      />
+                    </FormControl>
+                    <FormMessage className="text-red-500" />
+                  </FormItem>
+                )}
+              />
 
-          <>
-            <FormField
-              control={form.control}
-              // @ts-ignore
-              name="studentList"
-              render={({ field }) => (
-                <FormItem className="flex w-full flex-col">
-                  <FormLabel className="text-dark400_light800 text-[14px] font-semibold leading-[20.8px]">
-                    Danh sách thành viên nhóm{" "}
-                    <span className="text-red-600">*</span>
-                  </FormLabel>
-                  <FormDescription className="body-regular mt-2.5 text-light-500">
-                    Nhóm trưởng điền tên đầu tiên. Thành viên nhóm phải là
-                    sinh viên của lớp hiện tại.
-                  </FormDescription>
-                  {/* //!: API setting của lớp học để hiển thị cái này */}
-                  <FormDescription className="body-regular mt-2.5 text-light-500">
-                    Hoặc thành viên nhóm có thể là sinh viên khác lớp,
-                    nhưng phải cùng giảng viên giảng dạy và cùng môn học.
-                  </FormDescription>
-                  <FormControl className="mt-3.5 ">
-                    <div className="mt-6">
-                      <div>
-                        <div className="relative" ref={ref}>
-                          <Input
-                            ref={studentIdRef}
-                            onChange={handleChange}
-                            name="studentIdRef"
-                            placeholder={placeholder}
-                            onFocus={handleFocus}
-                            className="no-focus paragraph-regular background-light900_dark300 light-border-2 text-dark300_light700 min-h-[46px] border"
-                          />
-                          {suggestion && (
-                            <div
-                              className="absolute left-0 z-50 w-full mt-1 bg-white cursor-pointer p-2 rounded-md border normal-regular no-focus text-dark300_light700 min-h-[46px] shadow-lg"
-                              onClick={handleSuggestionClick}
-                            >
-                              {isHasStudentInDb()?.id} -{" "}
-                              {isHasStudentInDb()?.name} -{" "}
-                              {isHasStudentInDb()?.class}
-                            </div>
-                          )}
-                        </div>
-                        {selectedStudents.length > 0 ? (
-                          <BorderContainer otherClasses="mt-3">
-                            <div className="my-4 ml-4">
-                              {selectedStudents && (
-                                <div className="flex flex-col gap-4">
-                                  {selectedStudents.map((item, index) => (
-                                    <div key={item.id}>
-                                      <StudentItem
-                                        item={item}
-                                        index={index}
-                                        courseId={courseId}
-                                        selectedStudents={
-                                          selectedStudents
-                                        }
-                                        setSelectedStudents={
-                                          setSelectedStudents
-                                        }
-                                      />
-                                    </div>
-                                  ))}
+              <>
+                <FormField
+                  control={form.control}
+                  // @ts-ignore
+                  name="studentList"
+                  render={({ field }) => (
+                    <FormItem className="flex w-full flex-col">
+                      <FormLabel className="text-dark400_light800 text-[14px] font-semibold leading-[20.8px]">
+                        Danh sách thành viên nhóm{" "}
+                        <span className="text-red-600">*</span>
+                      </FormLabel>
+                      <FormDescription className="body-regular mt-2.5 text-light-500">
+                        Nhóm trưởng điền tên đầu tiên. Thành viên nhóm phải là
+                        sinh viên của lớp hiện tại.
+                      </FormDescription>
+                      {/* //!: API setting của lớp học để hiển thị cái này */}
+                      <FormDescription className="body-regular mt-2.5 text-light-500">
+                        Hoặc thành viên nhóm có thể là sinh viên khác lớp, nhưng
+                        phải cùng giảng viên giảng dạy và cùng môn học.
+                      </FormDescription>
+                      <FormControl className="mt-3.5 ">
+                        <div className="mt-6">
+                          <div>
+                            <div className="relative" ref={ref}>
+                              <Input
+                                ref={studentIdRef}
+                                onChange={handleChange}
+                                name="studentIdRef"
+                                placeholder={placeholder}
+                                onFocus={handleFocus}
+                                className="no-focus paragraph-regular background-light900_dark300 light-border-2 text-dark300_light700 min-h-[46px] border"
+                              />
+                              {suggestion && (
+                                <div
+                                  className="absolute left-0 z-50 w-full mt-1 bg-white cursor-pointer p-2 rounded-md border normal-regular no-focus text-dark300_light700 min-h-[46px] shadow-lg"
+                                  onClick={handleSuggestionClick}
+                                >
+                                  {isHasStudentInDb()?.id} -{" "}
+                                  {isHasStudentInDb()?.name} -{" "}
+                                  {isHasStudentInDb()?.class}
                                 </div>
                               )}
                             </div>
-                          </BorderContainer>
-                        ) : null}
-                      </div>
-                    </div>
-                  </FormControl>
-                  <FormMessage className="text-red-500" />
-                </FormItem>
-              )}
-            />
-          </>
-        </div>
+                            {selectedStudents.length > 0 ? (
+                              <BorderContainer otherClasses="mt-3">
+                                <div className="my-4 ml-4">
+                                  {selectedStudents && (
+                                    <div className="flex flex-col gap-4">
+                                      {selectedStudents.map((item, index) => (
+                                        <div key={item.id}>
+                                          <StudentItem
+                                            item={item}
+                                            index={index}
+                                            courseId={courseId}
+                                            selectedStudents={selectedStudents}
+                                            setSelectedStudents={
+                                              setSelectedStudents
+                                            }
+                                          />
+                                        </div>
+                                      ))}
+                                    </div>
+                                  )}
+                                </div>
+                              </BorderContainer>
+                            ) : null}
+                          </div>
+                        </div>
+                      </FormControl>
+                      <FormMessage className="text-red-500" />
+                    </FormItem>
+                  )}
+                />
+              </>
+            </div>
 
-        <div className="flex flex-col-reverse sm:flex-row sm:justify-end sm:space-x-2 mt-4">
-          <IconButton
-            cancel
-            text={"Hủy"}
-            onClick={() => {
-              params.handleSetCreateNew(false);
-            }}
-          />
-          <SubmitButton text={"Đồng ý"} />
-        </div>
-      </form>
-    </Form>
-  </AlertDialogContent>
-</AlertDialog>
-}
+            <div className="flex flex-col-reverse sm:flex-row sm:justify-end sm:space-x-2 mt-4">
+              <IconButton
+                cancel
+                text={"Hủy"}
+                onClick={() => {
+                  params.handleSetCreateNew(false);
+                }}
+              />
+              <SubmitButton text={"Đồng ý"} />
+            </div>
+          </form>
+        </Form>
+      </AlertDialogContent>
+    </AlertDialog>
+  );
+};
 
-export default AlertCreateNewTopic
+export default AlertCreateNewTopic;

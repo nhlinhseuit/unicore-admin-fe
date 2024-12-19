@@ -1,6 +1,6 @@
 "use client";
 
-import TopicGroupTable from "@/components/shared/Table/TableTopic/TopicDataTable";
+import TopicDataTable from "@/components/shared/Table/TableTopic/TopicDataTable";
 import { mockTopicDataTable } from "@/mocks";
 import { useState } from "react";
 
@@ -17,7 +17,7 @@ const UploadTopicResult = () => {
   return (
     <>
       {dataTable.filter((item) => !item.isDeleted).length > 0 ? (
-        <TopicGroupTable
+        <TopicDataTable
           isEditTable={isEditTable}
           isMultipleDelete={isMultipleDelete}
           // @ts-ignore

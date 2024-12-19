@@ -23,10 +23,10 @@ interface RowParams {
 }
 interface handleInputChangeParams {
   key:
-  | keyof CourseData
-  | keyof SubjectData
-  | keyof StudentData
-  | keyof TeacherData;
+    | keyof CourseData
+    | keyof SubjectData
+    | keyof StudentData
+    | keyof TeacherData;
   newValue: any;
   isMultipleInput?: boolean;
   currentIndex?: number;
@@ -35,15 +35,12 @@ interface handleInputChangeParams {
 
 const RowGradingGroupTable = React.memo(
   (params: RowParams) => {
-    const [editDataItem, setEditDataItem] = useState(params.dataItem);
-
     const [isChecked, setIsChecked] = useState(
       //@ts-ignore
       params.dataItem.data["Điểm danh"] as boolean
     );
 
-    const refInput = useRef({});
-
+    const refInput = useRef(params.dataItem);
 
     const handleInputChange = ({
       key,
@@ -54,37 +51,30 @@ const RowGradingGroupTable = React.memo(
     }: handleInputChangeParams) => {
       //@ts-ignore
       const updatedDataItem: GradingExerciseDataItem | GradingReportDataItem = {
-        ...editDataItem,
+        ...refInput.current,
         data: {
-          ...editDataItem.data,
+          ...refInput.current.data,
           [key]: isMultipleInput
             ? //@ts-ignore
-            (editDataItem.data[key] as string)
-              .split(/\r\n|\n/)
-              .map((line, index) =>
-                index === currentIndex ? newValue : line
-              )
-              .join("\r\n")
+              (refInput.current.data[key] as string)
+                .split(/\r\n|\n/)
+                .map((line, index) =>
+                  index === currentIndex ? newValue : line
+                )
+                .join("\r\n")
             : newValue,
         },
       };
 
-      // setEditDataItem(updatedDataItem); // ??
+      refInput.current = updatedDataItem; //? ĐỂ UPATE ĐƯỢC NHIỀU FIELD TRÊN 1 HÀNG
 
       params.onChangeRow && params.onChangeRow(updatedDataItem); // Gọi callback để truyền dữ liệu đã chỉnh sửa lên DataTable
     };
 
     var valueUniqueInput = params.dataItem.data["Mã nhóm"];
 
-    const renderTableCellValue = (
-      keyId: string,
-      key: string,
-      value: any,
-    ) => {
-      if (
-        (key === "Điểm" || key === "Góp ý") &&
-        (params.isEditTable)
-      ) {
+    const renderTableCellValue = (keyId: string, key: string, value: any) => {
+      if ((key === "Điểm" || key === "Góp ý") && params.isEditTable) {
         return (
           <InputComponent
             key={`${keyId}_input_${key}_${value}`}
@@ -118,11 +108,12 @@ const RowGradingGroupTable = React.memo(
     return (
       <Table.Row
         key={params.dataItem.STT}
-        onClick={() => { }}
-        className={`bg-background-secondary  text-left ${params.isEditTable
-          ? "hover:bg-white cursor-default"
-          : "hover:bg-light-800 cursor-default"
-          } duration-100`}
+        onClick={() => {}}
+        className={`bg-background-secondary  text-left ${
+          params.isEditTable
+            ? "hover:bg-white cursor-default"
+            : "hover:bg-light-800 cursor-default"
+        } duration-100`}
       >
         {/* checkbox */}
         <Table.Cell className="w-10 border-r-[1px] z-100 ">

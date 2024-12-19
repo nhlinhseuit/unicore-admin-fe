@@ -34,9 +34,8 @@ interface handleInputChangeParams {
 
 const RowRegisterGroupTable = React.memo(
   (params: RowParams) => {
-    const [editDataItem, setEditDataItem] = useState(params.dataItem);
 
-    const refInput = useRef({});
+    const refInput = useRef(params.dataItem);
 
     const handleInputChange = ({
       key,
@@ -47,12 +46,12 @@ const RowRegisterGroupTable = React.memo(
     }: handleInputChangeParams) => {
       //@ts-ignore
       const updatedDataItem: RegisterGroupDataItem = {
-        ...editDataItem,
+        ...refInput.current,
         data: {
-          ...editDataItem.data,
+          ...refInput.current.data,
           [key]: isMultipleInput
             ? //@ts-ignore
-              (editDataItem.data[key] as string)
+              (refInput.current.data[key] as string)
                 .split(/\r\n|\n/)
                 .map((line, index) =>
                   index === currentIndex ? newValue : line
@@ -62,7 +61,7 @@ const RowRegisterGroupTable = React.memo(
         },
       };
 
-      // setEditDataItem(updatedDataItem); // ??
+      refInput.current = updatedDataItem; //? ĐỂ UPATE ĐƯỢC NHIỀU FIELD TRÊN 1 HÀNG
 
       params.onChangeRow && params.onChangeRow(updatedDataItem); // Gọi callback để truyền dữ liệu đã chỉnh sửa lên DataTable
     };
