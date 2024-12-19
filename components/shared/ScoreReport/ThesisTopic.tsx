@@ -26,7 +26,7 @@ const ThesisTopic = (params: Props) => {
           </p>
           <p className="small-regular line-clamp-1 ">
             Hội đồng phản biện:{" "}
-            {params.topic.reviewTeachers.map((reviewer) => reviewer).join(", ")}
+            {/* {params.topic.reviewTeachers.map((reviewer) => reviewer).join(", ")} */}
           </p>
         </div>
 
