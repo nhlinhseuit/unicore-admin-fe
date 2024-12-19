@@ -36,15 +36,7 @@ const RowTopicDataTable = React.memo(
         ...refInput.current,
         data: {
           ...refInput.current.data,
-          [key]: isMultipleInput
-            ? //@ts-ignore
-              (refInput.current.data[key] as string)
-                .split(/\r\n|\n/)
-                .map((line, index) =>
-                  index === currentIndex ? newValue : line
-                )
-                .join("\r\n")
-            : newValue,
+          [key]: newValue,
         },
       };
 

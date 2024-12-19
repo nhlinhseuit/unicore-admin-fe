@@ -118,7 +118,7 @@ const ApproveTopic = () => {
       ) : (
         <NoResult
           title="Không có dữ liệu!"
-          description="🚀 Import file danh sách để thấy được dữ liệu."
+          description="🚀 Chưa có đề tài nào được đề xuất."
         />
       )}
     </>

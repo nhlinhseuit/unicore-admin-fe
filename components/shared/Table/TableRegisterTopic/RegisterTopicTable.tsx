@@ -116,15 +116,7 @@ const RegisterTopicTable = (params: DataTableParams) => {
 
   return (
     <div>
-      {/* TABLE */}
-      {currentItems.length > 0 && filteredDataTable.length === 0 ? (
-        <NoResult
-          title="Không có dữ liệu!"
-          description="💡 Bạn hãy thử tìm kiếm 1 từ khóa khác nhé."
-        />
-      ) : (
-        <>
-          <div className="flex flex-col items-center justify-between p-4 space-y-3 md:flex-row md:space-y-0">
+      <div className="flex flex-col items-center justify-between p-4 space-y-3 md:flex-row md:space-y-0">
             {/* ACTION VỚI TABLE */}
             <div className="w-full mr-3 md:w-1/3">
               {params.isEditTable || params.isMultipleDelete ? (
@@ -204,6 +196,14 @@ const RegisterTopicTable = (params: DataTableParams) => {
             )}
           </div>
 
+      {/* TABLE */}
+      {currentItems.length > 0 && filteredDataTable.length === 0 ? (
+        <NoResult
+          title="Không có dữ liệu!"
+          description="💡 Bạn hãy thử tìm kiếm 1 từ khóa khác nhé."
+        />
+      ) : (
+        <>
           <div
             className="
             scroll-container 
@@ -218,7 +218,7 @@ const RegisterTopicTable = (params: DataTableParams) => {
             <Table hoverable theme={tableTheme}>
               {/* HEADER */}
               <Table.Head
-                theme={tableTheme?.head}
+            theme={tableTheme?.head}
                 className="sticky top-0 z-10 uppercase border-b bg-gray"
               >
                 <Table.HeadCell

@@ -1,12 +1,11 @@
-import { Table } from "flowbite-react";
-import React, { useState } from "react";
-import { FileDataItem } from "@/types";
-import MoreButtonComponent from "../components/MoreButtonComponent";
 import {
   FileTableDataMoreComponentItems,
   FileTableDataOnlyViewMoreComponentItems,
 } from "@/constants";
+import { FileDataItem } from "@/types";
+import { Table } from "flowbite-react";
 import Image from "next/image";
+import MoreButtonComponent from "../components/MoreButtonComponent";
 
 interface RowParams {
   dataItem: FileDataItem;

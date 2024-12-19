@@ -84,9 +84,9 @@ export interface QAandProjectExamData {
 // nếu giữ như này thì phải đổi lại tên vì đây là data của 1 student
 export interface RegisterGroupData {
   "Mã nhóm": string;
-  MSSV: string;
-  SĐT: string;
-  "Họ và tên": string;
+  MSSV: string[];
+  SĐT: string[];
+  "Họ và tên": string[];
 }
 export interface RegisterTopicData {
   "Tên đề tài tiếng Việt": string;
@@ -133,24 +133,23 @@ export interface GradingExerciseData {
   "Điểm danh"?: boolean;
   // 1 là có nhóm
   // 0 là cá nhân
-  "Hình thức": boolean;
-  "Mã nhóm": string;
   "Bài nộp": string;
+  "Mã nhóm": string;
   "Trễ hạn": string;
-  MSSV: string;
-  "Họ và tên": string;
-  Điểm: number;
+  MSSV: string[];
+  "Họ và tên": string[];
+  Điểm: number[];
   "Góp ý": string;
 }
 
 export interface GradingReportData {
   "Điểm danh": boolean;
-  "Mã nhóm": string;
-  "Bài nộp": string;
   "Trễ hạn": string;
-  MSSV: string;
-  "Họ và tên": string;
-  Điểm: number;
+  "Bài nộp": string;
+  "Mã nhóm": string;
+  MSSV: string[];
+  "Họ và tên": string[];
+  Điểm: number[];
   "Góp ý": string;
 }
 

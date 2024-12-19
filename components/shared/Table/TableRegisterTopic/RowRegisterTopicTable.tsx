@@ -23,8 +23,7 @@ interface RowParams {
   onChangeRow?: (item: any) => void;
 }
 interface handleInputChangeParams {
-  key:
-    | keyof RegisterTopicData
+  key: keyof RegisterTopicData;
   newValue: any;
   isMultipleInput?: boolean;
   currentIndex?: number;
@@ -34,7 +33,6 @@ interface handleInputChangeParams {
 const RowRegisterTopicTable = React.memo(
   (params: RowParams) => {
     const refInput = useRef(params.dataItem);
-    
 
     const handleInputChange = ({
       key,
@@ -49,13 +47,9 @@ const RowRegisterTopicTable = React.memo(
         data: {
           ...refInput.current.data,
           [key]: isMultipleInput
-            ? //@ts-ignore
-              (refInput.current.data[key] as string)
-                .split(/\r\n|\n/)
-                .map((line, index) =>
-                  index === currentIndex ? newValue : line
-                )
-                .join("\r\n")
+            ? (refInput.current.data[key] as string[]).map((value, index) =>
+              index === currentIndex ? newValue : value
+            )
             : newValue,
         },
       };
@@ -96,7 +90,7 @@ const RowRegisterTopicTable = React.memo(
                         newValue,
                         isMultipleInput: true,
                         currentIndex: index,
-                      })
+                      });
                     }}
                   />
                 ))}
@@ -129,8 +123,7 @@ const RowRegisterTopicTable = React.memo(
               value={value as string | number}
               placeholder={value as string | number}
               //@ts-ignore
-              onChange={
-                (newValue) => 
+              onChange={(newValue) =>
                 //@ts-ignore
                 handleInputChange({ key: key, newValue: newValue })
               }

@@ -1,15 +1,5 @@
 "use client";
 
-import {
-  AlertDialog,
-  AlertDialogAction,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle
-} from "@/components/ui/alert-dialog";
 
 import {
   Menubar,
@@ -20,16 +10,12 @@ import {
 } from "@/components/ui/menubar";
 import { TableDataMoreComponentItems } from "@/constants";
 import Image from "next/image";
-import { useState } from "react";
 
 interface MoreButtonParams {
   actions?: any;
 }
 
 const MoreButtonComponent = (params: MoreButtonParams) => {
-  const [isShowDialog, setIsShowDialog] = useState(false);
-  const [selectedItemDelete, setSelectedItemDelete] = useState("");
-
   const rederMoreComponentItems = params.actions
     ? params.actions
     : TableDataMoreComponentItems;

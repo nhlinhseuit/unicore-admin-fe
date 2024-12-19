@@ -10,6 +10,7 @@ import {
   SubjectDataItem,
   TeacherDataItem,
   TopicDataItem,
+  RegisterGroupDataItem,
 } from "@/types";
 import { useEffect } from "react";
 
@@ -21,6 +22,7 @@ const useDebounceSearchDataTable = (
   handleChooseFilter: any,
   dataSource:
     | CourseDataItem[]
+    | RegisterGroupDataItem[]
     | SubjectDataItem[]
     | StudentDataItem[]
     | TeacherDataItem[]
@@ -31,6 +33,7 @@ const useDebounceSearchDataTable = (
     | ThesisTopicGradeDataItem[]
     | (
         | CourseDataItem
+        | RegisterGroupDataItem
         | SubjectDataItem
         | StudentDataItem
         | TeacherDataItem
@@ -47,6 +50,7 @@ const useDebounceSearchDataTable = (
     | TeacherDataItem[]
     | TopicDataItem[]
     | RegisterTopicDataItem[]
+    | RegisterGroupDataItem[]
     | QAandProjectExamDataItem[]
     | CentralizedExamDataItem[]
     | ThesisTopicGradeDataItem[]
@@ -57,6 +61,7 @@ const useDebounceSearchDataTable = (
         | TeacherDataItem
         | TopicDataItem
         | RegisterTopicDataItem
+        | RegisterGroupDataItem
         | QAandProjectExamDataItem
         | CentralizedExamDataItem
         | ThesisTopicGradeDataItem

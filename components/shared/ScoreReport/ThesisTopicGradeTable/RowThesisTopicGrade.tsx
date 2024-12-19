@@ -37,13 +37,9 @@ const RowThesisTopicGrade = React.memo(
         data: {
           ...refInput.current.data,
           [key]: isMultipleInput
-            ? //@ts-ignore
-              (editDataItem.data[key] as string)
-                .split(/\r\n|\n/)
-                .map((line, index) =>
-                  index === currentIndex ? newValue : line
-                )
-                .join("\r\n")
+            ? (refInput.current.data[key] as string[]).map((value, index) =>
+              index === currentIndex ? newValue : value
+            )
             : newValue,
         },
       };
@@ -58,6 +54,7 @@ const RowThesisTopicGrade = React.memo(
     const renderCellStyle = (key: string) => {
       let style = "";
 
+      // !: NOTE: Giới hạn ô mô tả không quá dài bằng !w-[800px] line-clamp-6
       if (key === "Mô tả") {
         style += "!w-[800px] line-clamp-6 flex items-center";
       } else if (
@@ -183,7 +180,6 @@ const RowThesisTopicGrade = React.memo(
           group-last/body:group-last/row:last:rounded-br-lg
           px-4 py-4 text-center text-secondary-900`,
           }}
-          // !: NOTE: Giới hạn ô mô tả không quá dài bằng !w-[800px] line-clamp-6
           className={`border-r-[1px] px-2 py-4 normal-case text-left min-h-[64px] ${renderCellStyle(
             key
           )}`}

@@ -37,27 +37,9 @@ const ThesisTopicGradeTable = (params: DataTableParams) => {
     );
   }, [dataTable, currentPage]);
 
-  const logGroupAndScores = () => {
-    localDataTableRef.current.forEach((item) => {
-      const groupId = item.data["Mã nhóm"];
-      const chairmanScore = item.data["Chủ tịch"];
-      const secretaryScore = item.data["Thư ký"];
-      const memberScore = item.data["Ủy viên"];
-
-      console.log(`Mã nhóm: ${groupId}`);
-      console.log(`Điểm Chủ tịch: ${chairmanScore}`);
-      console.log(`Điểm Thư ký: ${secretaryScore}`);
-      console.log(`Điểm Ủy viên: ${memberScore}`);
-      console.log("----------");
-    });
-  };
-
   const localDataTableRef = useRef(currentItems);
   const updateLocalDataTableRef = (newValue: any) => {
     localDataTableRef.current = newValue;
-
-    logGroupAndScores();
-    console.log("****************************************************");
   };
 
   //TODO: SEARCH
