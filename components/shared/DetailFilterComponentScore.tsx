@@ -28,20 +28,20 @@ const DetailFilterComponentScore = () => {
   
               switch (item) {
                 case "Semester":
-                  text = "Học kỳ";
+                  text = "1";
                   width = "w-[15%]";
                   dataDropdown = [1, 2, 3];
   
                   break;
                 case "Year":
-                  text = "Năm học";
+                  text = "2024";
                   width = "w-[15%]";
   
                   dataDropdown = [2015, 2016, 2017];
   
                   break;
                 case "Subject":
-                  text = "Môn học";
+                  text = "Nhập môn ứng dụng đi dộng";
                   width = "w-[20%]";
   
                   dataDropdown = [
@@ -53,7 +53,7 @@ const DetailFilterComponentScore = () => {
                   // };
                   break;
                 case "Teacher":
-                  text = "Giảng viên";
+                  text = "Huỳnh Hồ Thị Mộng Trinh";
                   width = "w-[20%]";
   
                   dataDropdown = [
@@ -64,11 +64,11 @@ const DetailFilterComponentScore = () => {
   
                   break;
                 case "Course":
-                  text = "Lớp học";
+                  text = "SE114.N21.PMCL";
                   width = "w-[30%]";
   
                   dataDropdown = [
-                    "Nhập môn Ứng dụng di động",
+                    "SE114.N21.PMCL",
                     "Kiểm chứng phần mềm",
                     "Kiến trúc phần mềm",
                   ];

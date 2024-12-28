@@ -29,6 +29,7 @@ export const ratingThesis = [
   { id: 2, value: "Giỏi" },
   { id: 3, value: "Khá" },
   { id: 4, value: "Trung bình" },
+  { id: 5, value: "kém" },
 ];
 
 // TODO: NAVBAR TAB
@@ -110,9 +111,19 @@ export const BigExerciseTabItems = [
     route: "/approve-topic",
   },
   {
+    value: "scoreTranscript",
+    label: "Bảng điểm",
+    route: "/score-transcript",
+  },
+  {
     value: "files",
     label: "Lưu trữ",
     route: "/files",
+  },
+  {
+    value: "setting",
+    label: "Cài đặt",
+    route: "/setting",
   },
 ];
 
@@ -161,7 +172,7 @@ export const ListCourseColors = [
 export const DepartmentScoreReportTabItems = [
   {
     value: "scoreThesisReport",
-    label: "Nhập điểm cán bộ phản biện KLTN",
+    label: "Nhập điểm hội đồng Khóa luận tốt nghiệp",
     route: "/score-report/thesis-report",
   },
   {
@@ -174,6 +185,11 @@ export const DepartmentScoreReportTabItems = [
 export const ReviewThesisFilterType = [
   { id: 0, value: "Đề tài chưa nhận xét" },
   { id: 1, value: "Đề tài đã nhận xét" },
+];
+
+export const GradingThesisTopicFilterType = [
+  { id: 0, value: "Đã hoàn thành" },
+  { id: 1, value: "Chưa hoàn thành" },
 ];
 
 export enum DetailFilter {

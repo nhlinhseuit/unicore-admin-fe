@@ -1,47 +1,64 @@
 "use client";
 
-import InternTopicGradeTable from "@/components/shared/ScoreReport/InternTopicGradeTable";
+import BackToPrev from "@/components/shared/BackToPrev";
+import InternTopicGradeTable from "@/components/shared/ScoreReport/InternGradeTable/InternTopicGradeTable";
+import InternTopic from "@/components/shared/ScoreReport/InternTopic";
 import TitleDescription from "@/components/shared/TitleDescription";
-import { mockInternReviewDetail } from "@/mocks";
+import { mockInternReviewCouncils, mockInternReviewDetail } from "@/mocks";
+import { InternReviewDataItem } from "@/types";
 import { useState } from "react";
 
 const ReviewerInternReport = () => {
-  const [isEditTable, setIsEditTable] = useState(true);
-  const [dataTable, setDataTable] = useState(mockInternReviewDetail)
+  const [isGradeThesisReport, setIsGradeThesisReport] = useState(false);
+
+  //! TABLE
+  const [isEditTable, setIsEditTable] = useState(false);
+  const [dataTable, setDataTable] = useState(mockInternReviewDetail);
+
   return (
     <>
       <TitleDescription
-        title="Cán bộ chấm điểm báo cáo thực tập doanh nghiệp"
+        title="Nhập điểm hội đồng Thực tập doanh nghiệp"
         description={["Thời hạn: 7/12/2024 - 28/12/2024"]}
       />
 
-      <InternTopicGradeTable
-        dataTable={dataTable}
-        isEditTable={isEditTable}
-        handleSaveTable={(updatedData) => {
-          setIsEditTable(false);
-          
-          setDataTable((prevDataTable) =>
-            prevDataTable.map((item) => {
-              const updatedItem = updatedData[item.data.MSSV];
-              if (updatedItem) {
-                return {
-                  ...item,
-                  data: {
-                    ...item.data,
-                    Điểm: updatedItem["Điểm"], // Cập nhật điểm từ updatedData
-                  },
-                };
-              }
-              return item; // Giữ nguyên nếu không có trong updatedData
-            })
-          );
-          
-        }}
-        handleEditTable={() => {
-          setIsEditTable(true);
-        }}
-      />
+      {isGradeThesisReport ? (
+        <>
+          <BackToPrev
+            text={"Quay lại danh sách hội đồng"}
+            onClickPrev={() => {
+              setIsGradeThesisReport(false);
+            }}
+          />
+
+          <InternTopicGradeTable
+            dataTable={dataTable}
+            isEditTable={isEditTable}
+            onClickEditTable={() => {
+              setIsEditTable(true);
+            }}
+            onSaveEditTable={(localDataTable) => {
+              setIsEditTable(false);
+              // set lại data import hoặc patch API
+              localDataTable = localDataTable as InternReviewDataItem[];
+              setDataTable(localDataTable);
+            }}
+          />
+        </>
+      ) : (
+        <div className="flex flex-wrap gap-4">
+          {mockInternReviewCouncils.map((item) => (
+            <div className="w-[49%]">
+              <InternTopic
+                topic={item}
+                onClick={() => {
+                  setIsGradeThesisReport(true);
+                }}
+              />
+            </div>
+          ))}
+        </div>
+      )}
     </>
   );
 };

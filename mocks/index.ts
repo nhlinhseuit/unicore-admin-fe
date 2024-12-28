@@ -21,8 +21,8 @@ export const mockNotCompleteActions = [
   },
   {
     id: 4,
-    action: "Nhập lịch báo cáo & danh sách GV phản biện Khoá luận tốt nghiệp",
-    desc: "Bạn chưa nhập lịch báo cáo & danh sách GV phản biện Khoá luận tốt nghiệp:",
+    action: "Nhập lịch báo cáo & danh sách Hội đồng chấm Khoá luận tốt nghiệp",
+    desc: "Bạn chưa nhập lịch báo cáo & danh sách Hội đồng chấm Khoá luận tốt nghiệp:",
     data: "STT 01: SE100.PMCL2021.2, STT 01: SE100.PMCL2021.2, STT 01: SE100.PMCL2021.2, STT 01: SE100.PMCL2021.2, STT 01: SE100.PMCL2021.2, STT 01: SE100.PMCL2021.2, STT 01: SE100.PMCL2021.2, STT 01: SE100.PMCL2021.2, STT 01: SE100.PMCL2021.2",
   },
   {
@@ -1472,76 +1472,6 @@ export const mockDataStudentRegisterTopic = [
 ];
 
 //
-// TODO: BigExerciseId Register topic
-//
-export const mockThesisTopicGrade = [
-  {
-    STT: "1",
-    data: {
-      "Mã nhóm": "1",
-      MSSV: ["21522289"],
-      "Họ và tên": ["Nguyễn Hoàng Linh"],
-      "Tên đề tài tiếng Việt": "Ứng dụng hẹn hò",
-      "Tên đề tài tiếng Anh": "English name for topic",
-      "Phản biện": "8",
-      "Hướng dẫn": "9",
-      "Chủ tịch": "8",
-      "Thư ký": "9",
-      "Ủy viên": "9",
-      "Điểm tổng": "9.2",
-    },
-  },
-  {
-    STT: "2",
-    data: {
-      "Mã nhóm": "2",
-      MSSV: ["21522289", "21522289"],
-      "Họ và tên": ["Lê Thành Lộc", "Huỳnh Hồ Thị Mộng Trinh"],
-      "Tên đề tài tiếng Việt": "Ứng dụng chia sẻ hình ảnh",
-      "Tên đề tài tiếng Anh": "English name for topic",
-      "Phản biện": "8",
-      "Hướng dẫn": "9",
-      "Chủ tịch": "8",
-      "Thư ký": "9",
-      "Ủy viên": "9",
-      "Điểm tổng": "9.2",
-    },
-  },
-  {
-    STT: "3",
-    data: {
-      "Mã nhóm": "3",
-      MSSV: ["21522289", "21522289"],
-      "Họ và tên": ["Nguyễn Tiến Vĩ", "Nguyễn Vĩ"],
-      "Tên đề tài tiếng Việt": "Ứng dụng nhà thông minh",
-      "Tên đề tài tiếng Anh": "English name for topic",
-      "Phản biện": "8",
-      "Hướng dẫn": "9",
-      "Chủ tịch": "8",
-      "Thư ký": "9",
-      "Ủy viên": "9",
-      "Điểm tổng": "9.2",
-    },
-  },
-  {
-    STT: "4",
-    data: {
-      "Mã nhóm": "4",
-      MSSV: ["21522289"],
-      "Họ và tên": ["Võ Hữu Xike"],
-      "Tên đề tài tiếng Việt": "Ứng dụng ghi chú",
-      "Tên đề tài tiếng Anh": "English name for topic",
-      "Phản biện": "8",
-      "Hướng dẫn": "9",
-      "Chủ tịch": "8",
-      "Thư ký": "9",
-      "Ủy viên": "9",
-      "Điểm tổng": "9.2",
-    },
-  },
-];
-
-//
 // TODO: BigExerciseId Approve topic
 //
 export const mockDataAllAppproveTopic = [
@@ -2469,6 +2399,179 @@ export const mockThesisReviewTopic = [
   },
 ];
 
+export const mockThesisReviewCouncils = [
+  {
+    id: "1",
+    council: "Hội đồng 1",
+    councilInfo: "8h00 sáng thứ 3 ngày 30/07/2024 tại phòng E4.1",
+    numberOfCompletedGradingTopic: 30,
+    numberOfTopic: 30,
+    president: "Đỗ Trọng Hợp",
+    secretary: "Đỗ Thị Thanh Tuyền",
+    member: "Nguyễn Thị Thanh Trúc",
+  },
+  {
+    id: "2",
+    council: "Hội đồng 2",
+    councilInfo: "8h00 sáng thứ 3 ngày 30/07/2024 tại phòng E4.1",
+    numberOfCompletedGradingTopic: 20,
+    numberOfTopic: 30,
+    president: "Đỗ Thị Thanh Tuyền",
+    secretary: "Đỗ Trọng Hợp",
+    member: "Nguyễn Thị Thanh Trúc",
+  },
+  {
+    id: "3",
+    council: "Hội đồng 3",
+    councilInfo: "8h00 sáng thứ 3 ngày 30/07/2024 tại phòng E4.2",
+    numberOfCompletedGradingTopic: 0,
+    numberOfTopic: 30,
+    president: "Nguyễn Thị Thanh Trúc",
+    secretary: "Đỗ Trọng Hợp",
+    member: "Đỗ Thị Thanh Tuyền",
+  },
+  {
+    id: "4",
+    council: "Hội đồng 4",
+    councilInfo: "8h00 sáng thứ 3 ngày 30/07/2024 tại phòng E4.2",
+    numberOfCompletedGradingTopic: 30,
+    numberOfTopic: 30,
+    president: "Đỗ Trọng Hợp",
+    secretary: "Nguyễn Thị Thanh Trúc",
+    member: "Đỗ Thị Thanh Tuyền",
+  },
+  {
+    id: "5",
+    council: "Hội đồng 5",
+    councilInfo: "8h00 sáng thứ 3 ngày 30/07/2024 tại phòng E4.2",
+    numberOfCompletedGradingTopic: 12,
+    numberOfTopic: 30,
+    president: "Đỗ Thị Thanh Tuyền",
+    secretary: "Nguyễn Thị Thanh Trúc",
+    member: "Đỗ Trọng Hợp",
+  },
+];
+
+export const mockInternReviewCouncils = [
+  {
+    id: "1",
+    council: "Hội đồng 1",
+    councilInfo: "8h00 sáng thứ 3 ngày 30/07/2024 tại phòng E4.1",
+    numberOfCompletedGradingForStudents: 30,
+    numberOfStudents: 30,
+    president: "Đỗ Trọng Hợp",
+    secretary: "Đỗ Thị Thanh Tuyền",
+    member: "Nguyễn Thị Thanh Trúc",
+  },
+  {
+    id: "2",
+    council: "Hội đồng 2",
+    councilInfo: "8h00 sáng thứ 3 ngày 30/07/2024 tại phòng E4.1",
+    numberOfCompletedGradingForStudents: 20,
+    numberOfStudents: 30,
+    president: "Đỗ Thị Thanh Tuyền",
+    secretary: "Đỗ Trọng Hợp",
+    member: "Nguyễn Thị Thanh Trúc",
+  },
+  {
+    id: "3",
+    council: "Hội đồng 3",
+    councilInfo: "8h00 sáng thứ 3 ngày 30/07/2024 tại phòng E4.2",
+    numberOfCompletedGradingForStudents: 0,
+    numberOfStudents: 30,
+    president: "Nguyễn Thị Thanh Trúc",
+    secretary: "Đỗ Trọng Hợp",
+    member: "Đỗ Thị Thanh Tuyền",
+  },
+  {
+    id: "4",
+    council: "Hội đồng 4",
+    councilInfo: "8h00 sáng thứ 3 ngày 30/07/2024 tại phòng E4.2",
+    numberOfCompletedGradingForStudents: 30,
+    numberOfStudents: 30,
+    president: "Đỗ Trọng Hợp",
+    secretary: "Nguyễn Thị Thanh Trúc",
+    member: "Đỗ Thị Thanh Tuyền",
+  },
+  {
+    id: "5",
+    council: "Hội đồng 5",
+    councilInfo: "8h00 sáng thứ 3 ngày 30/07/2024 tại phòng E4.2",
+    numberOfCompletedGradingForStudents: 12,
+    numberOfStudents: 30,
+    president: "Đỗ Thị Thanh Tuyền",
+    secretary: "Nguyễn Thị Thanh Trúc",
+    member: "Đỗ Trọng Hợp",
+  },
+];
+
+export const mockThesisTopicGradeInCouncil = [
+  {
+    STT: "1",
+    data: {
+      "Mã nhóm": "1",
+      MSSV: ["21522289"],
+      "Họ và tên": ["Nguyễn Hoàng Linh"],
+      "Tên đề tài tiếng Việt": "Ứng dụng hẹn hò",
+      "Tên đề tài tiếng Anh": "English name for topic",
+      "Phản biện": "8",
+      "Hướng dẫn": "9",
+      "Chủ tịch": "8",
+      "Thư ký": "9",
+      "Ủy viên": "9",
+      "Điểm tổng": "9.2",
+    },
+  },
+  {
+    STT: "2",
+    data: {
+      "Mã nhóm": "2",
+      MSSV: ["21522289", "21522289"],
+      "Họ và tên": ["Lê Thành Lộc", "Huỳnh Hồ Thị Mộng Trinh"],
+      "Tên đề tài tiếng Việt": "Ứng dụng chia sẻ hình ảnh",
+      "Tên đề tài tiếng Anh": "English name for topic",
+      "Phản biện": "",
+      "Hướng dẫn": "9",
+      "Chủ tịch": "8",
+      "Thư ký": "9",
+      "Ủy viên": "8",
+      "Điểm tổng": "",
+    },
+  },
+  {
+    STT: "3",
+    data: {
+      "Mã nhóm": "3",
+      MSSV: ["21522289", "21522289"],
+      "Họ và tên": ["Nguyễn Tiến Vĩ", "Nguyễn Vĩ"],
+      "Tên đề tài tiếng Việt": "Ứng dụng nhà thông minh",
+      "Tên đề tài tiếng Anh": "English name for topic",
+      "Phản biện": "8",
+      "Hướng dẫn": "9",
+      "Chủ tịch": "8",
+      "Thư ký": "9",
+      "Ủy viên": "9",
+      "Điểm tổng": "9.2",
+    },
+  },
+  {
+    STT: "4",
+    data: {
+      "Mã nhóm": "4",
+      MSSV: ["21522289"],
+      "Họ và tên": ["Võ Hữu Xike"],
+      "Tên đề tài tiếng Việt": "Ứng dụng ghi chú",
+      "Tên đề tài tiếng Anh": "English name for topic",
+      "Phản biện": "8",
+      "Hướng dẫn": "9",
+      "Chủ tịch": "8",
+      "Thư ký": "9",
+      "Ủy viên": "9",
+      "Điểm tổng": "9.2",
+    },
+  },
+];
+
 //
 // TODO: Intern Review Detail
 //
@@ -2480,12 +2583,10 @@ export const mockInternReviewDetail = [
       "Họ và tên": "Nguyễn Hoàng Linh",
       "Vị trí thực tập": "Mobile Devloper",
       "Công ty thực tập": "iZOTA",
-      "Giảng viên chấm điểm": [
-        "Huỳnh Hồ Thị Mộng Trinh",
-        "Đặng Việt Dũng",
-        " Nguyễn Thị Thanh Trúc",
-      ],
-      Điểm: ["8", "8", "8"],
+      "Chủ tịch": "8",
+      "Thư ký": "9",
+      "Ủy viên": "9",
+      "Điểm tổng": "9.2",
     },
   },
   {
@@ -2495,12 +2596,10 @@ export const mockInternReviewDetail = [
       "Họ và tên": "Lê Thành Lộc",
       "Vị trí thực tập": "Frontend Devloper",
       "Công ty thực tập": "Phúc Long",
-      "Giảng viên chấm điểm": [
-        "Huỳnh Hồ Thị Mộng Trinh",
-        "Đặng Việt Dũng",
-        " Nguyễn Thị Thanh Trúc",
-      ],
-      Điểm: ["9", "9", "9"],
+      "Chủ tịch": "8",
+      "Thư ký": "9",
+      "Ủy viên": "9",
+      "Điểm tổng": "9.2",
     },
   },
   {
@@ -2510,12 +2609,10 @@ export const mockInternReviewDetail = [
       "Họ và tên": "Võ Hữu",
       "Vị trí thực tập": "Mobile Devloper",
       "Công ty thực tập": "DevOps",
-      "Giảng viên chấm điểm": [
-        "Huỳnh Hồ Thị Mộng Trinh",
-        "Đặng Việt Dũng",
-        " Nguyễn Thị Thanh Trúc",
-      ],
-      Điểm: ["7", "8", "9"],
+      "Chủ tịch": "8",
+      "Thư ký": "9",
+      "Ủy viên": "9",
+      "Điểm tổng": "9.2",
     },
   },
   {
@@ -2525,12 +2622,10 @@ export const mockInternReviewDetail = [
       "Họ và tên": "Nguyễn Tiến Vĩ",
       "Vị trí thực tập": "Mobile Devloper",
       "Công ty thực tập": "Korea",
-      "Giảng viên chấm điểm": [
-        "Huỳnh Hồ Thị Mộng Trinh",
-        "Đặng Việt Dũng",
-        " Nguyễn Thị Thanh Trúc",
-      ],
-      Điểm: ["6", "6", "6"],
+      "Chủ tịch": "8",
+      "Thư ký": "9",
+      "Ủy viên": "9",
+      "Điểm tổng": "9.2",
     },
   },
 ];

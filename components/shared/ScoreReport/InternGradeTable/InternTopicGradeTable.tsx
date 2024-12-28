@@ -1,41 +1,36 @@
-import { ThesisTopicGradeDataItem } from "@/types";
-import { Dropdown, Table } from "flowbite-react";
-import { useEffect, useMemo, useRef, useState } from "react";
-import NoResult from "../../Status/NoResult";
-
 import {
   GradingThesisTopicFilterType,
   itemsPerPageRegisterTable,
 } from "@/constants";
-import IconButton from "../../Button/IconButton";
-
 import useDebounceSearchDataTable from "@/hooks/table/useDebounceSearchDataTable";
 import useSetDebounceSearchTerm from "@/hooks/table/useSetDebounceSearchTerm";
+import { InternReviewData, InternReviewDataItem } from "@/types";
+import { Dropdown, Table } from "flowbite-react";
 import Image from "next/image";
+import { useEffect, useMemo, useRef, useState } from "react";
+import IconButton from "../../Button/IconButton";
 import TableSearch from "../../Search/TableSearch";
 import { tableTheme } from "../../Table/components/DataTable";
-import MyFooter from "../../Table/components/MyFooter";
-import RowThesisTopicGrade from "./RowThesisTopicGrade";
+import RowInternGrade from "../ThesisTopicGradeTable/RowInternGrade";
 
 interface DataTableParams {
   isEditTable: boolean;
-  dataTable: ThesisTopicGradeDataItem[];
+  dataTable: InternReviewDataItem[];
   isOnlyView?: boolean;
 
-  onReviewForm?: (formId: string, isReviewer: number) => void;
-  onClickEditTable?: () => void;
-  onSaveEditTable?: (localDataTable: any) => void;
+  onClickEditTable: () => void;
+  onSaveEditTable: (updatedData: any) => void;
 }
 
-const ThesisTopicGradeTable = (params: DataTableParams) => {
+const InternTopicGradeTable = (params: DataTableParams) => {
+  //! SỬA LOGIC SAVE TABLE Ở ĐÂY GIỐNG THESIS
+
   const [selectedThesisStatus, setSelectedThesisStatus] = useState(-1);
 
   const dataTable = useMemo(() => {
     return params.dataTable.filter((dataItem) => {
       if (selectedThesisStatus === 0) {
         return (
-          dataItem.data["Phản biện"]?.trim() !== "" &&
-          dataItem.data["Hướng dẫn"]?.trim() !== "" &&
           dataItem.data["Chủ tịch"]?.trim() !== "" &&
           dataItem.data["Thư ký"]?.trim() !== "" &&
           dataItem.data["Ủy viên"]?.trim() !== "" &&
@@ -43,8 +38,6 @@ const ThesisTopicGradeTable = (params: DataTableParams) => {
         );
       } else if (selectedThesisStatus === 1) {
         return !(
-          dataItem.data["Phản biện"]?.trim() !== "" &&
-          dataItem.data["Hướng dẫn"]?.trim() !== "" &&
           dataItem.data["Chủ tịch"]?.trim() !== "" &&
           dataItem.data["Thư ký"]?.trim() !== "" &&
           dataItem.data["Ủy viên"]?.trim() !== "" &&
@@ -97,7 +90,7 @@ const ThesisTopicGradeTable = (params: DataTableParams) => {
     const updatedDataTable = dataTable.map((item) => {
       // Tìm item tương ứng trong localDataTable dựa vào STT (hoặc một identifier khác)
       const localItem = localDataTableRef.current.find(
-        (local) => local.data["Mã nhóm"] === item.data["Mã nhóm"]
+        (local) => local.data.MSSV === item.data.MSSV
       );
 
       // * Nếu tìm thấy, cập nhật giá trị bằng localItem, ngược lại giữ nguyên item
@@ -111,7 +104,7 @@ const ThesisTopicGradeTable = (params: DataTableParams) => {
   };
 
   return (
-    <div>
+    <>
       <div className="flex flex-col items-center justify-between p-4 space-y-3 md:flex-row md:space-y-0">
         {/* ACTION VỚI TABLE */}
         {params.isEditTable ? null : (
@@ -189,97 +182,70 @@ const ThesisTopicGradeTable = (params: DataTableParams) => {
         )}
       </div>
 
-      {/* TABLE */}
-      {currentItems.length > 0 && filteredDataTable.length === 0 ? (
-        <NoResult
-          title="Không có dữ liệu!"
-          description="💡 Bạn hãy thử tìm kiếm 1 từ khóa khác nhé."
-        />
-      ) : (
-        <div
-          className="
-            scroll-container 
-            overflow-auto
-            max-w-full
-            h-fit
-            rounded-lg
-            border-[1px]
-            border-secondary-200
-            "
-        >
-          <Table hoverable theme={tableTheme}>
-            {/* HEADER */}
-            <Table.Head
-              theme={tableTheme?.head}
-              className="sticky top-0 z-10 uppercase border-b bg-gray"
+      <div
+        className="
+          scroll-container 
+          overflow-auto
+          max-w-full
+          h-fit
+          rounded-lg
+          border-[1px]
+          border-secondary-200
+          "
+      >
+        <Table hoverable theme={tableTheme}>
+          {/* HEADER */}
+          <Table.Head
+            theme={tableTheme?.head}
+            className="sticky top-0 z-10 uppercase border-b bg-gray"
+          >
+            <Table.HeadCell
+              theme={tableTheme?.head?.cell}
+              className={` w-10 border-r-[1px] uppercase`}
             >
-              <Table.HeadCell
-                theme={tableTheme?.head?.cell}
-                className={` w-10 border-r-[1px] uppercase`}
-              >
-                STT
-              </Table.HeadCell>
+              STT
+            </Table.HeadCell>
 
-              {Object.keys(filteredDataTable[0]?.data || {}).map(
-                (key, index) => {
-                  if (key === "Mã nhóm") return null;
+            {Object.keys(params.dataTable[0].data || {}).map((key, index) => {
+              return (
+                <Table.HeadCell
+                  key={`${key}_${index}`}
+                  theme={tableTheme?.head?.cell}
+                  className={`px-2 py-4 border-r-[1px] uppercase whitespace-nowrap`}
+                >
+                  {key}
+                </Table.HeadCell>
+              );
+            })}
+          </Table.Head>
 
-                  return (
-                    <Table.HeadCell
-                      key={`${key}_${index}`}
-                      theme={tableTheme?.head?.cell}
-                      className={`px-2 py-4 border-r-[1px] uppercase whitespace-nowrap`}
-                    >
-                      {key}
-                    </Table.HeadCell>
-                  );
-                }
-              )}
-            </Table.Head>
-
-            {/* BODY */}
-            <Table.Body className="text-left divide-y">
-              {filteredDataTable.map((dataItem, index) => {
-                var valueUniqueInput = dataItem.STT;
-
-                return (
-                  // {/* //TODO: Main Row: Leader */}
-                  <RowThesisTopicGrade
-                    key={`${dataItem.STT}_${index}`}
-                    dataItem={dataItem}
-                    valueUniqueInput={valueUniqueInput.toString()}
-                    isEditTable={params.isEditTable}
-                    onChangeRow={(updatedDataItem: any) => {
-                      updateLocalDataTableRef(
-                        localDataTableRef.current.map((item) =>
-                          item.STT === updatedDataItem.STT
-                            ? updatedDataItem
-                            : item
-                        )
-                      );
-                    }}
-                    onReviewForm={params.onReviewForm}
-                  />
-                );
-              })}
-            </Table.Body>
-          </Table>
-        </div>
-      )}
-
-      {/* FOOTER */}
-      {searchTerm !== "" || params.isEditTable ? (
-        <></>
-      ) : (
-        <MyFooter
-          currentPage={currentPage}
-          itemsPerPage={itemsPerPageRegisterTable}
-          totalItems={totalItems}
-          onPageChange={(newPage) => setCurrentPage(newPage)}
-        />
-      )}
-    </div>
+          {/* BODY */}
+          <Table.Body className="text-left divide-y">
+            {filteredDataTable.map((dataItem, index) => {
+              var valueUniqueInput = dataItem.STT;
+              return (
+                <RowInternGrade
+                  key={`${dataItem.STT}_${index}`}
+                  dataItem={dataItem}
+                  valueUniqueInput={valueUniqueInput.toString()}
+                  isEditTable={params.isEditTable}
+                  onChangeRow={(updatedDataItem: any) => {
+                    updateLocalDataTableRef(
+                      localDataTableRef.current.map((item) =>
+                        item.STT === updatedDataItem.STT
+                          ? updatedDataItem
+                          : item
+                      )
+                    );
+                  }}
+                />
+              );
+            })}
+          </Table.Body>
+        </Table>
+      </div>
+    </>
   );
 };
 
-export default ThesisTopicGradeTable;
+export default InternTopicGradeTable;

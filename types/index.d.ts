@@ -14,6 +14,27 @@ export interface ReviewTopicDataItem {
   reviewTeacher: string;
 }
 
+export interface ThesisReportCouncilDataItem {
+  id: string;
+  numberOfCompletedGradingTopic: number;
+  numberOfTopic: number;
+  council: string;
+  councilInfo: string;
+  president: string;
+  secretary: string;
+  member: string;
+}
+export interface InternReportCouncilDataItem {
+  id: string;
+  numberOfCompletedGradingForStudents: number;
+  numberOfStudents: number;
+  council: string;
+  councilInfo: string;
+  president: string;
+  secretary: string;
+  member: string;
+}
+
 // TODO: PAGE INTERFACE
 
 export interface ReportDataOption {
@@ -280,8 +301,10 @@ export interface InternReviewData {
   "Họ và tên": string;
   "Vị trí thực tập": string;
   "Công ty thực tập": string;
-  "Giảng viên chấm điểm": string[];
-  Điểm: string[];
+  "Chủ tịch": string;
+  "Thư ký": string;
+  "Ủy viên": string;
+  "Điểm tổng": string;
 }
 export interface ThesisReviewData {
   MSSV: string;

@@ -11,6 +11,7 @@ import {
   TeacherDataItem,
   TopicDataItem,
   RegisterGroupDataItem,
+  InternReviewDataItem
 } from "@/types";
 import { useEffect } from "react";
 
@@ -31,6 +32,7 @@ const useDebounceSearchDataTable = (
     | QAandProjectExamDataItem[]
     | CentralizedExamDataItem[]
     | ThesisTopicGradeDataItem[]
+    | InternReviewDataItem[]
     | (
         | CourseDataItem
         | RegisterGroupDataItem
@@ -42,6 +44,7 @@ const useDebounceSearchDataTable = (
         | QAandProjectExamDataItem
         | CentralizedExamDataItem
         | ThesisTopicGradeDataItem
+        | InternReviewDataItem
       )[],
   currentItems:
     | CourseDataItem[]
@@ -54,6 +57,7 @@ const useDebounceSearchDataTable = (
     | QAandProjectExamDataItem[]
     | CentralizedExamDataItem[]
     | ThesisTopicGradeDataItem[]
+    | InternReviewDataItem[]
     | (
         | CourseDataItem
         | SubjectDataItem
@@ -65,6 +69,7 @@ const useDebounceSearchDataTable = (
         | QAandProjectExamDataItem
         | CentralizedExamDataItem
         | ThesisTopicGradeDataItem
+        | InternReviewDataItem
       )[]
 ) => {
   useEffect(() => {

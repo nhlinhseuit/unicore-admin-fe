@@ -76,7 +76,7 @@ const CreateAnnouncement = () => {
           ? prevChecked.filter((catId) => catId !== id) // Bỏ nếu đã có
           : [...prevChecked, id] // Thêm nếu chưa có
     );
-  };
+};
 
   const handleChooseImage = (event: React.ChangeEvent<HTMLInputElement>) => {
     const image = event.target.files?.[0];

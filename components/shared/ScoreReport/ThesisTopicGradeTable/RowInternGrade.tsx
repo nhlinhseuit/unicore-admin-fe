@@ -1,26 +1,24 @@
-import { ThesisTopicGradeData, ThesisTopicGradeDataItem } from "@/types";
+import { InternReviewData, InternReviewDataItem } from "@/types";
 import { Table } from "flowbite-react";
-import Image from "next/image";
 import React, { useRef } from "react";
 import InputComponent from "../../Table/components/InputComponent";
 
 interface RowParams {
   valueUniqueInput: string;
-  dataItem: ThesisTopicGradeDataItem;
+  dataItem: InternReviewDataItem;
   isEditTable?: boolean;
   isHasSubCourses?: boolean;
   onChangeRow?: (item: any) => void;
-  onReviewForm?: (formId: string, isReviewer: number) => void;
 }
 interface handleInputChangeParams {
-  key: keyof ThesisTopicGradeData;
+  key: keyof InternReviewData;
   newValue: any;
   isMultipleInput?: boolean;
   currentIndex?: number;
   isCheckbox?: boolean;
 }
 
-const RowThesisTopicGrade = React.memo(
+const RowInternGrade = React.memo(
   (params: RowParams) => {
     const refInput = useRef(params.dataItem);
 
@@ -32,15 +30,11 @@ const RowThesisTopicGrade = React.memo(
       isCheckbox,
     }: handleInputChangeParams) => {
       //@ts-ignore
-      const updatedDataItem: ThesisTopicGradeDataItem = {
+      const updatedDataItem: InternReviewDataItem = {
         ...refInput.current,
         data: {
           ...refInput.current.data,
-          [key]: isMultipleInput
-            ? (refInput.current.data[key] as string[]).map((value, index) =>
-                index === currentIndex ? newValue : value
-              )
-            : newValue,
+          [key]: newValue,
         },
       };
 
@@ -48,8 +42,6 @@ const RowThesisTopicGrade = React.memo(
 
       params.onChangeRow && params.onChangeRow(updatedDataItem); // Gọi callback để truyền dữ liệu đã chỉnh sửa lên DataTable
     };
-
-    var valueUniqueInput = params.dataItem.data["Mã nhóm"];
 
     const renderCellStyle = (
       key: string,
@@ -89,36 +81,6 @@ const RowThesisTopicGrade = React.memo(
       params: any;
     }) => {
       switch (key) {
-        case "Phản biện":
-        case "Hướng dẫn":
-          return params.isEditTable ? (
-            <div className="flex justify-center items-center gap-2">
-              {typeof value === "string" && value.trim() === "" ? (
-                <p className="text-red-600 text-center">Trống</p>
-              ) : (
-                <span>{value}</span>
-              )}
-
-              <Image
-                src={"/assets/icons/edit-black.svg"}
-                width={24}
-                height={24}
-                alt={"edit"}
-                className={`object-contain cursor-pointer -translate-y-[2px] `}
-                onClick={() => {
-                  params.onReviewForm(
-                    params.dataItem.data["Mã nhóm"],
-                    key === "Phản biện" ? 1 : 0
-                  );
-                }}
-              />
-            </div>
-          ) : typeof value === "string" && value.trim() === "" ? (
-            <p className="text-red-600 text-center">Trống</p>
-          ) : (
-            value
-          );
-
         case "Chủ tịch":
         case "Thư ký":
         case "Ủy viên":
@@ -144,17 +106,6 @@ const RowThesisTopicGrade = React.memo(
           ) : (
             value
           );
-
-        case "MSSV":
-        case "Họ và tên":
-          return Array.isArray(value)
-            ? value.map((item, index) => (
-                <React.Fragment key={index}>
-                  {item}
-                  {index < value.length - 1 && <br />}
-                </React.Fragment>
-              ))
-            : value;
 
         default:
           return value;
@@ -193,8 +144,6 @@ const RowThesisTopicGrade = React.memo(
       );
     };
 
-    console.log("re-render Row");
-
     return (
       <Table.Row
         key={params.dataItem.STT}
@@ -216,12 +165,12 @@ const RowThesisTopicGrade = React.memo(
               : ""
           } `}
         >
-          <span>{params.dataItem.data["Mã nhóm"]}</span>
+          <span>{params.dataItem.STT}</span>
         </Table.Cell>
 
         {/* Các giá trị khác */}
         {Object.entries(params.dataItem.data).map(([key, value]) => {
-          const keyId = params.dataItem.data["Mã nhóm"];
+          const keyId = params.dataItem.data.MSSV;
           return renderCell({
             key,
             value,
@@ -233,7 +182,7 @@ const RowThesisTopicGrade = React.memo(
     );
   },
   (prevProps, nextProps) => {
-    // Kiểm tra nếu `dataItem` của RowThesisTopicGrade không thay đổi thì không cần re-render
+    // Kiểm tra nếu `dataItem` của RowInternGrade không thay đổi thì không cần re-render
     return (
       prevProps.dataItem === nextProps.dataItem &&
       prevProps.isEditTable === nextProps.isEditTable
@@ -241,4 +190,4 @@ const RowThesisTopicGrade = React.memo(
   }
 );
 
-export default RowThesisTopicGrade;
+export default RowInternGrade;

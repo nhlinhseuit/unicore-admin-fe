@@ -149,7 +149,7 @@ export default function ImportThesisReport() {
 
       if (councils.length === 0) {
         errorMessages.push(
-          "Import lỗi. Vui lòng chọn đúng file import danh sách hội đồng phản biện!"
+          "Import lỗi. Vui lòng chọn đúng file import danh sách hội đồng chấm Khóa luận tốt nghiệp!"
         );
       }
 
@@ -214,7 +214,7 @@ export default function ImportThesisReport() {
               />
 
               <IconButton
-                text="Import danh sách hội đồng phản biện"
+                text="Import danh sách hội đồng chấm Khóa luận tốt nghiệp"
                 onClick={handleButtonClick}
                 iconLeft="/assets/icons/upload-white.svg"
                 iconWidth={16}

@@ -59,16 +59,16 @@ const ReviewForm = (params: Props) => {
     }));
   };
 
-    const handleClick = (
-      e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-    ) => {
-      const target = e.target as HTMLInputElement;
-      const { name, checked } = target;
-      setFormData((prevState) => ({
-        ...prevState,
-        [name]: checked,
-      }));
-    };
+  const handleClick = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    const target = e.target as HTMLInputElement;
+    const { name, checked } = target;
+    setFormData((prevState) => ({
+      ...prevState,
+      [name]: checked,
+    }));
+  };
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -118,7 +118,7 @@ const ReviewForm = (params: Props) => {
               <label className="base-semibold">Sinh viên thực hiện: </label>
 
               {/* Render students dynamically */}
-              {params.topic.studentIds.map((studentId, index) => (
+              {params.topic.studentIds.map((studentId: any, index: number) => (
                 <div key={studentId} className="mt-2 flex items-center gap-4">
                   <label className="base-regular">
                     {`${index + 1}. ${
@@ -131,7 +131,9 @@ const ReviewForm = (params: Props) => {
 
             {/*  CÁN BỘ */}
             <div className="w-[40%]">
-              <label className="base-semibold">Cán bộ {params.isReviewer ? 'phản biện':'hướng dẫn'}: </label>
+              <label className="base-semibold">
+                Cán bộ {params.isReviewer ? "phản biện" : "hướng dẫn"}:{" "}
+              </label>
               <div className="mt-2 flex items-center gap-4">
                 <label className="base-regular">{params.ownerName}</label>
               </div>

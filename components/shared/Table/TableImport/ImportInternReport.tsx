@@ -118,7 +118,7 @@ export default function ImportInternReport() {
 
       if (councils.length === 0) {
         errorMessages.push(
-          "Import lỗi. Vui lòng chọn đúng file import danh sách hội đồng phản biện!"
+          "Import lỗi. Vui lòng chọn đúng file import danh sách hội đồng chấm Khóa luận tốt nghiệp!"
         );
       }
 
