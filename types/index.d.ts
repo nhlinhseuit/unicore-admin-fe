@@ -132,6 +132,17 @@ export interface ThesisTopicGradeData {
   "Ủy viên": string;
   "Điểm tổng": string;
 }
+export interface ThesisReviewTicketData {
+  "Mã nhóm": string;
+  MSSV: string[];
+  "Họ và tên": string[];
+  "Tên đề tài tiếng Việt": string;
+  "Tên đề tài tiếng Anh": string;
+  "GV phản biện": string;
+  "Phản biện": string;
+  "GV hướng dẫn": string;
+  "Hướng dẫn": string;
+}
 export interface TopicRegisterGroupData {
   MSSV: string;
   SĐT: string;
@@ -243,6 +254,10 @@ export interface RegisterTopicDataItem {
 export interface ThesisTopicGradeDataItem {
   STT: string;
   data: ThesisTopicGradeData;
+}
+export interface ThesisReviewTicketDataItem {
+  STT: string;
+  data: ThesisReviewTicketData;
 }
 
 export interface TopicRegisterGroupDataItem {

@@ -171,6 +171,11 @@ export const ListCourseColors = [
 
 export const DepartmentScoreReportTabItems = [
   {
+    value: "thesisReviewTicket",
+    label: "Phiếu nhận xét Khóa luận tốt nghiệp",
+    route: "/score-report/thesis-review-ticket",
+  },
+  {
     value: "scoreThesisReport",
     label: "Nhập điểm hội đồng Khóa luận tốt nghiệp",
     route: "/score-report/thesis-report",

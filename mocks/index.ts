@@ -2572,6 +2572,65 @@ export const mockThesisTopicGradeInCouncil = [
   },
 ];
 
+export const mockThesisReviewTicket = [
+  {
+    STT: "1",
+    data: {
+      "Mã nhóm": "1",
+      MSSV: ["21522289"],
+      "Họ và tên": ["Nguyễn Hoàng Linh"],
+      "Tên đề tài tiếng Việt": "Ứng dụng hẹn hò",
+      "Tên đề tài tiếng Anh": "English name for topic",
+      "GV phản biện": "Huỳnh Hồ Thị Mộng Trinh",
+      "Phản biện": "8",
+      "GV hướng dẫn": "Nguyễn Thị Thanh Trúc",
+      "Hướng dẫn": "9",
+    },
+  },
+  {
+    STT: "2",
+    data: {
+      "Mã nhóm": "2",
+      MSSV: ["21522289", "21522289"],
+      "Họ và tên": ["Lê Thành Lộc", "Huỳnh Hồ Thị Mộng Trinh"],
+      "Tên đề tài tiếng Việt": "Ứng dụng chia sẻ hình ảnh",
+      "Tên đề tài tiếng Anh": "English name for topic",
+      "GV phản biện": "Nguyễn Thị Thanh Trúc",
+      "Phản biện": "",
+      "GV hướng dẫn": "Nguyễn Trịnh Đông",
+      "Hướng dẫn": "9",
+    },
+  },
+  {
+    STT: "3",
+    data: {
+      "Mã nhóm": "3",
+      MSSV: ["21522289", "21522289"],
+      "Họ và tên": ["Nguyễn Tiến Vĩ", "Nguyễn Vĩ"],
+      "Tên đề tài tiếng Việt": "Ứng dụng nhà thông minh",
+      "Tên đề tài tiếng Anh": "English name for topic",
+      "GV phản biện": "Đặng Việt Dũng",
+      "Phản biện": "8",
+      "GV hướng dẫn": "Nguyễn Thị Thanh Trúc",
+      "Hướng dẫn": "9",
+    },
+  },
+  {
+    STT: "4",
+    data: {
+      "Mã nhóm": "4",
+      MSSV: ["21522289"],
+      "Họ và tên": ["Võ Hữu Xike"],
+      "Tên đề tài tiếng Việt": "Ứng dụng ghi chú",
+      "Tên đề tài tiếng Anh": "English name for topic",
+      "GV phản biện": "Huỳnh Hồ Thị Mộng Trinh",
+      "Phản biện": "8",
+      "GV hướng dẫn": "Đặng Việt Dũng",
+      "Hướng dẫn": "9",
+    },
+  },
+];
+
 //
 // TODO: Intern Review Detail
 //
