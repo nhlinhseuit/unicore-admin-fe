@@ -197,6 +197,12 @@ export const GradingThesisTopicFilterType = [
   { id: 1, value: "Chưa hoàn thành" },
 ];
 
+export const AnnouncementsFilterType = [
+  { id: 0, value: "Thông báo đã đăng" },
+  { id: 1, value: "Thông báo đã ẩn" },
+  { id: 1, value: "Thông báo đã tạo" },
+];
+
 export enum DetailFilter {
   Semester,
   Year,
@@ -245,9 +251,7 @@ export const FileTableDataOnlyViewMoreComponentItems = [
 ];
 
 export const CourseItemMoreComponentItems = [
-  { value: "edit", label: "Chỉnh sửa" },
   { value: "hide", label: "Ẩn" },
-  { value: "archive", label: "Lưu trữ" },
 ];
 
 // TODO: SIDEBAR

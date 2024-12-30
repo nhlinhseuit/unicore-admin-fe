@@ -191,12 +191,6 @@ export const mockCategoryList = [
   { id: 1, value: "Thông báo - tin tức" },
   { id: 2, value: "Khoa học - Công nghệ" },
   { id: 3, value: "Sự kiện nổi bật" },
-  { id: 4, value: "Thông báo - tin tức" },
-  { id: 5, value: "Khoa học - Công nghệ" },
-  { id: 6, value: "Sự kiện nổi bật" },
-  { id: 7, value: "Thông báo - tin tức" },
-  { id: 8, value: "Khoa học - Công nghệ" },
-  { id: 9, value: "Sự kiện nổi bật" },
 ];
 
 //
@@ -705,6 +699,23 @@ export const mockCentralizedExam = [
   },
 ];
 
+export const mockHappeningEventRegister = [
+  {
+    id: "1",
+    name: "Đăng ký nhóm",
+    creator: "Huỳnh Hồ Thị Mộng Trinh",
+    createdAt: "29/8/2024 7:23AM",
+    deadline: "10/09/2024 - 00:00AM",
+  },
+  {
+    id: "2",
+    name: "Đăng ký đề tài",
+    creator: "Huỳnh Hồ Thị Mộng Trinh",
+    createdAt: "29/8/2024 7:23AM",
+    deadline: "10/09/2024 - 00:00AM",
+  },
+];
+
 //
 // TODO: Big Exercise List
 //
@@ -786,640 +797,638 @@ export const mockPostDataWithReport = [
 //
 // TODO: BigExerciseId ListTopic
 //
-export const mockTopicDataTable = [
-  {
-    type: "topic",
-    STT: 1,
-    isDeleted: false,
-    data: {
-      "GV phụ trách": "Huỳnh Hồ Thị Mộng Trinh",
-      "Tên đề tài tiếng Việt": "Ứng dụng hẹn hò",
-      "Tên đề tài tiếng Anh": "English name for topic",
-      "Mô tả":
-        "Kết nối người dùng với những người có sở thích tương tự Nơi người dùng có thể đăng tải và chia sẻ hình ảnh Một ứng dụng áp dụng phiếu giảm giá tự động để đảm bảo cung cấp phiếu giảm giá và giảm giá cho khách hàng",
-    },
-  },
-  {
-    type: "topic",
-    STT: 2,
-    isDeleted: false,
-    data: {
-      "GV phụ trách": "Huỳnh Tuấn Anh",
-      "Tên đề tài tiếng Việt": "Ứng dụng chia sẻ hình ảnh",
-      "Tên đề tài tiếng Anh": "English name for topic",
-      "Mô tả": "Nơi người dùng có thể đăng tải và chia sẻ hình ảnh",
-    },
-  },
-  {
-    type: "topic",
-    STT: 3,
-    isDeleted: false,
-    data: {
-      "GV phụ trách": "Nguyễn Thị Thanh Trúc",
-      "Tên đề tài tiếng Việt": "Ứng dụng đặt hàng và giao đồ ăn",
-      "Tên đề tài tiếng Anh": "English name for topic",
-      "Mô tả":
-        "Một ứng dụng áp dụng phiếu giảm giá tự động để đảm bảo cung cấp phiếu giảm giá và giảm giá cho khách hàng",
-    },
-  },
-  {
-    type: "topic",
-    STT: 4,
-    isDeleted: false,
-    data: {
-      "GV phụ trách": "Huỳnh Hồ Thị Mộng Trinh",
-      "Tên đề tài tiếng Việt": "Ứng dụng nhà thông minh",
-      "Tên đề tài tiếng Anh": "English name for topic",
-      "Mô tả": "Giúp người dùng xây dựng một ngôi nhà thông minh và tiện lợi",
-    },
-  },
-  {
-    type: "topic",
-    STT: 5,
-    isDeleted: false,
-    data: {
-      "GV phụ trách": "Huỳnh Tuấn Anh",
-      "Tên đề tài tiếng Việt": "Ứng dụng học ngôn ngữ",
-      "Tên đề tài tiếng Anh": "English name for topic",
-      "Mô tả":
-        "Một nền tảng giúp người dùng học các ngôn ngữ mới thông qua bài tập và trò chơi",
-    },
-  },
-  {
-    type: "topic",
-    STT: 6,
-    isDeleted: false,
-    data: {
-      "GV phụ trách": "Nguyễn Thị Thanh Trúc",
-      "Tên đề tài tiếng Việt": "Ứng dụng ghi chú",
-      "Tên đề tài tiếng Anh": "English name for topic",
-      "Mô tả": "Giúp người dùng ghi lại và tổ chức các ghi chú của mình",
-    },
-  },
-  {
-    type: "topic",
-    STT: 7,
-    isDeleted: false,
-    data: {
-      "GV phụ trách": "Huỳnh Hồ Thị Mộng Trinh",
-      "Tên đề tài tiếng Việt": "Ứng dụng quản lý tài chính cá nhân",
-      "Tên đề tài tiếng Anh": "English name for topic",
-      "Mô tả": "Giúp người dùng theo dõi chi tiêu và lập kế hoạch ngân sách",
-    },
-  },
-  {
-    type: "topic",
-    STT: 8,
-    isDeleted: false,
-    data: {
-      "GV phụ trách": "Huỳnh Tuấn Anh",
-      "Tên đề tài tiếng Việt": "Ứng dụng chia sẻ xe",
-      "Tên đề tài tiếng Anh": "English name for topic",
-      "Mô tả": "Kết nối người dùng có nhu cầu di chuyển với các tài xế gần đó",
-    },
-  },
-  {
-    type: "topic",
-    STT: 9,
-    isDeleted: false,
-    data: {
-      "GV phụ trách": "Nguyễn Thị Thanh Trúc",
-      "Tên đề tài tiếng Việt": "Ứng dụng chăm sóc sức khỏe",
-      "Tên đề tài tiếng Anh": "English name for topic",
-      "Mô tả":
-        "Theo dõi các chỉ số sức khỏe và cung cấp các bài tập luyện tập cá nhân hóa",
-    },
-  },
-  {
-    type: "topic",
-    STT: 10,
-    isDeleted: false,
-    data: {
-      "GV phụ trách": "Huỳnh Hồ Thị Mộng Trinh",
-      "Tên đề tài tiếng Việt": "Ứng dụng nấu ăn",
-      "Tên đề tài tiếng Anh": "English name for topic",
-      "Mô tả": "Chia sẻ công thức nấu ăn và gợi ý món ăn hàng ngày",
-    },
-  },
-  {
-    type: "topic",
-    STT: 11,
-    isDeleted: false,
-    data: {
-      "GV phụ trách": "Huỳnh Tuấn Anh",
-      "Tên đề tài tiếng Việt": "Ứng dụng kết nối bạn bè",
-      "Tên đề tài tiếng Anh": "English name for topic",
-      "Mô tả":
-        "Giúp người dùng tìm kiếm và kết nối với bạn bè có sở thích chung",
-    },
-  },
-  {
-    type: "topic",
-    STT: 12,
-    isDeleted: false,
-    data: {
-      "GV phụ trách": "Nguyễn Thị Thanh Trúc",
-      "Tên đề tài tiếng Việt": "Ứng dụng học tập trực tuyến",
-      "Tên đề tài tiếng Anh": "English name for topic",
-      "Mô tả": "Cung cấp các khóa học trực tuyến về nhiều lĩnh vực khác nhau",
-    },
-  },
-  {
-    type: "topic",
-    STT: 13,
-    isDeleted: false,
-    data: {
-      "GV phụ trách": "Huỳnh Hồ Thị Mộng Trinh",
-      "Tên đề tài tiếng Việt": "Ứng dụng đặt phòng khách sạn",
-      "Tên đề tài tiếng Anh": "English name for topic",
-      "Mô tả": "Đặt phòng khách sạn với giá ưu đãi và nhiều tùy chọn tiện ích",
-    },
-  },
-  {
-    type: "topic",
-    STT: 14,
-    isDeleted: false,
-    data: {
-      "GV phụ trách": "Huỳnh Tuấn Anh",
-      "Tên đề tài tiếng Việt": "Ứng dụng theo dõi thể dục",
-      "Tên đề tài tiếng Anh": "English name for topic",
-      "Mô tả": "Giúp người dùng theo dõi các hoạt động thể dục và sức khỏe",
-    },
-  },
-  {
-    type: "topic",
-    STT: 15,
-    isDeleted: false,
-    data: {
-      "GV phụ trách": "Nguyễn Thị Thanh Trúc",
-      "Tên đề tài tiếng Việt": "Ứng dụng thời tiết",
-      "Tên đề tài tiếng Anh": "English name for topic",
-      "Mô tả": "Cập nhật thời tiết hiện tại và dự báo thời tiết trong tuần",
-    },
-  },
-  {
-    type: "topic",
-    STT: 16,
-    isDeleted: false,
-    data: {
-      "GV phụ trách": "Huỳnh Hồ Thị Mộng Trinh",
-      "Tên đề tài tiếng Việt": "Ứng dụng quản lý dự án",
-      "Tên đề tài tiếng Anh": "English name for topic",
-      "Mô tả": "Giúp nhóm lên kế hoạch và theo dõi tiến độ công việc của dự án",
-    },
-  },
-  {
-    type: "topic",
-    STT: 17,
-    isDeleted: false,
-    data: {
-      "GV phụ trách": "Huỳnh Tuấn Anh",
-      "Tên đề tài tiếng Việt": "Ứng dụng nhắn tin tức thời",
-      "Tên đề tài tiếng Anh": "English name for topic",
-      "Mô tả": "Cho phép người dùng gửi tin nhắn văn bản và gọi video miễn phí",
-    },
-  },
-  {
-    type: "topic",
-    STT: 18,
-    isDeleted: false,
-    data: {
-      "GV phụ trách": "Nguyễn Thị Thanh Trúc",
-      "Tên đề tài tiếng Việt": "Ứng dụng quản lý tài liệu",
-      "Tên đề tài tiếng Anh": "English name for topic",
-      "Mô tả": "Giúp người dùng lưu trữ, tìm kiếm và chia sẻ tài liệu",
-    },
-  },
-  {
-    type: "topic",
-    STT: 19,
-    isDeleted: false,
-    data: {
-      "GV phụ trách": "Huỳnh Hồ Thị Mộng Trinh",
-      "Tên đề tài tiếng Việt": "Ứng dụng tìm việc làm",
-      "Tên đề tài tiếng Anh": "English name for topic",
-      "Mô tả":
-        "Cung cấp thông tin tuyển dụng và kết nối ứng viên với nhà tuyển dụng",
-    },
-  },
-  {
-    type: "topic",
-    STT: 20,
-    isDeleted: false,
-    data: {
-      "GV phụ trách": "Huỳnh Tuấn Anh",
-      "Tên đề tài tiếng Việt": "Ứng dụng đọc sách điện tử",
-      "Tên đề tài tiếng Anh": "English name for topic",
-      "Mô tả": "Một nền tảng để người dùng tải và đọc sách điện tử",
-    },
-  },
-  {
-    type: "topic",
-    STT: 21,
-    isDeleted: false,
-    data: {
-      "GV phụ trách": "Nguyễn Thị Thanh Trúc",
-      "Tên đề tài tiếng Việt": "Ứng dụng nghe nhạc trực tuyến",
-      "Tên đề tài tiếng Anh": "English name for topic",
-      "Mô tả": "Cho phép người dùng nghe và chia sẻ nhạc trực tuyến",
-    },
-  },
-  {
-    type: "topic",
-    STT: 22,
-    isDeleted: false,
-    data: {
-      "GV phụ trách": "Huỳnh Hồ Thị Mộng Trinh",
-      "Tên đề tài tiếng Việt": "Ứng dụng mua sắm trực tuyến",
-      "Tên đề tài tiếng Anh": "English name for topic",
-      "Mô tả": "Cung cấp các sản phẩm đa dạng và giao hàng tận nơi",
-    },
-  },
-  {
-    type: "topic",
-    STT: 23,
-    isDeleted: false,
-    data: {
-      "GV phụ trách": "Huỳnh Tuấn Anh",
-      "Tên đề tài tiếng Việt": "Ứng dụng đặt lịch khám bệnh",
-      "Tên đề tài tiếng Anh": "English name for topic",
-      "Mô tả": "Đặt lịch hẹn với bác sĩ và quản lý thông tin sức khỏe cá nhân",
-    },
-  },
-  {
-    type: "topic",
-    STT: 24,
-    isDeleted: false,
-    data: {
-      "GV phụ trách": "Nguyễn Thị Thanh Trúc",
-      "Tên đề tài tiếng Việt": "Ứng dụng quản lý thời gian",
-      "Tên đề tài tiếng Anh": "English name for topic",
-      "Mô tả": "Giúp người dùng lập lịch và theo dõi các nhiệm vụ hàng ngày",
-    },
-  },
-  {
-    type: "topic",
-    STT: 25,
-    isDeleted: false,
-    data: {
-      "GV phụ trách": "Huỳnh Hồ Thị Mộng Trinh",
-      "Tên đề tài tiếng Việt": "Ứng dụng đồ họa",
-      "Tên đề tài tiếng Anh": "English name for topic",
-      "Mô tả": "Một công cụ thiết kế cho người dùng tạo ảnh và video đồ họa",
-    },
-  },
-  {
-    type: "topic",
-    STT: 26,
-    isDeleted: false,
-    data: {
-      "GV phụ trách": "Huỳnh Tuấn Anh",
-      "Tên đề tài tiếng Việt": "Ứng dụng hẹn hò",
-      "Tên đề tài tiếng Anh": "English name for topic",
-      "Mô tả": "Kết nối người dùng với những người có sở thích tương tự",
-    },
-  },
-  {
-    type: "topic",
-    STT: 27,
-    isDeleted: false,
-    data: {
-      "GV phụ trách": "Nguyễn Thị Thanh Trúc",
-      "Tên đề tài tiếng Việt": "Ứng dụng học lập trình",
-      "Tên đề tài tiếng Anh": "English name for topic",
-      "Mô tả":
-        "Hướng dẫn người dùng học các ngôn ngữ lập trình qua các bài tập thực hành",
-    },
-  },
-  {
-    type: "topic",
-    STT: 28,
-    isDeleted: false,
-    data: {
-      "GV phụ trách": "Huỳnh Hồ Thị Mộng Trinh",
-      "Tên đề tài tiếng Việt": "Ứng dụng podcast",
-      "Tên đề tài tiếng Anh": "English name for topic",
-      "Mô tả": "Cung cấp các kênh podcast đa dạng về nhiều chủ đề",
-    },
-  },
-  {
-    type: "topic",
-    STT: 29,
-    isDeleted: false,
-    data: {
-      "GV phụ trách": "Huỳnh Tuấn Anh",
-      "Tên đề tài tiếng Việt": "Ứng dụng từ điển trực tuyến",
-      "Tên đề tài tiếng Anh": "English name for topic",
-      "Mô tả": "Cho phép người dùng tra từ điển và học từ mới",
-    },
-  },
-  {
-    type: "topic",
-    STT: 30,
-    isDeleted: false,
-    data: {
-      "GV phụ trách": "Nguyễn Thị Thanh Trúc",
-      "Tên đề tài tiếng Việt": "Ứng dụng thực tế ảo",
-      "Tên đề tài tiếng Anh": "English name for topic",
-      "Mô tả": "Giúp người dùng trải nghiệm các môi trường thực tế ảo",
-    },
-  },
-  {
-    type: "topic",
-    STT: 31,
-    isDeleted: false,
-    data: {
-      "GV phụ trách": "Huỳnh Hồ Thị Mộng Trinh",
-      "Tên đề tài tiếng Việt": "Ứng dụng quản lý nhân sự",
-      "Tên đề tài tiếng Anh": "English name for topic",
-      "Mô tả":
-        "Quản lý thông tin và hiệu suất làm việc của nhân viên trong công ty",
-    },
-  },
-  {
-    type: "topic",
-    STT: 32,
-    isDeleted: false,
-    data: {
-      "GV phụ trách": "Huỳnh Tuấn Anh",
-      "Tên đề tài tiếng Việt": "Ứng dụng đồ họa",
-      "Tên đề tài tiếng Anh": "English name for topic",
-      "Mô tả": "Một công cụ thiết kế cho người dùng tạo ảnh và video đồ họa",
-    },
-  },
-  {
-    type: "topic",
-    STT: 33,
-    isDeleted: false,
-    data: {
-      "GV phụ trách": "Nguyễn Thị Thanh Trúc",
-      "Tên đề tài tiếng Việt": "Ứng dụng chia sẻ hình ảnh",
-      "Tên đề tài tiếng Anh": "English name for topic",
-      "Mô tả": "Nơi người dùng có thể đăng tải và chia sẻ hình ảnh",
-    },
-  },
-  {
-    type: "topic",
-    STT: 34,
-    isDeleted: false,
-    data: {
-      "GV phụ trách": "Huỳnh Hồ Thị Mộng Trinh",
-      "Tên đề tài tiếng Việt": "Ứng dụng đặt hàng và giao đồ ăn",
-      "Tên đề tài tiếng Anh": "English name for topic",
-      "Mô tả":
-        "Một ứng dụng áp dụng phiếu giảm giá tự động để đảm bảo cung cấp phiếu giảm giá và giảm giá cho khách hàng",
-    },
-  },
-  {
-    type: "topic",
-    STT: 35,
-    isDeleted: false,
-    data: {
-      "GV phụ trách": "Huỳnh Tuấn Anh",
-      "Tên đề tài tiếng Việt": "Ứng dụng nhà thông minh",
-      "Tên đề tài tiếng Anh": "English name for topic",
-      "Mô tả": "Giúp người dùng xây dựng một ngôi nhà thông minh và tiện lợi",
-    },
-  },
-  {
-    type: "topic",
-    STT: 36,
-    isDeleted: false,
-    data: {
-      "GV phụ trách": "Nguyễn Thị Thanh Trúc",
-      "Tên đề tài tiếng Việt": "Ứng dụng học ngôn ngữ",
-      "Tên đề tài tiếng Anh": "English name for topic",
-      "Mô tả":
-        "Một nền tảng giúp người dùng học các ngôn ngữ mới thông qua bài tập và trò chơi",
-    },
-  },
-  {
-    type: "topic",
-    STT: 37,
-    isDeleted: false,
-    data: {
-      "GV phụ trách": "Huỳnh Hồ Thị Mộng Trinh",
-      "Tên đề tài tiếng Việt": "Ứng dụng ghi chú",
-      "Tên đề tài tiếng Anh": "English name for topic",
-      "Mô tả": "Giúp người dùng ghi lại và tổ chức các ghi chú của mình",
-    },
-  },
-  {
-    type: "topic",
-    STT: 38,
-    isDeleted: false,
-    data: {
-      "GV phụ trách": "Huỳnh Tuấn Anh",
-      "Tên đề tài tiếng Việt": "Ứng dụng quản lý tài chính cá nhân",
-      "Tên đề tài tiếng Anh": "English name for topic",
-      "Mô tả": "Giúp người dùng theo dõi chi tiêu và lập kế hoạch ngân sách",
-    },
-  },
-  {
-    type: "topic",
-    STT: 39,
-    isDeleted: false,
-    data: {
-      "GV phụ trách": "Nguyễn Thị Thanh Trúc",
-      "Tên đề tài tiếng Việt": "Ứng dụng chia sẻ xe",
-      "Tên đề tài tiếng Anh": "English name for topic",
-      "Mô tả": "Kết nối người dùng có nhu cầu di chuyển với các tài xế gần đó",
-    },
-  },
-  {
-    type: "topic",
-    STT: 40,
-    isDeleted: false,
-    data: {
-      "GV phụ trách": "Huỳnh Hồ Thị Mộng Trinh",
-      "Tên đề tài tiếng Việt": "Ứng dụng chăm sóc sức khỏe",
-      "Tên đề tài tiếng Anh": "English name for topic",
-      "Mô tả":
-        "Theo dõi các chỉ số sức khỏe và cung cấp các bài tập luyện tập cá nhân hóa",
-    },
-  },
-  {
-    type: "topic",
-    STT: 41,
-    isDeleted: false,
-    data: {
-      "GV phụ trách": "Huỳnh Hồ Thị Mộng Trinh",
-      "Tên đề tài tiếng Việt": "Ứng dụng nấu ăn",
-      "Tên đề tài tiếng Anh": "English name for topic",
-      "Mô tả": "Chia sẻ công thức nấu ăn và gợi ý món ăn hàng ngày",
-    },
-  },
-  {
-    type: "topic",
-    STT: 42,
-    isDeleted: false,
-    data: {
-      "GV phụ trách": "Huỳnh Tuấn Anh",
-      "Tên đề tài tiếng Việt": "Ứng dụng kết nối bạn bè",
-      "Tên đề tài tiếng Anh": "English name for topic",
-      "Mô tả":
-        "Giúp người dùng tìm kiếm và kết nối với bạn bè có sở thích chung",
-    },
-  },
-  {
-    type: "topic",
-    STT: 43,
-    isDeleted: false,
-    data: {
-      "GV phụ trách": "Nguyễn Thị Thanh Trúc",
-      "Tên đề tài tiếng Việt": "Ứng dụng học tập trực tuyến",
-      "Tên đề tài tiếng Anh": "English name for topic",
-      "Mô tả": "Cung cấp các khóa học trực tuyến về nhiều lĩnh vực khác nhau",
-    },
-  },
-  {
-    type: "topic",
-    STT: 44,
-    isDeleted: false,
-    data: {
-      "GV phụ trách": "Huỳnh Hồ Thị Mộng Trinh",
-      "Tên đề tài tiếng Việt": "Ứng dụng đặt phòng khách sạn",
-      "Tên đề tài tiếng Anh": "English name for topic",
-      "Mô tả": "Đặt phòng khách sạn với giá ưu đãi và nhiều tùy chọn tiện ích",
-    },
-  },
-  {
-    type: "topic",
-    STT: 45,
-    isDeleted: false,
-    data: {
-      "GV phụ trách": "Huỳnh Tuấn Anh",
-      "Tên đề tài tiếng Việt": "Ứng dụng theo dõi thể dục",
-      "Tên đề tài tiếng Anh": "English name for topic",
-      "Mô tả": "Giúp người dùng theo dõi các hoạt động thể dục và sức khỏe",
-    },
-  },
-  {
-    type: "topic",
-    STT: 46,
-    isDeleted: false,
-    data: {
-      "GV phụ trách": "Nguyễn Thị Thanh Trúc",
-      "Tên đề tài tiếng Việt": "Ứng dụng thời tiết",
-      "Tên đề tài tiếng Anh": "English name for topic",
-      "Mô tả": "Cập nhật thời tiết hiện tại và dự báo thời tiết trong tuần",
-    },
-  },
-  {
-    type: "topic",
-    STT: 47,
-    isDeleted: false,
-    data: {
-      "GV phụ trách": "Huỳnh Hồ Thị Mộng Trinh",
-      "Tên đề tài tiếng Việt": "Ứng dụng quản lý dự án",
-      "Tên đề tài tiếng Anh": "English name for topic",
-      "Mô tả": "Giúp nhóm lên kế hoạch và theo dõi tiến độ công việc của dự án",
-    },
-  },
-  {
-    type: "topic",
-    STT: 48,
-    isDeleted: false,
-    data: {
-      "GV phụ trách": "Huỳnh Tuấn Anh",
-      "Tên đề tài tiếng Việt": "Ứng dụng nhắn tin tức thời",
-      "Tên đề tài tiếng Anh": "English name for topic",
-      "Mô tả": "Cho phép người dùng gửi tin nhắn văn bản và gọi video miễn phí",
-    },
-  },
-  {
-    type: "topic",
-    STT: 49,
-    isDeleted: false,
-    data: {
-      "GV phụ trách": "Nguyễn Thị Thanh Trúc",
-      "Tên đề tài tiếng Việt": "Ứng dụng quản lý tài liệu",
-      "Tên đề tài tiếng Anh": "English name for topic",
-      "Mô tả": "Giúp người dùng lưu trữ, tìm kiếm và chia sẻ tài liệu",
-    },
-  },
-  {
-    type: "topic",
-    STT: 50,
-    isDeleted: false,
-    data: {
-      "GV phụ trách": "Huỳnh Hồ Thị Mộng Trinh",
-      "Tên đề tài tiếng Việt": "Ứng dụng tìm việc làm",
-      "Tên đề tài tiếng Anh": "English name for topic",
-      "Mô tả":
-        "Cung cấp thông tin tuyển dụng và kết nối ứng viên với nhà tuyển dụng",
-    },
-  },
-  {
-    type: "topic",
-    STT: 51,
-    isDeleted: false,
-    data: {
-      "GV phụ trách": "Huỳnh Tuấn Anh",
-      "Tên đề tài tiếng Việt": "Ứng dụng đọc sách điện tử",
-      "Tên đề tài tiếng Anh": "English name for topic",
-      "Mô tả": "Một nền tảng để người dùng tải và đọc sách điện tử",
-    },
-  },
-  {
-    type: "topic",
-    STT: 52,
-    isDeleted: false,
-    data: {
-      "GV phụ trách": "Nguyễn Thị Thanh Trúc",
-      "Tên đề tài tiếng Việt": "Ứng dụng nghe nhạc trực tuyến",
-      "Tên đề tài tiếng Anh": "English name for topic",
-      "Mô tả": "Cho phép người dùng nghe và chia sẻ nhạc trực tuyến",
-    },
-  },
-  {
-    type: "topic",
-    STT: 53,
-    isDeleted: false,
-    data: {
-      "GV phụ trách": "Huỳnh Hồ Thị Mộng Trinh",
-      "Tên đề tài tiếng Việt": "Ứng dụng mua sắm trực tuyến",
-      "Tên đề tài tiếng Anh": "English name for topic",
-      "Mô tả": "Cung cấp các sản phẩm đa dạng và giao hàng tận nơi",
-    },
-  },
-  {
-    type: "topic",
-    STT: 54,
-    isDeleted: false,
-    data: {
-      "GV phụ trách": "Huỳnh Tuấn Anh",
-      "Tên đề tài tiếng Việt": "Ứng dụng đặt lịch khám bệnh",
-      "Tên đề tài tiếng Anh": "English name for topic",
-      "Mô tả": "Đặt lịch hẹn với bác sĩ và quản lý thông tin sức khỏe cá nhân",
-    },
-  },
-  {
-    type: "topic",
-    STT: 55,
-    isDeleted: false,
-    data: {
-      "GV phụ trách": "Nguyễn Thị Thanh Trúc",
-      "Tên đề tài tiếng Việt": "Ứng dụng quản lý thời gian",
-      "Tên đề tài tiếng Anh": "English name for topic",
-      "Mô tả": "Giúp người dùng lập lịch và theo dõi các nhiệm vụ hàng ngày",
-    },
-  },
-];
+// export const mockTopicDataTable = [
+//   {
+//     type: "topic",
+//     STT: 1,
+//     isDeleted: false,
+//     data: {
+//       "GV phụ trách": "Huỳnh Hồ Thị Mộng Trinh",
+//       "Tên đề tài tiếng Việt": "Ứng dụng hẹn hò",
+//       "Tên đề tài tiếng Anh": "English name for topic",
+//       "Mô tả":
+//         "Kết nối người dùng với những người có sở thích tương tự Nơi người dùng có thể đăng tải và chia sẻ hình ảnh Một ứng dụng áp dụng phiếu giảm giá tự động để đảm bảo cung cấp phiếu giảm giá và giảm giá cho khách hàng",
+//     },
+//   },
+//   {
+//     type: "topic",
+//     STT: 2,
+//     isDeleted: false,
+//     data: {
+//       "GV phụ trách": "Huỳnh Tuấn Anh",
+//       "Tên đề tài tiếng Việt": "Ứng dụng chia sẻ hình ảnh",
+//       "Tên đề tài tiếng Anh": "English name for topic",
+//       "Mô tả": "Nơi người dùng có thể đăng tải và chia sẻ hình ảnh",
+//     },
+//   },
+//   {
+//     type: "topic",
+//     STT: 3,
+//     isDeleted: false,
+//     data: {
+//       "GV phụ trách": "Nguyễn Thị Thanh Trúc",
+//       "Tên đề tài tiếng Việt": "Ứng dụng đặt hàng và giao đồ ăn",
+//       "Tên đề tài tiếng Anh": "English name for topic",
+//       "Mô tả":
+//         "Một ứng dụng áp dụng phiếu giảm giá tự động để đảm bảo cung cấp phiếu giảm giá và giảm giá cho khách hàng",
+//     },
+//   },
+//   {
+//     type: "topic",
+//     STT: 4,
+//     isDeleted: false,
+//     data: {
+//       "GV phụ trách": "Huỳnh Hồ Thị Mộng Trinh",
+//       "Tên đề tài tiếng Việt": "Ứng dụng nhà thông minh",
+//       "Tên đề tài tiếng Anh": "English name for topic",
+//       "Mô tả": "Giúp người dùng xây dựng một ngôi nhà thông minh và tiện lợi",
+//     },
+//   },
+//   {
+//     type: "topic",
+//     STT: 5,
+//     isDeleted: false,
+//     data: {
+//       "GV phụ trách": "Huỳnh Tuấn Anh",
+//       "Tên đề tài tiếng Việt": "Ứng dụng học ngôn ngữ",
+//       "Tên đề tài tiếng Anh": "English name for topic",
+//       "Mô tả":
+//         "Một nền tảng giúp người dùng học các ngôn ngữ mới thông qua bài tập và trò chơi",
+//     },
+//   },
+//   {
+//     type: "topic",
+//     STT: 6,
+//     isDeleted: false,
+//     data: {
+//       "GV phụ trách": "Nguyễn Thị Thanh Trúc",
+//       "Tên đề tài tiếng Việt": "Ứng dụng ghi chú",
+//       "Tên đề tài tiếng Anh": "English name for topic",
+//       "Mô tả": "Giúp người dùng ghi lại và tổ chức các ghi chú của mình",
+//     },
+//   },
+//   {
+//     type: "topic",
+//     STT: 7,
+//     isDeleted: false,
+//     data: {
+//       "GV phụ trách": "Huỳnh Hồ Thị Mộng Trinh",
+//       "Tên đề tài tiếng Việt": "Ứng dụng quản lý tài chính cá nhân",
+//       "Tên đề tài tiếng Anh": "English name for topic",
+//       "Mô tả": "Giúp người dùng theo dõi chi tiêu và lập kế hoạch ngân sách",
+//     },
+//   },
+//   {
+//     type: "topic",
+//     STT: 8,
+//     isDeleted: false,
+//     data: {
+//       "GV phụ trách": "Huỳnh Tuấn Anh",
+//       "Tên đề tài tiếng Việt": "Ứng dụng chia sẻ xe",
+//       "Tên đề tài tiếng Anh": "English name for topic",
+//       "Mô tả": "Kết nối người dùng có nhu cầu di chuyển với các tài xế gần đó",
+//     },
+//   },
+//   {
+//     type: "topic",
+//     STT: 9,
+//     isDeleted: false,
+//     data: {
+//       "GV phụ trách": "Nguyễn Thị Thanh Trúc",
+//       "Tên đề tài tiếng Việt": "Ứng dụng chăm sóc sức khỏe",
+//       "Tên đề tài tiếng Anh": "English name for topic",
+//       "Mô tả":
+//         "Theo dõi các chỉ số sức khỏe và cung cấp các bài tập luyện tập cá nhân hóa",
+//     },
+//   },
+//   {
+//     type: "topic",
+//     STT: 10,
+//     isDeleted: false,
+//     data: {
+//       "GV phụ trách": "Huỳnh Hồ Thị Mộng Trinh",
+//       "Tên đề tài tiếng Việt": "Ứng dụng nấu ăn",
+//       "Tên đề tài tiếng Anh": "English name for topic",
+//       "Mô tả": "Chia sẻ công thức nấu ăn và gợi ý món ăn hàng ngày",
+//     },
+//   },
+//   {
+//     type: "topic",
+//     STT: 11,
+//     isDeleted: false,
+//     data: {
+//       "GV phụ trách": "Huỳnh Tuấn Anh",
+//       "Tên đề tài tiếng Việt": "Ứng dụng kết nối bạn bè",
+//       "Tên đề tài tiếng Anh": "English name for topic",
+//       "Mô tả":
+//         "Giúp người dùng tìm kiếm và kết nối với bạn bè có sở thích chung",
+//     },
+//   },
+//   {
+//     type: "topic",
+//     STT: 12,
+//     isDeleted: false,
+//     data: {
+//       "GV phụ trách": "Nguyễn Thị Thanh Trúc",
+//       "Tên đề tài tiếng Việt": "Ứng dụng học tập trực tuyến",
+//       "Tên đề tài tiếng Anh": "English name for topic",
+//       "Mô tả": "Cung cấp các khóa học trực tuyến về nhiều lĩnh vực khác nhau",
+//     },
+//   },
+//   {
+//     type: "topic",
+//     STT: 13,
+//     isDeleted: false,
+//     data: {
+//       "GV phụ trách": "Huỳnh Hồ Thị Mộng Trinh",
+//       "Tên đề tài tiếng Việt": "Ứng dụng đặt phòng khách sạn",
+//       "Tên đề tài tiếng Anh": "English name for topic",
+//       "Mô tả": "Đặt phòng khách sạn với giá ưu đãi và nhiều tùy chọn tiện ích",
+//     },
+//   },
+//   {
+//     type: "topic",
+//     STT: 14,
+//     isDeleted: false,
+//     data: {
+//       "GV phụ trách": "Huỳnh Tuấn Anh",
+//       "Tên đề tài tiếng Việt": "Ứng dụng theo dõi thể dục",
+//       "Tên đề tài tiếng Anh": "English name for topic",
+//       "Mô tả": "Giúp người dùng theo dõi các hoạt động thể dục và sức khỏe",
+//     },
+//   },
+//   {
+//     type: "topic",
+//     STT: 15,
+//     isDeleted: false,
+//     data: {
+//       "GV phụ trách": "Nguyễn Thị Thanh Trúc",
+//       "Tên đề tài tiếng Việt": "Ứng dụng thời tiết",
+//       "Tên đề tài tiếng Anh": "English name for topic",
+//       "Mô tả": "Cập nhật thời tiết hiện tại và dự báo thời tiết trong tuần",
+//     },
+//   },
+//   {
+//     type: "topic",
+//     STT: 16,
+//     isDeleted: false,
+//     data: {
+//       "GV phụ trách": "Huỳnh Hồ Thị Mộng Trinh",
+//       "Tên đề tài tiếng Việt": "Ứng dụng quản lý dự án",
+//       "Tên đề tài tiếng Anh": "English name for topic",
+//       "Mô tả": "Giúp nhóm lên kế hoạch và theo dõi tiến độ công việc của dự án",
+//     },
+//   },
+//   {
+//     type: "topic",
+//     STT: 17,
+//     isDeleted: false,
+//     data: {
+//       "GV phụ trách": "Huỳnh Tuấn Anh",
+//       "Tên đề tài tiếng Việt": "Ứng dụng nhắn tin tức thời",
+//       "Tên đề tài tiếng Anh": "English name for topic",
+//       "Mô tả": "Cho phép người dùng gửi tin nhắn văn bản và gọi video miễn phí",
+//     },
+//   },
+//   {
+//     type: "topic",
+//     STT: 18,
+//     isDeleted: false,
+//     data: {
+//       "GV phụ trách": "Nguyễn Thị Thanh Trúc",
+//       "Tên đề tài tiếng Việt": "Ứng dụng quản lý tài liệu",
+//       "Tên đề tài tiếng Anh": "English name for topic",
+//       "Mô tả": "Giúp người dùng lưu trữ, tìm kiếm và chia sẻ tài liệu",
+//     },
+//   },
+//   {
+//     type: "topic",
+//     STT: 19,
+//     isDeleted: false,
+//     data: {
+//       "GV phụ trách": "Huỳnh Hồ Thị Mộng Trinh",
+//       "Tên đề tài tiếng Việt": "Ứng dụng tìm việc làm",
+//       "Tên đề tài tiếng Anh": "English name for topic",
+//       "Mô tả":
+//         "Cung cấp thông tin tuyển dụng và kết nối ứng viên với nhà tuyển dụng",
+//     },
+//   },
+//   {
+//     type: "topic",
+//     STT: 20,
+//     isDeleted: false,
+//     data: {
+//       "GV phụ trách": "Huỳnh Tuấn Anh",
+//       "Tên đề tài tiếng Việt": "Ứng dụng đọc sách điện tử",
+//       "Tên đề tài tiếng Anh": "English name for topic",
+//       "Mô tả": "Một nền tảng để người dùng tải và đọc sách điện tử",
+//     },
+//   },
+//   {
+//     type: "topic",
+//     STT: 21,
+//     isDeleted: false,
+//     data: {
+//       "GV phụ trách": "Nguyễn Thị Thanh Trúc",
+//       "Tên đề tài tiếng Việt": "Ứng dụng nghe nhạc trực tuyến",
+//       "Tên đề tài tiếng Anh": "English name for topic",
+//       "Mô tả": "Cho phép người dùng nghe và chia sẻ nhạc trực tuyến",
+//     },
+//   },
+//   {
+//     type: "topic",
+//     STT: 22,
+//     isDeleted: false,
+//     data: {
+//       "GV phụ trách": "Huỳnh Hồ Thị Mộng Trinh",
+//       "Tên đề tài tiếng Việt": "Ứng dụng mua sắm trực tuyến",
+//       "Tên đề tài tiếng Anh": "English name for topic",
+//       "Mô tả": "Cung cấp các sản phẩm đa dạng và giao hàng tận nơi",
+//     },
+//   },
+//   {
+//     type: "topic",
+//     STT: 23,
+//     isDeleted: false,
+//     data: {
+//       "GV phụ trách": "Huỳnh Tuấn Anh",
+//       "Tên đề tài tiếng Việt": "Ứng dụng đặt lịch khám bệnh",
+//       "Tên đề tài tiếng Anh": "English name for topic",
+//       "Mô tả": "Đặt lịch hẹn với bác sĩ và quản lý thông tin sức khỏe cá nhân",
+//     },
+//   },
+//   {
+//     type: "topic",
+//     STT: 24,
+//     isDeleted: false,
+//     data: {
+//       "GV phụ trách": "Nguyễn Thị Thanh Trúc",
+//       "Tên đề tài tiếng Việt": "Ứng dụng quản lý thời gian",
+//       "Tên đề tài tiếng Anh": "English name for topic",
+//       "Mô tả": "Giúp người dùng lập lịch và theo dõi các nhiệm vụ hàng ngày",
+//     },
+//   },
+//   {
+//     type: "topic",
+//     STT: 25,
+//     isDeleted: false,
+//     data: {
+//       "GV phụ trách": "Huỳnh Hồ Thị Mộng Trinh",
+//       "Tên đề tài tiếng Việt": "Ứng dụng đồ họa",
+//       "Tên đề tài tiếng Anh": "English name for topic",
+//       "Mô tả": "Một công cụ thiết kế cho người dùng tạo ảnh và video đồ họa",
+//     },
+//   },
+//   {
+//     type: "topic",
+//     STT: 26,
+//     isDeleted: false,
+//     data: {
+//       "GV phụ trách": "Huỳnh Tuấn Anh",
+//       "Tên đề tài tiếng Việt": "Ứng dụng hẹn hò",
+//       "Tên đề tài tiếng Anh": "English name for topic",
+//       "Mô tả": "Kết nối người dùng với những người có sở thích tương tự",
+//     },
+//   },
+//   {
+//     type: "topic",
+//     STT: 27,
+//     isDeleted: false,
+//     data: {
+//       "GV phụ trách": "Nguyễn Thị Thanh Trúc",
+//       "Tên đề tài tiếng Việt": "Ứng dụng học lập trình",
+//       "Tên đề tài tiếng Anh": "English name for topic",
+//       "Mô tả":
+//         "Hướng dẫn người dùng học các ngôn ngữ lập trình qua các bài tập thực hành",
+//     },
+//   },
+//   {
+//     type: "topic",
+//     STT: 28,
+//     isDeleted: false,
+//     data: {
+//       "GV phụ trách": "Huỳnh Hồ Thị Mộng Trinh",
+//       "Tên đề tài tiếng Việt": "Ứng dụng podcast",
+//       "Tên đề tài tiếng Anh": "English name for topic",
+//       "Mô tả": "Cung cấp các kênh podcast đa dạng về nhiều chủ đề",
+//     },
+//   },
+//   {
+//     type: "topic",
+//     STT: 29,
+//     isDeleted: false,
+//     data: {
+//       "GV phụ trách": "Huỳnh Tuấn Anh",
+//       "Tên đề tài tiếng Việt": "Ứng dụng từ điển trực tuyến",
+//       "Tên đề tài tiếng Anh": "English name for topic",
+//       "Mô tả": "Cho phép người dùng tra từ điển và học từ mới",
+//     },
+//   },
+//   {
+//     type: "topic",
+//     STT: 30,
+//     isDeleted: false,
+//     data: {
+//       "GV phụ trách": "Nguyễn Thị Thanh Trúc",
+//       "Tên đề tài tiếng Việt": "Ứng dụng thực tế ảo",
+//       "Tên đề tài tiếng Anh": "English name for topic",
+//       "Mô tả": "Giúp người dùng trải nghiệm các môi trường thực tế ảo",
+//     },
+//   },
+//   {
+//     type: "topic",
+//     STT: 31,
+//     isDeleted: false,
+//     data: {
+//       "GV phụ trách": "Huỳnh Hồ Thị Mộng Trinh",
+//       "Tên đề tài tiếng Việt": "Ứng dụng quản lý nhân sự",
+//       "Tên đề tài tiếng Anh": "English name for topic",
+//       "Mô tả":
+//         "Quản lý thông tin và hiệu suất làm việc của nhân viên trong công ty",
+//     },
+//   },
+//   {
+//     type: "topic",
+//     STT: 32,
+//     isDeleted: false,
+//     data: {
+//       "GV phụ trách": "Huỳnh Tuấn Anh",
+//       "Tên đề tài tiếng Việt": "Ứng dụng đồ họa",
+//       "Tên đề tài tiếng Anh": "English name for topic",
+//       "Mô tả": "Một công cụ thiết kế cho người dùng tạo ảnh và video đồ họa",
+//     },
+//   },
+//   {
+//     type: "topic",
+//     STT: 33,
+//     isDeleted: false,
+//     data: {
+//       "GV phụ trách": "Nguyễn Thị Thanh Trúc",
+//       "Tên đề tài tiếng Việt": "Ứng dụng chia sẻ hình ảnh",
+//       "Tên đề tài tiếng Anh": "English name for topic",
+//       "Mô tả": "Nơi người dùng có thể đăng tải và chia sẻ hình ảnh",
+//     },
+//   },
+//   {
+//     type: "topic",
+//     STT: 34,
+//     isDeleted: false,
+//     data: {
+//       "GV phụ trách": "Huỳnh Hồ Thị Mộng Trinh",
+//       "Tên đề tài tiếng Việt": "Ứng dụng đặt hàng và giao đồ ăn",
+//       "Tên đề tài tiếng Anh": "English name for topic",
+//       "Mô tả":
+//         "Một ứng dụng áp dụng phiếu giảm giá tự động để đảm bảo cung cấp phiếu giảm giá và giảm giá cho khách hàng",
+//     },
+//   },
+//   {
+//     type: "topic",
+//     STT: 35,
+//     isDeleted: false,
+//     data: {
+//       "GV phụ trách": "Huỳnh Tuấn Anh",
+//       "Tên đề tài tiếng Việt": "Ứng dụng nhà thông minh",
+//       "Tên đề tài tiếng Anh": "English name for topic",
+//       "Mô tả": "Giúp người dùng xây dựng một ngôi nhà thông minh và tiện lợi",
+//     },
+//   },
+//   {
+//     type: "topic",
+//     STT: 36,
+//     isDeleted: false,
+//     data: {
+//       "GV phụ trách": "Nguyễn Thị Thanh Trúc",
+//       "Tên đề tài tiếng Việt": "Ứng dụng học ngôn ngữ",
+//       "Tên đề tài tiếng Anh": "English name for topic",
+//       "Mô tả":
+//         "Một nền tảng giúp người dùng học các ngôn ngữ mới thông qua bài tập và trò chơi",
+//     },
+//   },
+//   {
+//     type: "topic",
+//     STT: 37,
+//     isDeleted: false,
+//     data: {
+//       "GV phụ trách": "Huỳnh Hồ Thị Mộng Trinh",
+//       "Tên đề tài tiếng Việt": "Ứng dụng ghi chú",
+//       "Tên đề tài tiếng Anh": "English name for topic",
+//       "Mô tả": "Giúp người dùng ghi lại và tổ chức các ghi chú của mình",
+//     },
+//   },
+//   {
+//     type: "topic",
+//     STT: 38,
+//     isDeleted: false,
+//     data: {
+//       "GV phụ trách": "Huỳnh Tuấn Anh",
+//       "Tên đề tài tiếng Việt": "Ứng dụng quản lý tài chính cá nhân",
+//       "Tên đề tài tiếng Anh": "English name for topic",
+//       "Mô tả": "Giúp người dùng theo dõi chi tiêu và lập kế hoạch ngân sách",
+//     },
+//   },
+//   {
+//     type: "topic",
+//     STT: 39,
+//     isDeleted: false,
+//     data: {
+//       "GV phụ trách": "Nguyễn Thị Thanh Trúc",
+//       "Tên đề tài tiếng Việt": "Ứng dụng chia sẻ xe",
+//       "Tên đề tài tiếng Anh": "English name for topic",
+//       "Mô tả": "Kết nối người dùng có nhu cầu di chuyển với các tài xế gần đó",
+//     },
+//   },
+//   {
+//     type: "topic",
+//     STT: 40,
+//     isDeleted: false,
+//     data: {
+//       "GV phụ trách": "Huỳnh Hồ Thị Mộng Trinh",
+//       "Tên đề tài tiếng Việt": "Ứng dụng chăm sóc sức khỏe",
+//       "Tên đề tài tiếng Anh": "English name for topic",
+//       "Mô tả":
+//         "Theo dõi các chỉ số sức khỏe và cung cấp các bài tập luyện tập cá nhân hóa",
+//     },
+//   },
+//   {
+//     type: "topic",
+//     STT: 41,
+//     isDeleted: false,
+//     data: {
+//       "GV phụ trách": "Huỳnh Hồ Thị Mộng Trinh",
+//       "Tên đề tài tiếng Việt": "Ứng dụng nấu ăn",
+//       "Tên đề tài tiếng Anh": "English name for topic",
+//       "Mô tả": "Chia sẻ công thức nấu ăn và gợi ý món ăn hàng ngày",
+//     },
+//   },
+//   {
+//     type: "topic",
+//     STT: 42,
+//     isDeleted: false,
+//     data: {
+//       "GV phụ trách": "Huỳnh Tuấn Anh",
+//       "Tên đề tài tiếng Việt": "Ứng dụng kết nối bạn bè",
+//       "Tên đề tài tiếng Anh": "English name for topic",
+//       "Mô tả":
+//         "Giúp người dùng tìm kiếm và kết nối với bạn bè có sở thích chung",
+//     },
+//   },
+//   {
+//     type: "topic",
+//     STT: 43,
+//     isDeleted: false,
+//     data: {
+//       "GV phụ trách": "Nguyễn Thị Thanh Trúc",
+//       "Tên đề tài tiếng Việt": "Ứng dụng học tập trực tuyến",
+//       "Tên đề tài tiếng Anh": "English name for topic",
+//       "Mô tả": "Cung cấp các khóa học trực tuyến về nhiều lĩnh vực khác nhau",
+//     },
+//   },
+//   {
+//     type: "topic",
+//     STT: 44,
+//     isDeleted: false,
+//     data: {
+//       "GV phụ trách": "Huỳnh Hồ Thị Mộng Trinh",
+//       "Tên đề tài tiếng Việt": "Ứng dụng đặt phòng khách sạn",
+//       "Tên đề tài tiếng Anh": "English name for topic",
+//       "Mô tả": "Đặt phòng khách sạn với giá ưu đãi và nhiều tùy chọn tiện ích",
+//     },
+//   },
+//   {
+//     type: "topic",
+//     STT: 45,
+//     isDeleted: false,
+//     data: {
+//       "GV phụ trách": "Huỳnh Tuấn Anh",
+//       "Tên đề tài tiếng Việt": "Ứng dụng theo dõi thể dục",
+//       "Tên đề tài tiếng Anh": "English name for topic",
+//       "Mô tả": "Giúp người dùng theo dõi các hoạt động thể dục và sức khỏe",
+//     },
+//   },
+//   {
+//     type: "topic",
+//     STT: 46,
+//     isDeleted: false,
+//     data: {
+//       "GV phụ trách": "Nguyễn Thị Thanh Trúc",
+//       "Tên đề tài tiếng Việt": "Ứng dụng thời tiết",
+//       "Tên đề tài tiếng Anh": "English name for topic",
+//       "Mô tả": "Cập nhật thời tiết hiện tại và dự báo thời tiết trong tuần",
+//     },
+//   },
+//   {
+//     type: "topic",
+//     STT: 47,
+//     isDeleted: false,
+//     data: {
+//       "GV phụ trách": "Huỳnh Hồ Thị Mộng Trinh",
+//       "Tên đề tài tiếng Việt": "Ứng dụng quản lý dự án",
+//       "Tên đề tài tiếng Anh": "English name for topic",
+//       "Mô tả": "Giúp nhóm lên kế hoạch và theo dõi tiến độ công việc của dự án",
+//     },
+//   },
+//   {
+//     type: "topic",
+//     STT: 48,
+//     isDeleted: false,
+//     data: {
+//       "GV phụ trách": "Huỳnh Tuấn Anh",
+//       "Tên đề tài tiếng Việt": "Ứng dụng nhắn tin tức thời",
+//       "Tên đề tài tiếng Anh": "English name for topic",
+//       "Mô tả": "Cho phép người dùng gửi tin nhắn văn bản và gọi video miễn phí",
+//     },
+//   },
+//   {
+//     type: "topic",
+//     STT: 49,
+//     isDeleted: false,
+//     data: {
+//       "GV phụ trách": "Nguyễn Thị Thanh Trúc",
+//       "Tên đề tài tiếng Việt": "Ứng dụng quản lý tài liệu",
+//       "Tên đề tài tiếng Anh": "English name for topic",
+//       "Mô tả": "Giúp người dùng lưu trữ, tìm kiếm và chia sẻ tài liệu",
+//     },
+//   },
+//   {
+//     type: "topic",
+//     STT: 50,
+//     isDeleted: false,
+//     data: {
+//       "GV phụ trách": "Huỳnh Hồ Thị Mộng Trinh",
+//       "Tên đề tài tiếng Việt": "Ứng dụng tìm việc làm",
+//       "Tên đề tài tiếng Anh": "English name for topic",
+//       "Mô tả":
+//         "Cung cấp thông tin tuyển dụng và kết nối ứng viên với nhà tuyển dụng",
+//     },
+//   },
+//   {
+//     type: "topic",
+//     STT: 51,
+//     isDeleted: false,
+//     data: {
+//       "GV phụ trách": "Huỳnh Tuấn Anh",
+//       "Tên đề tài tiếng Việt": "Ứng dụng đọc sách điện tử",
+//       "Tên đề tài tiếng Anh": "English name for topic",
+//       "Mô tả": "Một nền tảng để người dùng tải và đọc sách điện tử",
+//     },
+//   },
+//   {
+//     type: "topic",
+//     STT: 52,
+//     isDeleted: false,
+//     data: {
+//       "GV phụ trách": "Nguyễn Thị Thanh Trúc",
+//       "Tên đề tài tiếng Việt": "Ứng dụng nghe nhạc trực tuyến",
+//       "Tên đề tài tiếng Anh": "English name for topic",
+//       "Mô tả": "Cho phép người dùng nghe và chia sẻ nhạc trực tuyến",
+//     },
+//   },
+//   {
+//     type: "topic",
+//     STT: 53,
+//     isDeleted: false,
+//     data: {
+//       "GV phụ trách": "Huỳnh Hồ Thị Mộng Trinh",
+//       "Tên đề tài tiếng Việt": "Ứng dụng mua sắm trực tuyến",
+//       "Tên đề tài tiếng Anh": "English name for topic",
+//       "Mô tả": "Cung cấp các sản phẩm đa dạng và giao hàng tận nơi",
+//     },
+//   },
+//   {
+//     type: "topic",
+//     STT: 54,
+//     isDeleted: false,
+//     data: {
+//       "GV phụ trách": "Huỳnh Tuấn Anh",
+//       "Tên đề tài tiếng Việt": "Ứng dụng đặt lịch khám bệnh",
+//       "Tên đề tài tiếng Anh": "English name for topic",
+//       "Mô tả": "Đặt lịch hẹn với bác sĩ và quản lý thông tin sức khỏe cá nhân",
+//     },
+//   },
+//   {
+//     type: "topic",
+//     STT: 55,
+//     isDeleted: false,
+//     data: {
+//       "GV phụ trách": "Nguyễn Thị Thanh Trúc",
+//       "Tên đề tài tiếng Việt": "Ứng dụng quản lý thời gian",
+//       "Tên đề tài tiếng Anh": "English name for topic",
+//       "Mô tả": "Giúp người dùng lập lịch và theo dõi các nhiệm vụ hàng ngày",
+//     },
+//   },
+// ];
 
-//
-// TODO: BigExerciseId Register topic
-//
-export const mockDataStudentRegisterTopic = [
+export const mockTopicDataTable = [
   {
     STT: "1",
     isDeleted: false,
     data: {
       "Mã nhóm": "1",
       "GV phụ trách": "Huỳnh Hồ Thị Mộng Trinh",
-      MSSV: ["21522289"],
-      "Họ và tên": ["Nguyễn Hoàng Linh"],
-      SĐT: ["0378060972"],
+      MSSV: [],
+      "Họ và tên": [],
+      SĐT: [],
+      "Mã đề tài": "1",
       "Tên đề tài tiếng Việt": "Ứng dụng hẹn hò",
       "Tên đề tài tiếng Anh": "English name for topic",
       "Mô tả":
@@ -1435,6 +1444,7 @@ export const mockDataStudentRegisterTopic = [
       MSSV: ["21522289", "21522289"],
       "Họ và tên": ["Lê Thành Lộc", "Huỳnh Hồ Thị Mộng Trinh"],
       SĐT: ["0378060972", "0378060972"],
+      "Mã đề tài": "2",
       "Tên đề tài tiếng Việt": "Ứng dụng chia sẻ hình ảnh",
       "Tên đề tài tiếng Anh": "English name for topic",
       "Mô tả":
@@ -1446,6 +1456,75 @@ export const mockDataStudentRegisterTopic = [
     isDeleted: false,
     data: {
       "Mã nhóm": "3",
+      "GV phụ trách": "Huỳnh Hồ Thị Mộng Trinh",
+      MSSV: [],
+      "Họ và tên": [],
+      SĐT: [],
+      "Mã đề tài": "3",
+      "Tên đề tài tiếng Việt": "Ứng dụng nhà thông minh",
+      "Tên đề tài tiếng Anh": "English name for topic",
+      "Mô tả": "Giúp người dùng xây dựng một ngôi nhà thông minh và tiện lợi",
+    },
+  },
+  {
+    STT: "4",
+    isDeleted: false,
+    data: {
+      "Mã nhóm": "4",
+      "GV phụ trách": "Huỳnh Hồ Thị Mộng Trinh",
+      MSSV: ["21522289"],
+      "Họ và tên": ["Võ Hữu Xike"],
+      SĐT: ["0378060972"],
+      "Mã đề tài": "4",
+      "Tên đề tài tiếng Việt": "Ứng dụng ghi chú",
+      "Tên đề tài tiếng Anh": "English name for topic",
+      "Mô tả": "Giúp người dùng ghi lại và tổ chức các ghi chú của mình",
+    },
+  },
+];
+
+//
+// TODO: BigExerciseId Register topic
+//
+export const mockDataStudentRegisterTopic = [
+  {
+    STT: "1",
+    isDeleted: false,
+    data: {
+      "Mã nhóm": "1",
+      "Mã đề tài": "1",
+      "GV phụ trách": "Huỳnh Hồ Thị Mộng Trinh",
+      MSSV: ["21522289"],
+      "Họ và tên": ["Nguyễn Hoàng Linh"],
+      SĐT: ["0378060972"],
+      "Tên đề tài tiếng Việt": "Ứng dụng hẹn hò",
+      "Tên đề tài tiếng Anh": "English name for topic",
+      "Mô tả":
+        "Kết nối người dùng với những người có sở thích tương tự Nơi người dùng có thể đăng tải và chia sẻ hình ảnh Một ứng dụng áp dụng phiếu giảm giá tự động để đảm bảo cung cấp phiếu giảm giá và giảm giá cho khách hàng",
+    },
+  },
+  {
+    STT: "2",
+    isDeleted: false,
+    data: {
+      "Mã nhóm": "2",
+      "Mã đề tài": "2",
+      "GV phụ trách": "Huỳnh Hồ Thị Mộng Trinh",
+      MSSV: ["21522289", "21522289"],
+      "Họ và tên": ["Lê Thành Lộc", "Huỳnh Hồ Thị Mộng Trinh"],
+      SĐT: ["0378060972", "0378060972"],
+      "Tên đề tài tiếng Việt": "Ứng dụng chia sẻ hình ảnh",
+      "Tên đề tài tiếng Anh": "English name for topic",
+      "Mô tả":
+        "Nơi người dùng có thể đăng tải và chia sẻ hình ảnh Nơi người dùng có thể đăng tải và chia sẻ hình ảnh Nơi người dùng có thể đăng tải và chia sẻ hình ảnh Nơi người dùng có thể đăng tải và chia sẻ hình ảnh Nơi người dùng có thể đăng tải và chia sẻ hình ảnh Nơi người dùng có thể đăng tải và chia sẻ hình ảnh Nơi người dùng có thể đăng tải và chia sẻ hình ảnh Nơi người dùng có thể đăng tải và chia sẻ hình ảnh Nơi người dùng có thể đăng tải và chia sẻ hình ảnh Nơi người dùng có thể đăng tải và chia sẻ hình ảnh Nơi người dùng có thể đăng tải và chia sẻ hình ảnh",
+    },
+  },
+  {
+    STT: "3",
+    isDeleted: false,
+    data: {
+      "Mã nhóm": "3",
+      "Mã đề tài": "3",
       "GV phụ trách": "Huỳnh Hồ Thị Mộng Trinh",
       MSSV: ["21522289", "21522289"],
       "Họ và tên": ["Nguyễn Tiến Vĩ", "Nguyễn Vĩ"],
@@ -1460,6 +1539,7 @@ export const mockDataStudentRegisterTopic = [
     isDeleted: false,
     data: {
       "Mã nhóm": "4",
+      "Mã đề tài": "4",
       "GV phụ trách": "Huỳnh Hồ Thị Mộng Trinh",
       MSSV: ["21522289"],
       "Họ và tên": ["Võ Hữu Xike"],
@@ -1482,6 +1562,7 @@ export const mockDataAllAppproveTopic = [
       "Trạng thái": "Đã chỉ định giảng viên",
       "GV phụ trách": "Huỳnh Hồ Thị Mộng Trinh",
       "Mã nhóm": "1",
+      "Mã đề tài": "1",
       MSSV: ["21522289"],
       "Họ và tên": ["Nguyễn Hoàng Linh"],
       SĐT: ["0378060972"],
@@ -1498,6 +1579,7 @@ export const mockDataAllAppproveTopic = [
       "Trạng thái": "Chưa chỉ định giảng viên",
       "GV phụ trách": "Huỳnh Tuấn Anh",
       "Mã nhóm": "2",
+      "Mã đề tài": "2",
       MSSV: ["21522289", "21522289"],
       "Họ và tên": ["Lê Thành Lộc", "Huỳnh Hồ Thị Mộng Trinh"],
       SĐT: ["0378060972", "0378060972"],
@@ -1514,6 +1596,7 @@ export const mockDataAllAppproveTopic = [
       "Trạng thái": "Đã từ chối",
       "GV phụ trách": "Huỳnh Tuấn Anh",
       "Mã nhóm": "3",
+      "Mã đề tài": "3",
       MSSV: ["21522289"],
       "Họ và tên": ["Nguyễn Hoàng Linh"],
       SĐT: ["0378060972"],
@@ -1530,6 +1613,7 @@ export const mockDataAllAppproveTopic = [
       "Trạng thái": "Đã chỉ định giảng viên",
       "GV phụ trách": "Huỳnh Hồ Thị Mộng Trinh",
       "Mã nhóm": "4",
+      "Mã đề tài": "4",
       MSSV: ["21522289", "21522289"],
       "Họ và tên": ["Lê Thành Lộc", "Huỳnh Hồ Thị Mộng Trinh"],
       SĐT: ["0378060972", "0378060972"],
@@ -1545,6 +1629,7 @@ export const mockDataAllAppproveTopic = [
       "Trạng thái": "Chưa chỉ định giảng viên",
       "GV phụ trách": "Huỳnh Hồ Thị Mộng Trinh",
       "Mã nhóm": "5",
+      "Mã đề tài": "5",
       MSSV: ["21522289"],
       "Họ và tên": ["Nguyễn Hoàng Linh"],
       SĐT: ["0378060972"],
@@ -1560,6 +1645,7 @@ export const mockDataAllAppproveTopic = [
       "Trạng thái": "Đã từ chối",
       "GV phụ trách": "Nguyễn Thị Thanh Trúc",
       "Mã nhóm": "6",
+      "Mã đề tài": "6",
       MSSV: ["21522289", "21522289"],
       "Họ và tên": ["Lê Thành Lộc", "Huỳnh Hồ Thị Mộng Trinh"],
       SĐT: ["0378060972", "0378060972"],
@@ -1577,6 +1663,7 @@ export const mockDataAssignedTopic = [
       "Trạng thái": "Đã chỉ định giảng viên",
       "GV phụ trách": "Huỳnh Hồ Thị Mộng Trinh",
       "Mã nhóm": "1",
+      "Mã đề tài": "1",
       MSSV: ["21522289"],
       "Họ và tên": ["Nguyễn Hoàng Linh"],
       SĐT: ["0378060972"],
@@ -1593,6 +1680,7 @@ export const mockDataAssignedTopic = [
       "Trạng thái": "Đã chỉ định giảng viên",
       "GV phụ trách": "Huỳnh Tuấn Anh",
       "Mã nhóm": "2",
+      "Mã đề tài": "2",
       MSSV: ["21522289", "21522289"],
       "Họ và tên": ["Lê Thành Lộc", "Huỳnh Hồ Thị Mộng Trinh"],
       SĐT: ["0378060972", "0378060972"],
@@ -1609,6 +1697,7 @@ export const mockDataAssignedTopic = [
       "Trạng thái": "Đã chỉ định giảng viên",
       "GV phụ trách": "Huỳnh Tuấn Anh",
       "Mã nhóm": "3",
+      "Mã đề tài": "3",
       MSSV: ["21522289"],
       "Họ và tên": ["Nguyễn Hoàng Linh"],
       SĐT: ["0378060972"],
@@ -1627,6 +1716,7 @@ export const mockDataNotAssignedTopic = [
       "Trạng thái": "Chưa chỉ định giảng viên",
       "GV phụ trách": "Huỳnh Hồ Thị Mộng Trinh",
       "Mã nhóm": "1",
+      "Mã đề tài": "1",
       MSSV: ["21522289"],
       "Họ và tên": ["Nguyễn Hoàng Linh"],
       SĐT: ["0378060972"],
@@ -1643,6 +1733,7 @@ export const mockDataNotAssignedTopic = [
       "Trạng thái": "Chưa chỉ định giảng viên",
       "GV phụ trách": "Huỳnh Tuấn Anh",
       "Mã nhóm": "2",
+      "Mã đề tài": "2",
       MSSV: ["21522289", "21522289"],
       "Họ và tên": ["Lê Thành Lộc", "Huỳnh Hồ Thị Mộng Trinh"],
       SĐT: ["0378060972", "0378060972"],
@@ -1659,6 +1750,7 @@ export const mockDataNotAssignedTopic = [
       "Trạng thái": "Chưa chỉ định giảng viên",
       "GV phụ trách": "Huỳnh Tuấn Anh",
       "Mã nhóm": "3",
+      "Mã đề tài": "3",
       MSSV: ["21522289"],
       "Họ và tên": ["Nguyễn Hoàng Linh"],
       SĐT: ["0378060972"],
@@ -1677,6 +1769,7 @@ export const mockDataRefuseTopic = [
       "Trạng thái": "Đã từ chối",
       "GV phụ trách": "Huỳnh Hồ Thị Mộng Trinh",
       "Mã nhóm": "1",
+      "Mã đề tài": "1",
       MSSV: ["21522289"],
       "Họ và tên": ["Nguyễn Hoàng Linh"],
       SĐT: ["0378060972"],
@@ -1693,6 +1786,7 @@ export const mockDataRefuseTopic = [
       "Trạng thái": "Đã từ chối",
       "GV phụ trách": "Huỳnh Tuấn Anh",
       "Mã nhóm": "2",
+      "Mã đề tài": "2",
       MSSV: ["21522289", "21522289"],
       "Họ và tên": ["Lê Thành Lộc", "Huỳnh Hồ Thị Mộng Trinh"],
       SĐT: ["0378060972", "0378060972"],
@@ -1709,6 +1803,7 @@ export const mockDataRefuseTopic = [
       "Trạng thái": "Đã từ chối",
       "GV phụ trách": "Huỳnh Tuấn Anh",
       "Mã nhóm": "3",
+      "Mã đề tài": "3",
       MSSV: ["21522289"],
       "Họ và tên": ["Nguyễn Hoàng Linh"],
       SĐT: ["0378060972"],

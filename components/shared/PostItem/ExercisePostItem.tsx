@@ -56,6 +56,13 @@ const ExercisePostItem = (params: Props) => {
               </ul>
             }
           />
+          <Image
+            src={"/assets/icons/edit-black.svg"}
+            width={26}
+            height={26}
+            alt={"edit"}
+            className={`object-contain cursor-pointer ml-4`}
+          />
         </div>
 
         <div className=" mt-3 ml-2 flex gap-4 items-center">

@@ -110,6 +110,7 @@ export interface RegisterGroupData {
   "Họ và tên": string[];
 }
 export interface RegisterTopicData {
+  "Mã đề tài": string;
   "Tên đề tài tiếng Việt": string;
   "Tên đề tài tiếng Anh": string;
   "Mô tả": string;
@@ -151,10 +152,16 @@ export interface TopicRegisterGroupData {
 
 export interface TopicData {
   "GV phụ trách": string;
+  "Mã đề tài": string;
   "Tên đề tài tiếng Việt": string;
   "Tên đề tài tiếng Anh": string;
   "Mô tả": string;
+
+  MSSV: string[];
+  SĐT: string[];
+  "Họ và tên": string[];
 }
+
 export interface FileData {
   "Tên file": string;
   "Ngày sửa đổi": string;

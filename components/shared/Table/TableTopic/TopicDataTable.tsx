@@ -288,7 +288,7 @@ const TopicDataTable: React.FC<DataTableParams> = (params) => {
                   {/* BODY */}
                   <Table.Body className="text-left divide-y">
                     {filteredDataTable.map((dataItem, index) => {
-                      var valueUniqueInput = dataItem.STT;
+                      var valueUniqueInput = dataItem.data["Mã đề tài"];
 
                       return dataItem.isDeleted ? (
                         <></>

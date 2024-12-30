@@ -1,6 +1,6 @@
 import { RegisterTopicDataItem } from "@/types";
 import { Table } from "flowbite-react";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import NoResult from "../../Status/NoResult";
 import { tableTheme } from "../components/DataTable";
 
@@ -21,6 +21,7 @@ import { z } from "zod";
 import BorderContainer from "../../BorderContainer";
 import TextAreaComponent from "../../TextAreaComponent";
 import RowApproveTopicTable from "./RowApproveTopicTable";
+import TableSearch from "../../Search/TableSearch";
 
 interface DataTableParams {
   type: RegisterTopicTableType;
@@ -35,6 +36,10 @@ const ApproveTopicTable = (params: DataTableParams) => {
 
   const [itemsSelected, setItemsSelected] = useState<string[]>([]);
   const [selectedTeacher, setSelectedTeacher] = useState(1);
+
+  useEffect(() => {
+    setItemsSelected([]);
+  }, [params.dataTable]);
 
   const [feedback, setFeedback] = useState("");
   const [isShowDialog, setIsShowDialog] = useState(-1);
@@ -137,38 +142,45 @@ const ApproveTopicTable = (params: DataTableParams) => {
                             </div>
                           )}
                         >
-                          <div className="w-full scroll-container scroll-container-dropdown-content">
-                            {mockTeacherList.map((teacher, index) => (
-                              <Dropdown.Item
-                                key={`${teacher.id}_${index}`}
-                                onClick={() => {
-                                  if (selectedTeacher === teacher.id) {
-                                    setSelectedTeacher(1);
-                                  } else {
-                                    setSelectedTeacher(teacher.id);
-                                  }
-                                }}
-                                className="min-w-max"
-                              >
-                                <div className="flex justify-between w-full">
-                                  <p className="w-[80%] text-left line-clamp-1">
-                                    {teacher.value}
-                                  </p>
-                                  {selectedTeacher === teacher.id ? (
-                                    <Image
-                                      src="/assets/icons/check.svg"
-                                      alt="search"
-                                      width={21}
-                                      height={21}
-                                      className="cursor-pointer mr-2"
-                                    />
-                                  ) : (
-                                    <></>
-                                  )}
-                                </div>
-                              </Dropdown.Item>
-                            ))}
-                          </div>
+                          <>
+                            <TableSearch
+                              setSearchTerm={() => {}}
+                              searchTerm={""}
+                              otherClasses="p-2"
+                            />
+                            <div className="w-full scroll-container scroll-container-dropdown-content">
+                              {mockTeacherList.map((teacher, index) => (
+                                <Dropdown.Item
+                                  key={`${teacher.id}_${index}`}
+                                  onClick={() => {
+                                    if (selectedTeacher === teacher.id) {
+                                      setSelectedTeacher(1);
+                                    } else {
+                                      setSelectedTeacher(teacher.id);
+                                    }
+                                  }}
+                                  className="min-w-max"
+                                >
+                                  <div className="flex justify-between w-full">
+                                    <p className="w-[80%] text-left line-clamp-1">
+                                      {teacher.value}
+                                    </p>
+                                    {selectedTeacher === teacher.id ? (
+                                      <Image
+                                        src="/assets/icons/check.svg"
+                                        alt="search"
+                                        width={21}
+                                        height={21}
+                                        className="cursor-pointer mr-2"
+                                      />
+                                    ) : (
+                                      <></>
+                                    )}
+                                  </div>
+                                </Dropdown.Item>
+                              ))}
+                            </div>
+                          </>
                         </Dropdown>
                       </div>
 

@@ -2,13 +2,12 @@ import { mockCategoryList } from "@/mocks";
 import Image from "next/image";
 import React from "react";
 
-
-const CategorySideBar = () => {
+const CategorySideBar = ({ onClickEdit }: { onClickEdit: () => void }) => {
   return (
     <div className="w-full card-wrapper rounded-[10px]">
       <div className="relative flex w-full gap-4 p-4">
         {/* EDIT */}
-        <div className="absolute z-10 top-4 right-2">
+        <div onClick={onClickEdit} className="absolute z-10 top-4 right-2">
           <Image
             src={"/assets/icons/edit-black.svg"}
             width={26}
