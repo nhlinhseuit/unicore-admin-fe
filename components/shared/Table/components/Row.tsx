@@ -105,6 +105,7 @@ const Row = React.memo(
       handleInputChange: Function;
       isHasSubCourses: boolean | undefined;
     }) => {
+      
       switch (key) {
         case "Mã lớp":
           return params.isEditTable ? (

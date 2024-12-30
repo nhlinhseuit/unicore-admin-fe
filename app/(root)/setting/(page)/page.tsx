@@ -5,6 +5,8 @@ import { useState } from "react";
 
 import SubmitButton from "@/components/shared/Button/SubmitButton";
 import { Input } from "@/components/ui/input";
+import { mockDataOfficerDepartmentPermissions, mockDataOfficerPermissions } from "@/mocks";
+import OfficerPermission from "@/components/shared/OfficerPermission";
 
 const Setting = () => {
   const [isToggleShowCourseSetting, setIsToggleShowCourseSetting] =
@@ -60,6 +62,19 @@ const Setting = () => {
                   </div>
                 </div>
               </BorderContainer>
+            </div>
+
+            <div>
+              <label className="peer-disabled:cursor-not-allowed peer-disabled:opacity-70 dark:text-red-900 text-dark400_light800 text-[14px] font-medium leading-[20.8px]">
+                2. Phân quyền giáo vụ
+              </label>
+              <div className="flex gap-4">
+                {mockDataOfficerDepartmentPermissions.map(
+                  (item: any, index) => (
+                    <OfficerPermission key={index} dataItem={item} />
+                  )
+                )}
+              </div>
             </div>
 
             <div>
