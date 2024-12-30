@@ -286,20 +286,20 @@ export const sidebarDepartmentLinks: SidebarLink[] = [
     route: "/courses",
     label: "Lớp học",
   },
+  // {
+  //   id: "6",
+  //   imgURL: "/assets/icons/score-transcript.svg",
+  //   route: "/score-transcript",
+  //   label: "Bảng điểm",
+  // },
   {
     id: "6",
-    imgURL: "/assets/icons/score-transcript.svg",
-    route: "/score-transcript",
-    label: "Bảng điểm",
-  },
-  {
-    id: "7",
     imgURL: "/assets/icons/reward.svg",
     route: "/score-report",
     label: "Chấm điểm báo cáo",
   },
   {
-    id: "8",
+    id: "7",
     imgURL: "/assets/icons/setting.svg",
     route: "/setting",
     label: "Cài đặt",
