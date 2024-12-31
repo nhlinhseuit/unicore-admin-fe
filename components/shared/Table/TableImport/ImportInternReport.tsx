@@ -2,6 +2,9 @@ import { useRef, useState } from "react";
 import * as XLSX from "xlsx";
 import IconButton from "../../Button/IconButton";
 import ErrorComponent from "../../Status/ErrorComponent";
+import BorderContainer from "../../BorderContainer";
+import MyDropdown from "../../MyDropdown";
+import { mockOfficerList } from "@/mocks";
 
 type Student = {
   STT: string;
@@ -22,18 +25,32 @@ type Student = {
 type Council = {
   STT: string;
   "Tên hội đồng": string;
+  "Giáo vụ": string; // Thêm trường giáo vụ vào Council
   "Hội đồng chấm": string; // Danh sách thành viên hội đồng
   data: Student[];
 };
 
 export default function ImportInternReport() {
+  const [selectedOfficers, setSelectedOfficers] = useState<string[]>(
+    mockOfficerList.length === 1 ? [mockOfficerList[0].value] : []
+  );
+
+  // Cập nhật thông tin giáo vụ khi chọn từ dropdown
+  const handleOfficerChange = (value: number, councilIndex: number) => {
+    const updatedSecretaries = [...selectedOfficers];
+    updatedSecretaries[councilIndex] = mockOfficerList[value - 1]?.value || "";
+    setSelectedOfficers(updatedSecretaries);
+
+    const updatedCouncils = [...councilsData];
+    updatedCouncils[councilIndex]["Giáo vụ"] = updatedSecretaries[councilIndex];
+    setCountcilsData(updatedCouncils);
+  };
+
   const [uploadedFileName, setUploadedFileName] = useState<{
     name: string;
     file: File | null;
   }>({ name: "", file: null });
-  const [errorMessages, setErrorMessages] = useState<string[]>([
-    "Bạn cần phải import danh sách môn học trước khi import danh sách lớp",
-  ]);
+  const [errorMessages, setErrorMessages] = useState<string[]>([]);
   const [councilsData, setCountcilsData] = useState<Council[]>([]);
 
   // XỬ LÝ UPLOAD FILE LỚP HỌC
@@ -80,6 +97,7 @@ export default function ImportInternReport() {
             STT: (councils.length + 1).toString(), // Tự động đánh số hội đồng
             "Tên hội đồng": item.STT,
             "Hội đồng chấm": "", // Sẽ được cập nhật từ sinh viên đầu tiên
+            "Giáo vụ": "",
             data: [],
           };
         } else if (currentCouncil) {
@@ -121,7 +139,6 @@ export default function ImportInternReport() {
           "Import lỗi. Vui lòng chọn đúng file import danh sách hội đồng chấm Khóa luận tốt nghiệp!"
         );
       }
-
 
       //! POST API LƯU DỮ LIỆU LÊN BACKEND
       setCountcilsData(councils);
@@ -196,8 +213,27 @@ export default function ImportInternReport() {
       </div>
 
       {councilsData.length > 0 ? (
-        <div>
-          <IconButton text="Lưu" onClick={() => {}} otherClasses="mt-4" />
+        <div className="mt-12 flex flex-col gap-4">
+          <p className="paragraph-semibold">Chọn giáo vụ nhập điểm</p>
+
+          {councilsData.map((item, index) => (
+            <div key={item.STT} className="flex gap-4 items-center">
+              <BorderContainer key={item.STT} otherClasses="p-3">
+                <p>{item["Tên hội đồng"]}</p>
+              </BorderContainer>
+
+              <MyDropdown
+                text={`${selectedOfficers[index] || "Chọn giáo vụ"}`}
+                dataOptions={mockOfficerList}
+                onClick={(value: number) => handleOfficerChange(value, index)}
+                selectedItem={selectedOfficers[index]}
+              />
+            </div>
+          ))}
+
+          <div>
+            <IconButton text="Lưu" onClick={() => {}} otherClasses="mt-4" />
+          </div>
         </div>
       ) : null}
     </div>

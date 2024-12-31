@@ -21,7 +21,7 @@ type Council = {
   STT: string;
   "Tên hội đồng": string;
   "Ghi chú": string;
-  "Thư ký": string; // Thêm trường thư ký vào Council
+  "Giáo vụ": string; // Thêm trường giáo vụ vào Council
   data: Group[];
 };
 
@@ -36,7 +36,6 @@ export default function ImportThesisReport() {
     file: File | null;
   }>({ name: "", file: null });
   const [errorMessages, setErrorMessages] = useState<string[]>([
-    "Bạn cần phải import danh sách môn học trước khi import danh sách lớp",
   ]);
   const [councilsData, setCountcilsData] = useState<Council[]>([]);
 
@@ -105,7 +104,7 @@ export default function ImportThesisReport() {
             STT: (++council).toString(),
             "Tên hội đồng": `${item.STT}`,
             "Ghi chú": `${item["GHI CHÚ"]}`,
-            "Thư ký": "", // Thư ký mặc định rỗng
+            "Giáo vụ": "", // Thư ký mặc định rỗng
             data: [],
           };
         } else if (
@@ -172,13 +171,13 @@ export default function ImportThesisReport() {
   };
 
   // Cập nhật thông tin thư ký khi chọn từ dropdown
-  const handleSecretaryChange = (value: number, councilIndex: number) => {
+  const handleOfficerChange = (value: number, councilIndex: number) => {
     const updatedSecretaries = [...selectedOfficers];
     updatedSecretaries[councilIndex] = mockOfficerList[value - 1]?.value || "";
     setSelectedOfficers(updatedSecretaries);
 
     const updatedCouncils = [...councilsData];
-    updatedCouncils[councilIndex]["Thư ký"] = updatedSecretaries[councilIndex];
+    updatedCouncils[councilIndex]["Giáo vụ"] = updatedSecretaries[councilIndex];
     setCountcilsData(updatedCouncils);
   };
 
@@ -256,7 +255,7 @@ export default function ImportThesisReport() {
               <MyDropdown
                 text={`${selectedOfficers[index] || "Chọn giáo vụ"}`}
                 dataOptions={mockOfficerList}
-                onClick={(value: number) => handleSecretaryChange(value, index)}
+                onClick={(value: number) => handleOfficerChange(value, index)}
                 selectedItem={selectedOfficers[index]}
               />
             </div>
