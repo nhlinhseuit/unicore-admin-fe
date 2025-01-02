@@ -10,6 +10,8 @@ import NoResult from "../../Status/NoResult";
 import { useToast } from "@/hooks/use-toast";
 import IconButton from "../../Button/IconButton";
 import { DataTableType } from "@/constants";
+import { convertToAPIDataTableStudent } from "@/lib/convertToDataTableStudent";
+import { handleCreateStudentAction } from "@/services/studentServices";
 
 export default function StudentsDataTable() {
   const [isEditTable, setIsEditTable] = useState(false);
@@ -138,7 +140,21 @@ export default function StudentsDataTable() {
               />
             </div>
             {dataTable.length > 0 && (
-              <IconButton text="Lưu" onClick={() => {}} otherClasses="ml-2" />
+              <IconButton 
+                text="Lưu" 
+                onClick={async () => {
+                  const APIdataTable = convertToAPIDataTableStudent({
+                    data: dataTable,
+                    organizationId: "1",
+                  });
+
+                  const res = await handleCreateStudentAction(APIdataTable);
+
+                  console.log(APIdataTable);
+
+                  console.log('res:::::', res);
+                }} 
+                otherClasses="ml-2" />
             )}
           </div>
 

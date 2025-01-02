@@ -3,3 +3,40 @@ export default interface Student {
   name: string;
   class: string;
 }
+
+export interface StudentDataItem {
+  type: string;
+  STT: string;
+  isDeleted: boolean;
+  data: StudentData;
+}
+
+export interface StudentData {
+  MSSV: string;
+  "Tài khoản": string;
+  "Mật khẩu": string;
+  "Họ và tên": string;
+  "Lớp sinh hoạt": string;
+  Email: string;
+  SDT: string;
+  "Giới tính": string;
+  "Địa chỉ": string;
+  "Ngày sinh": string;
+}
+
+export interface IStudent {
+  organization_id: string;
+  students: IStudentData[];
+}
+
+interface IStudentData {
+  name: string;
+  code: string;
+  email: string;
+  phone: number;
+  dob: number;
+  gender: string;
+  organization_id: string;
+  advisory_class: string;
+  academic_batch: string;
+}
