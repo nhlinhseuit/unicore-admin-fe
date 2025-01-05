@@ -20,9 +20,7 @@ import useDebounceSearchDataTable from "@/hooks/table/useDebounceSearchDataTable
 import useDetailFilter from "@/hooks/table/useDetailFilter";
 import useSetDebounceSearchTerm from "@/hooks/table/useSetDebounceSearchTerm";
 import {
-  CourseDataItem,
   StudentDataItem,
-  TeacherDataItem,
 } from "@/types";
 import { CustomFlowbiteTheme, Dropdown, Table } from "flowbite-react";
 import Image from "next/image";
@@ -33,6 +31,9 @@ import NoResult from "../../Status/NoResult";
 import MyFooter from "./MyFooter";
 import Row from "./Row";
 import { SubjectDataItem } from "@/types/entity/Subject";
+import { TeacherDataItem } from "@/types/entity/Teacher";
+import { OfficerDataItem } from "@/types/entity/Officer";
+import { CourseDataItem } from "@/types/entity/Course";
 
 // TODO: filteredData là để render giao diện (search, filter old new, detail filter)
 // TODO: localData là để handle save (khi edit từ search, filter old new, detail filter, pagination)
@@ -55,7 +56,8 @@ interface DataTableParams {
     | SubjectDataItem[]
     | StudentDataItem[]
     | TeacherDataItem[]
-    | (CourseDataItem | SubjectDataItem | StudentDataItem | TeacherDataItem)[];
+    | OfficerDataItem[]
+    | (CourseDataItem | SubjectDataItem | StudentDataItem | TeacherDataItem | OfficerDataItem)[];
 }
 
 const DataTable = (params: DataTableParams) => {
@@ -194,6 +196,7 @@ const DataTable = (params: DataTableParams) => {
       | SubjectDataItem
       | StudentDataItem
       | TeacherDataItem
+      | OfficerDataItem
     )[];
 
     sortedNewerDataTable = sortDataTable(dataTable, type);
@@ -224,7 +227,7 @@ const DataTable = (params: DataTableParams) => {
   const [debouncedSearchTerm, setDebouncedSearchTerm] = useState(searchTerm);
   const [filteredDataTable, setFilteredDataTable] =
     useState<
-      (CourseDataItem | SubjectDataItem | StudentDataItem | TeacherDataItem)[]
+      (CourseDataItem | SubjectDataItem | StudentDataItem | TeacherDataItem | OfficerDataItem)[]
     >(currentItems);
 
   useSetDebounceSearchTerm(setDebouncedSearchTerm, searchTerm);
@@ -352,11 +355,13 @@ const DataTable = (params: DataTableParams) => {
       | SubjectDataItem[]
       | StudentDataItem[]
       | TeacherDataItem[]
+      | OfficerDataItem[]
       | (
           | CourseDataItem
           | SubjectDataItem
           | StudentDataItem
           | TeacherDataItem
+          | OfficerDataItem
         )[],
     sortOrder: FilterType
   ) => {

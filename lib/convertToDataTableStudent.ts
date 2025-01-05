@@ -1,28 +1,23 @@
-// TODO: SUBJECT
 
-import { StudentDataItem } from "@/types/entity/Student";
-import { ISubject, SubjectDataItem } from "@/types/entity/Subject";
+import { IStudent, StudentDataItem } from "@/types/entity/Student";
 
-export const convertToDataTableViKeys = (data: ISubject) => {
-  return data.subjects.map((item, index) => {
+export const convertToDataTableStudentViKeys = (data: IStudent) => {
+  return data.students.map((item, index) => {
     const requiredFields = {
-      "Mã MH": item.code,
-      "Hình thức thi LT GIỮA KỲ": item.midterm_format,
-      "Thời gian thi LT GIỮA KỲ": item.midterm_time,
-      "Hình thức thi LT CUỐI KỲ": item.final_format,
-      "Thời gian thi CUỐI KỲ": item.final_time,
-      "Hình thức thi THỰC HÀNH CUỐI KỲ": item.practical_format,
-      "Trọng số QUÁ TRÌNH": item.coursework_weight,
-      "Trọng số THỰC HÀNH": item.practical_weight,
-      "Trọng số GIỮA KỲ": item.midterm_weight,
-      "Trọng số CUỐI KỲ": item.final_weight,
-      "Học kỳ": item.semester,
-      "Năm học": item.year,
-      "Tên môn học": item.name,
+      MSSV: item.code,
+      "Tài khoản": item.email,
+      "Mật khẩu": "1", 
+      "Họ và tên": item.name,
+      "Lớp sinh hoạt": item.advisory_class,
+      Email: item.email,
+      SDT: item.phone,
+      "Giới tính": item.gender ? "Nam" : "Nữ",
+      "Địa chỉ": "", // Không có trường tương ứng trong `IStudent`
+      "Ngày sinh": item.dob,
     };
 
     return {
-      type: "subject",
+      type: "student",
       STT: index + 1,
       isDeleted: false,
       data: requiredFields,

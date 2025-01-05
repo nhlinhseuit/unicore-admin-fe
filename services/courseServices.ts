@@ -4,14 +4,13 @@ import { IBackendRes } from "@/types/commonType";
 import { sendRequest } from "@/utils/api";
 import { revalidateTag } from "next/cache";
 
-export const fetchSubjects = async () => {
+export const fetchCourses = async () => {
   try {
-    //TODO: có thể bỏ type ISubject vào any ở đây
     const res = await sendRequest<IBackendRes<any>>({
-      url: `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/organization/subjects`,
+      url: `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/classroom`,
       method: "GET",
       nextOption: {
-        next: { tags: ["list-subjects"] },
+        next: { tags: ["list-classroom"] },
       },
     });
 
@@ -21,27 +20,27 @@ export const fetchSubjects = async () => {
       throw new Error("Data format error: 'data' field is missing.");
     }
   } catch (error) {
-    console.error("fetchSubjects failed:", error);
+    console.error("fetchCourses failed:", error);
     throw error;
   }
 };
 
-export const handleCreateSubjectAction = async (data: any) => {
+export const handleCreateCourseAction = async (data: any) => {
   // const session = await auth();
   const res = await sendRequest<IBackendRes<any>>({
-    url: `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/organization/subjects/bulk`,
+    url: `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/classroom/bulk`,
     method: "POST",
     // headers: {
     //   Authorization: `Bearer ${session?.user?.access_token}`,
     // },
     body: { ...data },
   });
-  revalidateTag("list-subjects");
+  revalidateTag("list-classroom");
 
   return res;
 };
 
-// export const handleUpdateSubjectAction = async (data: any) => {
+// export const handleUpdateCourseAction = async (data: any) => {
 //   const { id, ...rest } = data; // Separate id from the rest of the data
 
 //   // Send the PATCH request to update supplier by ID in the URL path
@@ -55,12 +54,12 @@ export const handleCreateSubjectAction = async (data: any) => {
 //   });
 
 //   // Revalidate to update the list view if necessary
-//   revalidateTag('list-subjects');
+//   revalidateTag('list-classroom');
 
 //   return res;
 // };
 
-// export const handleDeleteSubjectAction = async (id: any) => {
+// export const handleDeleteCourseAction = async (id: any) => {
 //   // const session = await auth();
 //   const res = await sendRequest<IBackendRes<any>>({
 //     url: `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/api/users/${id}`,
@@ -69,6 +68,6 @@ export const handleCreateSubjectAction = async (data: any) => {
 //     //   Authorization: `Bearer ${session?.user?.access_token}`,
 //     // },
 //   });
-//   revalidateTag('list-subjects');
+//   revalidateTag('list-classroom');
 //   return res;
 // };

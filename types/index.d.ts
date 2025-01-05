@@ -1,7 +1,5 @@
 import { BADGE_CRITERIA } from "@/constants";
 
-//! SUBJECT
-
 
 //! endof SUBJECT
 
@@ -25,21 +23,6 @@ export interface SidebarLink {
   label: string;
 }
 
-export interface CourseData {
-  "Mã môn học": string;
-  "Mã lớp": string;
-  "Tên môn học": string;
-  "Mã GV": string;
-  "Tên GV": string;
-  "Sĩ số": string;
-  "Số TC": string;
-  HTGD: string;
-  "Khoa quản lý": boolean;
-  "Ngày BĐ": string;
-  "Ngày KT": string;
-  "Học kỳ": number;
-  "Năm học": number;
-}
 
 // nếu giữ như này thì phải đổi lại tên vì đây là data của 1 student
 export interface RegisterGroupData {
@@ -120,20 +103,6 @@ export interface StudentData {
   "Địa chỉ": string;
   "Ngày sinh": string;
 }
-export interface TeacherData {
-  "Mã cán bộ": string;
-  "Tài khoản": string;
-  "Mật khẩu": string;
-  "Họ và tên": string;
-  "Học vị": string;
-  "Hướng nghiên cứu": string;
-  "Quan tâm tìm hiểu": string;
-  Email: string;
-  SDT: string;
-  "Giới tính": string;
-  "Địa chỉ": string;
-  "Ngày sinh": string;
-}
 
 export interface RegisterGroupDataItem {
   STT: string;
@@ -198,24 +167,11 @@ export interface GradeColumnPercentDataItem {
   "Cuối kỳ": number;
 }
 
-export interface CourseDataItem {
-  type: string;
-  STT: string;
-  isDeleted: boolean;
-  data: CourseData;
-}
-
 export interface StudentDataItem {
   type: string;
   STT: string;
   isDeleted: boolean;
   data: StudentData;
-}
-export interface TeacherDataItem {
-  type: string;
-  STT: string;
-  isDeleted: boolean;
-  data: TeacherData;
 }
 
 export interface OfficerPermissionDataItem {

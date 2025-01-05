@@ -114,6 +114,7 @@ export enum DataTableType {
   Subject = "Môn học",
   Student = "Sinh viên",
   Teacher = "Giảng viên",
+  Officer = "Giáo vụ",
 }
 
 export enum FilterType {
@@ -222,12 +223,18 @@ export const sidebarDepartmentLinks: SidebarLink[] = [
   },
   {
     id: "6",
+    imgURL: "/assets/icons/teachers.svg",
+    route: "/officer",
+    label: "Giáo vụ",
+  },
+  {
+    id: "7",
     imgURL: "/assets/icons/score-transcript.svg",
     route: "/score-transcript",
     label: "Bảng điểm",
   },
   {
-    id: "7",
+    id: "8",
     imgURL: "/assets/icons/setting.svg",
     route: "/setting",
     label: "Cài đặt",

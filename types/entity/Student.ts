@@ -33,9 +33,9 @@ interface IStudentData {
   name: string;
   code: string;
   email: string;
-  phone: number;
-  dob: number;
-  gender: string;
+  phone: string;
+  dob: string;
+  gender: boolean;
   organization_id: string;
   advisory_class: string;
   academic_batch: string;

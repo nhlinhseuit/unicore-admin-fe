@@ -4,23 +4,22 @@ import InputComponent from "./InputComponent";
 import { useState } from "react";
 import MoreButtonComponent from "./MoreButtonComponent";
 import {
-  CourseData,
-  SubjectData,
-  CourseDataItem,
-  SubjectDataItem,
   StudentDataItem,
   StudentData,
-  TeacherData,
-  TeacherDataItem,
 } from "@/types";
 import IconButton from "../../Button/IconButton";
 import Image from "next/image";
+import { SubjectData, SubjectDataItem } from "@/types/entity/Subject";
+import { TeacherData, TeacherDataItem } from "@/types/entity/Teacher";
+import { OfficerData, OfficerDataItem } from "@/types/entity/Officer";
+import { CourseData, CourseDataItem } from "@/types/entity/Course";
 
 interface RowParams {
   dataItem:
     | CourseDataItem
     | SubjectDataItem
     | StudentDataItem
+    | OfficerDataItem
     | TeacherDataItem;
   isEditTable?: boolean;
   isMultipleDelete?: boolean;
@@ -36,6 +35,7 @@ interface handleInputChangeParams {
     | keyof CourseData
     | keyof SubjectData
     | keyof StudentData
+    | keyof OfficerData
     | keyof TeacherData;
   newValue: any;
   isMultipleInput?: boolean;
@@ -78,7 +78,9 @@ const Row = React.memo(
         | CourseDataItem
         | SubjectDataItem
         | StudentDataItem
-        | TeacherDataItem = {
+        | TeacherDataItem
+        | OfficerDataItem
+         = {
         ...editDataItem,
         data: {
           ...editDataItem.data,

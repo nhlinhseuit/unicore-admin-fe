@@ -12,7 +12,8 @@ import {
   mockDataImportTeacherList,
   mockDataOfficerPermissions,
 } from "@/mocks";
-import { StudentDataItem, TeacherDataItem } from "@/types";
+import { StudentDataItem } from "@/types";
+import { TeacherDataItem } from "@/types/entity/Teacher";
 import { useState } from "react";
 const Setting = () => {
   const [isEditTable, setIsEditTable] = useState(false);

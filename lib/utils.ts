@@ -27,6 +27,17 @@ export const getPermissionLabel = (key: string): string => {
 
 //
 
+export function generateUsername(fullName: string) {
+  const nameParts = normalizeSearchItem(fullName).split(" ");
+  const lastName = nameParts[nameParts.length - 1].toLowerCase();
+  const middleInitials = nameParts
+    .slice(0, -1)
+    .map((part) => part[0].toLowerCase())
+    .join("");
+  const username = lastName + middleInitials;
+  return username;
+}
+
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));

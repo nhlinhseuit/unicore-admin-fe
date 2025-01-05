@@ -2,7 +2,6 @@
 
 import { useRef, useState } from "react";
 import * as XLSX from "xlsx";
-import { StudentDataItem } from "@/types";
 import DataTable from "../components/DataTable";
 import ErrorComponent from "../../Status/ErrorComponent";
 import TableSkeleton from "../components/TableSkeleton";
@@ -10,18 +9,20 @@ import NoResult from "../../Status/NoResult";
 import { useToast } from "@/hooks/use-toast";
 import IconButton from "../../Button/IconButton";
 import { DataTableType } from "@/constants";
-import { convertToAPIDataTableStudent } from "@/lib/convertToDataTableStudent";
-import { handleCreateStudentAction } from "@/services/studentServices";
+import { generateUsername, normalizeSearchItem } from "@/lib/utils";
+import { OfficerDataItem } from "@/types/entity/Officer";
+import { handleCreateOfficerAction } from "@/services/officerServices";
+import { convertToAPIDataTableOfficers } from "@/lib/convertToDataTableOfficers";
 
-export default function StudentsDataTable() {
+export default function OfficersDataTable() {
   const [isEditTable, setIsEditTable] = useState(false);
   const [isMultipleDelete, setIsMultipleDelete] = useState(false);
-  const [dataTable, setDataTable] = useState<StudentDataItem[]>([]);
+  const [dataTable, setDataTable] = useState<OfficerDataItem[]>([]);
   const [errorMessages, setErrorMessages] = useState<string[]>([]);
   const [isLoading, setIsLoading] = useState(false);
 
-  // XỬ LÝ UPLOAD FILE DS SINH VIÊN
-  const handleStudentFileUpload = (e: any) => {
+  // XỬ LÝ UPLOAD FILE DS GIÁO VỤ
+  const handleOfficerFileUpload = (e: any) => {
     setIsLoading(true);
     setErrorMessages([]);
     setDataTable([]);
@@ -44,11 +45,13 @@ export default function StudentsDataTable() {
       const transformedData = parsedData.map((item: any, index: number) => {
         // Kiểm tra các trường quan trọng (required fields)
         const requiredFields = {
-          MSSV: item["MSSV"],
-          "Họ và tên": item["Họ và tên SV"],
-          SDT: item["Điện thoại"],
+          "Mã cán bộ": item["Mã cán bộ"],
+          "Họ và tên": item["Họ và tên"],
+          "Học vị": item["Học vị"],
+          "Hướng nghiên cứu": item["Hướng nghiên cứu"],
+          "Quan tâm tìm hiểu": item["Quan tâm tìm hiểu"],
           Email: item["Email"],
-          "Lớp sinh hoạt": item["Lớp sinh hoạt"],
+          SDT: item["Điện thoại"],
           "Giới tính": item["Giới tính"],
           "Địa chỉ": item["Địa chỉ"],
           "Ngày sinh": item["Ngày sinh"],
@@ -64,15 +67,17 @@ export default function StudentsDataTable() {
         }
 
         return {
-          type: "student",
+          type: "officer",
           STT: item.STT,
           isDeleted: false,
           data: {
-            MSSV: item["MSSV"],
-            "Tài khoản": item["MSSV"],
+            "Mã cán bộ": item["Mã cán bộ"],
+            "Tài khoản": generateUsername(item["Họ và tên"] ?? ""),
             "Mật khẩu": "1",
-            "Họ và tên": item["Họ và tên SV"],
-            "Lớp sinh hoạt": item["Lớp sinh hoạt"],
+            "Họ và tên": item["Họ và tên"],
+            "Học vị": item["Học vị"],
+            "Hướng nghiên cứu": item["Hướng nghiên cứu"],
+            "Quan tâm tìm hiểu": item["Quan tâm tìm hiểu"],
             Email: item["Email"],
             SDT: item["Điện thoại"],
             "Giới tính": item["Giới tính"],
@@ -92,6 +97,19 @@ export default function StudentsDataTable() {
     };
   };
 
+  const createOffciersAPI = async () => {
+    const APIdataTable = convertToAPIDataTableOfficers({
+      data: dataTable,
+      organizationId: "1",
+    });
+
+    const res = await handleCreateOfficerAction(APIdataTable);
+
+    console.log(APIdataTable);
+
+    console.log("res", res);
+  };
+
   // Tạo một reference để liên kết với thẻ input file
   const fileInputRef = useRef<HTMLInputElement | null>(null);
   const handleButtonClick = () => {
@@ -99,19 +117,6 @@ export default function StudentsDataTable() {
   };
 
   const { toast } = useToast();
-
-  const createStudentsAPI = async () => {
-    const APIdataTable = convertToAPIDataTableStudent({
-      data: dataTable,
-      organizationId: "1",
-    });
-
-    const res = await handleCreateStudentAction(APIdataTable);
-
-    console.log(APIdataTable);
-
-    console.log("res:::::", res);
-  };
 
   return (
     <div>
@@ -140,12 +145,12 @@ export default function StudentsDataTable() {
                 ref={fileInputRef}
                 type="file"
                 accept=".xlsx, .xls"
-                onChange={handleStudentFileUpload}
+                onChange={handleOfficerFileUpload}
                 style={{ display: "none" }}
               />
 
               <IconButton
-                text="Import danh sách sinh viên"
+                text="Import danh sách giáo vụ"
                 onClick={handleButtonClick}
                 iconLeft={"/assets/icons/upload-white.svg"}
                 iconWidth={16}
@@ -155,18 +160,18 @@ export default function StudentsDataTable() {
             {dataTable.length > 0 && (
               <IconButton
                 text="Lưu"
-                onClick={createStudentsAPI}
+                onClick={createOffciersAPI}
                 otherClasses="ml-2"
               />
             )}
           </div>
 
           <a
-            href="/assets/KTLN - template import ds sinh viên.xlsx"
+            href="/assets/KTLN - template import ds giáo vụ.xlsx"
             download
             className="text-blue-500 underline text-base italic"
           >
-            Tải xuống template file import sinh viên
+            Tải xuống template file import giáo vụ
           </a>
         </div>
 
@@ -182,7 +187,7 @@ export default function StudentsDataTable() {
       ) : dataTable.length > 0 ? (
         <>
           <DataTable
-            type={DataTableType.Student}
+            type={DataTableType.Officer}
             dataTable={dataTable}
             isEditTable={isEditTable}
             isMultipleDelete={isMultipleDelete}
@@ -192,7 +197,7 @@ export default function StudentsDataTable() {
             onSaveEditTable={(localDataTable) => {
               setIsEditTable(false);
               // set lại data import hoặc patch API
-              localDataTable = localDataTable as StudentDataItem[];
+              localDataTable = localDataTable as OfficerDataItem[];
               setDataTable(localDataTable);
             }}
             onClickMultipleDelete={() => {
@@ -208,7 +213,7 @@ export default function StudentsDataTable() {
 
               toast({
                 title: "Xóa thành công",
-                description: `Đã xóa tất cả sinh viên`,
+                description: `Đã xóa tất cả giáo vụ`,
                 variant: "success",
                 duration: 3000,
               });
@@ -217,7 +222,7 @@ export default function StudentsDataTable() {
               // ? DELETE THEO MSSV
               setDataTable((prevData) => {
                 return prevData.map((item) => {
-                  if (itemsSelected.includes(item.data["MSSV"])) {
+                  if (itemsSelected.includes(item.data["Mã giáo vụ"])) {
                     return {
                       ...item,
                       isDeleted: true,
@@ -229,7 +234,7 @@ export default function StudentsDataTable() {
 
               toast({
                 title: "Xóa thành công",
-                description: `${`Các sinh viên ${itemsSelected.join(
+                description: `${`Các giáo vụ ${itemsSelected.join(
                   ", "
                 )} đã được xóa.`}`,
                 variant: "success",
@@ -245,8 +250,8 @@ export default function StudentsDataTable() {
         <NoResult
           title="Không có dữ liệu!"
           description="🚀 Import file danh sách để thấy được dữ liệu."
-          linkTitle="Import danh sách sinh viên"
-          handleFileUpload={handleStudentFileUpload}
+          linkTitle="Import danh sách giáo vụ"
+          handleFileUpload={handleOfficerFileUpload}
         />
       )}
     </div>

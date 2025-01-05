@@ -2,7 +2,6 @@
 
 import { useRef, useState } from "react";
 import * as XLSX from "xlsx";
-import { CourseDataItem } from "@/types";
 import DataTable from "../components/DataTable";
 import ErrorComponent from "../../Status/ErrorComponent";
 import TableSkeleton from "../components/TableSkeleton";
@@ -10,6 +9,9 @@ import NoResult from "../../Status/NoResult";
 import { useToast } from "@/hooks/use-toast";
 import IconButton from "../../Button/IconButton";
 import { DataTableType } from "@/constants";
+import { CourseDataItem } from "@/types/entity/Course";
+import { convertToAPIDataTableCourses } from "@/lib/convertToDataTableCourses";
+import { handleCreateCourseAction } from "@/services/courseServices";
 
 export default function CoursesDataTable() {
   const [isEditTable, setIsEditTable] = useState(false);
@@ -106,6 +108,19 @@ export default function CoursesDataTable() {
 
   const { toast } = useToast();
 
+    const createCoursesAPI = async () => {
+      const APIdataTable = convertToAPIDataTableCourses({
+        data: dataTable,
+        organizationId: "1",
+      });
+  
+      const res = await handleCreateCourseAction(APIdataTable);
+  
+      console.log(APIdataTable);
+  
+      console.log("res:::::", res);
+    };
+
   return (
     <div>
       {errorMessages.length > 0 && (
@@ -146,7 +161,7 @@ export default function CoursesDataTable() {
               />
             </div>
             {dataTable.length > 0 && (
-              <IconButton text="Lưu" onClick={() => {}} otherClasses="ml-2" />
+              <IconButton text="Lưu" onClick={createCoursesAPI} otherClasses="ml-2" />
             )}
           </div>
 

@@ -4,12 +4,32 @@ import IconButton from "@/components/shared/Button/IconButton";
 import IconButtonStopPropagation from "@/components/shared/Button/IconButtonStopPropagation";
 import DetailFilterComponent from "@/components/shared/DetailFilterComponent";
 import CoursesDataTable from "@/components/shared/Table/TableImport/CoursesDataTable";
+import { fetchCourses } from "@/services/courseServices";
+import { ICourse } from "@/types/entity/Course";
 import { Dropdown } from "flowbite-react";
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const Courses = () => {
   const [isImport, setIsImport] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  const [courses, setCourses] = useState<ICourse[]>([]);
+
+  useEffect(() => {
+    fetchCourses()
+      .then((data: any) => {
+        console.log("data", data);
+        setCourses(data);
+        setIsLoading(false);
+      })
+      .catch((error) => {
+        setError(error.message);
+        setIsLoading(false);
+      });
+  }, []);
+
   return (
     <>
       {!isImport ? (

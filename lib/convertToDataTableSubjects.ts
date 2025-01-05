@@ -1,9 +1,10 @@
 
-// TODO: SUBJECT
 
 import { ISubject, SubjectDataItem } from "@/types/entity/Subject";
 
-export const convertToDataTableViKeys = (data: ISubject) => {
+//? Data lấy về ở dạng ISubject, cần convert sang SubjectDataItem
+
+export const convertToDataTableSubjectsViKeys = (data: ISubject) => {
   return data.subjects.map((item, index) => {
     const requiredFields = {
       "Mã MH": item.code,
@@ -30,7 +31,9 @@ export const convertToDataTableViKeys = (data: ISubject) => {
   });
 };
 
-export const convertToAPIDataTable = ({
+//? Data import vào ở dạng ISubject, cần convert sang ISubject
+
+export const convertToAPIDataTableSubjects = ({
   data,
   organizationId,
 }: {

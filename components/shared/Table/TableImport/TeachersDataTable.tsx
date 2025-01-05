@@ -2,7 +2,6 @@
 
 import { useRef, useState } from "react";
 import * as XLSX from "xlsx";
-import { TeacherDataItem } from "@/types";
 import DataTable from "../components/DataTable";
 import ErrorComponent from "../../Status/ErrorComponent";
 import TableSkeleton from "../components/TableSkeleton";
@@ -10,7 +9,10 @@ import NoResult from "../../Status/NoResult";
 import { useToast } from "@/hooks/use-toast";
 import IconButton from "../../Button/IconButton";
 import { DataTableType } from "@/constants";
-import { normalizeSearchItem } from "@/lib/utils";
+import { generateUsername, normalizeSearchItem } from "@/lib/utils";
+import { TeacherDataItem } from "@/types/entity/Teacher";
+import { convertToAPIDataTableTeachers } from "@/lib/convertToDataTableTeachers";
+import { handleCreateTeachersAction } from "@/services/teacherServices";
 
 export default function TeachersDataTable() {
   const [isEditTable, setIsEditTable] = useState(false);
@@ -18,17 +20,6 @@ export default function TeachersDataTable() {
   const [dataTable, setDataTable] = useState<TeacherDataItem[]>([]);
   const [errorMessages, setErrorMessages] = useState<string[]>([]);
   const [isLoading, setIsLoading] = useState(false);
-
-  function generateUsername(fullName: string) {
-    const nameParts = normalizeSearchItem(fullName).split(" ");
-    const lastName = nameParts[nameParts.length - 1].toLowerCase();
-    const middleInitials = nameParts
-      .slice(0, -1)
-      .map((part) => part[0].toLowerCase())
-      .join("");
-    const username = lastName + middleInitials;
-    return username;
-  }
 
   // XỬ LÝ UPLOAD FILE DS GIẢNG VIÊN
   const handleTeacherFileUpload = (e: any) => {
@@ -106,6 +97,19 @@ export default function TeachersDataTable() {
     };
   };
 
+  const createTeachersAPI = async () => {
+    const APIdataTable = convertToAPIDataTableTeachers({
+      data: dataTable,
+      organizationId: "1",
+    });
+
+    const res = await handleCreateTeachersAction(APIdataTable);
+
+    console.log(APIdataTable);
+
+    console.log("res", res);
+  };
+
   // Tạo một reference để liên kết với thẻ input file
   const fileInputRef = useRef<HTMLInputElement | null>(null);
   const handleButtonClick = () => {
@@ -154,7 +158,11 @@ export default function TeachersDataTable() {
               />
             </div>
             {dataTable.length > 0 && (
-              <IconButton text="Lưu" onClick={() => {}} otherClasses="ml-2" />
+              <IconButton
+                text="Lưu"
+                onClick={createTeachersAPI}
+                otherClasses="ml-2"
+              />
             )}
           </div>
 

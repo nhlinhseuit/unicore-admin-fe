@@ -1,24 +1,23 @@
 "use client";
-
-import TeachersDataTable from "@/components/shared/Table/TableImport/TeachersDataTable";
 import React, { useEffect, useState } from "react";
 import IconButton from "@/components/shared/Button/IconButton";
 import BackToPrev from "@/components/shared/BackToPrev";
-import { ITeacher } from "@/types/entity/Teacher";
-import { fetchTeachers } from "@/services/teacherServices";
+import { fetchOfficer } from "@/services/officerServices";
+import { IOfficer } from "@/types/entity/Officer";
+import OfficersDataTable from "@/components/shared/Table/TableImport/OfficersDataTable";
 
-const Teachers = () => {
+const Officers = () => {
   const [isImport, setIsImport] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  const [teachers, setTeachers] = useState<ITeacher[]>([]);
+  const [officers, setOfficers] = useState<IOfficer[]>([]);
 
   useEffect(() => {
-    fetchTeachers()
+    fetchOfficer()
       .then((data: any) => {
         console.log("data", data);
-        setTeachers(data);
+        setOfficers(data);
         setIsLoading(false);
       })
       .catch((error) => {
@@ -33,7 +32,7 @@ const Teachers = () => {
         <div>
           <div className="flex justify-end mt-3 mb-3">
             <IconButton
-              text="Import danh sách giảng viên"
+              text="Import danh sách giáo vụ"
               onClick={() => {
                 setIsImport(true);
               }}
@@ -46,17 +45,17 @@ const Teachers = () => {
       ) : (
         <>
           <BackToPrev
-            text={"Quay lại danh sách giảng viên"}
+            text={"Quay lại danh sách giáo vụ"}
             onClickPrev={() => {
               setIsImport(false);
             }}
           />
 
-          <TeachersDataTable />
+          <OfficersDataTable />
         </>
       )}
     </>
   );
 };
 
-export default Teachers;
+export default Officers;

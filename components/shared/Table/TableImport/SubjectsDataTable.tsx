@@ -2,7 +2,6 @@
 
 import { DataTableType } from "@/constants";
 import { useToast } from "@/hooks/use-toast";
-import { convertToAPIDataTable } from "@/lib/convertToDataTableViKeys";
 import { handleCreateSubjectAction } from "@/services/subjectServices";
 import { SubjectDataItem } from "@/types/entity/Subject";
 import { useRef, useState } from "react";
@@ -12,6 +11,7 @@ import ErrorComponent from "../../Status/ErrorComponent";
 import NoResult from "../../Status/NoResult";
 import DataTable from "../components/DataTable";
 import TableSkeleton from "../components/TableSkeleton";
+import { convertToAPIDataTableSubjects } from "@/lib/convertToDataTableSubjects";
 
 export default function SubjectsDataTable() {
   const [isEditTable, setIsEditTable] = useState(false);
@@ -97,7 +97,7 @@ export default function SubjectsDataTable() {
   const { toast } = useToast();
 
   const createSubjectsAPI = async () => {
-    const APIdataTable = convertToAPIDataTable({
+    const APIdataTable = convertToAPIDataTableSubjects({
       data: dataTable,
       organizationId: "1",
     });
