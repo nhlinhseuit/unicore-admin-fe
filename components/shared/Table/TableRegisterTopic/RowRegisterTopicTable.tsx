@@ -1,14 +1,10 @@
 import { RegisterTopicTableType } from "@/constants";
 import {
-  CourseData,
   RegisterTopicData,
-  RegisterTopicDataItem,
-  StudentData,
-  SubjectData,
-  TeacherData,
+  RegisterTopicDataItem
 } from "@/types";
 import { Table } from "flowbite-react";
-import React, { useRef, useState } from "react";
+import React, { useRef } from "react";
 import InputComponent from "../components/InputComponent";
 
 interface RowParams {

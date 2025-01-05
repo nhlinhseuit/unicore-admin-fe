@@ -1,11 +1,10 @@
 "use client";
+
 import BackToPrev from "@/components/shared/BackToPrev";
 import IconButton from "@/components/shared/Button/IconButton";
 import IconButtonStopPropagation from "@/components/shared/Button/IconButtonStopPropagation";
 import DetailFilterComponent from "@/components/shared/DetailFilterComponent";
 import CoursesDataTable from "@/components/shared/Table/TableImport/CoursesDataTable";
-import { fetchCourses } from "@/services/courseServices";
-import { ICourse } from "@/types/entity/Course";
 import ImportCentralizedExam from "@/components/shared/Table/TableImport/ImportCentralizedExam";
 import ImportInternReport from "@/components/shared/Table/TableImport/ImportInternReport";
 import ImportStudentsListInCourse from "@/components/shared/Table/TableImport/ImportStudentsListInCourse";
@@ -19,12 +18,13 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
+import { fetchCourses } from "@/services/courseServices";
+import { ICourse } from "@/types/entity/Course";
 import {
   mockNotCompleteActions,
   mockSemesterList,
   mockYearList,
 } from "@/mocks";
-
 import { Dropdown } from "flowbite-react";
 import Image from "next/image";
 import { useEffect, useState } from "react";
@@ -33,13 +33,15 @@ const Courses = () => {
   const [isImport, setIsImport] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-
   const [courses, setCourses] = useState<ICourse[]>([]);
+  const [isShowDialog, setIsShowDialog] = useState(false);
+  const [isImportCompleteAction, setIsImportCompleteAction] = useState(-1);
+  const [selectedSemester, setSelectedSemester] = useState(1);
+  const [selectedYear, setSelectedYear] = useState(1);
 
   useEffect(() => {
     fetchCourses()
-      .then((data: any) => {
-        console.log("data", data);
+      .then((data: ICourse[]) => {
         setCourses(data);
         setIsLoading(false);
       })
@@ -48,15 +50,6 @@ const Courses = () => {
         setIsLoading(false);
       });
   }, []);
-
-  return (
-    <>
-      {!isImport ? (
-  const [isShowDialog, setIsShowDialog] = useState(false);
-  const [isImportCompleteAction, setIsImportCompleteAction] = useState(-1);
-
-  const [selectedSemester, setSelectedSemester] = useState(1);
-  const [selectedYear, setSelectedYear] = useState(1);
 
   const getImportCompleteActionComponent = () => {
     switch (isImportCompleteAction) {
@@ -71,21 +64,19 @@ const Courses = () => {
       case 5:
         return <ImportInternReport />;
       default:
-        return;
+        return null;
     }
   };
 
   const renderComponent = () => {
-    if (!isImport && isImportCompleteAction === -1)
+    if (!isImport && isImportCompleteAction === -1) {
       return (
         <div>
           <div className="flex justify-end mb-3">
             <IconButton
               text="Import danh sách lớp mới"
-              onClick={() => {
-                setIsShowDialog(true);
-              }}
-              iconLeft={"/assets/icons/upload-white.svg"}
+              onClick={() => setIsShowDialog(true)}
+              iconLeft="/assets/icons/upload-white.svg"
               iconWidth={16}
               iconHeight={16}
             />
@@ -97,23 +88,20 @@ const Courses = () => {
             <p className="mr-2 inline-flex justify-start text-sm font-semibold whitespace-nowrap">
               Bộ lọc lớp:
             </p>
-
             <DetailFilterComponent />
           </div>
-
-          {/* //TODO: TODO WITH CLASS */}
           <div className="w-full">
             <p className="text-sm font-semibold whitespace-nowrap">
               Bạn chưa hoàn thành các bước sau:
             </p>
             <div className="mt-4 flex gap-4 w-full flex-wrap">
-              {mockNotCompleteActions.map((item, index) => (
+              {mockNotCompleteActions.map((item) => (
                 <Dropdown
                   key={item.id}
                   className="z-30 rounded-lg"
                   label=""
                   renderTrigger={() => (
-                    <div className="cursor-pointer px-2 border-[1px] border-[#17a1fa] h-12  rounded-lg flex items-center gap-2 mb-2 relative">
+                    <div className="cursor-pointer px-2 border-[1px] border-[#17a1fa] h-12 rounded-lg flex items-center gap-2 mb-2 relative">
                       <div className="cursor-pointer bg-[#17a1fa] w-5 h-5 my-2 rounded-full flex-center text-sm text-white">
                         {item.id}
                       </div>
@@ -121,7 +109,7 @@ const Courses = () => {
                         {item.action}
                       </p>
                       <Image
-                        src={"/assets/icons/chevron-down.svg"}
+                        src="/assets/icons/chevron-down.svg"
                         width={22}
                         height={22}
                         alt="close"
@@ -157,36 +145,32 @@ const Courses = () => {
           </div>
         </div>
       );
-    else if (isImport) {
+    } else if (isImport) {
       return (
         <>
           <BackToPrev
-            text={"Quay lại danh sách lớp học"}
-            onClickPrev={() => {
-              setIsImport(false);
-            }}
+            text="Quay lại danh sách lớp học"
+            onClickPrev={() => setIsImport(false)}
           />
           <CoursesDataTable />
         </>
       );
-    } else
+    } else {
       return (
         <>
           <BackToPrev
-            text={"Quay lại danh sách lớp học"}
-            onClickPrev={() => {
-              setIsImportCompleteAction(-1);
-            }}
+            text="Quay lại danh sách lớp học"
+            onClickPrev={() => setIsImportCompleteAction(-1)}
           />
           {getImportCompleteActionComponent()}
         </>
       );
+    }
   };
 
   return (
     <div>
       {renderComponent()}
-
       <AlertDialog open={isShowDialog}>
         <AlertDialogContent>
           <AlertDialogHeader>
@@ -204,37 +188,28 @@ const Courses = () => {
                 label=""
                 dismissOnClick={true}
                 renderTrigger={() => (
-                  <div>
-                    <IconButton
-                      text={`${mockSemesterList[selectedSemester - 1].value}`}
-                      onClick={() => {}}
-                      iconRight={"/assets/icons/chevron-down.svg"}
-                      bgColor="bg-white"
-                      textColor="text-black"
-                      border
-                      otherClasses="w-[300px]"
-                    />
-                  </div>
+                  <IconButton
+                    text={`${mockSemesterList[selectedSemester - 1].value}`}
+                    iconRight="/assets/icons/chevron-down.svg"
+                    bgColor="bg-white"
+                    textColor="text-black"
+                    border
+                    otherClasses="w-[300px]"
+                  />
                 )}
               >
                 <div className="w-full scroll-container scroll-container-dropdown-content">
-                  {mockSemesterList.map((semester, index) => (
+                  {mockSemesterList.map((semester) => (
                     <Dropdown.Item
-                      key={`${semester.id}_${index}`}
-                      onClick={() => {
-                        if (selectedSemester === semester.id) {
-                          setSelectedSemester(1);
-                        } else {
-                          setSelectedSemester(semester.id);
-                        }
-                      }}
+                      key={semester.id}
+                      onClick={() => setSelectedSemester(semester.id)}
                       className="w-[300px] min-w-max"
                     >
                       <div className="flex justify-between w-full">
                         <p className="w-[80%] text-left line-clamp-1">
                           {semester.value}
                         </p>
-                        {selectedSemester === semester.id ? (
+                        {selectedSemester === semester.id && (
                           <Image
                             src="/assets/icons/check.svg"
                             alt="search"
@@ -242,8 +217,6 @@ const Courses = () => {
                             height={21}
                             className="cursor-pointer mr-2"
                           />
-                        ) : (
-                          <></>
                         )}
                       </div>
                     </Dropdown.Item>
@@ -251,7 +224,6 @@ const Courses = () => {
                 </div>
               </Dropdown>
             </div>
-
             <div className="flex-center gap-6">
               <p className="w-[20%] inline-flex justify-start text-sm whitespace-nowrap">
                 Chọn năm học
@@ -261,37 +233,28 @@ const Courses = () => {
                 label=""
                 dismissOnClick={true}
                 renderTrigger={() => (
-                  <div>
-                    <IconButton
-                      text={`${mockYearList[selectedYear - 1].value}`}
-                      onClick={() => {}}
-                      iconRight={"/assets/icons/chevron-down.svg"}
-                      bgColor="bg-white"
-                      textColor="text-black"
-                      border
-                      otherClasses="w-[300px]"
-                    />
-                  </div>
+                  <IconButton
+                    text={`${mockYearList[selectedYear - 1].value}`}
+                    iconRight="/assets/icons/chevron-down.svg"
+                    bgColor="bg-white"
+                    textColor="text-black"
+                    border
+                    otherClasses="w-[300px]"
+                  />
                 )}
               >
                 <div className="w-full scroll-container scroll-container-dropdown-small">
-                  {mockYearList.map((year, index) => (
+                  {mockYearList.map((year) => (
                     <Dropdown.Item
-                      key={`${year.id}_${index}`}
-                      onClick={() => {
-                        if (selectedYear === year.id) {
-                          setSelectedYear(1);
-                        } else {
-                          setSelectedYear(year.id);
-                        }
-                      }}
+                      key={year.id}
+                      onClick={() => setSelectedYear(year.id)}
                       className="w-[300px] min-w-max"
                     >
                       <div className="flex justify-between w-full">
                         <p className="w-[80%] text-left line-clamp-1">
                           {year.value}
                         </p>
-                        {selectedYear === year.id ? (
+                        {selectedYear === year.id && (
                           <Image
                             src="/assets/icons/check.svg"
                             alt="search"
@@ -299,8 +262,6 @@ const Courses = () => {
                             height={21}
                             className="cursor-pointer mr-2"
                           />
-                        ) : (
-                          <></>
                         )}
                       </div>
                     </Dropdown.Item>

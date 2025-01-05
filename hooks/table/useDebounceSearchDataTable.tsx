@@ -3,12 +3,9 @@ import { normalizeSearchItem } from "@/lib/utils";
 import {
   CentralizedExamDataItem,
   ThesisTopicGradeDataItem,
-  CourseDataItem,
   QAandProjectExamDataItem,
   RegisterTopicDataItem,
   StudentDataItem,
-  SubjectDataItem,
-  TeacherDataItem,
   TopicDataItem,
   RegisterGroupDataItem,
   InternReviewDataItem,
@@ -18,6 +15,7 @@ import { SubjectDataItem } from "@/types/entity/Subject";
 import { TeacherDataItem } from "@/types/entity/Teacher";
 import { OfficerDataItem } from "@/types/entity/Officer";
 import { useEffect } from "react";
+import { CourseDataItem } from "@/types/entity/Course";
 
 const useDebounceSearchDataTable = (
   debouncedSearchTerm: any,
@@ -32,7 +30,6 @@ const useDebounceSearchDataTable = (
     | StudentDataItem[]
     | TeacherDataItem[]
     | OfficerDataItem[]
-    | (CourseDataItem | SubjectDataItem | StudentDataItem | TeacherDataItem | OfficerDataItem)[],
     | TopicDataItem[]
     | RegisterTopicDataItem[]
     | QAandProjectExamDataItem[]
@@ -45,6 +42,7 @@ const useDebounceSearchDataTable = (
         | RegisterGroupDataItem
         | SubjectDataItem
         | StudentDataItem
+        | OfficerDataItem
         | TeacherDataItem
         | TopicDataItem
         | RegisterTopicDataItem
@@ -59,7 +57,7 @@ const useDebounceSearchDataTable = (
     | SubjectDataItem[]
     | StudentDataItem[]
     | TeacherDataItem[]
-    | (CourseDataItem | SubjectDataItem | StudentDataItem | TeacherDataItem | OfficerDataItem)[]
+    | OfficerDataItem[]
     | TopicDataItem[]
     | RegisterTopicDataItem[]
     | RegisterGroupDataItem[]
@@ -73,6 +71,7 @@ const useDebounceSearchDataTable = (
         | SubjectDataItem
         | StudentDataItem
         | TeacherDataItem
+        | OfficerDataItem
         | TopicDataItem
         | RegisterTopicDataItem
         | RegisterGroupDataItem

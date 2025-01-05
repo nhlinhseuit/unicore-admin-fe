@@ -21,7 +21,6 @@ import useDetailFilter from "@/hooks/table/useDetailFilter";
 import useSetDebounceSearchTerm from "@/hooks/table/useSetDebounceSearchTerm";
 import {
   CentralizedExamDataItem,
-  CourseDataItem,
   QAandProjectExamDataItem,
   StudentDataItem,
 } from "@/types";
@@ -61,7 +60,6 @@ interface DataTableParams {
     | StudentDataItem[]
     | TeacherDataItem[]
     | OfficerDataItem[]
-    | (CourseDataItem | SubjectDataItem | StudentDataItem | TeacherDataItem | OfficerDataItem)[];
     | QAandProjectExamDataItem[]
     | CentralizedExamDataItem[]
     | (
@@ -69,6 +67,7 @@ interface DataTableParams {
         | SubjectDataItem
         | StudentDataItem
         | TeacherDataItem
+        | OfficerDataItem
         | CentralizedExamDataItem
         | QAandProjectExamDataItem
       )[];
@@ -249,12 +248,12 @@ const DataTable = (params: DataTableParams) => {
   const [debouncedSearchTerm, setDebouncedSearchTerm] = useState(searchTerm);
   const [filteredDataTable, setFilteredDataTable] =
     useState<
-      (CourseDataItem | SubjectDataItem | StudentDataItem | TeacherDataItem | OfficerDataItem)[]
       (
         | CourseDataItem
         | SubjectDataItem
         | StudentDataItem
         | TeacherDataItem
+        | OfficerDataItem
         | QAandProjectExamDataItem
         | CentralizedExamDataItem
       )[]
@@ -317,7 +316,7 @@ const DataTable = (params: DataTableParams) => {
 
           (item as CourseDataItem).data["Tên GV"]
             .split(/\r\n|\n/)
-            .forEach((name) => {
+            .forEach((name: string) => {
               teacherSet.add(name);
             });
         }

@@ -1,16 +1,8 @@
 import {
-  StudentDataItem,
-  StudentData,
   CentralizedExamDataItem,
-  CourseData,
-  CourseDataItem,
   QAandProjectExamDataItem,
   StudentData,
   StudentDataItem,
-  SubjectData,
-  SubjectDataItem,
-  TeacherData,
-  TeacherDataItem,
 } from "@/types";
 import { Dropdown, Table } from "flowbite-react";
 import Image from "next/image";
@@ -39,6 +31,7 @@ interface RowParams {
   onClickCheckBoxSelect?: (item: string) => void;
   onChangeRow?: (item: any) => void;
 }
+
 interface handleInputChangeParams {
   key:
     | keyof CourseData
@@ -73,13 +66,11 @@ const Row = React.memo(
         | CourseDataItem
         | SubjectDataItem
         | StudentDataItem
+        | CentralizedExamDataItem
+        | QAandProjectExamDataItem
         | TeacherDataItem
         | OfficerDataItem
          = {
-        ...editDataItem,
-        | CentralizedExamDataItem
-        | QAandProjectExamDataItem
-        | TeacherDataItem = {
         ...refInput.current,
         data: {
           ...refInput.current.data,
@@ -117,7 +108,6 @@ const Row = React.memo(
       handleInputChange: Function;
       isHasSubCourses: boolean | undefined;
     }) => {
-
       switch (key) {
         case "Mã lớp":
           return params.isEditTable ? (
@@ -145,21 +135,17 @@ const Row = React.memo(
               >
                 <div className="scroll-container scroll-container-dropdown-content">
                   <ul>
-                    <li role="menuitem">
-                      <p className="flex items-center justify-start w-full px-4 py-2 text-sm text-left text-gray-700 cursor-default">
-                        Đồ án 1 - Huỳnh Hồ Thị Mộng Trinh
-                      </p>
-                    </li>
-                    <li role="menuitem">
-                      <p className="flex items-center justify-start w-full px-4 py-2 text-sm text-left text-gray-700 cursor-default">
-                        Đồ án 1 - Nguyễn Trịnh Đông
-                      </p>
-                    </li>
-                    <li role="menuitem">
-                      <p className="flex items-center justify-start w-full px-4 py-2 text-sm text-left text-gray-700 cursor-default">
-                        Đồ án 1 - Huỳnh Tuấn Anh
-                      </p>
-                    </li>
+                    {[
+                      "Huỳnh Hồ Thị Mộng Trinh",
+                      "Nguyễn Trịnh Đông",
+                      "Huỳnh Tuấn Anh",
+                    ].map((name) => (
+                      <li role="menuitem" key={name}>
+                        <p className="flex items-center justify-start w-full px-4 py-2 text-sm text-left text-gray-700 cursor-default">
+                          Đồ án 1 - {name}
+                        </p>
+                      </li>
+                    ))}
                   </ul>
                 </div>
               </Dropdown>
@@ -204,8 +190,8 @@ const Row = React.memo(
                   .map((line, index) => (
                     <InputComponent
                       key={`${keyId}_${line}_${index}`}
-                      value={line as string | number}
-                      placeholder={line as string | number}
+                      value={line}
+                      placeholder={line}
                       onChange={(newValue) =>
                         handleInputChange({
                           key,
@@ -220,8 +206,8 @@ const Row = React.memo(
             ) : (
               <InputComponent
                 key={`${keyId}_input_${key}_${value}`}
-                value={value as string | number}
-                placeholder={value as string | number}
+                value={value}
+                placeholder={value}
                 onChange={(newValue) => handleInputChange({ key, newValue })}
               />
             )
@@ -238,57 +224,44 @@ const Row = React.memo(
       }
     };
 
-    console.log("Row");
-
     return (
       <Table.Row
         key={params.dataItem.STT}
-        onClick={() => {}}
-        className={`bg-background-secondary  text-left ${
-          params.isEditTable || params.isEditTable
+        className={`bg-background-secondary text-left ${
+          params.isEditTable
             ? "hover:bg-white cursor-default"
             : "hover:bg-light-800 cursor-default"
         } duration-100`}
       >
-        {/* checkbox */}
-        {params.isSimpleTable ? null : (
-          <Table.Cell className="w-10 border-r-[1px] z-100 ">
+        {!params.isSimpleTable && (
+          <Table.Cell className="w-10 border-r-[1px] z-100">
             <div
-              onClick={(e) => {
-                e.stopPropagation(); // Ngăn sự kiện lan truyền đến Table.Row
-              }}
+              onClick={(e) => e.stopPropagation()}
+              className="flex items-center justify-center w-10 h-10"
             >
-              <div className="flex items-center justify-center w-10 h-10">
-                <input
-                  id="apple"
-                  type="checkbox"
-                  name="filterOptions"
-                  value={params.valueUniqueInput}
-                  checked={params.itemsSelected.includes(
-                    params.valueUniqueInput
-                  )}
-                  onChange={() => {
-                    {
-                      params.onClickCheckBoxSelect &&
-                        params.onClickCheckBoxSelect(params.valueUniqueInput);
-                    }
-                  }}
-                  className="w-4 h-4 bg-gray-100 border-gray-300 rounded cursor-pointer text-primary-600"
-                />
-              </div>
+              <input
+                type="checkbox"
+                name="filterOptions"
+                value={params.valueUniqueInput}
+                checked={params.itemsSelected.includes(params.valueUniqueInput)}
+                onChange={() => {
+                  params.onClickCheckBoxSelect &&
+                    params.onClickCheckBoxSelect(params.valueUniqueInput);
+                }}
+                className="w-4 h-4 bg-gray-100 border-gray-300 rounded cursor-pointer text-primary-600"
+              />
             </div>
           </Table.Cell>
         )}
 
-        {/* STT */}
-        <Table.Cell className="w-10 border-r-[1px]  text-left">
+        <Table.Cell className="w-10 border-r-[1px] text-left">
           <span>{params.dataItem.STT}</span>
         </Table.Cell>
 
-        {/* Các giá trị khác */}
         {Object.entries(params.dataItem.data).map(([key, value]) => {
           let keyId: any;
           let data;
+
           switch (params.dataItem.type) {
             case "course":
               data = params.dataItem as CourseDataItem;
@@ -315,13 +288,6 @@ const Row = React.memo(
           return (
             <Table.Cell
               key={`${keyId}_${key}_${value}`}
-              theme={{
-                base: `group-first/body:group-first/row:first:rounded-tl-lg
-              group-first/body:group-first/row:last:rounded-tr-lg
-              group-last/body:group-last/row:first:rounded-bl-lg
-              group-last/body:group-last/row:last:rounded-br-lg
-              px-4 py-4 text-center text-secondary-900`,
-              }}
               className={`border-r-[1px] px-2 py-4 normal-case whitespace-nowrap text-left ${
                 key === "Khoa quản lý" ? "text-center" : ""
               }`}
@@ -342,7 +308,6 @@ const Row = React.memo(
     );
   },
   (prevProps, nextProps) => {
-    // Kiểm tra nếu `dataItem` của Row không thay đổi thì không cần re-render
     return (
       prevProps.itemsSelected === nextProps.itemsSelected &&
       prevProps.dataItem === nextProps.dataItem &&

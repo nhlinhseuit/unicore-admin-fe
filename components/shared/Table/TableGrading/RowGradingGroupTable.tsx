@@ -3,14 +3,10 @@ import {
   GradingExerciseDataItem,
   GradingReportData,
   GradingReportDataItem,
-  StudentData,
-  TeacherData,
 } from "@/types";
 import { Table } from "flowbite-react";
 import React, { useRef, useState } from "react";
 import InputComponent from "../components/InputComponent";
-import MoreButtonComponent from "../components/MoreButtonComponent";
-import { SubjectData } from "@/types/entity/Subject";
 
 interface RowParams {
   dataItem: GradingExerciseDataItem | GradingReportDataItem;
