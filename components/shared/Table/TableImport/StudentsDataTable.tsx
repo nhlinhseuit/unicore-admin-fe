@@ -67,18 +67,7 @@ export default function StudentsDataTable() {
           type: "student",
           STT: item.STT,
           isDeleted: false,
-          data: {
-            MSSV: item["MSSV"],
-            "Tài khoản": item["MSSV"],
-            "Mật khẩu": "1",
-            "Họ và tên": item["Họ và tên SV"],
-            "Lớp sinh hoạt": item["Lớp sinh hoạt"],
-            Email: item["Email"],
-            SDT: item["Điện thoại"],
-            "Giới tính": item["Giới tính"],
-            "Địa chỉ": item["Địa chỉ"],
-            "Ngày sinh": item["Ngày sinh"],
-          },
+          data: requiredFields,
         };
       });
 
@@ -162,7 +151,7 @@ export default function StudentsDataTable() {
           </div>
 
           <a
-            href="/assets/KTLN - template import ds sinh viên.xlsx"
+            href="/assets/template_import_danh_sach_sinh_vien.xlsx"
             download
             className="text-blue-500 underline text-base italic"
           >
@@ -179,7 +168,7 @@ export default function StudentsDataTable() {
 
       {isLoading ? (
         <TableSkeleton />
-      ) : dataTable.length > 0 ? (
+      ) : dataTable.filter((item) => !item.isDeleted).length > 0 ? (
         <>
           <DataTable
             type={DataTableType.Student}

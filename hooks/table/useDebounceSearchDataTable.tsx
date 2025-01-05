@@ -1,8 +1,18 @@
 import { FilterType } from "@/constants";
 import { normalizeSearchItem } from "@/lib/utils";
 import {
+  CentralizedExamDataItem,
+  ThesisTopicGradeDataItem,
   CourseDataItem,
+  QAandProjectExamDataItem,
+  RegisterTopicDataItem,
   StudentDataItem,
+  SubjectDataItem,
+  TeacherDataItem,
+  TopicDataItem,
+  RegisterGroupDataItem,
+  InternReviewDataItem,
+  ThesisReviewTicketDataItem,
 } from "@/types";
 import { SubjectDataItem } from "@/types/entity/Subject";
 import { TeacherDataItem } from "@/types/entity/Teacher";
@@ -17,17 +27,61 @@ const useDebounceSearchDataTable = (
   handleChooseFilter: any,
   dataSource:
     | CourseDataItem[]
+    | RegisterGroupDataItem[]
     | SubjectDataItem[]
     | StudentDataItem[]
     | TeacherDataItem[]
     | OfficerDataItem[]
     | (CourseDataItem | SubjectDataItem | StudentDataItem | TeacherDataItem | OfficerDataItem)[],
+    | TopicDataItem[]
+    | RegisterTopicDataItem[]
+    | QAandProjectExamDataItem[]
+    | CentralizedExamDataItem[]
+    | ThesisTopicGradeDataItem[]
+    | InternReviewDataItem[]
+    | ThesisReviewTicketDataItem[]
+    | (
+        | CourseDataItem
+        | RegisterGroupDataItem
+        | SubjectDataItem
+        | StudentDataItem
+        | TeacherDataItem
+        | TopicDataItem
+        | RegisterTopicDataItem
+        | QAandProjectExamDataItem
+        | CentralizedExamDataItem
+        | ThesisTopicGradeDataItem
+        | InternReviewDataItem
+        | ThesisReviewTicketDataItem
+      )[],
   currentItems:
     | CourseDataItem[]
     | SubjectDataItem[]
     | StudentDataItem[]
     | TeacherDataItem[]
     | (CourseDataItem | SubjectDataItem | StudentDataItem | TeacherDataItem | OfficerDataItem)[]
+    | TopicDataItem[]
+    | RegisterTopicDataItem[]
+    | RegisterGroupDataItem[]
+    | QAandProjectExamDataItem[]
+    | CentralizedExamDataItem[]
+    | ThesisTopicGradeDataItem[]
+    | InternReviewDataItem[]
+    | ThesisReviewTicketDataItem[]
+    | (
+        | CourseDataItem
+        | SubjectDataItem
+        | StudentDataItem
+        | TeacherDataItem
+        | TopicDataItem
+        | RegisterTopicDataItem
+        | RegisterGroupDataItem
+        | QAandProjectExamDataItem
+        | CentralizedExamDataItem
+        | ThesisTopicGradeDataItem
+        | InternReviewDataItem
+        | ThesisReviewTicketDataItem
+      )[]
 ) => {
   useEffect(() => {
     if (debouncedSearchTerm.trim() === "") {

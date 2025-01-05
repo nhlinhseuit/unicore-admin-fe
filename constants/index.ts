@@ -20,6 +20,17 @@ export const ALLOWED_FILE_TYPES = [
 ];
 export const MAX_CATEGORIES = 5; // Số danh mục tối đa chọn khi đăng thông báo
 
+export const statusThesis = [
+  { id: 1, value: "Đạt" },
+  { id: 2, value: "Không đạt" },
+];
+export const ratingThesis = [
+  { id: 1, value: "Xuất sắc" },
+  { id: 2, value: "Giỏi" },
+  { id: 3, value: "Khá" },
+  { id: 4, value: "Trung bình" },
+  { id: 5, value: "kém" },
+];
 
 // TODO: NAVBAR TAB
 export const DepartmentAnnouncementsTabItems = [
@@ -38,7 +49,6 @@ export const DepartmentCoursesTabItems = [
     label: "Lớp học đã tham gia",
     route: "/courses/joined",
   },
-  { value: "createCourse", label: "Tạo lớp học", route: "/courses/create" },
 ];
 
 export const DepartmentSettingTabItems = [
@@ -48,9 +58,20 @@ export const DepartmentSettingTabItems = [
 export const DepartmentSubjectsTabItems = [
   { value: "listSubjects", label: "Danh sách môn học", route: "/subjects" },
 ];
+export const DepartmentTeachersTabItems = [
+  { value: "listTeachers", label: "Danh sách giảng viên", route: "/teachers" },
+];
+export const DepartmentStudentsTabItems = [
+  { value: "listStudents", label: "Danh sách sinh viên", route: "/students" },
+];
 
 export const DepartmentCourseTabItems = [
   { value: "generalPost", label: "Thông báo chung", route: "/" },
+  {
+    value: "events",
+    label: "Sự kiện",
+    route: "/events",
+  },
   {
     value: "scoreTranscript",
     label: "Bảng điểm",
@@ -90,9 +111,19 @@ export const BigExerciseTabItems = [
     route: "/approve-topic",
   },
   {
+    value: "scoreTranscript",
+    label: "Bảng điểm",
+    route: "/score-transcript",
+  },
+  {
     value: "files",
     label: "Lưu trữ",
     route: "/files",
+  },
+  {
+    value: "setting",
+    label: "Cài đặt",
+    route: "/setting",
   },
 ];
 
@@ -115,6 +146,7 @@ export enum DataTableType {
   Student = "Sinh viên",
   Teacher = "Giảng viên",
   Officer = "Giáo vụ",
+  Exam = "Lịch thi",
 }
 
 export enum FilterType {
@@ -124,19 +156,53 @@ export enum FilterType {
   None,
 }
 
-
 export enum CourseType {
-  RegularCourseWithProject = "regularCourseWithProject",
-  InternCourse = "internCourse",
-  ThesisCourse = "thesisCourse",
+  RegularCourseWithProject = "regular",
+  InternCourse = "intern",
+  ProjectCourse = "project",
+  ThesisCourse = "thesis",
 }
 
 export const ListCourseColors = [
   { type: CourseType.RegularCourseWithProject, color: "#e8f7ff" },
   { type: CourseType.InternCourse, color: "#fef5e5" },
+  { type: CourseType.ProjectCourse, color: "#ecf2ff" },
   { type: CourseType.ThesisCourse, color: "#ecf2ff" },
 ];
 
+export const DepartmentScoreReportTabItems = [
+  {
+    value: "thesisReviewTicket",
+    label: "Phiếu nhận xét Khóa luận tốt nghiệp",
+    route: "/score-report/thesis-review-ticket",
+  },
+  {
+    value: "scoreThesisReport",
+    label: "Nhập điểm hội đồng Khóa luận tốt nghiệp",
+    route: "/score-report/thesis-report",
+  },
+  {
+    value: "scoreInternReport",
+    label: "Nhập điểm hội đồng Thực tập doanh nghiệp",
+    route: "/score-report/intern-report",
+  },
+];
+
+export const ReviewThesisFilterType = [
+  { id: 0, value: "Đề tài chưa nhận xét" },
+  { id: 1, value: "Đề tài đã nhận xét" },
+];
+
+export const GradingThesisTopicFilterType = [
+  { id: 0, value: "Đã hoàn thành" },
+  { id: 1, value: "Chưa hoàn thành" },
+];
+
+export const AnnouncementsFilterType = [
+  { id: 0, value: "Thông báo đã đăng" },
+  { id: 1, value: "Thông báo đã ẩn" },
+  { id: 1, value: "Thông báo đã tạo" },
+];
 
 export enum DetailFilter {
   Semester,
@@ -180,13 +246,13 @@ export const TableDataMoreComponentItems = [
 export const FileTableDataMoreComponentItems = [
   { value: "rename", label: "Đổi tên" },
   { value: "download", label: "Tải xuống" },
-  { value: "delete", label: "Xóa" },
+];
+export const FileTableDataOnlyViewMoreComponentItems = [
+  { value: "download", label: "Tải xuống" },
 ];
 
 export const CourseItemMoreComponentItems = [
-  { value: "edit", label: "Chỉnh sửa" },
   { value: "hide", label: "Ẩn" },
-  { value: "archive", label: "Lưu trữ" },
 ];
 
 // TODO: SIDEBAR
@@ -221,17 +287,23 @@ export const sidebarDepartmentLinks: SidebarLink[] = [
     route: "/courses",
     label: "Lớp học",
   },
+  // {
+  //   id: "6",
+  //   imgURL: "/assets/icons/score-transcript.svg",
+  //   route: "/score-transcript",
+  //   label: "Bảng điểm",
+  // },
   {
-    id: "6",
-    imgURL: "/assets/icons/teachers.svg",
-    route: "/officer",
-    label: "Giáo vụ",
-  },
+      id: "6",
+      imgURL: "/assets/icons/teachers.svg",
+      route: "/officer",
+      label: "Giáo vụ",
+    },
   {
     id: "7",
-    imgURL: "/assets/icons/score-transcript.svg",
-    route: "/score-transcript",
-    label: "Bảng điểm",
+    imgURL: "/assets/icons/reward.svg",
+    route: "/score-report",
+    label: "Chấm điểm báo cáo",
   },
   {
     id: "8",

@@ -70,20 +70,7 @@ export default function TeachersDataTable() {
           type: "teacher",
           STT: item.STT,
           isDeleted: false,
-          data: {
-            "Mã cán bộ": item["Mã cán bộ"],
-            "Tài khoản": generateUsername(item["Họ và tên"] ?? ""),
-            "Mật khẩu": "1",
-            "Họ và tên": item["Họ và tên"],
-            "Học vị": item["Học vị"],
-            "Hướng nghiên cứu": item["Hướng nghiên cứu"],
-            "Quan tâm tìm hiểu": item["Quan tâm tìm hiểu"],
-            Email: item["Email"],
-            SDT: item["Điện thoại"],
-            "Giới tính": item["Giới tính"],
-            "Địa chỉ": item["Địa chỉ"],
-            "Ngày sinh": item["Ngày sinh"],
-          },
+          data: requiredFields,
         };
       });
 
@@ -167,7 +154,7 @@ export default function TeachersDataTable() {
           </div>
 
           <a
-            href="/assets/KTLN - template import ds giảng viên.xlsx"
+            href="/assets/template_import_danh_sach_giang_vien.xlsx"
             download
             className="text-blue-500 underline text-base italic"
           >
@@ -184,7 +171,7 @@ export default function TeachersDataTable() {
 
       {isLoading ? (
         <TableSkeleton />
-      ) : dataTable.length > 0 ? (
+      ) : dataTable.filter((item) => !item.isDeleted).length > 0 ? (
         <>
           <DataTable
             type={DataTableType.Teacher}

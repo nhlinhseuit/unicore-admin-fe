@@ -20,10 +20,72 @@ export const getPermissionLabel = (key: string): string => {
       return "Tạo thông báo";
     case Permission.CreateBigExercise:
       return "Tạo bài tập lớn";
+      case DepartmentPermission.ManageAcademicStaff:
+      return "Quản lý danh sách giáo vụ";
+    case DepartmentPermission.ManageLecturers:
+      return "Quản lý danh sách giảng viên";
+    case DepartmentPermission.ManageStudents:
+      return "Quản lý danh sách sinh viên";
+    case DepartmentPermission.ManageSubjects:
+      return "Quản lý danh sách môn học";
+    case DepartmentPermission.ManageClasses:
+      return "Quản lý danh sách lớp học";
+    case DepartmentPermission.ManageFacultyAnnouncements:
+      return "Quản lý thông báo khoa";
+    case DepartmentPermission.ManageAnnouncementCategories:
+      return "Quản lý danh mục thông báo khoa";
+    case DepartmentPermission.ManageClassStudents:
+      return "Nhập danh sách sinh viên lớp (TTDN)";
+    case DepartmentPermission.ManageExamSchedules:
+      return "Nhập lịch thi giữa kỳ, cuối kỳ";
+    case DepartmentPermission.ManageBigExercisesAnnouncements:
+      return "Quản lý thông báo bài tập lớn";
+    case DepartmentPermission.ManageProjectProposalSchedules:
+      return "Tạo / Chỉnh sửa lịch đăng đề tài";
+    case DepartmentPermission.ManageProjectProposals:
+      return "Quản lý danh sách đề tài";
+    case DepartmentPermission.ManageProjectGroups:
+      return "Quản lý danh sách nhóm đăng ký đề tài";
+    case DepartmentPermission.AssignSupervisors:
+      return "Chỉ định giảng viên hướng dẫn";
+    case DepartmentPermission.ManageReportSchedules:
+      return "Nhập lịch báo cáo & danh sách hội đồng";
+    case DepartmentPermission.SubmitFeedbackForms:
+      return "Điền phiếu nhận xét";
+    case DepartmentPermission.EnterFinalScores:
+      return "Nhập điểm hội đồng";
+    case DepartmentPermission.AdjustGradingFormula:
+      return "Chỉnh sửa công thức tính điểm";
+    case DepartmentPermission.AdjustRoundingRules:
+      return "Chỉnh sửa quy tắc làm tròn số";
     default:
       return "Quyền không xác định";
   }
 };
+
+export enum DepartmentPermission {
+  ManageAcademicStaff = "manageAcademicStaff",
+  ManageLecturers = "manageLecturers",
+  ManageStudents = "manageStudents",
+  ManageSubjects = "manageSubjects",
+  ManageClasses = "manageClasses",
+  ManageFacultyAnnouncements = "manageFacultyAnnouncements",
+  ManageAnnouncementCategories = "manageAnnouncementCategories",
+  ManageClassStudents = "manageClassStudents",
+  ManageExamSchedules = "manageExamSchedules",
+  ManageBigExercisesAnnouncements = "manageBigExercisesAnnouncements",
+  ManageProjectProposalSchedules = "manageProjectProposalSchedules",
+  ManageProjectProposals = "manageProjectProposals",
+  ManageProjectGroups = "manageProjectGroups",
+  AssignSupervisors = "assignSupervisors",
+  ManageReportSchedules = "manageReportSchedules",
+  SubmitFeedbackForms = "submitFeedbackForms",
+  EnterFinalScores = "enterFinalScores",
+  AdjustGradingFormula = "adjustGradingFormula",
+  AdjustRoundingRules = "adjustRoundingRules",
+}
+
+
 
 //
 

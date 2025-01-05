@@ -1,18 +1,25 @@
-import { Dropdown, Table } from "flowbite-react";
-import React, { useEffect, useRef } from "react";
-import InputComponent from "./InputComponent";
-import { useState } from "react";
-import MoreButtonComponent from "./MoreButtonComponent";
 import {
   StudentDataItem,
   StudentData,
+  CentralizedExamDataItem,
+  CourseData,
+  CourseDataItem,
+  QAandProjectExamDataItem,
+  StudentData,
+  StudentDataItem,
+  SubjectData,
+  SubjectDataItem,
+  TeacherData,
+  TeacherDataItem,
 } from "@/types";
-import IconButton from "../../Button/IconButton";
+import { Dropdown, Table } from "flowbite-react";
 import Image from "next/image";
 import { SubjectData, SubjectDataItem } from "@/types/entity/Subject";
 import { TeacherData, TeacherDataItem } from "@/types/entity/Teacher";
 import { OfficerData, OfficerDataItem } from "@/types/entity/Officer";
 import { CourseData, CourseDataItem } from "@/types/entity/Course";
+import React, { useRef, useState } from "react";
+import InputComponent from "./InputComponent";
 
 interface RowParams {
   dataItem:
@@ -20,13 +27,15 @@ interface RowParams {
     | SubjectDataItem
     | StudentDataItem
     | OfficerDataItem
+    | CentralizedExamDataItem
+    | QAandProjectExamDataItem
     | TeacherDataItem;
+  itemsSelected: string[];
+  valueUniqueInput: string;
+  isSimpleTable?: boolean;
   isEditTable?: boolean;
   isMultipleDelete?: boolean;
   isHasSubCourses?: boolean;
-  onClickGetOut?: () => void;
-  saveSingleRow?: (item: any) => void;
-  deleteSingleRow?: (itemsSelected: string[]) => void;
   onClickCheckBoxSelect?: (item: string) => void;
   onChangeRow?: (item: any) => void;
 }
@@ -45,26 +54,12 @@ interface handleInputChangeParams {
 
 const Row = React.memo(
   (params: RowParams) => {
-    const [isEdit, setIsEdit] = useState(false);
-    const [editDataItem, setEditDataItem] = useState(params.dataItem);
     const [isChecked, setIsChecked] = useState(
       //@ts-ignore
       params.dataItem.data["Khoa quản lý"] as boolean
     );
 
-    const refInput = useRef({});
-
-    useEffect(() => {
-      if (params.isEditTable) setIsEdit(false);
-    }, [[params.isEditTable]]);
-
-    const handleEdit = () => {
-      if (isEdit === false) {
-        setIsEdit(true);
-      } else {
-        setIsEdit(false);
-      }
-    };
+    const refInput = useRef(params.dataItem);
 
     const handleInputChange = ({
       key,
@@ -82,11 +77,15 @@ const Row = React.memo(
         | OfficerDataItem
          = {
         ...editDataItem,
+        | CentralizedExamDataItem
+        | QAandProjectExamDataItem
+        | TeacherDataItem = {
+        ...refInput.current,
         data: {
-          ...editDataItem.data,
+          ...refInput.current.data,
           [key]: isMultipleInput
             ? //@ts-ignore
-              (editDataItem.data[key] as string)
+              (refInput.current.data[key] as string)
                 .split(/\r\n|\n/)
                 .map((line, index) =>
                   index === currentIndex ? newValue : line
@@ -96,41 +95,15 @@ const Row = React.memo(
         },
       };
 
-      // TODO: inputref for save single row
-      if (isEdit) {
-        refInput.current = updatedDataItem;
-        return;
-      }
-
-      // ở dưới chỉ change local data, nên kh re-render lại row, nên phải tự re-render cho Row
-      setEditDataItem(updatedDataItem); // ??
+      refInput.current = updatedDataItem;
 
       params.onChangeRow && params.onChangeRow(updatedDataItem); // Gọi callback để truyền dữ liệu đã chỉnh sửa lên DataTable
     };
-
-    var valueUniqueInput = "";
-    switch (params.dataItem.type) {
-      case "course":
-        valueUniqueInput = (params.dataItem as CourseDataItem).data["Mã lớp"];
-        break;
-      case "subject":
-        valueUniqueInput = (params.dataItem as SubjectDataItem).data["Mã MH"];
-        break;
-      case "student":
-        valueUniqueInput = (params.dataItem as StudentDataItem).data["MSSV"];
-        break;
-      case "teacher":
-        valueUniqueInput = (params.dataItem as TeacherDataItem).data[
-          "Mã cán bộ"
-        ];
-        break;
-    }
 
     const renderTableCell = ({
       key,
       value,
       keyId,
-      isEdit,
       isChecked,
       setIsChecked,
       handleInputChange,
@@ -139,15 +112,15 @@ const Row = React.memo(
       key: string;
       value: string | number;
       keyId: string;
-      isEdit: boolean;
       isChecked: boolean;
       setIsChecked: (checked: boolean) => void;
       handleInputChange: Function;
       isHasSubCourses: boolean | undefined;
     }) => {
+
       switch (key) {
         case "Mã lớp":
-          return isEdit || params.isEditTable ? (
+          return params.isEditTable ? (
             <InputComponent
               key={`${keyId}_input_${key}_${value}`}
               value={value as string | number}
@@ -196,7 +169,7 @@ const Row = React.memo(
           );
 
         case "Khoa quản lý":
-          return isEdit || params.isEditTable ? (
+          return params.isEditTable ? (
             <input
               type="checkbox"
               checked={isChecked}
@@ -220,7 +193,7 @@ const Row = React.memo(
           );
 
         default:
-          return isEdit || params.isEditTable ? (
+          return params.isEditTable ? (
             typeof value === "string" ? (
               <div className="flex flex-col gap-1">
                 {value
@@ -265,60 +238,47 @@ const Row = React.memo(
       }
     };
 
+    console.log("Row");
+
     return (
       <Table.Row
         key={params.dataItem.STT}
         onClick={() => {}}
         className={`bg-background-secondary  text-left ${
-          isEdit || params.isEditTable
+          params.isEditTable || params.isEditTable
             ? "hover:bg-white cursor-default"
             : "hover:bg-light-800 cursor-default"
         } duration-100`}
       >
         {/* checkbox */}
-        <Table.Cell className="w-10 border-r-[1px] z-100 ">
-          <div
-            onClick={(e) => {
-              e.stopPropagation(); // Ngăn sự kiện lan truyền đến Table.Row
-            }}
-          >
-            {params.isMultipleDelete ? (
+        {params.isSimpleTable ? null : (
+          <Table.Cell className="w-10 border-r-[1px] z-100 ">
+            <div
+              onClick={(e) => {
+                e.stopPropagation(); // Ngăn sự kiện lan truyền đến Table.Row
+              }}
+            >
               <div className="flex items-center justify-center w-10 h-10">
                 <input
                   id="apple"
                   type="checkbox"
                   name="filterOptions"
-                  value={valueUniqueInput}
+                  value={params.valueUniqueInput}
+                  checked={params.itemsSelected.includes(
+                    params.valueUniqueInput
+                  )}
                   onChange={() => {
                     {
                       params.onClickCheckBoxSelect &&
-                        params.onClickCheckBoxSelect(valueUniqueInput);
+                        params.onClickCheckBoxSelect(params.valueUniqueInput);
                     }
                   }}
                   className="w-4 h-4 bg-gray-100 border-gray-300 rounded cursor-pointer text-primary-600"
                 />
               </div>
-            ) : isEdit ? (
-              <IconButton
-                text="Lưu"
-                onClick={() => {
-                  params.saveSingleRow &&
-                    params.saveSingleRow(refInput.current);
-                  setIsEdit(false);
-                }}
-              />
-            ) : (
-              <MoreButtonComponent
-                handleEdit={handleEdit}
-                onClickGetOut={params.onClickGetOut}
-                onClickDelete={() => {
-                  params.deleteSingleRow &&
-                    params.deleteSingleRow([valueUniqueInput]);
-                }}
-              />
-            )}
-          </div>
-        </Table.Cell>
+            </div>
+          </Table.Cell>
+        )}
 
         {/* STT */}
         <Table.Cell className="w-10 border-r-[1px]  text-left">
@@ -345,7 +305,7 @@ const Row = React.memo(
               keyId = data.data["MSSV"];
 
               break;
-            case "student":
+            case "teacher":
               data = params.dataItem as TeacherDataItem;
               keyId = data.data["Mã cán bộ"];
 
@@ -370,7 +330,6 @@ const Row = React.memo(
                 key,
                 value,
                 keyId,
-                isEdit,
                 isChecked,
                 setIsChecked,
                 handleInputChange,
@@ -385,6 +344,7 @@ const Row = React.memo(
   (prevProps, nextProps) => {
     // Kiểm tra nếu `dataItem` của Row không thay đổi thì không cần re-render
     return (
+      prevProps.itemsSelected === nextProps.itemsSelected &&
       prevProps.dataItem === nextProps.dataItem &&
       prevProps.isEditTable === nextProps.isEditTable &&
       prevProps.isMultipleDelete === nextProps.isMultipleDelete

@@ -39,7 +39,7 @@ const NoResult = (params: Props) => {
             ref={fileInputRef}
             type="file"
             accept=".xlsx, .xls"
-            onChange={params.handleFileUpload}
+            onChange={params.handleFileUpload && params.handleFileUpload}
             style={{ display: "none" }}
           />
 

@@ -15,6 +15,14 @@ import { useRouter, usePathname } from "next/navigation";
 import React from "react";
 import { Editor } from "@tinymce/tinymce-react";
 import { Input } from "@/components/ui/input";
+import { Calendar } from "@/components/ui/calendar";
+
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
+import { Button } from "@/components/ui/button";
 import { Dropdown } from "flowbite-react";
 import IconButton from "@/components/shared/Button/IconButton";
 import PickFileImageButton from "@/components/shared/Annoucements/PickFileImageButton";
@@ -33,6 +41,11 @@ import {
   MAX_FILE_VALUE,
 } from "@/constants";
 import { useToast } from "@/hooks/use-toast";
+import BorderContainer from "@/components/shared/BorderContainer";
+import RadioboxComponent from "@/components/shared/RadioboxComponent";
+import { CalendarIcon } from "lucide-react";
+import { format } from "date-fns";
+import { vi } from "date-fns/locale";
 
 // ! CẬP NHẬT
 const type: any = "create";
@@ -64,10 +77,15 @@ const CreateAnnouncement = () => {
   const router = useRouter();
   const pathName = usePathname();
 
+  const [date, setDate] = useState<Date>();
+  
+
   const [previewImage, setPreviewImage] = useState("");
   const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
   const [checkedCategory, setCheckedCategory] = useState<number[]>([]);
   const [selectedTarget, setSelectedTarget] = useState(1);
+  const [selectedScheduleOption, setSelectedScheduleOption] = useState(1);
+
 
   const toggleCategory = (id: number) => {
     setCheckedCategory(
@@ -76,7 +94,7 @@ const CreateAnnouncement = () => {
           ? prevChecked.filter((catId) => catId !== id) // Bỏ nếu đã có
           : [...prevChecked, id] // Thêm nếu chưa có
     );
-  };
+};
 
   const handleChooseImage = (event: React.ChangeEvent<HTMLInputElement>) => {
     const image = event.target.files?.[0];
@@ -171,6 +189,8 @@ const CreateAnnouncement = () => {
       file: z.any(),
       category: z.any(),
       target: z.number().optional(),
+      date: z.date().optional(),
+      
     })
     .refine(
       (data) => {
@@ -398,6 +418,86 @@ const CreateAnnouncement = () => {
             {/* //TODO: SECTION 2 */}
 
             <div className="flex w-[30%] flex-col gap-10">
+              {/* TẠO LỊCH ĐĂNG THÔNG BÁO */}
+              <div>
+                <label className="peer-disabled:cursor-not-allowed peer-disabled:opacity-70 dark:text-red-900 text-dark400_light800 text-[14px] font-semibold leading-[20.8px]">
+                  Thời điểm đăng thông báo{" "}
+                  <span className="text-red-600">*</span>
+                </label>
+
+                <BorderContainer otherClasses="mt-3.5 p-6 flex flex-col gap-10">
+                  <RadioboxComponent
+                    id={1}
+                    handleClick={() => {
+                      setSelectedScheduleOption(1);
+                    }}
+                    value={selectedScheduleOption}
+                    text="Đăng thông báo ngay bây giờ"
+                  />
+                  <RadioboxComponent
+                    id={2}
+                    handleClick={() => {
+                      setSelectedScheduleOption(2);
+                    }}
+                    value={selectedScheduleOption}
+                    text="Tạo lịch đăng thông báo"
+                  />
+                  {/* DATE */}
+                  {selectedScheduleOption === 2 ? (
+                    <FormField
+                      control={form.control}
+                      name="date"
+                      render={({ field }) => (
+                        <FormItem className="flex w-full flex-col">
+                          <FormLabel className="text-dark400_light800 text-[14px] font-semibold leading-[20.8px]">
+                            Chọn ngày
+                          </FormLabel>
+                          <FormControl className="mt-3.5">
+                            <Popover>
+                              <PopoverTrigger asChild>
+                                <Button
+                                  variant={"outline"}
+                                  className={` flex items-center text-center font-normal ${
+                                    !date && "text-muted-foreground"
+                                  } hover:bg-transparent active:bg-transparent rounded-lg shadow-none`}
+                                >
+                                  <span
+                                    className={`flex-grow text-center ${
+                                      !date && "text-muted-foreground"
+                                    }`}
+                                  >
+                                    {date
+                                      ? format(date, "dd/MM/yyyy")
+                                      : "Chọn ngày"}
+                                  </span>
+                                  <CalendarIcon className="ml-2 h-4 w-4" />
+                                </Button>
+                              </PopoverTrigger>
+                              <PopoverContent className="w-auto p-0">
+                                <Calendar
+                                  mode="single"
+                                  selected={date}
+                                  onSelect={setDate}
+                                  initialFocus
+                                  locale={vi}
+                                />
+                              </PopoverContent>
+                            </Popover>
+                          </FormControl>
+                          <FormDescription className="body-regular mt-2.5 text-light-500">
+                            Thông báo sẽ được lên lịch để đăng vào ngày này mà
+                            bạn chọn.
+                          </FormDescription>
+                          <FormMessage className="text-red-500" />
+                        </FormItem>
+                      )}
+                    />
+                  ) : (
+                    <></>
+                  )}
+                </BorderContainer>
+              </div>
+
               {/* CATEGORY */}
               <FormField
                 control={form.control}
@@ -561,7 +661,6 @@ const CreateAnnouncement = () => {
 
           <div className="flex mt-12 gap-2">
             <SubmitButton text="Đăng" otherClasses="w-fit" />
-            <IconButton text="Tạm lưu" temp otherClasses="w-fit" />
             <IconButton text="Hủy" red otherClasses="w-fit" />
           </div>
         </form>

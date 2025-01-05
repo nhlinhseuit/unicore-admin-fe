@@ -8,70 +8,70 @@ import { usePathname } from "next/navigation";
 import { useState } from "react";
 
 const BigExercises = () => {
-  const pathName = usePathname();
+const pathName = usePathname();
 
-  const [isToggleShowCentralizedExam, setIsToggleShowCentralizedExam] =
-    useState(true);
-  const [isToggleShowFinalExam, setIsToggleShowFinalExam] = useState(false);
-  const [isToggleShowBigExercise, setIsToggleShowBigExercise] = useState(true);
+const [isToggleShowCentralizedExam, setIsToggleShowCentralizedExam] =
+  useState(true);
+const [isToggleShowFinalExam, setIsToggleShowFinalExam] = useState(false);
+const [isToggleShowBigExercise, setIsToggleShowBigExercise] = useState(true);
 
-  return (
-    <>
-          <div className="flex flex-col gap-4">
-            <ToggleTitle
-              text="Thi tập trung"
-              handleClick={() => {
-                isToggleShowCentralizedExam;
+return (
+  <>
+        <div className="flex flex-col gap-4">
+          <ToggleTitle
+            text="Thi tập trung"
+            handleClick={() => {
+              isToggleShowCentralizedExam;
 
-                setIsToggleShowCentralizedExam(!isToggleShowCentralizedExam);
-              }}
-              value={isToggleShowCentralizedExam}
-            />
-            {isToggleShowCentralizedExam
-              ? mockCentralizedExam.map((item) => (
-                  <Link
-                    key={item.id}
-                    href={`${pathName}/big-exercises/${item.id}`}
-                  >
-                    <BigExerciseItem
-                      id={item.id}
-                      name={item.name}
-                      creator={item.creator}
-                      createdAt={item.createdAt}
-                      happeningEvent={item.happeningEvent}
-                      deadline={item.deadline}
-                    />
-                  </Link>
-                ))
-              : null}
+              setIsToggleShowCentralizedExam(!isToggleShowCentralizedExam);
+            }}
+            value={isToggleShowCentralizedExam}
+          />
+          {isToggleShowCentralizedExam
+            ? mockCentralizedExam.map((item) => (
+                <Link
+                  key={item.id}
+                  href={`${pathName}/big-exercises/${item.id}`}
+                >
+                  <BigExerciseItem
+                    id={item.id}
+                    name={item.name}
+                    creator={item.creator}
+                    createdAt={item.createdAt}
+                    happeningEvent={item.happeningEvent}
+                    deadline={item.deadline}
+                  />
+                </Link>
+              ))
+            : null}
 
-            <ToggleTitle
-              text="Bài tập lớn"
-              handleClick={() => {
-                setIsToggleShowBigExercise(!isToggleShowBigExercise);
-              }}
-              value={isToggleShowBigExercise}
-            />
-            {isToggleShowBigExercise
-              ? mockBigExercisesList.map((item) => (
-                  <Link
-                    key={item.id}
-                    href={`${pathName}/big-exercises/${item.id}`}
-                  >
-                    <BigExerciseItem
-                      id={item.id}
-                      name={item.name}
-                      creator={item.creator}
-                      createdAt={item.createdAt}
-                      happeningEvent={item.happeningEvent}
-                      deadline={item.deadline}
-                    />
-                  </Link>
-                ))
-              : null}
-          </div>
-        </>
-  );
+          <ToggleTitle
+            text="Bài tập lớn"
+            handleClick={() => {
+              setIsToggleShowBigExercise(!isToggleShowBigExercise);
+            }}
+            value={isToggleShowBigExercise}
+          />
+          {isToggleShowBigExercise
+            ? mockBigExercisesList.map((item) => (
+                <Link
+                  key={item.id}
+                  href={`${pathName}/big-exercises/${item.id}`}
+                >
+                  <BigExerciseItem
+                    id={item.id}
+                    name={item.name}
+                    creator={item.creator}
+                    createdAt={item.createdAt}
+                    happeningEvent={item.happeningEvent}
+                    deadline={item.deadline}
+                  />
+                </Link>
+              ))
+            : null}
+        </div>
+      </>
+);
 };
 
 export default BigExercises;

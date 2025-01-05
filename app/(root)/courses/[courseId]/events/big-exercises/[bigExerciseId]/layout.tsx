@@ -97,7 +97,6 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         left-0
         space-x-2"
       >
-        {/* //! HERE */}
         <div className="mt-2">
           <BackToPrev
             text={"Seminar Giữa kỳ"}

@@ -4,6 +4,9 @@ import { DataTableType } from "@/constants";
 import { useToast } from "@/hooks/use-toast";
 import { handleCreateSubjectAction } from "@/services/subjectServices";
 import { SubjectDataItem } from "@/types/entity/Subject";
+import { DataTableType } from "@/constants";
+import { useToast } from "@/hooks/use-toast";
+import { SubjectDataItem } from "@/types";
 import { useRef, useState } from "react";
 import * as XLSX from "xlsx";
 import IconButton from "../../Button/IconButton";
@@ -158,7 +161,7 @@ export default function SubjectsDataTable() {
           </div>
 
           <a
-            href="/assets/KLTN - template import môn.xlsx"
+            href="/assets/template_import_danh_sach_mon_hoc.xlsx"
             download
             className="text-blue-500 underline text-base italic"
           >
@@ -175,7 +178,7 @@ export default function SubjectsDataTable() {
 
       {isLoading ? (
         <TableSkeleton />
-      ) : dataTable.length > 0 ? (
+      ) : dataTable.filter((item) => !item.isDeleted).length > 0 ? (
         <>
           <DataTable
             type={DataTableType.Subject}
