@@ -3,10 +3,29 @@
 import BackToPrev from "@/components/shared/BackToPrev";
 import IconButton from "@/components/shared/Button/IconButton";
 import SubjectsDataTable from "@/components/shared/Table/TableImport/SubjectsDataTable";
-import React, { useState } from "react";
+import { fetchSubjects } from "@/services/subjectServices";
+import { ISubject } from "@/types/entity/Subject";
+import React, { useEffect, useState } from "react";
 
 const Subjects = () => {
   const [isImport, setIsImport] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+  
+const [subjects, setSubjects] = useState<ISubject[]>([]);
+
+    useEffect(() => {
+      fetchSubjects()
+      .then((data: any) => {
+        console.log("data", data);
+        setSubjects(data);
+        setIsLoading(false);
+      })
+      .catch((error) => {
+        setError(error.message);
+        setIsLoading(false);
+      });
+    }, [])
 
   return (
     <>

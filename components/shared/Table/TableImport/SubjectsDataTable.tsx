@@ -43,6 +43,7 @@ export default function SubjectsDataTable() {
 
       const transformedData = parsedData.map((item: any, index: number) => {
         // Kiểm tra các trường quan trọng (required fields)
+
         const requiredFields = {
           "Mã MH": item["Mã MH"],
           "Hình thức thi LT GIỮA KỲ": item["Hình thức thi\r\nLT GIỮA KỲ"],
@@ -95,6 +96,19 @@ export default function SubjectsDataTable() {
 
   const { toast } = useToast();
 
+  const createSubjectsAPI = async () => {
+    const APIdataTable = convertToAPIDataTable({
+      data: dataTable,
+      organizationId: "1",
+    });
+
+    const res = await handleCreateSubjectAction(APIdataTable);
+
+    console.log(APIdataTable);
+
+    console.log("res", res);
+  }
+
   return (
     <div>
       {errorMessages.length > 0 && (
@@ -137,18 +151,7 @@ export default function SubjectsDataTable() {
             {dataTable.length > 0 && (
               <IconButton
                 text="Lưu"
-                onClick={async () => {
-                  const APIdataTable = convertToAPIDataTable({
-                    data: dataTable,
-                    organizationId: "1",
-                  });
-
-                  const res = await handleCreateSubjectAction(APIdataTable);
-
-                  console.log(APIdataTable);
-
-                  console.log("res", res);
-                }}
+                onClick={createSubjectsAPI}
                 otherClasses="ml-2"
               />
             )}

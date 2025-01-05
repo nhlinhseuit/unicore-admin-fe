@@ -47,7 +47,6 @@ export const DepartmentSettingTabItems = [
 
 export const DepartmentSubjectsTabItems = [
   { value: "listSubjects", label: "Danh sách môn học", route: "/subjects" },
-  { value: "subjectTypes", label: "Loại môn học", route: "/subjects/types" },
 ];
 
 export const DepartmentCourseTabItems = [

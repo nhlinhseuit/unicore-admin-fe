@@ -4,28 +4,11 @@ import { IBackendRes } from "@/types/commonType";
 import { sendRequest } from '@/utils/api';
 import { revalidateTag } from 'next/cache';
 
-export const fetchSubjects = async (
-  url: string,
-  current: number,
-  pageSize: number,
-  groupId: number,
-  searchName?: string,
-  searchPhone?: string,
-) => {
-  const queryParams: { [key: string]: any } = {
-    current,
-    pageSize,
-    groupId,
-  };
-
-  if (searchName) queryParams.name = searchName;
-  if (searchPhone) queryParams.phone = searchPhone;
-
+export const fetchSubjects = async () => {
   try {
     const res = await sendRequest<IBackendRes<any>>({
-      url,
+      url: `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/organization/subjects`,
       method: 'GET',
-      queryParams,
       nextOption: {
         next: { tags: ['list-subjects'] },
       },
