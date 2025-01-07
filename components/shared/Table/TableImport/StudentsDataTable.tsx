@@ -1,24 +1,35 @@
 "use client";
 
-import { useRef, useState } from "react";
-import * as XLSX from "xlsx";
-import { StudentDataItem } from "@/types";
-import DataTable from "../components/DataTable";
-import ErrorComponent from "../../Status/ErrorComponent";
-import TableSkeleton from "../components/TableSkeleton";
-import NoResult from "../../Status/NoResult";
-import { useToast } from "@/hooks/use-toast";
-import IconButton from "../../Button/IconButton";
 import { DataTableType } from "@/constants";
+import { useToast } from "@/hooks/use-toast";
 import { convertToAPIDataTableStudent } from "@/lib/convertToDataTableStudent";
 import { handleCreateStudentAction } from "@/services/studentServices";
+import { StudentDataItem } from "@/types";
+import { useEffect, useRef, useState } from "react";
+import * as XLSX from "xlsx";
+import IconButton from "../../Button/IconButton";
+import ErrorComponent from "../../Status/ErrorComponent";
+import NoResult from "../../Status/NoResult";
+import DataTable from "../components/DataTable";
+import TableSkeleton from "../components/TableSkeleton";
 
-export default function StudentsDataTable() {
+interface Props {
+  isFetchTable?: boolean;
+  fetchDataTable?: StudentDataItem[];
+}
+
+export default function StudentsDataTable(params: Props) {
   const [isEditTable, setIsEditTable] = useState(false);
   const [isMultipleDelete, setIsMultipleDelete] = useState(false);
   const [dataTable, setDataTable] = useState<StudentDataItem[]>([]);
   const [errorMessages, setErrorMessages] = useState<string[]>([]);
   const [isLoading, setIsLoading] = useState(false);
+
+  useEffect(() => {
+    if (params.fetchDataTable) {
+      setDataTable(params.fetchDataTable);
+    }
+  }, [params.fetchDataTable]);
 
   // XỬ LÝ UPLOAD FILE DS SINH VIÊN
   const handleStudentFileUpload = (e: any) => {
@@ -102,6 +113,8 @@ export default function StudentsDataTable() {
     console.log("res:::::", res);
   };
 
+  console.log("students table", params.isFetchTable);
+
   return (
     <div>
       {errorMessages.length > 0 && (
@@ -121,56 +134,59 @@ export default function StudentsDataTable() {
       )}
 
       {/* DESCRIPTION */}
-      <div className="flex justify-between">
-        <div>
-          <div className="flex mb-2">
-            <div>
-              <input
-                ref={fileInputRef}
-                type="file"
-                accept=".xlsx, .xls"
-                onChange={handleStudentFileUpload}
-                style={{ display: "none" }}
-              />
+      {params.isFetchTable ? null : (
+        <div className="flex justify-between">
+          <div>
+            <div className="flex mb-2">
+              <div>
+                <input
+                  ref={fileInputRef}
+                  type="file"
+                  accept=".xlsx, .xls"
+                  onChange={handleStudentFileUpload}
+                  style={{ display: "none" }}
+                />
 
-              <IconButton
-                text="Import danh sách sinh viên"
-                onClick={handleButtonClick}
-                iconLeft={"/assets/icons/upload-white.svg"}
-                iconWidth={16}
-                iconHeight={16}
-              />
+                <IconButton
+                  text="Import danh sách sinh viên mới"
+                  onClick={handleButtonClick}
+                  iconLeft={"/assets/icons/upload-white.svg"}
+                  iconWidth={16}
+                  iconHeight={16}
+                />
+              </div>
+              {dataTable.length > 0 && (
+                <IconButton
+                  text="Lưu"
+                  onClick={createStudentsAPI}
+                  otherClasses="ml-2"
+                />
+              )}
             </div>
-            {dataTable.length > 0 && (
-              <IconButton
-                text="Lưu"
-                onClick={createStudentsAPI}
-                otherClasses="ml-2"
-              />
-            )}
+
+            <a
+              href="/assets/template_import_danh_sach_sinh_vien.xlsx"
+              download
+              className="text-blue-500 underline text-base italic"
+            >
+              Tải xuống template file import sinh viên
+            </a>
           </div>
 
-          <a
-            href="/assets/template_import_danh_sach_sinh_vien.xlsx"
-            download
-            className="text-blue-500 underline text-base italic"
-          >
-            Tải xuống template file import sinh viên
-          </a>
+          <div className="flex justify-end gap-4 mb-3 items-center">
+            <p className="italic text-sm">
+              * Để scroll ngang, nhấn nút Shift và cuộn chuột
+            </p>
+          </div>
         </div>
-
-        <div className="flex justify-end gap-4 mb-3 items-center">
-          <p className="italic text-sm">
-            * Để scroll ngang, nhấn nút Shift và cuộn chuột
-          </p>
-        </div>
-      </div>
+      )}
 
       {isLoading ? (
         <TableSkeleton />
       ) : dataTable.filter((item) => !item.isDeleted).length > 0 ? (
         <>
           <DataTable
+            isFetchTable={params.isFetchTable}
             type={DataTableType.Student}
             dataTable={dataTable}
             isEditTable={isEditTable}
@@ -234,8 +250,8 @@ export default function StudentsDataTable() {
         <NoResult
           title="Không có dữ liệu!"
           description="🚀 Import file danh sách để thấy được dữ liệu."
-          linkTitle="Import danh sách sinh viên"
-          handleFileUpload={handleStudentFileUpload}
+          // linkTitle="Import danh sách sinh viên"
+          // handleFileUpload={handleStudentFileUpload}
         />
       )}
     </div>

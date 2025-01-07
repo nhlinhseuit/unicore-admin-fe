@@ -150,8 +150,8 @@ const ImportListTopic = (params: Props) => {
         <NoResult
           title="Không có dữ liệu!"
           description="🚀 Import file danh sách để thấy được dữ liệu."
-          linkTitle="Import danh sách đề tài"
-          handleFileUpload={handleTopicsFileUpload}
+          // linkTitle="Import danh sách đề tài"
+          // handleFileUpload={handleTopicsFileUpload}
         />
       )}
     </>

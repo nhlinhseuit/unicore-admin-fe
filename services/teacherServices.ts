@@ -27,15 +27,23 @@ export const fetchTeachers = async () => {
 };
 
 export const handleCreateTeachersAction = async (data: any) => {
+
+  console.log('handleCreateTeachersAction')
+
+  console.log('data', data)
+  
   // const session = await auth();
   const res = await sendRequest<IBackendRes<any>>({
     url: `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/profile/teachers/bulk`,
     method: "POST",
     // headers: {
-    //   Authorization: `Bearer ${session?.user?.access_token}`,
-    // },
-    body: { ...data },
-  });
+      //   Authorization: `Bearer ${session?.user?.access_token}`,
+      // },
+      body: { ...data },
+    });
+
+    console.log('res', res)
+
   revalidateTag("list-teachers");
 
   return res;

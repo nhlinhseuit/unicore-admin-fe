@@ -10,23 +10,37 @@ export interface OfficerData {
   "Tài khoản": string;
   "Mật khẩu": string;
   "Họ và tên": string;
+  "Vị trí": string;
   Email: string;
   SDT: string;
   "Giới tính": string;
   "Địa chỉ": string;
   "Ngày sinh": string;
-  "Vị trí": string;
 }
 
-export interface IOfficer {
+export interface IOfficerParams {
   organization_id: string;
-  teachers: IOfficerData[];
+  officers: IOfficerDataParams[];
 }
 
-interface IOfficerData {
+interface IOfficerDataParams {
   code: string;
   name: string;
   email: string;
+  phone: string;
+  address: string;
+  dob: string;
+  gender: boolean;
+  position: string;
+}
+
+export interface IOfficerResponse {
+  id: string;
+  code: string;
+  name: string;
+  email: string;
+  phone?: string;
+  address: string;
   dob: string;
   gender: boolean;
   position: string;

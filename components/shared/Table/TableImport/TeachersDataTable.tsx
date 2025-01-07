@@ -1,25 +1,35 @@
 "use client";
 
-import { useRef, useState } from "react";
-import * as XLSX from "xlsx";
-import DataTable from "../components/DataTable";
-import ErrorComponent from "../../Status/ErrorComponent";
-import TableSkeleton from "../components/TableSkeleton";
-import NoResult from "../../Status/NoResult";
-import { useToast } from "@/hooks/use-toast";
-import IconButton from "../../Button/IconButton";
 import { DataTableType } from "@/constants";
-import { generateUsername, normalizeSearchItem } from "@/lib/utils";
-import { TeacherDataItem } from "@/types/entity/Teacher";
+import { useToast } from "@/hooks/use-toast";
 import { convertToAPIDataTableTeachers } from "@/lib/convertToDataTableTeachers";
 import { handleCreateTeachersAction } from "@/services/teacherServices";
+import { TeacherDataItem } from "@/types/entity/Teacher";
+import { useEffect, useRef, useState } from "react";
+import * as XLSX from "xlsx";
+import IconButton from "../../Button/IconButton";
+import ErrorComponent from "../../Status/ErrorComponent";
+import NoResult from "../../Status/NoResult";
+import DataTable from "../components/DataTable";
+import TableSkeleton from "../components/TableSkeleton";
 
-export default function TeachersDataTable() {
+interface Props {
+  isFetchTable?: boolean;
+  fetchDataTable?: TeacherDataItem[];
+}
+
+export default function TeachersDataTable(params: Props) {
   const [isEditTable, setIsEditTable] = useState(false);
   const [isMultipleDelete, setIsMultipleDelete] = useState(false);
   const [dataTable, setDataTable] = useState<TeacherDataItem[]>([]);
   const [errorMessages, setErrorMessages] = useState<string[]>([]);
   const [isLoading, setIsLoading] = useState(false);
+
+  useEffect(() => {
+    if (params.fetchDataTable) {
+      setDataTable(params.fetchDataTable);
+    }
+  }, [params.fetchDataTable]);
 
   // XỬ LÝ UPLOAD FILE DS GIẢNG VIÊN
   const handleTeacherFileUpload = (e: any) => {
@@ -90,9 +100,9 @@ export default function TeachersDataTable() {
       organizationId: "1",
     });
 
-    const res = await handleCreateTeachersAction(APIdataTable);
-
     console.log(APIdataTable);
+
+    const res = await handleCreateTeachersAction(APIdataTable);
 
     console.log("res", res);
   };
@@ -124,56 +134,59 @@ export default function TeachersDataTable() {
       )}
 
       {/* DESCRIPTION */}
-      <div className="flex justify-between">
-        <div>
-          <div className="flex mb-2">
-            <div>
-              <input
-                ref={fileInputRef}
-                type="file"
-                accept=".xlsx, .xls"
-                onChange={handleTeacherFileUpload}
-                style={{ display: "none" }}
-              />
+      {params.isFetchTable ? null : (
+        <div className="flex justify-between">
+          <div>
+            <div className="flex mb-2">
+              <div>
+                <input
+                  ref={fileInputRef}
+                  type="file"
+                  accept=".xlsx, .xls"
+                  onChange={handleTeacherFileUpload}
+                  style={{ display: "none" }}
+                />
 
-              <IconButton
-                text="Import danh sách giảng viên"
-                onClick={handleButtonClick}
-                iconLeft={"/assets/icons/upload-white.svg"}
-                iconWidth={16}
-                iconHeight={16}
-              />
+                <IconButton
+                  text="Import danh sách giảng viên mới"
+                  onClick={handleButtonClick}
+                  iconLeft={"/assets/icons/upload-white.svg"}
+                  iconWidth={16}
+                  iconHeight={16}
+                />
+              </div>
+              {dataTable.length > 0 && (
+                <IconButton
+                  text="Lưu"
+                  onClick={createTeachersAPI}
+                  otherClasses="ml-2"
+                />
+              )}
             </div>
-            {dataTable.length > 0 && (
-              <IconButton
-                text="Lưu"
-                onClick={createTeachersAPI}
-                otherClasses="ml-2"
-              />
-            )}
+
+            <a
+              href="/assets/template_import_danh_sach_giang_vien.xlsx"
+              download
+              className="text-blue-500 underline text-base italic"
+            >
+              Tải xuống template file import giảng viên
+            </a>
           </div>
 
-          <a
-            href="/assets/template_import_danh_sach_giang_vien.xlsx"
-            download
-            className="text-blue-500 underline text-base italic"
-          >
-            Tải xuống template file import giảng viên
-          </a>
+          <div className="flex justify-end gap-4 mb-3 items-center">
+            <p className="italic text-sm">
+              * Để scroll ngang, nhấn nút Shift và cuộn chuột
+            </p>
+          </div>
         </div>
-
-        <div className="flex justify-end gap-4 mb-3 items-center">
-          <p className="italic text-sm">
-            * Để scroll ngang, nhấn nút Shift và cuộn chuột
-          </p>
-        </div>
-      </div>
+      )}
 
       {isLoading ? (
         <TableSkeleton />
       ) : dataTable.filter((item) => !item.isDeleted).length > 0 ? (
         <>
           <DataTable
+            isFetchTable={params.isFetchTable}
             type={DataTableType.Teacher}
             dataTable={dataTable}
             isEditTable={isEditTable}
@@ -237,8 +250,8 @@ export default function TeachersDataTable() {
         <NoResult
           title="Không có dữ liệu!"
           description="🚀 Import file danh sách để thấy được dữ liệu."
-          linkTitle="Import danh sách giảng viên"
-          handleFileUpload={handleTeacherFileUpload}
+          // linkTitle="Import danh sách giảng viên"
+          // handleFileUpload={handleTeacherFileUpload}
         />
       )}
     </div>

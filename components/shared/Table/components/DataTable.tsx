@@ -44,6 +44,7 @@ import { CourseDataItem } from "@/types/entity/Course";
 // ! KHI LÀM NÚT XÓA, THÌ CHUYỂN BIẾN DELETED = 1 => KH HIỆN TRÊN BẢNG ===> ĐỒNG NHẤT VỚI CODE HANDLE SAVE
 
 interface DataTableParams {
+  isFetchTable?: boolean;
   type: DataTableType;
   isEditTable: boolean;
   isMultipleDelete: boolean;
@@ -447,6 +448,7 @@ const DataTable = (params: DataTableParams) => {
       if (isShowDeleteInfo) setIsShowDeleteInfo(false);
     }
   }, [itemsSelected, params.isMultipleDelete]);
+
 
   return (
     <div>
@@ -906,6 +908,16 @@ const DataTable = (params: DataTableParams) => {
                       "Mã cán bộ"
                     ];
                     break;
+                  case "officer":
+                    valueUniqueInput = (dataItem as OfficerDataItem).data[
+                      "Mã giáo vụ"
+                    ];
+                    break;
+                  // case "exam":
+                  //   valueUniqueInput = (dataItem as ExamDataItem).data[
+                  //     "Mã giáo vụ"
+                  //   ];
+                  //   break;
                 }
 
                 return dataItem.isDeleted ? (
@@ -913,6 +925,7 @@ const DataTable = (params: DataTableParams) => {
                 ) : (
                   <Row
                     key={dataItem.STT}
+                    isFetchTable={params.isFetchTable}
                     isSimpleTable={params.isSimpleTable}
                     dataItem={dataItem}
                     isHasSubCourses={

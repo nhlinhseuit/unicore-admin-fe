@@ -20,17 +20,37 @@ export interface TeacherData {
   "Ngày sinh": string;
 }
 
-export interface ITeacher {
+export interface ITeacherParams {
   organization_id: string;
-  teachers: ITeacherData[];
+  teachers: ITeacherParamsData[];
 }
 
-interface ITeacherData {
+interface ITeacherParamsData {
   code: string;
   name: string;
   email: string;
+  phone: string;
+  address: string;
   dob: string;
   gender: boolean;
+  role: string;
   degree: string;
+  organization_id: string;
   research_direction: string;
+  research_concern: string;
+}
+export interface ITeacherResponseData {
+  id: string;
+  code: string;
+  name: string;
+  email: string;
+  phone?: string;
+  address?: string;
+  dob: string;
+  gender: boolean;
+  role: string;
+  degree: string;
+  organization_id: string;
+  research_direction?: string;
+  research_concern: string;
 }

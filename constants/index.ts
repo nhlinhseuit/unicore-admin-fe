@@ -61,6 +61,9 @@ export const DepartmentSubjectsTabItems = [
 export const DepartmentTeachersTabItems = [
   { value: "listTeachers", label: "Danh sách giảng viên", route: "/teachers" },
 ];
+export const DepartmentOfficersTabItems = [
+  { value: "listTeachers", label: "Danh sách giảng viên", route: "/teachers" },
+];
 export const DepartmentStudentsTabItems = [
   { value: "listStudents", label: "Danh sách sinh viên", route: "/students" },
 ];
@@ -251,9 +254,7 @@ export const FileTableDataOnlyViewMoreComponentItems = [
   { value: "download", label: "Tải xuống" },
 ];
 
-export const CourseItemMoreComponentItems = [
-  { value: "hide", label: "Ẩn" },
-];
+export const CourseItemMoreComponentItems = [{ value: "hide", label: "Ẩn" }];
 
 // TODO: SIDEBAR
 export const sidebarDepartmentLinks: SidebarLink[] = [
@@ -294,11 +295,11 @@ export const sidebarDepartmentLinks: SidebarLink[] = [
   //   label: "Bảng điểm",
   // },
   {
-      id: "6",
-      imgURL: "/assets/icons/teachers.svg",
-      route: "/officer",
-      label: "Giáo vụ",
-    },
+    id: "6",
+    imgURL: "/assets/icons/teachers.svg",
+    route: "/officers",
+    label: "Giáo vụ",
+  },
   {
     id: "7",
     imgURL: "/assets/icons/reward.svg",

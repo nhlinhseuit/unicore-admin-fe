@@ -2,9 +2,12 @@
 
 import BackToPrev from "@/components/shared/BackToPrev";
 import IconButton from "@/components/shared/Button/IconButton";
+import LoadingComponent from "@/components/shared/LoadingComponent";
+import NoResult from "@/components/shared/Status/NoResult";
 import SubjectsDataTable from "@/components/shared/Table/TableImport/SubjectsDataTable";
+import { convertToDataTableSubjectsViKeys } from "@/lib/convertToDataTableSubjects";
 import { fetchSubjects } from "@/services/subjectServices";
-import { ISubject } from "@/types/entity/Subject";
+import { ISubjectResponseData } from "@/types/entity/Subject";
 import React, { useEffect, useState } from "react";
 
 const Subjects = () => {
@@ -12,7 +15,7 @@ const Subjects = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   
-const [subjects, setSubjects] = useState<ISubject[]>([]);
+const [subjects, setSubjects] = useState<ISubjectResponseData[]>([]);
 
     useEffect(() => {
       fetchSubjects()
@@ -26,6 +29,13 @@ const [subjects, setSubjects] = useState<ISubject[]>([]);
         setIsLoading(false);
       });
     }, [])
+
+    
+  if (subjects)
+    console.log(
+      "convertToDataTableSubjectsViKeys",
+      convertToDataTableSubjectsViKeys(subjects)
+    );
 
   return (
     <>
@@ -45,6 +55,20 @@ const [subjects, setSubjects] = useState<ISubject[]>([]);
           <div className="flex justify-end gap-4 mb-3 items-center">
             <p className="italic text-sm">* Học kỳ hiện tại: HK1, năm 2024</p>
           </div>
+
+          {isLoading ? (
+            <LoadingComponent />
+          ) : subjects ? (
+            <SubjectsDataTable
+              isFetchTable
+              fetchDataTable={convertToDataTableSubjectsViKeys(subjects)}
+            />
+          ) : (
+            <NoResult
+              title="Không có dữ liệu!"
+              description="🚀 Import file danh sách để thấy được dữ liệu."
+            />
+          )}
         </div>
       ) : (
         <>

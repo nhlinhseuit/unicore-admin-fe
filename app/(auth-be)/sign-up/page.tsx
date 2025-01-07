@@ -27,8 +27,6 @@ const Signup = () => {
 
   const [isNameEmpty, setIsNameEmpty] = useState(false);
 
-  console.log("isNameEmpty", isNameEmpty);
-
   return (
     <main>
       <div className="w-full h-screen flex gap-12">

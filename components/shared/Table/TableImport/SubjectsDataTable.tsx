@@ -4,7 +4,7 @@ import { DataTableType } from "@/constants";
 import { useToast } from "@/hooks/use-toast";
 import { handleCreateSubjectAction } from "@/services/subjectServices";
 import { SubjectDataItem } from "@/types/entity/Subject";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import * as XLSX from "xlsx";
 import IconButton from "../../Button/IconButton";
 import ErrorComponent from "../../Status/ErrorComponent";
@@ -13,12 +13,23 @@ import DataTable from "../components/DataTable";
 import TableSkeleton from "../components/TableSkeleton";
 import { convertToAPIDataTableSubjects } from "@/lib/convertToDataTableSubjects";
 
-export default function SubjectsDataTable() {
+interface Props {
+  isFetchTable?: boolean;
+  fetchDataTable?: SubjectDataItem[];
+}
+
+export default function SubjectsDataTable(params: Props) {
   const [isEditTable, setIsEditTable] = useState(false);
   const [isMultipleDelete, setIsMultipleDelete] = useState(false);
   const [dataTable, setDataTable] = useState<SubjectDataItem[]>([]);
   const [errorMessages, setErrorMessages] = useState<string[]>([]);
   const [isLoading, setIsLoading] = useState(false);
+
+  useEffect(() => {
+    if (params.fetchDataTable) {
+      setDataTable(params.fetchDataTable);
+    }
+  }, [params.fetchDataTable]);
 
   // XỬ LÝ UPLOAD FILE MÔN HỌC
   const handleSubjectsFileUpload = (e: any) => {
@@ -107,7 +118,20 @@ export default function SubjectsDataTable() {
     console.log(APIdataTable);
 
     console.log("res", res);
-  }
+  };
+
+  const editSubjectsAPI = async () => {
+    const APIdataTable = convertToAPIDataTableSubjects({
+      data: dataTable,
+      organizationId: "1",  
+    });
+
+    const res = await handleCreateSubjectAction(APIdataTable);
+
+    console.log(APIdataTable);
+
+    console.log("res", res);
+  };
 
   return (
     <div>
@@ -128,50 +152,52 @@ export default function SubjectsDataTable() {
       )}
 
       {/* DESCRIPTION */}
-      <div className="flex justify-between">
-        <div>
-          <div className="flex mb-2">
-            <div>
-              <input
-                ref={fileInputRef}
-                type="file"
-                accept=".xlsx, .xls"
-                onChange={handleSubjectsFileUpload}
-                style={{ display: "none" }}
-              />
+      {params.isFetchTable ? null : (
+        <div className="flex justify-between">
+          <div>
+            <div className="flex mb-2">
+              <div>
+                <input
+                  ref={fileInputRef}
+                  type="file"
+                  accept=".xlsx, .xls"
+                  onChange={handleSubjectsFileUpload}
+                  style={{ display: "none" }}
+                />
 
-              <IconButton
-                text="Import danh sách môn"
-                onClick={handleButtonClick}
-                iconLeft={"/assets/icons/upload-white.svg"}
-                iconWidth={16}
-                iconHeight={16}
-              />
+                <IconButton
+                  text="Import danh sách môn"
+                  onClick={handleButtonClick}
+                  iconLeft={"/assets/icons/upload-white.svg"}
+                  iconWidth={16}
+                  iconHeight={16}
+                />
+              </div>
+              {dataTable.length > 0 && (
+                <IconButton
+                  text="Lưu"
+                  onClick={createSubjectsAPI}
+                  otherClasses="ml-2"
+                />
+              )}
             </div>
-            {dataTable.length > 0 && (
-              <IconButton
-                text="Lưu"
-                onClick={createSubjectsAPI}
-                otherClasses="ml-2"
-              />
-            )}
+
+            <a
+              href="/assets/template_import_danh_sach_mon_hoc.xlsx"
+              download
+              className="text-blue-500 underline text-base italic"
+            >
+              Tải xuống template file import môn học
+            </a>
           </div>
 
-          <a
-            href="/assets/template_import_danh_sach_mon_hoc.xlsx"
-            download
-            className="text-blue-500 underline text-base italic"
-          >
-            Tải xuống template file import môn học
-          </a>
+          <div className="flex justify-end gap-4 mb-5 items-center">
+            <p className="italic text-sm">
+              * Để scroll ngang, nhấn nút Shift và cuộn chuột
+            </p>
+          </div>
         </div>
-
-        <div className="flex justify-end gap-4 mb-5 items-center">
-          <p className="italic text-sm">
-            * Để scroll ngang, nhấn nút Shift và cuộn chuột
-          </p>
-        </div>
-      </div>
+      )}
 
       {isLoading ? (
         <TableSkeleton />
@@ -241,8 +267,8 @@ export default function SubjectsDataTable() {
         <NoResult
           title="Không có dữ liệu!"
           description="🚀 Import file danh sách để thấy được dữ liệu."
-          linkTitle="Import danh sách môn"
-          handleFileUpload={handleSubjectsFileUpload}
+          // linkTitle="Import danh sách môn"
+          // handleFileUpload={handleSubjectsFileUpload}
         />
       )}
     </div>

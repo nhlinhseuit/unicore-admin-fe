@@ -26,7 +26,7 @@ export const convertToDataTableStudentsInInternCourseViKeys = (
   // });
 };
 
-export const convertToDataTableStudentsInInternCourse = ({
+export const convertToAPIDataTableStudentsInInternCourse = ({
   data,
   organizationId,
 }: {

@@ -1,9 +1,3 @@
-export default interface Student {
-  id: string;
-  name: string;
-  class: string;
-}
-
 export interface StudentDataItem {
   type: string;
   STT: string;
@@ -24,16 +18,30 @@ export interface StudentData {
   "Ngày sinh": string;
 }
 
-export interface IStudent {
+export interface IStudentParams {
   organization_id: string;
-  students: IStudentData[];
+  students: IStudentParamsData[];
 }
 
-interface IStudentData {
+interface IStudentParamsData {
   name: string;
   code: string;
   email: string;
   phone: string;
+  address: string;
+  dob: string;
+  gender: boolean;
+  organization_id: string;
+  advisory_class: string;
+  academic_batch: string;
+}
+export interface IStudentResponseData {
+  id: string;
+  name: string;
+  code: string;
+  email: string;
+  phone?: string;
+  address?: string;
   dob: string;
   gender: boolean;
   organization_id: string;

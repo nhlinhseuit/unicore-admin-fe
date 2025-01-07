@@ -1,24 +1,26 @@
+import { StudentData } from "@/types";
+import { IStudentResponseData, StudentDataItem } from "@/types/entity/Student";
 
-import { IStudent, StudentDataItem } from "@/types/entity/Student";
-
-export const convertToDataTableStudentViKeys = (data: IStudent) => {
-  return data.students.map((item, index) => {
-    const requiredFields = {
+export const convertToDataTableStudentViKeys = (
+  data: IStudentResponseData[]
+): StudentDataItem[] => {
+  return data.map((item, index) => {
+    const requiredFields: StudentData = {
       MSSV: item.code,
       "Tài khoản": item.email,
-      "Mật khẩu": "1", 
+      "Mật khẩu": "1",
       "Họ và tên": item.name,
       "Lớp sinh hoạt": item.advisory_class,
       Email: item.email,
-      SDT: item.phone,
+      SDT: item.phone ?? "",
       "Giới tính": item.gender ? "Nam" : "Nữ",
-      "Địa chỉ": "", // Không có trường tương ứng trong `IStudent`
+      "Địa chỉ": item.address ?? "",
       "Ngày sinh": item.dob,
     };
 
     return {
       type: "student",
-      STT: index + 1,
+      STT: (index + 1).toString(),
       isDeleted: false,
       data: requiredFields,
     };
@@ -37,13 +39,13 @@ export const convertToAPIDataTableStudent = ({
       organization_id: organizationId,
       code: item.data["MSSV"],
       email: item.data["Email"],
+      address: item.data["Địa chỉ"],
       phone: item.data["SDT"],
       dob: item.data["Ngày sinh"],
       gender: item.data["Giới tính"],
       advisory_class: item.data["Lớp sinh hoạt"],
-
-      // không biết academic batch là gì nên tạm để lớp sinh hoạt
-      academic_batch: item.data["Lớp sinh hoạt"],
+      // KHÓA bao nhiêu
+      academic_batch: parseInt(item.data["MSSV"].substring(0, 2)) - 5,
     };
   });
 

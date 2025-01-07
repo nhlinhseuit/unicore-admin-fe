@@ -1,30 +1,32 @@
 "use client";
-import StudentsDataTable from "@/components/shared/Table/TableImport/StudentsDataTable";
-import React, { useEffect, useState } from "react";
-import IconButton from "@/components/shared/Button/IconButton";
 import BackToPrev from "@/components/shared/BackToPrev";
-import { IStudent } from "@/types/entity/Student";
+import IconButton from "@/components/shared/Button/IconButton";
+import LoadingComponent from "@/components/shared/LoadingComponent";
+import NoResult from "@/components/shared/Status/NoResult";
+import StudentsDataTable from "@/components/shared/Table/TableImport/StudentsDataTable";
+import { convertToDataTableStudentViKeys } from "@/lib/convertToDataTableStudent";
 import { fetchStudents } from "@/services/studentServices";
+import { IStudentResponseData } from "@/types/entity/Student";
+import { useEffect, useState } from "react";
 
 const Students = () => {
-   const [isImport, setIsImport] = useState(false);
-    const [isLoading, setIsLoading] = useState(true);
-    const [error, setError] = useState<string | null>(null);
-    
-  const [subjects, setSubjects] = useState<IStudent[]>([]);
-  
-      useEffect(() => {
-        fetchStudents()
-        .then((data: any) => {
-          console.log("data", data);
-          setSubjects(data);
-          setIsLoading(false);
-        })
-        .catch((error) => {
-          setError(error.message);
-          setIsLoading(false);
-        });
-      }, [])
+  const [isImport, setIsImport] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  const [students, setStudents] = useState<IStudentResponseData[]>([]);
+
+  useEffect(() => {
+    fetchStudents()
+      .then((data: any) => {
+        setStudents(data);
+        setIsLoading(false);
+      })
+      .catch((error) => {
+        setError(error.message);
+        setIsLoading(false);
+      });
+  }, []);
 
   return (
     <>
@@ -41,6 +43,20 @@ const Students = () => {
               iconHeight={16}
             />
           </div>
+
+          {isLoading ? (
+            <LoadingComponent />
+          ) : students ? (
+            <StudentsDataTable
+              isFetchTable
+              fetchDataTable={convertToDataTableStudentViKeys(students)}
+            />
+          ) : (
+            <NoResult
+              title="Không có dữ liệu!"
+              description="🚀 Import file danh sách để thấy được dữ liệu."
+            />
+          )}
         </div>
       ) : (
         <>

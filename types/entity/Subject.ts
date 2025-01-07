@@ -6,7 +6,6 @@ export interface SubjectDataItem {
 }
 
 export interface SubjectData {
-  "Khoa QL": string;
   "Mã MH": string;
   "Hình thức thi LT GIỮA KỲ": string;
   "Thời gian thi LT GIỮA KỲ": number;
@@ -17,32 +16,72 @@ export interface SubjectData {
   "Trọng số THỰC HÀNH": number;
   "Trọng số GIỮA KỲ": number;
   "Trọng số CUỐI KỲ": number;
-  "Hệ ĐT": string;
-  "Lớp CDIO": string;
   "Học kỳ": number;
   "Năm học": number;
   "Tên môn học": string;
 }
 
-export interface ISubject {
+export interface ISubjectParams {
   organization_id: string;
-  subjects: ISubjectData[];
+  subjects: ISubjectParamsData[];
 }
 
-interface ISubjectData {
+interface ISubjectParamsData {
   name: string;
   code: string;
   description: string;
+  // metadata: IMetaData;
+  // subjectId: string;
   semester: number;
   year: number;
   organization_id: string;
   midterm_format: string;
-  midterm_time: string;
   practical_format: string;
   final_format: string;
+  midterm_time: string;
   final_time: string;
   coursework_weight: number;
   midterm_weight: number;
   practical_weight: number;
   final_weight: number;
+}
+
+// interface IMetaData {
+//   subjectId: string;
+//   semester: number;
+//   year: number;
+//   organization_id: string;
+//   midterm_format: string;
+//   midterm_time: string;
+//   practical_format: string;
+//   final_format: string;
+//   final_time: string;
+//   coursework_weight: number;
+//   midterm_weight: number;
+//   practical_weight: number;
+//   final_weight: number;
+// }
+
+export interface ISubjectResponseData {
+  // subjectId: string;
+  // semester: number;
+  // year: number;
+
+  id: string;
+  code: string;
+  name: string;
+  semester?: number;
+  year?: number;
+  description?: null;
+  organization_id: string;
+  organization_name: string;
+  midterm_format?: string;
+  practical_format: string;
+  final_format: string;
+  coursework_weight: number;
+  midterm_weight: number;
+  practical_weight: number;
+  final_weight: number;
+  midterm_time: string;
+  final_time: string;
 }

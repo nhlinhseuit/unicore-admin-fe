@@ -155,7 +155,6 @@ const RowThesisReviewTicketTable = React.memo(
       );
     };
 
-    console.log("re-render Row");
 
     return (
       <Table.Row

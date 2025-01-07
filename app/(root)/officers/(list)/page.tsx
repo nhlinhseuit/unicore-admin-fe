@@ -3,20 +3,22 @@ import React, { useEffect, useState } from "react";
 import IconButton from "@/components/shared/Button/IconButton";
 import BackToPrev from "@/components/shared/BackToPrev";
 import { fetchOfficer } from "@/services/officerServices";
-import { IOfficer } from "@/types/entity/Officer";
+import { IOfficerResponse } from "@/types/entity/Officer";
 import OfficersDataTable from "@/components/shared/Table/TableImport/OfficersDataTable";
+import { convertToDataTableOfficersViKeys } from "@/lib/convertToDataTableOfficers";
+import LoadingComponent from "@/components/shared/LoadingComponent";
+import NoResult from "@/components/shared/Status/NoResult";
 
 const Officers = () => {
   const [isImport, setIsImport] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  const [officers, setOfficers] = useState<IOfficer[]>([]);
+  const [officers, setOfficers] = useState<IOfficerResponse[]>();
 
   useEffect(() => {
     fetchOfficer()
       .then((data: any) => {
-        console.log("data", data);
         setOfficers(data);
         setIsLoading(false);
       })
@@ -41,6 +43,20 @@ const Officers = () => {
               iconHeight={16}
             />
           </div>
+
+          {isLoading ? (
+            <LoadingComponent />
+          ) : officers ? (
+            <OfficersDataTable
+              isFetchTable
+              fetchDataTable={convertToDataTableOfficersViKeys(officers)}
+            />
+          ) : (
+            <NoResult
+              title="Không có dữ liệu!"
+              description="🚀 Import file danh sách để thấy được dữ liệu."
+            />
+          )}
         </div>
       ) : (
         <>

@@ -8,6 +8,8 @@ import IconButton from "../../Button/IconButton";
 import ErrorComponent from "../../Status/ErrorComponent";
 import { tableTheme } from "../components/DataTable";
 import NoteComponent from "../../NoteComponent";
+import { addStudentsToCourse } from "@/services/importStudentsInCourseServices";
+import LoadingComponent from "../../LoadingComponent";
 
 type TransformedDataItem = {
   type: string;
@@ -104,7 +106,6 @@ export default function ImportStudentsListInCourse() {
         };
       });
 
-
       if (errorMessages.length > 0) {
         setErrorMessages(errorMessages);
       } else {
@@ -126,7 +127,6 @@ export default function ImportStudentsListInCourse() {
       setIsLoading(false);
     };
   };
-
 
   const handleStudentInternCourseFileUpload = (e: any, courseId: string) => {
     const file = e.target.files[0];
@@ -195,7 +195,6 @@ export default function ImportStudentsListInCourse() {
         });
       }
 
-
       if (transformedData.length === 0) {
         errorMessages.push(
           "Import lỗi. Vui lòng chọn đúng file import sinh viên lớp Thực tập doanh nghiệp!"
@@ -229,6 +228,38 @@ export default function ImportStudentsListInCourse() {
       setIsLoading(false);
     };
   };
+
+  const addStudentsToCourseAPI = () => {
+    console.log("dataTables", dataTables);
+
+    let data = [
+      {
+        class_id: "",
+        subclass_code: "",
+        leader_code: "",
+        student_codes: [],
+      },
+    ];
+
+    const dataAPI = Object.entries(dataTables).map(([classId, students]) => {
+      const studentCodes = students.map((student) => student.data.MSSV);
+
+      return {
+        class_id: classId, // Sử dụng key làm class_id
+        subclass_code: classId, // subclass_code giống class_id
+        leader_code: "", // Mặc định để rỗng
+        student_codes: studentCodes, // Danh sách MSSV
+      };
+    });
+
+    setIsLoading(true);
+    addStudentsToCourse(dataAPI).then((data) => {
+      console.log("data", data);
+      setIsLoading(false);
+    });
+  };
+
+  if (isLoading) return <LoadingComponent />;
 
   return (
     <div>
@@ -377,7 +408,9 @@ export default function ImportStudentsListInCourse() {
                             download={uploadedFileName[dataItem.id].name}
                             className="text-blue-500 underline text-base italic"
                           >
-                            <p className="text-sm italic">{uploadedFileName[dataItem.id].name}</p>
+                            <p className="text-sm italic">
+                              {uploadedFileName[dataItem.id].name}
+                            </p>
                           </a>
                         )
                       )
@@ -409,7 +442,11 @@ export default function ImportStudentsListInCourse() {
         </Table>
       </div>
 
-      <IconButton otherClasses="mt-4" text="Lưu" onClick={() => {}} />
+      <IconButton
+        otherClasses="mt-4"
+        text="Lưu"
+        onClick={addStudentsToCourseAPI}
+      />
     </div>
   );
 }

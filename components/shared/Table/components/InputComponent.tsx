@@ -40,7 +40,9 @@ const InputComponent = (params: InputParams) => {
         <textarea
           value={inputValue}
           onChange={handleTextAreaChange}
-          placeholder={params.placeholder.toString() || "Trống"}
+          placeholder={
+            params.placeholder ? params.placeholder.toString() : "Trống"
+          }
           className={`
             no-focus
             paragraph-regular
@@ -73,7 +75,9 @@ const InputComponent = (params: InputParams) => {
       ) : (
         <Input
           type="text"
-          placeholder={params.placeholder.toString() || "Trống"}
+          placeholder={
+            params.placeholder ? params.placeholder.toString() : "Trống"
+          }
           value={inputValue}
           onChange={handleInputChange}
           className={`

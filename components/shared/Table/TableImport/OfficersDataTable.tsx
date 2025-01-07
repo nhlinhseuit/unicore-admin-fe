@@ -1,25 +1,36 @@
 "use client";
 
-import { useRef, useState } from "react";
-import * as XLSX from "xlsx";
-import DataTable from "../components/DataTable";
-import ErrorComponent from "../../Status/ErrorComponent";
-import TableSkeleton from "../components/TableSkeleton";
-import NoResult from "../../Status/NoResult";
-import { useToast } from "@/hooks/use-toast";
-import IconButton from "../../Button/IconButton";
 import { DataTableType } from "@/constants";
-import { generateUsername, normalizeSearchItem } from "@/lib/utils";
-import { OfficerDataItem } from "@/types/entity/Officer";
-import { handleCreateOfficerAction } from "@/services/officerServices";
+import { useToast } from "@/hooks/use-toast";
 import { convertToAPIDataTableOfficers } from "@/lib/convertToDataTableOfficers";
+import { handleCreateOfficerAction } from "@/services/officerServices";
+import { OfficerDataItem } from "@/types/entity/Officer";
+import { useEffect, useRef, useState } from "react";
+import * as XLSX from "xlsx";
+import IconButton from "../../Button/IconButton";
+import ErrorComponent from "../../Status/ErrorComponent";
+import NoResult from "../../Status/NoResult";
+import DataTable from "../components/DataTable";
+import TableSkeleton from "../components/TableSkeleton";
 
-export default function OfficersDataTable() {
+interface Props {
+  isFetchTable?: boolean;
+  fetchDataTable?: OfficerDataItem[];
+}
+
+export default function OfficersDataTable(params: Props) {
   const [isEditTable, setIsEditTable] = useState(false);
   const [isMultipleDelete, setIsMultipleDelete] = useState(false);
   const [dataTable, setDataTable] = useState<OfficerDataItem[]>([]);
   const [errorMessages, setErrorMessages] = useState<string[]>([]);
   const [isLoading, setIsLoading] = useState(false);
+
+  useEffect(() => {
+    if (params.fetchDataTable) {
+      setDataTable(params.fetchDataTable)
+    }
+  }, [params.fetchDataTable])
+  
 
   // XỬ LÝ UPLOAD FILE DS GIÁO VỤ
   const handleOfficerFileUpload = (e: any) => {
@@ -45,11 +56,9 @@ export default function OfficersDataTable() {
       const transformedData = parsedData.map((item: any, index: number) => {
         // Kiểm tra các trường quan trọng (required fields)
         const requiredFields = {
-          "Mã cán bộ": item["Mã cán bộ"],
+          "Mã giáo vụ": item["Mã giáo vụ"],
           "Họ và tên": item["Họ và tên"],
-          "Học vị": item["Học vị"],
-          "Hướng nghiên cứu": item["Hướng nghiên cứu"],
-          "Quan tâm tìm hiểu": item["Quan tâm tìm hiểu"],
+          "Vị trí": item["Vị trí"],
           Email: item["Email"],
           SDT: item["Điện thoại"],
           "Giới tính": item["Giới tính"],
@@ -70,20 +79,7 @@ export default function OfficersDataTable() {
           type: "officer",
           STT: item.STT,
           isDeleted: false,
-          data: {
-            "Mã cán bộ": item["Mã cán bộ"],
-            "Tài khoản": generateUsername(item["Họ và tên"] ?? ""),
-            "Mật khẩu": "1",
-            "Họ và tên": item["Họ và tên"],
-            "Học vị": item["Học vị"],
-            "Hướng nghiên cứu": item["Hướng nghiên cứu"],
-            "Quan tâm tìm hiểu": item["Quan tâm tìm hiểu"],
-            Email: item["Email"],
-            SDT: item["Điện thoại"],
-            "Giới tính": item["Giới tính"],
-            "Địa chỉ": item["Địa chỉ"],
-            "Ngày sinh": item["Ngày sinh"],
-          },
+          data: requiredFields,
         };
       });
 
@@ -105,9 +101,6 @@ export default function OfficersDataTable() {
 
     const res = await handleCreateOfficerAction(APIdataTable);
 
-    console.log(APIdataTable);
-
-    console.log("res", res);
   };
 
   // Tạo một reference để liên kết với thẻ input file
@@ -117,6 +110,8 @@ export default function OfficersDataTable() {
   };
 
   const { toast } = useToast();
+
+
 
   return (
     <div>
@@ -137,56 +132,59 @@ export default function OfficersDataTable() {
       )}
 
       {/* DESCRIPTION */}
-      <div className="flex justify-between">
-        <div>
-          <div className="flex mb-2">
-            <div>
-              <input
-                ref={fileInputRef}
-                type="file"
-                accept=".xlsx, .xls"
-                onChange={handleOfficerFileUpload}
-                style={{ display: "none" }}
-              />
+      {params.isFetchTable ? null : (
+        <div className="flex justify-between">
+          <div>
+            <div className="flex mb-2">
+              <div>
+                <input
+                  ref={fileInputRef}
+                  type="file"
+                  accept=".xlsx, .xls"
+                  onChange={handleOfficerFileUpload}
+                  style={{ display: "none" }}
+                />
 
-              <IconButton
-                text="Import danh sách giáo vụ"
-                onClick={handleButtonClick}
-                iconLeft={"/assets/icons/upload-white.svg"}
-                iconWidth={16}
-                iconHeight={16}
-              />
+                <IconButton
+                  text="Import danh sách giáo vụ mới"
+                  onClick={handleButtonClick}
+                  iconLeft={"/assets/icons/upload-white.svg"}
+                  iconWidth={16}
+                  iconHeight={16}
+                />
+              </div>
+              {dataTable.length > 0 && (
+                <IconButton
+                  text="Lưu"
+                  onClick={createOffciersAPI}
+                  otherClasses="ml-2"
+                />
+              )}
             </div>
-            {dataTable.length > 0 && (
-              <IconButton
-                text="Lưu"
-                onClick={createOffciersAPI}
-                otherClasses="ml-2"
-              />
-            )}
+
+            <a
+              href="/assets/KTLN - template import ds giáo vụ.xlsx"
+              download
+              className="text-blue-500 underline text-base italic"
+            >
+              Tải xuống template file import giáo vụ
+            </a>
           </div>
 
-          <a
-            href="/assets/KTLN - template import ds giáo vụ.xlsx"
-            download
-            className="text-blue-500 underline text-base italic"
-          >
-            Tải xuống template file import giáo vụ
-          </a>
+          <div className="flex justify-end gap-4 mb-3 items-center">
+            <p className="italic text-sm">
+              * Để scroll ngang, nhấn nút Shift và cuộn chuột
+            </p>
+          </div>
         </div>
-
-        <div className="flex justify-end gap-4 mb-3 items-center">
-          <p className="italic text-sm">
-            * Để scroll ngang, nhấn nút Shift và cuộn chuột
-          </p>
-        </div>
-      </div>
+      )}
 
       {isLoading ? (
         <TableSkeleton />
       ) : dataTable.length > 0 ? (
         <>
           <DataTable
+            isFetchTable={params.isFetchTable}
             type={DataTableType.Officer}
             dataTable={dataTable}
             isEditTable={isEditTable}
@@ -250,8 +248,6 @@ export default function OfficersDataTable() {
         <NoResult
           title="Không có dữ liệu!"
           description="🚀 Import file danh sách để thấy được dữ liệu."
-          linkTitle="Import danh sách giáo vụ"
-          handleFileUpload={handleOfficerFileUpload}
         />
       )}
     </div>

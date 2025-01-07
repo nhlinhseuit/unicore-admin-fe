@@ -19,7 +19,7 @@ import {
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
 import { fetchCourses } from "@/services/courseServices";
-import { ICourse } from "@/types/entity/Course";
+import { ICourseResponseData } from "@/types/entity/Course";
 import {
   mockNotCompleteActions,
   mockSemesterList,
@@ -28,12 +28,18 @@ import {
 import { Dropdown } from "flowbite-react";
 import Image from "next/image";
 import { useEffect, useState } from "react";
+import LoadingComponent from "@/components/shared/LoadingComponent";
+import NoResult from "@/components/shared/Status/NoResult";
+import {
+  convertToAPIDataTableCourses,
+  convertToDataTableCoursesViKeys,
+} from "@/lib/convertToDataTableCourses";
 
 const Courses = () => {
   const [isImport, setIsImport] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const [courses, setCourses] = useState<ICourse[]>([]);
+  const [courses, setCourses] = useState<ICourseResponseData[]>([]);
   const [isShowDialog, setIsShowDialog] = useState(false);
   const [isImportCompleteAction, setIsImportCompleteAction] = useState(-1);
   const [selectedSemester, setSelectedSemester] = useState(1);
@@ -41,7 +47,7 @@ const Courses = () => {
 
   useEffect(() => {
     fetchCourses()
-      .then((data: ICourse[]) => {
+      .then((data: ICourseResponseData[]) => {
         setCourses(data);
         setIsLoading(false);
       })
@@ -68,6 +74,8 @@ const Courses = () => {
     }
   };
 
+  console.log("convert", convertToDataTableCoursesViKeys(courses));
+
   const renderComponent = () => {
     if (!isImport && isImportCompleteAction === -1) {
       return (
@@ -84,13 +92,7 @@ const Courses = () => {
           <div className="flex items-center justify-end gap-4 mb-3">
             <p className="text-sm italic">* Học kỳ hiện tại: HK1, năm 2024</p>
           </div>
-          <div className="items-center flex w-full gap-2 mb-8">
-            <p className="mr-2 inline-flex justify-start text-sm font-semibold whitespace-nowrap">
-              Bộ lọc lớp:
-            </p>
-            <DetailFilterComponent />
-          </div>
-          <div className="w-full">
+          <div className="w-full mb-8">
             <p className="text-sm font-semibold whitespace-nowrap">
               Bạn chưa hoàn thành các bước sau:
             </p>
@@ -143,6 +145,26 @@ const Courses = () => {
               ))}
             </div>
           </div>
+          <div className="items-center flex w-full gap-2 mb-8">
+            <p className="mr-2 inline-flex justify-start text-sm font-semibold whitespace-nowrap">
+              Bộ lọc lớp:
+            </p>
+            <DetailFilterComponent />
+          </div>
+
+          {isLoading ? (
+            <LoadingComponent />
+          ) : courses ? (
+            <CoursesDataTable
+              isFetchTable
+              fetchDataTable={convertToDataTableCoursesViKeys(courses)}
+            />
+          ) : (
+            <NoResult
+              title="Không có dữ liệu!"
+              description="🚀 Import file danh sách để thấy được dữ liệu."
+            />
+          )}
         </div>
       );
     } else if (isImport) {

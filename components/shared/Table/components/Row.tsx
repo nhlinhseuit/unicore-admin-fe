@@ -14,6 +14,7 @@ import React, { useRef, useState } from "react";
 import InputComponent from "./InputComponent";
 
 interface RowParams {
+  isFetchTable?: boolean;
   dataItem:
     | CourseDataItem
     | SubjectDataItem
@@ -117,40 +118,42 @@ const Row = React.memo(
               placeholder={value as string | number}
               onChange={(newValue) => handleInputChange({ key, newValue })}
             />
-          ) : isHasSubCourses ? (
-            <div className="flex">
-              <span>{value}</span>
-              <Dropdown
-                className="z-30 rounded-lg"
-                label=""
-                renderTrigger={() => (
-                  <Image
-                    src="/assets/icons/info.svg"
-                    alt="search"
-                    width={21}
-                    height={21}
-                    className="ml-2 mr-4 cursor-pointer"
-                  />
-                )}
-              >
-                <div className="scroll-container scroll-container-dropdown-content">
-                  <ul>
-                    {[
-                      "Huỳnh Hồ Thị Mộng Trinh",
-                      "Nguyễn Trịnh Đông",
-                      "Huỳnh Tuấn Anh",
-                    ].map((name) => (
-                      <li role="menuitem" key={name}>
-                        <p className="flex items-center justify-start w-full px-4 py-2 text-sm text-left text-gray-700 cursor-default">
-                          Đồ án 1 - {name}
-                        </p>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              </Dropdown>
-            </div>
-          ) : (
+          )
+          //  : isHasSubCourses ? (
+          //   <div className="flex">
+          //     <span>{value}</span>
+          //     <Dropdown
+          //       className="z-30 rounded-lg"
+          //       label=""
+          //       renderTrigger={() => (
+          //         <Image
+          //           src="/assets/icons/info.svg"
+          //           alt="search"
+          //           width={21}
+          //           height={21}
+          //           className="ml-2 mr-4 cursor-pointer"
+          //         />
+          //       )}
+          //     >
+          //       <div className="scroll-container scroll-container-dropdown-content">
+          //         <ul>
+          //           {[
+          //             "Huỳnh Hồ Thị Mộng Trinh",
+          //             "Nguyễn Trịnh Đông",
+          //             "Huỳnh Tuấn Anh",
+          //           ].map((name) => (
+          //             <li role="menuitem" key={name}>
+          //               <p className="flex items-center justify-start w-full px-4 py-2 text-sm text-left text-gray-700 cursor-default">
+          //                 Đồ án 1 - {name}
+          //               </p>
+          //             </li>
+          //           ))}
+          //         </ul>
+          //       </div>
+          //     </Dropdown>
+          //   </div>
+          // ) 
+          : (
             <span>{value}</span>
           );
 
@@ -179,7 +182,7 @@ const Row = React.memo(
           );
 
         default:
-          return params.isEditTable ? (
+          return params.isEditTable && !(params.isFetchTable && key === 'Email') ? (
             typeof value === "string" ? (
               <div className="flex flex-col gap-1">
                 {value

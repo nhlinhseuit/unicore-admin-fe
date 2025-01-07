@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import * as XLSX from "xlsx";
 import DataTable from "../components/DataTable";
 import ErrorComponent from "../../Status/ErrorComponent";
@@ -12,15 +12,44 @@ import { DataTableType } from "@/constants";
 import { CourseDataItem } from "@/types/entity/Course";
 import { convertToAPIDataTableCourses } from "@/lib/convertToDataTableCourses";
 import { handleCreateCourseAction } from "@/services/courseServices";
+import { fetchSubjects } from "@/services/subjectServices";
+interface Props {
+  isFetchTable?: boolean;
+  fetchDataTable?: CourseDataItem[];
+}
 
-export default function CoursesDataTable() {
+export default function CoursesDataTable(params: Props) {
   const [isEditTable, setIsEditTable] = useState(false);
   const [isMultipleDelete, setIsMultipleDelete] = useState(false);
   const [dataTable, setDataTable] = useState<CourseDataItem[]>([]);
-  const [errorMessages, setErrorMessages] = useState<string[]>([
-    "Bạn cần phải import danh sách môn học trước khi import danh sách lớp",
-  ]);
+  const [errorMessages, setErrorMessages] = useState<string[]>([]);
+  const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
+
+  
+  useEffect(() => {
+    if (params.fetchDataTable) {
+      setDataTable(params.fetchDataTable)
+    }
+  }, [params.fetchDataTable])
+
+  //TODO: check có ds môn chưa để hiện lỗi
+  useEffect(() => {
+    fetchSubjects()
+      .then((data: any) => {
+        if (!data || data.length === 0)
+          setErrorMessages([
+            "Bạn cần phải import danh sách môn học trước khi import danh sách lớp",
+          ]);
+        setIsLoading(false);
+      })
+      .catch((error) => {
+        setError(error.message);
+        setIsLoading(false);
+      });
+
+    //? fetchCourses tại đây
+  }, []);
 
   // XỬ LÝ UPLOAD FILE LỚP HỌC
   const handleCoursesFileUpload = (e: any) => {
@@ -94,18 +123,18 @@ export default function CoursesDataTable() {
 
   const { toast } = useToast();
 
-    const createCoursesAPI = async () => {
-      const APIdataTable = convertToAPIDataTableCourses({
-        data: dataTable,
-        organizationId: "1",
-      });
-  
-      const res = await handleCreateCourseAction(APIdataTable);
-  
-      console.log(APIdataTable);
-  
-      console.log("res:::::", res);
-    };
+  const createCoursesAPI = async () => {
+    const APIdataTable = convertToAPIDataTableCourses({
+      data: dataTable,
+      organizationId: "1",
+    });
+
+    const res = await handleCreateCourseAction(APIdataTable);
+
+    console.log("APIdataTable", APIdataTable);
+
+    console.log("res:::::", res);
+  };
 
   return (
     <div>
@@ -126,49 +155,55 @@ export default function CoursesDataTable() {
       )}
 
       {/* DESCRIPTION */}
-      <div className="flex justify-between">
-        <div>
-          <div className="flex mb-2">
-            <div>
-              <input
-                ref={fileInputRef}
-                type="file"
-                accept=".xlsx, .xls"
-                onChange={handleCoursesFileUpload}
-                style={{ display: "none" }}
-              />
+      {params.isFetchTable ? null : (
+        <div className="flex justify-between">
+          <div>
+            <div className="flex mb-2">
+              <div>
+                <input
+                  ref={fileInputRef}
+                  type="file"
+                  accept=".xlsx, .xls"
+                  onChange={handleCoursesFileUpload}
+                  style={{ display: "none" }}
+                />
 
-              <IconButton
-                text="Import danh sách lớp"
-                onClick={handleButtonClick}
-                iconLeft={"/assets/icons/upload-white.svg"}
-                iconWidth={16}
-                iconHeight={16}
-              />
+                <IconButton
+                  text="Import danh sách lớp"
+                  onClick={handleButtonClick}
+                  iconLeft={"/assets/icons/upload-white.svg"}
+                  iconWidth={16}
+                  iconHeight={16}
+                />
+              </div>
+              {dataTable.length > 0 && (
+                <IconButton
+                  text="Lưu"
+                  onClick={createCoursesAPI}
+                  otherClasses="ml-2"
+                />
+              )}
             </div>
-            {dataTable.length > 0 && (
-              <IconButton text="Lưu" onClick={createCoursesAPI} otherClasses="ml-2" />
-            )}
+
+            <a
+              href="/assets/template_import_danh_sach_lop.xlsx"
+              download
+              className="text-blue-500 underline text-base italic"
+            >
+              Tải xuống template file import lớp học
+            </a>
           </div>
 
-          <a
-            href="/assets/template_import_danh_sach_lop.xlsx"
-            download
-            className="text-blue-500 underline text-base italic"
-          >
-            Tải xuống template file import lớp học
-          </a>
+          <div>
+            <p className="italic text-sm text-right ">
+              * Học kỳ hiện tại: HK1, năm 2024
+            </p>
+            <p className="italic text-sm text-right">
+              * Để scroll ngang, nhấn nút Shift và cuộn chuột
+            </p>
+          </div>
         </div>
-
-        <div>
-          <p className="italic text-sm text-right ">
-            * Học kỳ hiện tại: HK1, năm 2024
-          </p>
-          <p className="italic text-sm text-right">
-            * Để scroll ngang, nhấn nút Shift và cuộn chuột
-          </p>
-        </div>
-      </div>
+      )}
 
       {isLoading ? (
         <TableSkeleton />
@@ -238,8 +273,8 @@ export default function CoursesDataTable() {
         <NoResult
           title="Không có dữ liệu!"
           description="🚀 Import file danh sách để thấy được dữ liệu."
-          linkTitle="Import danh sách lớp"
-          handleFileUpload={handleCoursesFileUpload}
+          // linkTitle="Import danh sách lớp"
+          // handleFileUpload={handleCoursesFileUpload}
         />
       )}
     </div>
