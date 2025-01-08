@@ -2,7 +2,10 @@
 
 import { DataTableType } from "@/constants";
 import { useToast } from "@/hooks/use-toast";
-import { handleCreateSubjectAction } from "@/services/subjectServices";
+import {
+  handleCreateSubjectAction,
+  handleEditSubjectAction,
+} from "@/services/subjectServices";
 import { SubjectDataItem } from "@/types/entity/Subject";
 import { useEffect, useRef, useState } from "react";
 import * as XLSX from "xlsx";
@@ -120,13 +123,13 @@ export default function SubjectsDataTable(params: Props) {
     console.log("res", res);
   };
 
-  const editSubjectsAPI = async () => {
+  const editSubjectsAPI = async (newDateTable: any) => {
     const APIdataTable = convertToAPIDataTableSubjects({
-      data: dataTable,
-      organizationId: "1",  
+      data: newDateTable,
+      organizationId: "1",
     });
 
-    const res = await handleCreateSubjectAction(APIdataTable);
+    const res = await handleEditSubjectAction(APIdataTable);
 
     console.log(APIdataTable);
 
@@ -204,6 +207,7 @@ export default function SubjectsDataTable(params: Props) {
       ) : dataTable.filter((item) => !item.isDeleted).length > 0 ? (
         <>
           <DataTable
+            isFetchTable={params.isFetchTable}
             type={DataTableType.Subject}
             dataTable={dataTable}
             isEditTable={isEditTable}
@@ -216,6 +220,9 @@ export default function SubjectsDataTable(params: Props) {
               // set lại data import hoặc patch API
               localDataTable = localDataTable as SubjectDataItem[];
               setDataTable(localDataTable);
+
+              //? API
+              editSubjectsAPI(localDataTable);
             }}
             onClickMultipleDelete={() => {
               setIsMultipleDelete(true);

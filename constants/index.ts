@@ -52,7 +52,7 @@ export const DepartmentCoursesTabItems = [
 ];
 
 export const DepartmentSettingTabItems = [
-  { value: "settingNoti", label: "Tin tức - thông báo", route: "/setting" },
+  { value: "settingNoti", label: "Cài đặt", route: "/setting" },
 ];
 
 export const DepartmentSubjectsTabItems = [
@@ -160,10 +160,11 @@ export enum FilterType {
 }
 
 export enum CourseType {
-  RegularCourseWithProject = "regular",
-  InternCourse = "intern",
-  ProjectCourse = "project",
-  ThesisCourse = "thesis",
+  //? NOR, LT, HT1, HT2, DA, TTTN, KLTN, NHD: nhóm hướng dẫn
+  RegularCourseWithProject = "NOR",
+  InternCourse = "TTTN",
+  ProjectCourse = "DA",
+  ThesisCourse = "KLTN",
 }
 
 export const ListCourseColors = [

@@ -245,12 +245,14 @@ export default function ImportStudentsListInCourse() {
       const studentCodes = students.map((student) => student.data.MSSV);
 
       return {
-        class_id: classId, // Sử dụng key làm class_id
-        subclass_code: classId, // subclass_code giống class_id
-        leader_code: "", // Mặc định để rỗng
+        class_id: '677cd4ae0a706479b8773771', // Sử dụng key làm class_id
+        subclass_code: 'IT004.CLC', // subclass_code giống class_id
+        leader_code: null, // Mặc định để rỗng
         student_codes: studentCodes, // Danh sách MSSV
       };
     });
+
+    console.log('dataAPI', dataAPI)
 
     setIsLoading(true);
     addStudentsToCourse(dataAPI).then((data) => {

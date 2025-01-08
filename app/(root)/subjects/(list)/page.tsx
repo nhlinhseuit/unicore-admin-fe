@@ -14,11 +14,11 @@ const Subjects = () => {
   const [isImport, setIsImport] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  
-const [subjects, setSubjects] = useState<ISubjectResponseData[]>([]);
 
-    useEffect(() => {
-      fetchSubjects()
+  const [subjects, setSubjects] = useState<ISubjectResponseData[]>([]);
+
+  useEffect(() => {
+    fetchSubjects()
       .then((data: any) => {
         console.log("data", data);
         setSubjects(data);
@@ -28,14 +28,7 @@ const [subjects, setSubjects] = useState<ISubjectResponseData[]>([]);
         setError(error.message);
         setIsLoading(false);
       });
-    }, [])
-
-    
-  if (subjects)
-    console.log(
-      "convertToDataTableSubjectsViKeys",
-      convertToDataTableSubjectsViKeys(subjects)
-    );
+  }, []);
 
   return (
     <>

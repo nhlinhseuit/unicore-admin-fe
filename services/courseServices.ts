@@ -26,7 +26,6 @@ export const fetchCourses = async () => {
 };
 
 export const handleCreateCourseAction = async (data: any) => {
-  // const session = await auth();
   const res = await sendRequest<IBackendRes<any>>({
     url: `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/classroom/bulk`,
     method: "POST",
@@ -60,7 +59,7 @@ export const handleCreateCourseAction = async (data: any) => {
 // };
 
 // export const handleDeleteCourseAction = async (id: any) => {
-//   // const session = await auth();
+//
 //   const res = await sendRequest<IBackendRes<any>>({
 //     url: `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/api/users/${id}`,
 //     method: 'DELETE',

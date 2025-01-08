@@ -3,7 +3,10 @@
 import { DataTableType } from "@/constants";
 import { useToast } from "@/hooks/use-toast";
 import { convertToAPIDataTableOfficers } from "@/lib/convertToDataTableOfficers";
-import { handleCreateOfficerAction } from "@/services/officerServices";
+import {
+  handleCreateOfficerAction,
+  handleEditOfficerAction,
+} from "@/services/officerServices";
 import { OfficerDataItem } from "@/types/entity/Officer";
 import { useEffect, useRef, useState } from "react";
 import * as XLSX from "xlsx";
@@ -27,10 +30,9 @@ export default function OfficersDataTable(params: Props) {
 
   useEffect(() => {
     if (params.fetchDataTable) {
-      setDataTable(params.fetchDataTable)
+      setDataTable(params.fetchDataTable);
     }
-  }, [params.fetchDataTable])
-  
+  }, [params.fetchDataTable]);
 
   // XỬ LÝ UPLOAD FILE DS GIÁO VỤ
   const handleOfficerFileUpload = (e: any) => {
@@ -100,7 +102,23 @@ export default function OfficersDataTable(params: Props) {
     });
 
     const res = await handleCreateOfficerAction(APIdataTable);
+  };
+  const editOffciersAPI = async (newDataTable: any) => {
+    console.log("editOffciersAPI");
+    const APIdataTable = convertToAPIDataTableOfficers({
+      data: newDataTable,
+      organizationId: "1",
+    });
 
+    
+    const params = {
+      organization_id: "1",
+      staff: APIdataTable.officers}
+   
+      console.log("params", params);
+
+    const res = await handleEditOfficerAction(params);
+    console.log("res", res);
   };
 
   // Tạo một reference để liên kết với thẻ input file
@@ -110,8 +128,6 @@ export default function OfficersDataTable(params: Props) {
   };
 
   const { toast } = useToast();
-
-
 
   return (
     <div>
@@ -197,6 +213,9 @@ export default function OfficersDataTable(params: Props) {
               // set lại data import hoặc patch API
               localDataTable = localDataTable as OfficerDataItem[];
               setDataTable(localDataTable);
+
+              //? API
+              editOffciersAPI(localDataTable);
             }}
             onClickMultipleDelete={() => {
               setIsMultipleDelete(true);

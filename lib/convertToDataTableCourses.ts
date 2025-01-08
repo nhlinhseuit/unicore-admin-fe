@@ -5,34 +5,44 @@ import { CourseDataItem, ICourseResponseData } from "@/types/entity/Course";
 export const convertToDataTableCoursesViKeys = (
   data: ICourseResponseData[]
 ): CourseDataItem[] => {
-  let globalIndex = 1; // Biến để quản lý số thứ tự liên tiếp
+  return data
+    .flatMap((item) => {
+      return item.subclasses.map((subclass) => {
+        const requiredFields = {
+          "Mã môn học": item.subject_code,
+          "Mã lớp": subclass.code,
+          "Tên môn học": item.subject_metadata.name ?? "",
+          "Mã GV": subclass.teacher_code,
+          "Tên GV": "", // Nếu cần tên GV, có thể sửa lại để lấy thông tin từ nguồn khác
+          HTGD: subclass.type,
+          "Số TC": subclass.credits.toString(),
+          "Khoa quản lý": item.org_managed,
+          "Ngày BĐ": subclass.start_date,
+          "Ngày KT": subclass.end_date,
+          "Học kỳ": item.semester,
+          "Năm học": item.year,
+        };
 
-  return data.flatMap((item) => {
-    return item.subclasses.map((subclass) => {
-      const requiredFields = {
-        "Mã môn học": item.subject_code,
-        "Mã lớp": subclass.code,
-        "Tên môn học": item.subject_metadata.name ?? "",
-        "Mã GV": subclass.teacher_code,
-        "Tên GV": "", // Nếu cần tên GV, có thể sửa lại để lấy thông tin từ nguồn khác
-        HTGD: subclass.type,
-        "Số TC": subclass.credits.toString(),
-        "Khoa quản lý": item.org_managed,
-        "Ngày BĐ": subclass.start_date,
-        "Ngày KT": subclass.end_date,
-        "Học kỳ": item.semester,
-        "Năm học": item.year,
-      };
-
-      return {
-        type: "course",
-        STT: (globalIndex++).toString(), // Chuyển đổi số thứ tự sang kiểu chuỗi
-        isDeleted: false,
-        data: requiredFields,
-      };
+        return {
+          type: "course",
+          STT: "", // Tạm thời để trống, sẽ gán sau khi sắp xếp
+          isDeleted: false,
+          data: requiredFields,
+        };
+      });
+    })
+    .sort((a, b) => {
+      const codeA = a.data["Mã lớp"];
+      const codeB = b.data["Mã lớp"];
+      // So sánh mã lớp với xử lý số thứ tự
+      return codeA.localeCompare(codeB, undefined, { numeric: true });
+    })
+    .map((item, index) => {
+      // Gán số thứ tự sau khi sắp xếp
+      return { ...item, STT: (index + 1).toString() };
     });
-  });
 };
+
 
 //? Data import vào ở dạng ICourseResponseData, cần convert sang ICourseResponseData
 export const convertToAPIDataTableCourses = ({

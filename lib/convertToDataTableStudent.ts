@@ -38,6 +38,7 @@ export const convertToAPIDataTableStudent = ({
     return {
       organization_id: organizationId,
       code: item.data["MSSV"],
+      name: item.data["Họ và tên"],
       email: item.data["Email"],
       address: item.data["Địa chỉ"],
       phone: item.data["SDT"],

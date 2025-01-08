@@ -42,11 +42,13 @@ export const convertToAPIDataTableOfficers = ({
       phone: item.data["SDT"],
       email: item.data["Email"],
       dob: item.data["Ngày sinh"],
+      // gender: "name",
       gender: item.data["Giới tính"] === "Nam",
       position: item.data["Vị trí"],
     };
   });
 
+  
   return {
     officers: officersData,
     organization_id: organizationId,

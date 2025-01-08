@@ -3,7 +3,7 @@ import CourseItem from "@/components/courses/CourseItem";
 import MoreButtonCourseItem from "@/components/courses/MoreButtonCourseItem";
 import { ListCourseColors } from "@/constants";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import CourseItemDialog from "@/components/courses/CourseItemDialog";
 import DetailFilterComponent from "@/components/shared/DetailFilterComponent";
@@ -18,15 +18,42 @@ import {
 } from "@/components/ui/alert-dialog";
 import { mockCourses } from "@/mocks";
 import { useRouter } from "next/navigation";
+import { ICourseResponseData } from "@/types/entity/Course";
+import { fetchCourses } from "@/services/courseServices";
+import LoadingComponent from "@/components/shared/LoadingComponent";
+import NoResult from "@/components/shared/Status/NoResult";
 
 const JoinedCourses = () => {
   const [currentCourseId, setCurrentCourseId] = useState("");
 
   const router = useRouter();
 
-  const getCourseData = (idCourse: string) => {
-    return mockCourses.find((item) => item.id === idCourse);
+  // const getCourseData = (idCourse: string) => {
+  //   return mockCourses.find((item) => item.id === idCourse);
+  // };
+
+  const [isImport, setIsImport] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+  const [courses, setCourses] = useState<ICourseResponseData[]>([]);
+
+  useEffect(() => {
+    fetchCourses()
+      .then((data: ICourseResponseData[]) => {
+        setCourses(data.filter((item) => item.org_managed));
+        setIsLoading(false);
+      })
+      .catch((error) => {
+        setError(error.message);
+        setIsLoading(false);
+      });
+  }, []);
+
+  const getCurrentCourse = () => {
+    return courses.find((item) => item.code === currentCourseId);
   };
+
+  console.log("currret", currentCourseId);
 
   return (
     <>
@@ -38,7 +65,7 @@ const JoinedCourses = () => {
         <DetailFilterComponent />
       </div>
 
-      <div className="flex gap-4 flex-wrap">
+      {/* <div className="flex gap-4 flex-wrap">
         {mockCourses.map((item, index) => (
           <div
             key={item.id}
@@ -56,6 +83,7 @@ const JoinedCourses = () => {
               id={item.id}
               name={item.name}
               semester={item.semester}
+              year={item.semester}
               teachers={item.teachers}
               color={
                 ListCourseColors.find((course) => course.type === item.type)
@@ -67,9 +95,53 @@ const JoinedCourses = () => {
             </div>
           </div>
         ))}
-      </div>
+      </div> */}
 
-      {currentCourseId != "" && getCourseData(currentCourseId) ? (
+      {isLoading ? (
+        <LoadingComponent />
+      ) : courses ? (
+        <div className="flex gap-4 flex-wrap">
+          {courses.map((item, index) => (
+            <div
+              key={item.id}
+              className="relative"
+              onClick={() => {
+                if (item.subclasses.length > 1) {
+                  setCurrentCourseId(item.code);
+                } else {
+                  router.push(`/courses/${item.code}`);
+                }
+              }}
+            >
+              <CourseItem
+                key={item.id}
+                id={item.code}
+                name={item.subject_metadata.name}
+                semester={item.semester.toString()}
+                year={item.semester.toString()}
+                teachers={item.subclasses
+                  .map((item) => item.teacher_code)
+                  .filter((item) => item !== "")
+                  .join(", ")}
+                color={
+                  ListCourseColors.find((course) => course.type === item.type)
+                    ?.color || "#e8f7ff"
+                } // các lớp như LT, HT1, HT2... đều là lớp thường nên màu vàng
+              />
+              <div className="absolute right-0 top-0">
+                <MoreButtonCourseItem handleEdit={() => {}} />
+              </div>
+            </div>
+          ))}
+        </div>
+      ) : (
+        <NoResult
+          title="Không có dữ liệu!"
+          description="🚀 Import file danh sách để thấy được dữ liệu."
+        />
+      )}
+
+      {currentCourseId != "" && getCurrentCourse() ? (
         <AlertDialog open={currentCourseId !== ""}>
           <AlertDialogContent>
             <AlertDialogHeader>
@@ -77,36 +149,35 @@ const JoinedCourses = () => {
                 {currentCourseId}
               </AlertDialogTitle>
               <AlertDialogDescription className="text-center">
-                {getCourseData(currentCourseId)?.name}
+                {getCurrentCourse()?.subject_metadata.name}
               </AlertDialogDescription>
             </AlertDialogHeader>
             {
               <div className="flex flex-wrap gap-2">
-                {getCourseData(currentCourseId)?.subCourses.map(
-                  (item, index) => (
-                    <div key={item.id} className="relative w-[48%]">
-                      <Link
-                        href={`/courses/${
-                          getCourseData(currentCourseId)?.subCourses[index].id
-                        }`}
-                      >
-                        <CourseItemDialog
-                          key={item.id}
-                          id={item.id}
-                          teacher={item.teacher}
-                          type={item.type}
-                          color={
-                            ListCourseColors.find((course) => course.type === getCourseData(currentCourseId)?.type)
-                              ?.color || "#ffffff"
-                          }
-                        />
-                      </Link>
-                      <div className="absolute right-0 top-0">
-                        <MoreButtonCourseItem handleEdit={() => {}} />
-                      </div>
+                {getCurrentCourse()?.subclasses.map((item, index) => (
+                  <div key={item.code} className="relative w-[48%]">
+                    <Link
+                      href={`/courses/${
+                        getCurrentCourse()?.subclasses[index].code
+                      }`}
+                    >
+                      <CourseItemDialog
+                        key={item.code}
+                        id={item.code}
+                        teacher={item.teacher_code}
+                        type={item.type}
+                        color={
+                          ListCourseColors.find(
+                            (course) => course.type === getCurrentCourse()?.type
+                          )?.color || "#e8f7ff"
+                        }
+                      />
+                    </Link>
+                    <div className="absolute right-0 top-0">
+                      <MoreButtonCourseItem handleEdit={() => {}} />
                     </div>
-                  )
-                )}
+                  </div>
+                ))}
               </div>
             }
             <AlertDialogFooter>

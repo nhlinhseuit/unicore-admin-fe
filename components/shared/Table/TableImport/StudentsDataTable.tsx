@@ -3,7 +3,7 @@
 import { DataTableType } from "@/constants";
 import { useToast } from "@/hooks/use-toast";
 import { convertToAPIDataTableStudent } from "@/lib/convertToDataTableStudent";
-import { handleCreateStudentAction } from "@/services/studentServices";
+import { handleCreateStudentAction, handleEditStudentAction } from "@/services/studentServices";
 import { StudentDataItem } from "@/types";
 import { useEffect, useRef, useState } from "react";
 import * as XLSX from "xlsx";
@@ -113,6 +113,19 @@ export default function StudentsDataTable(params: Props) {
     console.log("res:::::", res);
   };
 
+  const editStudentsAPI = async (newDataTable: any) => {
+    const APIdataTable = convertToAPIDataTableStudent({
+      data: newDataTable,
+      organizationId: "1",
+    });
+
+    const res = await handleEditStudentAction(APIdataTable);
+
+    console.log(APIdataTable);
+
+    console.log("res:::::", res);
+  };
+
   console.log("students table", params.isFetchTable);
 
   return (
@@ -199,6 +212,9 @@ export default function StudentsDataTable(params: Props) {
               // set lại data import hoặc patch API
               localDataTable = localDataTable as StudentDataItem[];
               setDataTable(localDataTable);
+
+              //? API
+              editStudentsAPI(localDataTable)
             }}
             onClickMultipleDelete={() => {
               setIsMultipleDelete(true);

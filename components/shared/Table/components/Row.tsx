@@ -70,8 +70,7 @@ const Row = React.memo(
         | CentralizedExamDataItem
         | QAandProjectExamDataItem
         | TeacherDataItem
-        | OfficerDataItem
-         = {
+        | OfficerDataItem = {
         ...refInput.current,
         data: {
           ...refInput.current.data,
@@ -109,6 +108,19 @@ const Row = React.memo(
       handleInputChange: Function;
       isHasSubCourses: boolean | undefined;
     }) => {
+      const shouldRenderInput =
+        params.isEditTable &&
+        !(
+          params.isFetchTable &&
+          (key === "Email" ||
+            key === "Tài khoản" ||
+            key === "Mật khẩu" ||
+            key === "MSSV" ||
+            key === "Mã cán bộ" ||
+            key === "Mã giáo vụ" ||
+            key === "Mã MH")
+        );
+
       switch (key) {
         case "Mã lớp":
           return params.isEditTable ? (
@@ -118,42 +130,41 @@ const Row = React.memo(
               placeholder={value as string | number}
               onChange={(newValue) => handleInputChange({ key, newValue })}
             />
-          )
-          //  : isHasSubCourses ? (
-          //   <div className="flex">
-          //     <span>{value}</span>
-          //     <Dropdown
-          //       className="z-30 rounded-lg"
-          //       label=""
-          //       renderTrigger={() => (
-          //         <Image
-          //           src="/assets/icons/info.svg"
-          //           alt="search"
-          //           width={21}
-          //           height={21}
-          //           className="ml-2 mr-4 cursor-pointer"
-          //         />
-          //       )}
-          //     >
-          //       <div className="scroll-container scroll-container-dropdown-content">
-          //         <ul>
-          //           {[
-          //             "Huỳnh Hồ Thị Mộng Trinh",
-          //             "Nguyễn Trịnh Đông",
-          //             "Huỳnh Tuấn Anh",
-          //           ].map((name) => (
-          //             <li role="menuitem" key={name}>
-          //               <p className="flex items-center justify-start w-full px-4 py-2 text-sm text-left text-gray-700 cursor-default">
-          //                 Đồ án 1 - {name}
-          //               </p>
-          //             </li>
-          //           ))}
-          //         </ul>
-          //       </div>
-          //     </Dropdown>
-          //   </div>
-          // ) 
-          : (
+          ) : (
+            //  : isHasSubCourses ? (
+            //   <div className="flex">
+            //     <span>{value}</span>
+            //     <Dropdown
+            //       className="z-30 rounded-lg"
+            //       label=""
+            //       renderTrigger={() => (
+            //         <Image
+            //           src="/assets/icons/info.svg"
+            //           alt="search"
+            //           width={21}
+            //           height={21}
+            //           className="ml-2 mr-4 cursor-pointer"
+            //         />
+            //       )}
+            //     >
+            //       <div className="scroll-container scroll-container-dropdown-content">
+            //         <ul>
+            //           {[
+            //             "Huỳnh Hồ Thị Mộng Trinh",
+            //             "Nguyễn Trịnh Đông",
+            //             "Huỳnh Tuấn Anh",
+            //           ].map((name) => (
+            //             <li role="menuitem" key={name}>
+            //               <p className="flex items-center justify-start w-full px-4 py-2 text-sm text-left text-gray-700 cursor-default">
+            //                 Đồ án 1 - {name}
+            //               </p>
+            //             </li>
+            //           ))}
+            //         </ul>
+            //       </div>
+            //     </Dropdown>
+            //   </div>
+            // )
             <span>{value}</span>
           );
 
@@ -182,7 +193,7 @@ const Row = React.memo(
           );
 
         default:
-          return params.isEditTable && !(params.isFetchTable && key === 'Email') ? (
+          return shouldRenderInput ? (
             typeof value === "string" ? (
               <div className="flex flex-col gap-1">
                 {value

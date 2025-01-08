@@ -3,7 +3,7 @@
 import { DataTableType } from "@/constants";
 import { useToast } from "@/hooks/use-toast";
 import { convertToAPIDataTableTeachers } from "@/lib/convertToDataTableTeachers";
-import { handleCreateTeachersAction } from "@/services/teacherServices";
+import { handleCreateTeachersAction, handleEditTeachersAction } from "@/services/teacherServices";
 import { TeacherDataItem } from "@/types/entity/Teacher";
 import { useEffect, useRef, useState } from "react";
 import * as XLSX from "xlsx";
@@ -107,6 +107,19 @@ export default function TeachersDataTable(params: Props) {
     console.log("res", res);
   };
 
+  const editTeachersAPI = async (newDataTable: any) => {
+    const APIdataTable = convertToAPIDataTableTeachers({
+      data: newDataTable,
+      organizationId: "1",
+    });
+
+    console.log('APIdataTable', APIdataTable);
+
+    const res = await handleEditTeachersAction(APIdataTable);
+
+    console.log("res", res);
+  };
+
   // Tạo một reference để liên kết với thẻ input file
   const fileInputRef = useRef<HTMLInputElement | null>(null);
   const handleButtonClick = () => {
@@ -199,6 +212,9 @@ export default function TeachersDataTable(params: Props) {
               // set lại data import hoặc patch API
               localDataTable = localDataTable as TeacherDataItem[];
               setDataTable(localDataTable);
+
+              //? API
+              editTeachersAPI(localDataTable);
             }}
             onClickMultipleDelete={() => {
               setIsMultipleDelete(true);

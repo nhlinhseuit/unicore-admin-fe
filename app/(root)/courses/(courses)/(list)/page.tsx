@@ -4,6 +4,8 @@ import BackToPrev from "@/components/shared/BackToPrev";
 import IconButton from "@/components/shared/Button/IconButton";
 import IconButtonStopPropagation from "@/components/shared/Button/IconButtonStopPropagation";
 import DetailFilterComponent from "@/components/shared/DetailFilterComponent";
+import LoadingComponent from "@/components/shared/LoadingComponent";
+import NoResult from "@/components/shared/Status/NoResult";
 import CoursesDataTable from "@/components/shared/Table/TableImport/CoursesDataTable";
 import ImportCentralizedExam from "@/components/shared/Table/TableImport/ImportCentralizedExam";
 import ImportInternReport from "@/components/shared/Table/TableImport/ImportInternReport";
@@ -18,22 +20,19 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
-import { fetchCourses } from "@/services/courseServices";
-import { ICourseResponseData } from "@/types/entity/Course";
+import {
+  convertToDataTableCoursesViKeys
+} from "@/lib/convertToDataTableCourses";
 import {
   mockNotCompleteActions,
   mockSemesterList,
   mockYearList,
 } from "@/mocks";
+import { fetchCourses } from "@/services/courseServices";
+import { ICourseResponseData } from "@/types/entity/Course";
 import { Dropdown } from "flowbite-react";
 import Image from "next/image";
 import { useEffect, useState } from "react";
-import LoadingComponent from "@/components/shared/LoadingComponent";
-import NoResult from "@/components/shared/Status/NoResult";
-import {
-  convertToAPIDataTableCourses,
-  convertToDataTableCoursesViKeys,
-} from "@/lib/convertToDataTableCourses";
 
 const Courses = () => {
   const [isImport, setIsImport] = useState(false);
@@ -73,8 +72,6 @@ const Courses = () => {
         return null;
     }
   };
-
-  console.log("convert", convertToDataTableCoursesViKeys(courses));
 
   const renderComponent = () => {
     if (!isImport && isImportCompleteAction === -1) {

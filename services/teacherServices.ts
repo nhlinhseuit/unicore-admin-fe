@@ -28,48 +28,41 @@ export const fetchTeachers = async () => {
 
 export const handleCreateTeachersAction = async (data: any) => {
 
-  console.log('handleCreateTeachersAction')
-
-  console.log('data', data)
-  
-  // const session = await auth();
   const res = await sendRequest<IBackendRes<any>>({
     url: `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/profile/teachers/bulk`,
     method: "POST",
     // headers: {
-      //   Authorization: `Bearer ${session?.user?.access_token}`,
-      // },
-      body: { ...data },
-    });
+    //   Authorization: `Bearer ${session?.user?.access_token}`,
+    // },
+    body: { ...data },
+  });
 
-    console.log('res', res)
+  console.log("res", res);
 
   revalidateTag("list-teachers");
 
   return res;
 };
 
-// export const handleUpdateSubjectAction = async (data: any) => {
-//   const { id, ...rest } = data; // Separate id from the rest of the data
+export const handleEditTeachersAction = async (data: any) => {
+  const res = await sendRequest<IBackendRes<any>>({
+    url: `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/profile/teachers/bulk`,
+    method: "PUT",
+    // headers: {
+    //   Authorization: `Bearer ${session?.user?.access_token}`,
+    // },
+    body: { ...data },
+  });
 
-//   // Send the PATCH request to update supplier by ID in the URL path
-//   const res = await sendRequest<IBackendRes<any>>({
-//     url: `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/api/users/${id}`, // Include ID directly in the path
-//     method: 'PATCH',
-//     body: { ...rest },
-//     // headers: {
-//     //   Authorization: `Bearer ${session?.user?.access_token}`, // Uncomment if authentication is needed
-//     // },
-//   });
+  console.log("res", res);
 
-//   // Revalidate to update the list view if necessary
-//   revalidateTag('list-teachers');
+  revalidateTag("list-teachers");
 
-//   return res;
-// };
+  return res;
+};
 
 // export const handleDeleteSubjectAction = async (id: any) => {
-//   // const session = await auth();
+//
 //   const res = await sendRequest<IBackendRes<any>>({
 //     url: `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/api/users/${id}`,
 //     method: 'DELETE',
