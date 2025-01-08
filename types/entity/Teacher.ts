@@ -19,26 +19,6 @@ export interface TeacherData {
   "Địa chỉ": string;
   "Ngày sinh": string;
 }
-
-export interface ITeacherParams {
-  organization_id: string;
-  teachers: ITeacherParamsData[];
-}
-
-interface ITeacherParamsData {
-  code: string;
-  name: string;
-  email: string;
-  phone: string;
-  address: string;
-  dob: string;
-  gender: boolean;
-  role: string;
-  degree: string;
-  organization_id: string;
-  research_direction: string;
-  research_concern: string;
-}
 export interface ITeacherResponseData {
   id: string;
   code: string;

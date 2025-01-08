@@ -21,27 +21,6 @@ export interface CourseData {
   "Năm học": number;
 }
 
-export interface ICourseParams {
-  organization_id: string;
-  classes: ICourseParamsData[];
-}
-
-interface ICourseParamsData {
-  code: string;
-  name_subject?: string;
-  subject_code: string;
-  is_org_managed: boolean;
-  teacher_code: string;
-  teacher_name: string;
-  type: string;
-  credits: number;
-  start_date: string;
-  end_date: string;
-  semester: number;
-  year: number;
-  note: string;
-}
-
 export interface ICourseResponseData {
   id: string;
   code: string;

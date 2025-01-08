@@ -18,22 +18,6 @@ export interface OfficerData {
   "Ngày sinh": string;
 }
 
-export interface IOfficerParams {
-  organization_id: string;
-  officers: IOfficerDataParams[];
-}
-
-interface IOfficerDataParams {
-  code: string;
-  name: string;
-  email: string;
-  phone: string;
-  address: string;
-  dob: string;
-  gender: boolean;
-  position: string;
-}
-
 export interface IOfficerResponse {
   id: string;
   code: string;

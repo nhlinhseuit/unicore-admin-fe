@@ -2,20 +2,19 @@ import { FilterType } from "@/constants";
 import { normalizeSearchItem } from "@/lib/utils";
 import {
   CentralizedExamDataItem,
-  ThesisTopicGradeDataItem,
-  QAandProjectExamDataItem,
-  RegisterTopicDataItem,
-  StudentDataItem,
-  TopicDataItem,
-  RegisterGroupDataItem,
   InternReviewDataItem,
+  QAandProjectExamDataItem,
+  RegisterGroupDataItem,
+  StudentDataItem,
   ThesisReviewTicketDataItem,
+  ThesisTopicGradeDataItem,
 } from "@/types";
+import { CourseDataItem } from "@/types/entity/Course";
+import { OfficerDataItem } from "@/types/entity/Officer";
 import { SubjectDataItem } from "@/types/entity/Subject";
 import { TeacherDataItem } from "@/types/entity/Teacher";
-import { OfficerDataItem } from "@/types/entity/Officer";
+import { TopicDataItem } from "@/types/entity/Topic";
 import { useEffect } from "react";
-import { CourseDataItem } from "@/types/entity/Course";
 
 const useDebounceSearchDataTable = (
   debouncedSearchTerm: any,
@@ -31,7 +30,6 @@ const useDebounceSearchDataTable = (
     | TeacherDataItem[]
     | OfficerDataItem[]
     | TopicDataItem[]
-    | RegisterTopicDataItem[]
     | QAandProjectExamDataItem[]
     | CentralizedExamDataItem[]
     | ThesisTopicGradeDataItem[]
@@ -45,7 +43,6 @@ const useDebounceSearchDataTable = (
         | OfficerDataItem
         | TeacherDataItem
         | TopicDataItem
-        | RegisterTopicDataItem
         | QAandProjectExamDataItem
         | CentralizedExamDataItem
         | ThesisTopicGradeDataItem
@@ -59,7 +56,6 @@ const useDebounceSearchDataTable = (
     | TeacherDataItem[]
     | OfficerDataItem[]
     | TopicDataItem[]
-    | RegisterTopicDataItem[]
     | RegisterGroupDataItem[]
     | QAandProjectExamDataItem[]
     | CentralizedExamDataItem[]
@@ -73,7 +69,6 @@ const useDebounceSearchDataTable = (
         | TeacherDataItem
         | OfficerDataItem
         | TopicDataItem
-        | RegisterTopicDataItem
         | RegisterGroupDataItem
         | QAandProjectExamDataItem
         | CentralizedExamDataItem

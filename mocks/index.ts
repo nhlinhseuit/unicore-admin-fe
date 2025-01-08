@@ -1421,6 +1421,7 @@ export const mockPostDataWithReport = [
 export const mockTopicDataTable = [
   {
     STT: "1",
+    type: "topic",
     isDeleted: false,
     data: {
       "Mã nhóm": "1",
@@ -1437,6 +1438,7 @@ export const mockTopicDataTable = [
   },
   {
     STT: "2",
+    type: "topic",
     isDeleted: false,
     data: {
       "Mã nhóm": "2",
@@ -1453,6 +1455,7 @@ export const mockTopicDataTable = [
   },
   {
     STT: "3",
+    type: "topic",
     isDeleted: false,
     data: {
       "Mã nhóm": "3",
@@ -1468,6 +1471,7 @@ export const mockTopicDataTable = [
   },
   {
     STT: "4",
+    type: "topic",
     isDeleted: false,
     data: {
       "Mã nhóm": "4",
@@ -1489,6 +1493,7 @@ export const mockTopicDataTable = [
 export const mockDataStudentRegisterTopic = [
   {
     STT: "1",
+    type: "topic",
     isDeleted: false,
     data: {
       "Mã nhóm": "1",
@@ -1505,6 +1510,7 @@ export const mockDataStudentRegisterTopic = [
   },
   {
     STT: "2",
+    type: "topic",
     isDeleted: false,
     data: {
       "Mã nhóm": "2",
@@ -1521,6 +1527,7 @@ export const mockDataStudentRegisterTopic = [
   },
   {
     STT: "3",
+    type: "topic",
     isDeleted: false,
     data: {
       "Mã nhóm": "3",
@@ -1536,6 +1543,7 @@ export const mockDataStudentRegisterTopic = [
   },
   {
     STT: "4",
+    type: "topic",
     isDeleted: false,
     data: {
       "Mã nhóm": "4",

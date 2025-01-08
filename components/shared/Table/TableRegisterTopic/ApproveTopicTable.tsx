@@ -1,4 +1,3 @@
-import { RegisterTopicDataItem } from "@/types";
 import { Table } from "flowbite-react";
 import { useEffect, useMemo, useState } from "react";
 import NoResult from "../../Status/NoResult";
@@ -22,10 +21,11 @@ import BorderContainer from "../../BorderContainer";
 import TextAreaComponent from "../../TextAreaComponent";
 import RowApproveTopicTable from "./RowApproveTopicTable";
 import TableSearch from "../../Search/TableSearch";
+import { TopicDataItem } from "@/types/entity/Topic";
 
 interface DataTableParams {
   type: RegisterTopicTableType;
-  dataTable: RegisterTopicDataItem[];
+  dataTable: TopicDataItem[];
   onSaveTable: (itemsSelected: string[]) => void;
 }
 

@@ -94,16 +94,6 @@ export interface RegisterGroupData {
   SĐT: string[];
   "Họ và tên": string[];
 }
-export interface RegisterTopicData {
-  "Mã đề tài": string;
-  "Tên đề tài tiếng Việt": string;
-  "Tên đề tài tiếng Anh": string;
-  "Mô tả": string;
-  "Mã nhóm": string;
-  MSSV: string[];
-  SĐT: string[];
-  "Họ và tên": string[];
-}
 
 export interface ThesisTopicGradeData {
   "Mã nhóm": string;
@@ -135,17 +125,6 @@ export interface TopicRegisterGroupData {
   "Họ và tên": string;
 }
 
-export interface TopicData {
-  "GV phụ trách": string;
-  "Mã đề tài": string;
-  "Tên đề tài tiếng Việt": string;
-  "Tên đề tài tiếng Anh": string;
-  "Mô tả": string;
-
-  MSSV: string[];
-  SĐT: string[];
-  "Họ và tên": string[];
-}
 
 export interface FileData {
   "Tên file": string;
@@ -206,11 +185,7 @@ export interface RegisterGroupDataItem {
   isDeleted: boolean;
   data: RegisterGroupData;
 }
-export interface RegisterTopicDataItem {
-  STT: string;
-  isDeleted: boolean;
-  data: RegisterTopicData;
-}
+
 export interface ThesisTopicGradeDataItem {
   STT: string;
   data: ThesisTopicGradeData;
@@ -224,12 +199,40 @@ export interface TopicRegisterGroupDataItem {
   STT: string;
   data: TopicRegisterGroupData;
 }
-export interface TopicDataItem {
-  type: string;
-  STT: string | number;
-  isDeleted: boolean;
-  data: TopicData;
-}
+// export interface TopicDataItem {
+//   type: string;
+//   STT: string | number;
+//   isDeleted: boolean;
+//   data: TopicData;
+// }
+
+// export interface TopicData {
+//   "GV phụ trách": string;
+//   "Mã đề tài": string;
+//   "Tên đề tài tiếng Việt": string;
+//   "Tên đề tài tiếng Anh": string;
+//   "Mô tả": string;
+
+//   MSSV: string[];
+//   SĐT: string[];
+//   "Họ và tên": string[];
+// }
+// export interface RegisterTopicDataItem {
+//   STT: string;
+//   isDeleted: boolean;
+//   data: RegisterTopicData;
+// }
+
+// export interface RegisterTopicData {
+//   "Mã đề tài": string;
+//   "Tên đề tài tiếng Việt": string;
+//   "Tên đề tài tiếng Anh": string;
+//   "Mô tả": string;
+//   "Mã nhóm": string;
+//   MSSV: string[];
+//   SĐT: string[];
+//   "Họ và tên": string[];
+// }
 export interface FileDataItem {
   STT: string;
   isDeleted: boolean;

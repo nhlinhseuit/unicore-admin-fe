@@ -1,13 +1,11 @@
 import { RegisterTopicTableType } from "@/constants";
-import {
-  RegisterTopicDataItem
-} from "@/types";
+import { TopicDataItem } from "@/types/entity/Topic";
 import { Table } from "flowbite-react";
 import React from "react";
 
 interface RowParams {
   type: RegisterTopicTableType;
-  dataItem: RegisterTopicDataItem;
+  dataItem: TopicDataItem;
   isHasSubCourses?: boolean;
   onClickCheckBoxSelect?: (item: string) => void;
 }

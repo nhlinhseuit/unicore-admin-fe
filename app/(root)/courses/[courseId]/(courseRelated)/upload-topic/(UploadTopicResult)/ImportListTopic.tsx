@@ -9,8 +9,10 @@ import RegisterTopicTable from "@/components/shared/Table/TableRegisterTopic/Reg
 // import TopicDataTable from "@/components/shared/Table/TableTopic/TopicDataTable";
 import { RegisterTopicTableType } from "@/constants";
 import { toast } from "@/hooks/use-toast";
+import { convertToAPIDataTableTopics } from "@/lib/convertToDataTableTopic";
+import { handleCreateTopicAction } from "@/services/topicInProjectServices";
+import { TopicDataItem } from "@/types/entity/Topic";
 
-import { RegisterTopicDataItem, TopicDataItem } from "@/types";
 import { parseToArray } from "@/utils/utils";
 import { useRef, useState } from "react";
 import * as XLSX from "xlsx";
@@ -24,8 +26,8 @@ const ImportListTopic = (params: Props) => {
   const [errorMessages, setErrorMessages] = useState<string[]>([]);
   const [isLoading, setIsLoading] = useState(false);
 
-    const [isEditTable, setIsEditTable] = useState(false);
-    const [isMultipleDelete, setIsMultipleDelete] = useState(false);
+  const [isEditTable, setIsEditTable] = useState(false);
+  const [isMultipleDelete, setIsMultipleDelete] = useState(false);
 
   const fileInputRef = useRef<HTMLInputElement | null>(null);
   const handleButtonClick = () => {
@@ -91,6 +93,36 @@ const ImportListTopic = (params: Props) => {
     };
   };
 
+  const createTopicsAPI = async () => {
+    console.log("createTopicsAPI");
+
+    const projectId = "677cd4ae3bc6f71acb13d066";
+
+    const APIdataTable = convertToAPIDataTableTopics({
+      data: dataTable,
+    });
+
+    console.log("APIdataTable", APIdataTable);
+
+    const res = await handleCreateTopicAction(projectId, APIdataTable);
+
+    console.log("res", res);
+  };
+
+  const editTopicsAPI = async (newDataTable: any) => {
+    // const APIdataTable = convertToAPIDataTableOfficers({
+    //   data: newDataTable,
+    //   organizationId: "1",
+    // });
+    // const params = {
+    //   organization_id: "1",
+    //   staff: APIdataTable.officers,
+    // };
+    // console.log("params", params);
+    // const res = await handleEditOfficerAction(params);
+    // console.log("res", res);
+  };
+
   return (
     <>
       <BackToPrev
@@ -135,7 +167,11 @@ const ImportListTopic = (params: Props) => {
             />
           </div>
           {dataTable.length > 0 && (
-            <IconButton text="Lưu" onClick={() => {}} otherClasses="ml-2" />
+            <IconButton
+              text="Lưu"
+              onClick={createTopicsAPI}
+              otherClasses="ml-2"
+            />
           )}
         </div>
 
@@ -156,7 +192,6 @@ const ImportListTopic = (params: Props) => {
         //   isMultipleDelete={false}
         //   dataTable={dataTable}
         // />
-
         <RegisterTopicTable
           type={RegisterTopicTableType.registerTopic}
           isEditTable={isEditTable}
@@ -169,7 +204,7 @@ const ImportListTopic = (params: Props) => {
           onSaveEditTable={(localDataTable) => {
             setIsEditTable(false);
             // set lại data import hoặc patch API
-            localDataTable = localDataTable as RegisterTopicDataItem[];
+            localDataTable = localDataTable as TopicDataItem[];
             setDataTable(localDataTable);
           }}
           onClickMultipleDelete={() => {
@@ -217,8 +252,6 @@ const ImportListTopic = (params: Props) => {
             setIsMultipleDelete(false);
           }}
         />
-
-
       ) : (
         <NoResult
           title="Không có dữ liệu!"

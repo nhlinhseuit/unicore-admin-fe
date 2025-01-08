@@ -34,10 +34,10 @@ import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 
 import NoResult from "@/components/shared/Status/NoResult";
-import { RegisterTopicDataItem } from "@/types";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
+import { TopicDataItem } from "@/types/entity/Topic";
 
 const RegisterTopic = () => {
   const router = useRouter();
@@ -155,7 +155,7 @@ const RegisterTopic = () => {
   //! TABLE
   const [isEditTable, setIsEditTable] = useState(false);
   const [isMultipleDelete, setIsMultipleDelete] = useState(false);
-  const [dataTable, setDataTable] = useState<RegisterTopicDataItem[]>(
+  const [dataTable, setDataTable] = useState<TopicDataItem[]>(
     mockDataStudentRegisterTopic
   );
 
@@ -382,7 +382,7 @@ const RegisterTopic = () => {
                   console.log("here");
                   setIsEditTable(false);
                   // set lại data import hoặc patch API
-                  localDataTable = localDataTable as RegisterTopicDataItem[];
+                  localDataTable = localDataTable as TopicDataItem[];
                   setDataTable(localDataTable);
                 }}
                 onClickMultipleDelete={() => {

@@ -21,31 +21,6 @@ export interface SubjectData {
   "Tên môn học": string;
 }
 
-export interface ISubjectParams {
-  organization_id: string;
-  subjects: ISubjectParamsData[];
-}
-
-interface ISubjectParamsData {
-  name: string;
-  code: string;
-  description: string;
-  // metadata: IMetaData;
-  // subjectId: string;
-  semester: number;
-  year: number;
-  organization_id: string;
-  midterm_format: string;
-  practical_format: string;
-  final_format: string;
-  midterm_time: string;
-  final_time: string;
-  coursework_weight: number;
-  midterm_weight: number;
-  practical_weight: number;
-  final_weight: number;
-}
-
 // interface IMetaData {
 //   subjectId: string;
 //   semester: number;
@@ -63,10 +38,6 @@ interface ISubjectParamsData {
 // }
 
 export interface ISubjectResponseData {
-  // subjectId: string;
-  // semester: number;
-  // year: number;
-
   id: string;
   code: string;
   name: string;

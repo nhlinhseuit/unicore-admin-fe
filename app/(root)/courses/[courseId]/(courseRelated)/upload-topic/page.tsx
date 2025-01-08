@@ -1,7 +1,7 @@
 "use client";
 
 import ToggleTitle from "@/components/shared/ToggleTitle";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import IconButton from "@/components/shared/Button/IconButton";
 import SubmitButton from "@/components/shared/Button/SubmitButton";
@@ -33,6 +33,9 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import ImportListTopic from "./(UploadTopicResult)/ImportListTopic";
 import AlertCreateNewTopic from "./(UploadTopicResult)/AlertCreateNewTopic";
+import BorderContainer from "@/components/shared/BorderContainer";
+import { ITProjectResponseData } from "@/types/entity/Project";
+import { fetchDetailProject } from "@/services/topic.ProjectServices";
 
 const UploadTopic = () => {
   const router = useRouter();
@@ -232,9 +235,10 @@ const UploadTopic = () => {
 
             {isToggleViewTable ? (
               isImport ? (
-                <ImportListTopic handleSetImport={handleSetImport} />
-              ) : 
-              (
+                <BorderContainer otherClasses="pt-2 pb-6 px-6">
+                  <ImportListTopic handleSetImport={handleSetImport} />
+                </BorderContainer>
+              ) : (
                 <UploadTopicResult />
               )
             ) : (
