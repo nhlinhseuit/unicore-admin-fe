@@ -22,6 +22,7 @@ import { ICourseResponseData } from "@/types/entity/Course";
 import { fetchCourses } from "@/services/courseServices";
 import LoadingComponent from "@/components/shared/LoadingComponent";
 import NoResult from "@/components/shared/Status/NoResult";
+import { sClassCode, sClassId } from "../(store)/courseStore";
 
 const JoinedCourses = () => {
   const [currentCourseId, setCurrentCourseId] = useState("");
@@ -52,8 +53,6 @@ const JoinedCourses = () => {
   const getCurrentCourse = () => {
     return courses.find((item) => item.code === currentCourseId);
   };
-
-  console.log("currret", currentCourseId);
 
   return (
     <>
@@ -107,9 +106,16 @@ const JoinedCourses = () => {
               className="relative"
               onClick={() => {
                 if (item.subclasses.length > 1) {
+                  //? Lưu code, id vào store
+                  sClassId.set(item.id);
+
                   setCurrentCourseId(item.code);
                 } else {
                   router.push(`/courses/${item.code}`);
+
+                  //? Lưu code, id vào store
+                  sClassId.set(item.id);
+                  sClassCode.set(item.subclasses[0].code);
                 }
               }}
             >
@@ -156,10 +162,19 @@ const JoinedCourses = () => {
               <div className="flex flex-wrap gap-2">
                 {getCurrentCourse()?.subclasses.map((item, index) => (
                   <div key={item.code} className="relative w-[48%]">
-                    <Link
-                      href={`/courses/${
-                        getCurrentCourse()?.subclasses[index].code
-                      }`}
+                    <div
+                      onClick={() => {
+                        //? Lưu code, id vào store
+                        sClassCode.set(
+                          getCurrentCourse()?.subclasses[index].code ?? ""
+                        );
+
+                        router.push(
+                          `/courses/${
+                            getCurrentCourse()?.subclasses[index].code
+                          }`
+                        );
+                      }}
                     >
                       <CourseItemDialog
                         key={item.code}
@@ -172,7 +187,7 @@ const JoinedCourses = () => {
                           )?.color || "#e8f7ff"
                         }
                       />
-                    </Link>
+                    </div>
                     <div className="absolute right-0 top-0">
                       <MoreButtonCourseItem handleEdit={() => {}} />
                     </div>

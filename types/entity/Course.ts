@@ -1,3 +1,11 @@
+export enum CourseType {
+  //? NOR, LT, HT1, HT2, DA, TTTN, KLTN, NHD: nhóm hướng dẫn
+  RegularCourseWithProject = "NOR",
+  InternCourse = "TTTN",
+  ProjectCourse = "DA",
+  ThesisCourse = "KLTN",
+}
+
 export interface CourseDataItem {
   type: string;
   STT: string;

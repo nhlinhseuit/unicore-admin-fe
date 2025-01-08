@@ -1,4 +1,5 @@
 import { SidebarLink } from "@/types";
+import { CourseType } from "@/types/entity/Course";
 
 export const itemsPerPage = 30;
 export const maxStudentPerGroup = 2;
@@ -157,14 +158,6 @@ export enum FilterType {
   SortOlder,
   DetailFilter,
   None,
-}
-
-export enum CourseType {
-  //? NOR, LT, HT1, HT2, DA, TTTN, KLTN, NHD: nhóm hướng dẫn
-  RegularCourseWithProject = "NOR",
-  InternCourse = "TTTN",
-  ProjectCourse = "DA",
-  ThesisCourse = "KLTN",
 }
 
 export const ListCourseColors = [

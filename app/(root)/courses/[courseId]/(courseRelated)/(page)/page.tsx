@@ -13,9 +13,16 @@ import { mockPostDataCourseIdPage } from "@/mocks";
 import { Dropdown } from "flowbite-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { sClassCode, sClassId } from "../../../(courses)/(store)/courseStore";
 
 const page = () => {
   const pathName = usePathname();
+
+  const classCode = sClassCode.use();
+  const classId = sClassId.use();
+  
+  console.log('classCode', classCode) 
+  console.log('classId', classId) 
 
   var typeFilter = FilterType.SortNewer;
 
