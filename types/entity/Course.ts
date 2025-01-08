@@ -9,8 +9,8 @@ export interface CourseData {
   "Mã môn học": string;
   "Mã lớp": string;
   "Tên môn học": string;
-  "Mã GV": string;
-  "Tên GV": string;
+  "Mã GV": string[];
+  "Tên GV": string[];
   // "Sĩ số": string;
   "Số TC": string;
   HTGD: string;

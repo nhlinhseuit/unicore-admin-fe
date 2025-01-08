@@ -76,12 +76,9 @@ const Row = React.memo(
           ...refInput.current.data,
           [key]: isMultipleInput
             ? //@ts-ignore
-              (refInput.current.data[key] as string)
-                .split(/\r\n|\n/)
-                .map((line, index) =>
-                  index === currentIndex ? newValue : line
-                )
-                .join("\r\n")
+              (refInput.current.data[key] as string[]).map((line, index) =>
+                index === currentIndex ? newValue : line
+              )
             : newValue,
         },
       };
@@ -194,18 +191,22 @@ const Row = React.memo(
 
         default:
           return shouldRenderInput ? (
-            typeof value === "string" ? (
+            Array.isArray(value) ? (
               <div className="flex flex-col gap-1">
-                {value
-                  .split(/\r\n|\n/)
-                  .filter((line, index, array) =>
-                    array.length > 1 ? line.trim() !== "" : true
-                  )
-                  .map((line, index) => (
+                {value.length === 0 ? ( // Trường hợp mảng rỗng
+                  <InputComponent
+                    key={`${keyId}_empty`}
+                    value=""
+                    placeholder="Enter value"
+                    onChange={(newValue) => handleInputChange({ key, newValue })}
+
+                  />
+                ) : (
+                  value.map((line, index) => (
                     <InputComponent
                       key={`${keyId}_${line}_${index}`}
-                      value={line}
-                      placeholder={line}
+                      value={line || ""}
+                      placeholder={line || "Enter value"} // Hiển thị placeholder nếu dòng trống
                       onChange={(newValue) =>
                         handleInputChange({
                           key,
@@ -215,21 +216,22 @@ const Row = React.memo(
                         })
                       }
                     />
-                  ))}
+                  ))
+                )}
               </div>
             ) : (
               <InputComponent
                 key={`${keyId}_input_${key}_${value}`}
-                value={value}
-                placeholder={value}
+                value={value || ""}
+                placeholder={value || "Enter value"} // Hiển thị placeholder nếu giá trị trống
                 onChange={(newValue) => handleInputChange({ key, newValue })}
               />
             )
-          ) : typeof value === "string" ? (
-            value.split(/\r\n|\n/).map((line, index) => (
+          ) : Array.isArray(value) ? (
+            value.map((item, index) => (
               <React.Fragment key={index}>
-                {line}
-                {index < value.split(/\r\n|\n/).length - 1 && <br />}
+                {item}
+                {index < value.length - 1 && <br />}
               </React.Fragment>
             ))
           ) : (

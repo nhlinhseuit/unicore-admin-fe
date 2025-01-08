@@ -290,48 +290,56 @@ const DataTable = (params: DataTableParams) => {
 
   // Sử dụng useMemo để tạo các giá trị chỉ một lần khi render component
   // * subject kh co detail filter
-  const { semesterValues, yearValues, subjectValues, teacherValues } =
-    useMemo(() => {
-      if (
-        params.type === DataTableType.Subject ||
-        params.type === DataTableType.Student
-      ) {
-        return {
-          semesterValues: [],
-          yearValues: [],
-          subjectValues: [],
-          teacherValues: [],
-        };
-      }
+ const { semesterValues, yearValues, subjectValues, teacherValues } = useMemo(() => {
+  if (
+    params.type === DataTableType.Subject ||
+    params.type === DataTableType.Student
+  ) {
+    return {
+      semesterValues: [],
+      yearValues: [],
+      subjectValues: [],
+      teacherValues: [],
+    };
+  }
 
-      const semesterSet: Set<number> = new Set();
-      const yearSet: Set<number> = new Set();
-      const subjectSet: Set<string> = new Set();
-      const teacherSet: Set<string> = new Set();
+  const semesterSet: Set<number> = new Set();
+  const yearSet: Set<number> = new Set();
+  const subjectSet: Set<string> = new Set();
+  const teacherSet: Set<string> = new Set();
 
-      dataTable.forEach((item) => {
-        item = item as CourseDataItem;
-        semesterSet.add(Number(item.data["Học kỳ"]));
-        yearSet.add(item.data["Năm học"]);
+  dataTable.forEach((item) => {
+    item = item as CourseDataItem;
+    semesterSet.add(Number(item.data["Học kỳ"]));
+    yearSet.add(item.data["Năm học"]);
 
-        if (item.type === "course") {
-          subjectSet.add((item as CourseDataItem).data["Tên môn học"]);
-
-          (item as CourseDataItem).data["Tên GV"]
-            .split(/\r\n|\n/)
-            .forEach((name: string) => {
-              teacherSet.add(name);
-            });
-        }
+    if (item.type === "course") {
+      subjectSet.add((item as CourseDataItem).data["Tên môn học"]);
+    
+      let teacherNames = (item as CourseDataItem).data["Tên GV"];
+    
+      // Đảm bảo teacherNames luôn là một mảng
+      teacherNames = Array.isArray(teacherNames)
+        ? teacherNames
+        : typeof teacherNames === "string"
+        ? [teacherNames] // Chuyển chuỗi thành mảng
+        : []; // Xử lý trường hợp không hợp lệ
+    
+      teacherNames.forEach((name: string) => {
+        teacherSet.add(name);
       });
+    }
+    
+  });
 
-      return {
-        semesterValues: Array.from(semesterSet).sort((a, b) => a - b),
-        yearValues: Array.from(yearSet).sort((a, b) => a - b),
-        subjectValues: Array.from(subjectSet),
-        teacherValues: Array.from(teacherSet),
-      };
-    }, [currentItems]); // Chỉ tính toán lại khi currentItems thay đổi
+  return {
+    semesterValues: Array.from(semesterSet).sort((a, b) => a - b),
+    yearValues: Array.from(yearSet).sort((a, b) => a - b),
+    subjectValues: Array.from(subjectSet),
+    teacherValues: Array.from(teacherSet),
+  };
+}, [currentItems]);
+ // Chỉ tính toán lại khi currentItems thay đổi
 
   //  ! APPLY FILTER
   useEffect(() => {

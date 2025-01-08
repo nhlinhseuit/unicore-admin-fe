@@ -1,7 +1,7 @@
-import { IStudent, StudentDataItem } from "@/types/entity/Student";
+import { IStudentResponseData, StudentDataItem } from "@/types/entity/Student";
 
 export const convertToDataTableStudentsInInternCourseViKeys = (
-  data: IStudent
+  data: IStudentResponseData
 ) => {
   // return data.students.map((item, index) => {
   //   const requiredFields = {
@@ -13,7 +13,7 @@ export const convertToDataTableStudentsInInternCourseViKeys = (
   //     Email: item.email,
   //     SDT: item.phone,
   //     "Giới tính": item.gender ? "Nam" : "Nữ",
-  //     "Địa chỉ": "", // Không có trường tương ứng trong `IStudent`
+  //     "Địa chỉ": "", // Không có trường tương ứng trong `IStudentResponseData`
   //     "Ngày sinh": item.dob,
   //   };
 

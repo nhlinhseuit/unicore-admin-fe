@@ -4,6 +4,8 @@ import RegisterTopicTable from "@/components/shared/Table/TableRegisterTopic/Reg
 import { RegisterTopicTableType } from "@/constants";
 import { mockDataStudentRegisterTopic } from "@/mocks";
 
+//! LỚP GIẢNG VIÊN QUẢN LÝ, KHOA CHỈ ĐƯỢC XEM, KHÔNG THAO TÁC
+
 const RegisterTopic = () => {
   return (
     <RegisterTopicTable

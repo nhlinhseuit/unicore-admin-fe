@@ -109,92 +109,94 @@ const RegisterTopicTable = (params: DataTableParams) => {
     });
 
     if (params.onSaveEditTable) {
-      console.log('updatedDataTable', updatedDataTable)
+      console.log("updatedDataTable", updatedDataTable);
       params.onSaveEditTable(updatedDataTable);
     }
   };
 
+  console.log("register topic table", dataTable)
+
   return (
     <div>
       <div className="flex flex-col items-center justify-between p-4 space-y-3 md:flex-row md:space-y-0">
-            {/* ACTION VỚI TABLE */}
-            <div className="w-full mr-3 md:w-1/3">
-              {params.isEditTable || params.isMultipleDelete ? (
-                <></>
-              ) : (
-                <TableSearch
-                  setSearchTerm={(value) => setSearchTerm(value)}
-                  searchTerm={searchTerm}
-                />
-              )}
-            </div>
+        {/* ACTION VỚI TABLE */}
+        <div className="w-full mr-3 md:w-1/3">
+          {params.isEditTable || params.isMultipleDelete ? (
+            <></>
+          ) : (
+            <TableSearch
+              setSearchTerm={(value) => setSearchTerm(value)}
+              searchTerm={searchTerm}
+            />
+          )}
+        </div>
 
-            {params.isOnlyView ? null : (
-              <div className="flex flex-col items-stretch justify-end flex-shrink-0 w-full space-y-2 md:w-auto md:flex-row md:space-y-0 md:items-center">
-                {params.isEditTable ? (
-                  <IconButton text="Lưu" onClick={saveDataTable} />
-                ) : isShowDeleteInfo ? (
-                  <div className="flex items-center gap-2">
-                    <p className="text-sm font-medium">
-                      Đã chọn:
-                      <span className="font-semibold">
-                        {` ${itemsSelected.length}`}
-                      </span>
-                    </p>
+        {params.isOnlyView ? null : (
+          <div className="flex flex-col items-stretch justify-end flex-shrink-0 w-full space-y-2 md:w-auto md:flex-row md:space-y-0 md:items-center">
+            {params.isEditTable ? (
+              <IconButton text="Lưu" onClick={saveDataTable} />
+            ) : isShowDeleteInfo ? (
+              <div className="flex items-center gap-2">
+                <p className="text-sm font-medium">
+                  Đã chọn:
+                  <span className="font-semibold">
+                    {` ${itemsSelected.length}`}
+                  </span>
+                </p>
+                <IconButton
+                  text="Xóa"
+                  onClick={() => {
+                    setIsShowDialog(1);
+                  }}
+                  bgColor="bg-red"
+                />
+                <IconButton
+                  text="Thoát"
+                  onClick={() => {
+                    setItemsSelected([]);
+                    params.onClickGetOut && params.onClickGetOut();
+                  }}
+                  bgColor="bg-gray-500"
+                />
+              </div>
+            ) : (
+              <Dropdown
+                className="z-30 rounded-lg"
+                label=""
+                dismissOnClick={false}
+                renderTrigger={() => (
+                  <div>
                     <IconButton
-                      text="Xóa"
-                      onClick={() => {
-                        setIsShowDialog(1);
-                      }}
-                      bgColor="bg-red"
-                    />
-                    <IconButton
-                      text="Thoát"
-                      onClick={() => {
-                        setItemsSelected([]);
-                        params.onClickGetOut && params.onClickGetOut();
-                      }}
-                      bgColor="bg-gray-500"
+                      text="Hành động"
+                      onClick={() => {}}
+                      iconRight={"/assets/icons/chevron-down.svg"}
+                      bgColor="bg-white"
+                      textColor="text-black"
+                      border
                     />
                   </div>
-                ) : (
-                  <Dropdown
-                    className="z-30 rounded-lg"
-                    label=""
-                    dismissOnClick={false}
-                    renderTrigger={() => (
-                      <div>
-                        <IconButton
-                          text="Hành động"
-                          onClick={() => {}}
-                          iconRight={"/assets/icons/chevron-down.svg"}
-                          bgColor="bg-white"
-                          textColor="text-black"
-                          border
-                        />
-                      </div>
-                    )}
-                  >
-                    <Dropdown.Item onClick={params.onClickEditTable}>
-                      Chỉnh sửa
-                    </Dropdown.Item>
-
-                    <Dropdown.Item onClick={params.onClickMultipleDelete}>
-                      Xóa nhiều
-                    </Dropdown.Item>
-
-                    <Dropdown.Item
-                      onClick={() => {
-                        setIsShowDialog(2);
-                      }}
-                    >
-                      Xóa tất cả
-                    </Dropdown.Item>
-                  </Dropdown>
                 )}
-              </div>
+              >
+                <Dropdown.Item onClick={params.onClickEditTable}>
+                  Chỉnh sửa
+                </Dropdown.Item>
+
+                <Dropdown.Item onClick={params.onClickMultipleDelete}>
+                  Xóa nhiều
+                </Dropdown.Item>
+
+                <Dropdown.Item
+                  onClick={() => {
+                    setIsShowDialog(2);
+                  }}
+                >
+                  Xóa tất cả
+                </Dropdown.Item>
+              </Dropdown>
             )}
           </div>
+        )}
+      </div>
 
       {/* TABLE */}
       {currentItems.length > 0 && filteredDataTable.length === 0 ? (
@@ -218,7 +220,7 @@ const RegisterTopicTable = (params: DataTableParams) => {
             <Table hoverable theme={tableTheme}>
               {/* HEADER */}
               <Table.Head
-            theme={tableTheme?.head}
+                theme={tableTheme?.head}
                 className="sticky top-0 z-10 uppercase border-b bg-gray"
               >
                 <Table.HeadCell
@@ -235,7 +237,7 @@ const RegisterTopicTable = (params: DataTableParams) => {
 
                 {Object.keys(filteredDataTable[0]?.data || {}).map(
                   (key, index) => {
-                    if (key === "Mã nhóm") return null;
+                    if (key === "Mã nhóm" || key === "Mã đề tài") return null;
 
                     return (
                       <Table.HeadCell
@@ -253,7 +255,7 @@ const RegisterTopicTable = (params: DataTableParams) => {
               {/* BODY */}
               <Table.Body className="text-left divide-y">
                 {filteredDataTable.map((dataItem, index) => {
-                  var valueUniqueInput = dataItem.data["Mã đề tài"]
+                  var valueUniqueInput = dataItem.STT;
 
                   return dataItem.isDeleted ? (
                     <></>
@@ -277,8 +279,8 @@ const RegisterTopicTable = (params: DataTableParams) => {
                         });
                       }}
                       onChangeRow={(updatedDataItem: any) => {
-                        console.log('updatedDataItem', updatedDataItem)
-                        
+                        console.log("updatedDataItem", updatedDataItem);
+
                         updateLocalDataTableRef(
                           localDataTableRef.current.map((item) =>
                             item.STT === updatedDataItem.STT

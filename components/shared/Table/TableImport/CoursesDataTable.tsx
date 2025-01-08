@@ -13,6 +13,7 @@ import { CourseDataItem } from "@/types/entity/Course";
 import { convertToAPIDataTableCourses } from "@/lib/convertToDataTableCourses";
 import { handleCreateCourseAction } from "@/services/courseServices";
 import { fetchSubjects } from "@/services/subjectServices";
+import { parseToArray } from "@/utils/utils";
 interface Props {
   isFetchTable?: boolean;
   fetchDataTable?: CourseDataItem[];
@@ -78,8 +79,8 @@ export default function CoursesDataTable(params: Props) {
           "Mã môn học": item["MÃ MH"],
           "Mã lớp": item["MÃ LỚP"],
           "Tên môn học": item["TÊN MÔN HỌC"],
-          "Mã GV": item["MÃ GIẢNG VIÊN"],
-          "Tên GV": item["TÊN GIẢNG VIÊN"],
+          "Mã GV": parseToArray(item["MÃ GIẢNG VIÊN"]),
+          "Tên GV": parseToArray(item["TÊN GIẢNG VIÊN"]),
           "Số TC": item["TỐ TC"],
           HTGD: item["HTGD"],
           "Ngày BĐ": item["NBD"],
@@ -105,6 +106,11 @@ export default function CoursesDataTable(params: Props) {
         };
       });
 
+
+      console.log("parsedData", parsedData);
+      console.log("transformedData", transformedData);
+
+
       if (errorMessages.length > 0) {
         setErrorMessages(errorMessages);
       } else {
@@ -129,11 +135,11 @@ export default function CoursesDataTable(params: Props) {
       organizationId: "1",
     });
 
-    const res = await handleCreateCourseAction(APIdataTable);
+    // const res = await handleCreateCourseAction(APIdataTable);
 
     console.log("APIdataTable", APIdataTable);
 
-    console.log("res:::::", res);
+    // console.log("res:::::", res);
   };
 
   return (
