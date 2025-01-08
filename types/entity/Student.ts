@@ -1,3 +1,8 @@
+export default interface Student {
+  id: string;
+  name: string;
+  class: string;
+}
 export interface StudentDataItem {
   type: string;
   STT: string;

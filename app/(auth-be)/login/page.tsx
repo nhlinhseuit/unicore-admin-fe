@@ -97,7 +97,7 @@ const Login = () => {
             </p>
           </div>
 
-          <div className="w-full flex items-center">
+          {/* <div className="w-full flex items-center">
             <div className="flex-grow bg-gray-300 h-[1px]"></div>
 
             <p className="mx-4 bg-white px-2 text-[14px] text-gray-500 font-medium leading-[24px]">
@@ -105,7 +105,7 @@ const Login = () => {
             </p>
 
             <div className="flex-grow bg-gray-300 h-[1px]"></div>
-          </div>
+          </div> */}
         </div>
 
         {/* //TODO: RIGHT */}

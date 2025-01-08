@@ -26,9 +26,9 @@ import BorderContainer from "@/components/shared/BorderContainer";
 import SubmitButton from "@/components/shared/Button/SubmitButton";
 import StudentItem from "@/components/shared/StudentItem";
 import { maxStudentPerGroup, minStudentPerGroup } from "@/constants";
-import Student from "@/types/entity/Student";
 import { usePathname } from "next/navigation";
 import TextAreaComponent from "@/components/shared/TextAreaComponent";
+import Student from "@/types/entity/Student";
 
 interface Props {
   isCreateNew: boolean;
