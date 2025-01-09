@@ -127,7 +127,14 @@ const JoinedCourses = () => {
                 year={item.semester.toString()}
                 teachers={item.subclasses
                   .map((item) => item.teacher_code)
-                  .filter((item) => item !== "")
+                  .filter(
+                    (item) =>
+                      item &&
+                      !(
+                        item.length === 0 ||
+                        (item.length === 1 && item[0] === "")
+                      )
+                  )
                   .join(", ")}
                 color={
                   ListCourseColors.find((course) => course.type === item.type)
@@ -179,7 +186,16 @@ const JoinedCourses = () => {
                       <CourseItemDialog
                         key={item.code}
                         id={item.code}
-                        teacher={item.teacher_code}
+                        teacher={
+                          item.teacher_code &&
+                          item.teacher_code.length !== 0 &&
+                          !(
+                            item.teacher_code.length === 1 &&
+                            item.teacher_code[0] === ""
+                          )
+                            ? item.teacher_code.join(", ")
+                            : ""
+                        }
                         type={item.type}
                         color={
                           ListCourseColors.find(

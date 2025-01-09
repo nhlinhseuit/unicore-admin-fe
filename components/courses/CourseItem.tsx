@@ -25,7 +25,7 @@ const CourseItem = (params: Props) => {
         </p>
       </div>
 
-      {params.teachers.length != 0 ? (
+      {params.teachers !== '' ? (
         <p className="small-regular text-center">GV: {params.teachers}</p>
       ) : null}
     </div>

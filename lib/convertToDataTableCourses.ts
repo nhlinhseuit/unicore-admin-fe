@@ -13,7 +13,7 @@ export const convertToDataTableCoursesViKeys = (
           "Mã lớp": subclass.code,
           "Tên môn học": item.subject_metadata.name ?? "",
           "Mã GV": subclass.teacher_code,
-          "Tên GV": "", // Nếu cần tên GV, có thể sửa lại để lấy thông tin từ nguồn khác
+          "Tên GV": [], // Nếu cần tên GV, có thể sửa lại để lấy thông tin từ nguồn khác
           HTGD: subclass.type,
           "Số TC": subclass.credits.toString(),
           "Khoa quản lý": item.org_managed,
@@ -43,7 +43,6 @@ export const convertToDataTableCoursesViKeys = (
     });
 };
 
-
 //? Data import vào ở dạng ICourseResponseData, cần convert sang ICourseResponseData
 export const convertToAPIDataTableCourses = ({
   data,
@@ -57,7 +56,9 @@ export const convertToAPIDataTableCourses = ({
       code: item.data["Mã lớp"],
       subject_code: item.data["Mã môn học"],
       // name: item.data["Tên môn học"],
-      is_org_managed: item.data["Tên GV"] === "",
+      is_org_managed:
+        item.data["Tên GV"].length === 0 ||
+        (item.data["Tên GV"].length === 1 && item.data["Tên GV"][0] === ""),
       teacher_code: item.data["Mã GV"],
       teacher_name: item.data["Tên GV"],
       type: item.data["HTGD"],
