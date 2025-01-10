@@ -1,7 +1,8 @@
-import { IRequest } from '@/types/commonType';
-import queryString from 'query-string';
+import { IRequest } from "@/types/commonType";
+import queryString from "query-string";
 
 export const sendRequest = async <T>(props: IRequest) => {
+  console.log("sendRequest");
   let {
     url,
     method,
@@ -14,11 +15,11 @@ export const sendRequest = async <T>(props: IRequest) => {
 
   const options: any = {
     method: method,
-    headers: new Headers({ 'content-type': 'application/json', ...headers }),
+    headers: new Headers({ "content-type": "application/json", ...headers }),
     body: body ? JSON.stringify(body) : null,
     ...nextOption,
   };
-  if (useCredentials) options.credentials = 'include';
+  if (useCredentials) options.credentials = "include";
 
   if (queryParams) {
     url = `${url}?${queryString.stringify(queryParams)}`;
@@ -31,8 +32,9 @@ export const sendRequest = async <T>(props: IRequest) => {
       return res.json().then(function (json) {
         return {
           statusCode: res.status,
-          message: json?.message ?? '',
-          error: json?.error ?? '',
+          data: json,
+          message: json?.message ?? "",
+          error: json?.error ?? "",
         } as T;
       });
     }

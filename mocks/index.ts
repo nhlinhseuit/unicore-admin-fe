@@ -1,32 +1,46 @@
 //// TODO: Not Complete Actions
-//
+
+import { CourseNotDoneImportAction } from "@/types/entity/Course";
+
 export const mockNotCompleteActions = [
   {
     id: 1,
+    type: CourseNotDoneImportAction.NotImportStudentInCourse,
     action: "Nhập danh sách sinh viên lớp (lớp thường - lớp TTDN)",
     desc: "Bạn chưa nhập danh sách sinh viên cho các lớp:",
     data: "STT 01: SE100.PMCL2021.2, STT 01: SE100.PMCL2021.2, STT 01: SE100.PMCL2021.2, STT 01: SE100.PMCL2021.2, STT 01: SE100.PMCL2021.2, STT 01: SE100.PMCL2021.2, STT 01: SE100.PMCL2021.2, STT 01: SE100.PMCL2021.2, STT 01: SE100.PMCL2021.2",
   },
   {
     id: 2,
+    type: CourseNotDoneImportAction.NotImportMidtermExamSchedule,
     action: "Nhập lịch thi giữa kỳ (Lớp thường, lớp đồ án)",
     desc: "Bạn chưa nhập lịch thi giữa kỳ (Lớp thường, lớp đồ án):",
     data: "STT 01: SE100.PMCL2021.2, STT 01: SE100.PMCL2021.2, STT 01: SE100.PMCL2021.2, STT 01: SE100.PMCL2021.2, STT 01: SE100.PMCL2021.2, STT 01: SE100.PMCL2021.2, STT 01: SE100.PMCL2021.2, STT 01: SE100.PMCL2021.2, STT 01: SE100.PMCL2021.2",
   },
   {
     id: 3,
+    type: CourseNotDoneImportAction.NotImportFinalExamSchedule,
     action: "Nhập lịch thi cuối kỳ (Lớp thường, lớp đồ án)",
     desc: "Bạn chưa nhập lịch thi cuối kỳ (Lớp thường, lớp đồ án):",
     data: "STT 01: SE100.PMCL2021.2, STT 01: SE100.PMCL2021.2, STT 01: SE100.PMCL2021.2, STT 01: SE100.PMCL2021.2, STT 01: SE100.PMCL2021.2, STT 01: SE100.PMCL2021.2, STT 01: SE100.PMCL2021.2, STT 01: SE100.PMCL2021.2, STT 01: SE100.PMCL2021.2",
   },
   {
     id: 4,
-    action: "Nhập lịch báo cáo & danh sách Hội đồng chấm Khoá luận tốt nghiệp",
+    type: CourseNotDoneImportAction.NotImportReviewerListThesis,
+    action: "Nhập giảng viên phản biện các đề tài Khoá luận tốt nghiệp",
     desc: "Bạn chưa nhập lịch báo cáo & danh sách Hội đồng chấm Khoá luận tốt nghiệp:",
     data: "STT 01: SE100.PMCL2021.2, STT 01: SE100.PMCL2021.2, STT 01: SE100.PMCL2021.2, STT 01: SE100.PMCL2021.2, STT 01: SE100.PMCL2021.2, STT 01: SE100.PMCL2021.2, STT 01: SE100.PMCL2021.2, STT 01: SE100.PMCL2021.2, STT 01: SE100.PMCL2021.2",
   },
   {
     id: 5,
+    type: CourseNotDoneImportAction.NotImportScheduleAndCouncilListThesis,
+    action: "Nhập lịch báo cáo & danh sách Hội đồng chấm Khoá luận tốt nghiệp",
+    desc: "Bạn chưa nhập lịch báo cáo & danh sách Hội đồng chấm Khoá luận tốt nghiệp:",
+    data: "STT 01: SE100.PMCL2021.2, STT 01: SE100.PMCL2021.2, STT 01: SE100.PMCL2021.2, STT 01: SE100.PMCL2021.2, STT 01: SE100.PMCL2021.2, STT 01: SE100.PMCL2021.2, STT 01: SE100.PMCL2021.2, STT 01: SE100.PMCL2021.2, STT 01: SE100.PMCL2021.2",
+  },
+  {
+    id: 6,
+    type: CourseNotDoneImportAction.NotImportScheduleAndCouncilListIntern,
     action: "Nhập lịch báo cáo & danh sách Hội đồng chấm Thực tập doanh nghiệp",
     desc: "Bạn chưa nhập báo cáo & danh sách Hội đồng chấm Thực tập doanh nghiệp:",
     data: "STT 01: SE100.PMCL2021.2, STT 01: SE100.PMCL2021.2, STT 01: SE100.PMCL2021.2, STT 01: SE100.PMCL2021.2, STT 01: SE100.PMCL2021.2, STT 01: SE100.PMCL2021.2, STT 01: SE100.PMCL2021.2, STT 01: SE100.PMCL2021.2, STT 01: SE100.PMCL2021.2",

@@ -5,6 +5,16 @@ export enum CourseType {
   ProjectCourse = "DA",
   ThesisCourse = "KLTN",
 }
+export enum CourseNotDoneImportAction {
+  //? 
+  NotImportStudentInCourse,
+  NotImportMidtermExamSchedule,
+  NotImportFinalExamSchedule,
+  NotImportReviewerListThesis,
+  NotImportScheduleAndCouncilListThesis,
+  NotImportScheduleAndCouncilListIntern,
+  None,
+}
 
 export interface CourseDataItem {
   type: string;

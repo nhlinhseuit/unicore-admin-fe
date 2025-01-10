@@ -5,6 +5,7 @@ import BorderContainer from "../../BorderContainer";
 import IconButton from "../../Button/IconButton";
 import MyDropdown from "../../MyDropdown";
 import ErrorComponent from "../../Status/ErrorComponent";
+import { parseToArray } from "@/utils/utils";
 
 type Group = {
   STT: string;
@@ -12,9 +13,9 @@ type Group = {
   names: string[];
   "Tên đề tài Tiếng Việt": string;
   "Tên đề tài Tiếng Anh": string;
-  "Cán bộ hướng dẫn": string;
+  "Cán bộ hướng dẫn": string[];
   "Cán bộ phản biện": string;
-  "Hội đồng chấm khóa luận": string;
+  "Hội đồng chấm khóa luận": string[];
 };
 
 type Council = {
@@ -80,7 +81,7 @@ export default function ImportThesisReport() {
       });
 
 
-      let errorMessages: string[] = [];
+      let errorMessagesCheck: string[] = [];
       let councils: Council[] = []; // Danh sách các hội đồng
       let currentCouncil: Council | null = null; // Hội đồng hiện tại
       let currentGroup: Group | null = null; // Nhóm sinh viên hiện tại
@@ -121,9 +122,9 @@ export default function ImportThesisReport() {
             names: [item["HỌ TÊN"] || ""],
             "Tên đề tài Tiếng Việt": item["TÊN ĐỀ TÀI TIẾNG VIỆT"] || "",
             "Tên đề tài Tiếng Anh": item["TÊN ĐỀ TÀI TIẾNG ANH"] || "",
-            "Cán bộ hướng dẫn": `${item["CÁN BỘ HƯỚNG DẪN"]}`,
+            "Cán bộ hướng dẫn": parseToArray(item["CÁN BỘ HƯỚNG DẪN"]),
             "Cán bộ phản biện": `${item["CÁN BỘ PHẢN BIỆN"]}`,
-            "Hội đồng chấm khóa luận": `${item["HỘI ĐỒNG CHẤM KHOÁ LUẬN\r\n(Ghi rõ chức vụ trong HĐ)"]}`,
+            "Hội đồng chấm khóa luận": parseToArray(item["HỘI ĐỒNG CHẤM KHOÁ LUẬN\r\n(Ghi rõ chức vụ trong HĐ)"]),
           };
         } else if (currentGroup) {
           // Thêm sinh viên vào nhóm hiện tại (nếu topic rỗng)
@@ -147,16 +148,19 @@ export default function ImportThesisReport() {
       }
 
       if (councils.length === 0) {
-        errorMessages.push(
+        errorMessagesCheck.push(
           "Import lỗi. Vui lòng chọn đúng file import danh sách hội đồng chấm Khóa luận tốt nghiệp!"
         );
       }
 
       // Nếu có lỗi, hiển thị lỗi
-      if (errorMessages.length > 0) {
-        setErrorMessages(errorMessages);
+      if (errorMessagesCheck.length > 0) {
+        setErrorMessages(errorMessagesCheck);
       } else {
         //! POST API LƯU DỮ LIỆU LÊN BACKEND
+
+        console.log('councils KLTN', councils)
+
         setCountcilsData(councils);
       }
 

@@ -5,6 +5,7 @@ import ErrorComponent from "../../Status/ErrorComponent";
 import BorderContainer from "../../BorderContainer";
 import MyDropdown from "../../MyDropdown";
 import { mockOfficerList } from "@/mocks";
+import { parseToArray } from "@/utils/utils";
 
 type Student = {
   STT: string;
@@ -26,7 +27,7 @@ type Council = {
   STT: string;
   "Tên hội đồng": string;
   "Giáo vụ": string; // Thêm trường giáo vụ vào Council
-  "Hội đồng chấm": string; // Danh sách thành viên hội đồng
+  "Hội đồng chấm": string[]; // Danh sách thành viên hội đồng
   data: Student[];
 };
 
@@ -53,6 +54,8 @@ export default function ImportInternReport() {
   const [errorMessages, setErrorMessages] = useState<string[]>([]);
   const [councilsData, setCountcilsData] = useState<Council[]>([]);
 
+  const [isLoading, setIsLoading] = useState(false);
+
   // XỬ LÝ UPLOAD FILE LỚP HỌC
   const handleCoursesFileUpload = (e: any) => {
     const file = e.target.files[0];
@@ -62,6 +65,7 @@ export default function ImportInternReport() {
         file: file,
       });
     }
+    setIsLoading(true);
 
     setCountcilsData([]);
     setErrorMessages([]);
@@ -80,6 +84,7 @@ export default function ImportInternReport() {
         defval: "",
       });
 
+      let errorMessagesCheck: string[] = [];
       let councils: Council[] = []; // Danh sách các hội đồng
       let currentCouncil: Council | null = null; // Hội đồng hiện tại
 
@@ -96,7 +101,7 @@ export default function ImportInternReport() {
           currentCouncil = {
             STT: (councils.length + 1).toString(), // Tự động đánh số hội đồng
             "Tên hội đồng": item.STT,
-            "Hội đồng chấm": "", // Sẽ được cập nhật từ sinh viên đầu tiên
+            "Hội đồng chấm": [""], // Sẽ được cập nhật từ sinh viên đầu tiên
             "Giáo vụ": "",
             data: [],
           };
@@ -121,7 +126,9 @@ export default function ImportInternReport() {
 
           // Cập nhật thông tin "Hội đồng chấm" nếu có
           if (item["Hội đồng chấm"]) {
-            currentCouncil["Hội đồng chấm"] = item["Hội đồng chấm"];
+            currentCouncil["Hội đồng chấm"] = parseToArray(
+              item["Hội đồng chấm"]
+            );
           }
 
           // Thêm sinh viên vào danh sách
@@ -135,13 +142,22 @@ export default function ImportInternReport() {
       }
 
       if (councils.length === 0) {
-        errorMessages.push(
-          "Import lỗi. Vui lòng chọn đúng file import danh sách hội đồng chấm Khóa luận tốt nghiệp!"
+        errorMessagesCheck.push(
+          "Import lỗi. Vui lòng chọn đúng file import danh sách hội đồng chấm Thực tập doanh nghiệp!"
         );
       }
 
+      console.log("errorMessagesCheck", errorMessagesCheck);
+
       //! POST API LƯU DỮ LIỆU LÊN BACKEND
-      setCountcilsData(councils);
+      if (errorMessagesCheck.length > 0) {
+        setErrorMessages(errorMessagesCheck);
+      } else {
+        console.log("councils TTDN", councils);
+
+        setCountcilsData(councils);
+      }
+      setIsLoading(false);
     };
   };
 

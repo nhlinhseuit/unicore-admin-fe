@@ -1,20 +1,20 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
-import * as XLSX from "xlsx";
-import DataTable from "../components/DataTable";
-import ErrorComponent from "../../Status/ErrorComponent";
-import TableSkeleton from "../components/TableSkeleton";
-import NoResult from "../../Status/NoResult";
-import { useToast } from "@/hooks/use-toast";
-import IconButton from "../../Button/IconButton";
 import { DataTableType } from "@/constants";
-import { CourseDataItem } from "@/types/entity/Course";
+import { useToast } from "@/hooks/use-toast";
 import { convertToAPIDataTableCourses } from "@/lib/convertToDataTableCourses";
 import { handleCreateCourseAction } from "@/services/courseServices";
 import { fetchSubjects } from "@/services/subjectServices";
+import { CourseDataItem } from "@/types/entity/Course";
 import { parseToArray } from "@/utils/utils";
+import { useEffect, useRef, useState } from "react";
+import * as XLSX from "xlsx";
+import IconButton from "../../Button/IconButton";
 import LoadingComponent from "../../LoadingComponent";
+import ErrorComponent from "../../Status/ErrorComponent";
+import NoResult from "../../Status/NoResult";
+import DataTable from "../components/DataTable";
+import TableSkeleton from "../components/TableSkeleton";
 interface Props {
   isFetchTable?: boolean;
   fetchDataTable?: CourseDataItem[];
@@ -107,9 +107,6 @@ export default function CoursesDataTable(params: Props) {
         };
       });
 
-      console.log("parsedData", parsedData);
-      console.log("transformedData", transformedData);
-
       if (errorMessages.length > 0) {
         setErrorMessages(errorMessages);
       } else {
@@ -136,6 +133,29 @@ export default function CoursesDataTable(params: Props) {
 
     setIsLoadingAPI(true);
     const res = await handleCreateCourseAction(APIdataTable);
+
+    if (res.statusCode === 400) {
+      if (res.data.code === "CLASS01") {
+        if (res.data.data.duplicated.length > 0)
+          setErrorMessages((prev) => [
+            ...prev,
+            `Các lớp ${res.data.data.duplicated.join(
+              ", "
+            )} đã tồn tại trong hệ thống.`,
+          ]);
+
+        if (res.data.data.subject_not_found.length > 0)
+          setErrorMessages((prev) => [
+            ...prev,
+            `Các môn học ${res.data.data.subject_not_found
+              .map((item: any) => item.subject_code)
+              .join(", ")} không tồn tại trong hệ thống.`,
+          ]);
+      }
+    }
+
+    console.log("res", res);
+
     setIsLoadingAPI(false);
   };
 

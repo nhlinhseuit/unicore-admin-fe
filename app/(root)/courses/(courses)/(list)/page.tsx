@@ -9,6 +9,7 @@ import NoResult from "@/components/shared/Status/NoResult";
 import CoursesDataTable from "@/components/shared/Table/TableImport/CoursesDataTable";
 import ImportCentralizedExam from "@/components/shared/Table/TableImport/ImportCentralizedExam";
 import ImportInternReport from "@/components/shared/Table/TableImport/ImportInternReport";
+import ImportReviewerListThesis from "@/components/shared/Table/TableImport/ImportReviewerListThesis";
 import ImportStudentsListInCourse from "@/components/shared/Table/TableImport/ImportStudentsListInCourse";
 import ImportThesisReport from "@/components/shared/Table/TableImport/ImportThesisReport";
 import {
@@ -29,7 +30,7 @@ import {
   mockYearList,
 } from "@/mocks";
 import { fetchCourses } from "@/services/courseServices";
-import { ICourseResponseData } from "@/types/entity/Course";
+import { CourseNotDoneImportAction, ICourseResponseData } from "@/types/entity/Course";
 import { Dropdown } from "flowbite-react";
 import Image from "next/image";
 import { useEffect, useState } from "react";
@@ -40,7 +41,7 @@ const Courses = () => {
   const [error, setError] = useState<string | null>(null);
   const [courses, setCourses] = useState<ICourseResponseData[]>([]);
   const [isShowDialog, setIsShowDialog] = useState(false);
-  const [isImportCompleteAction, setIsImportCompleteAction] = useState(-1);
+  const [isImportCompleteAction, setIsImportCompleteAction] = useState(CourseNotDoneImportAction.None);
   const [selectedSemester, setSelectedSemester] = useState(1);
   const [selectedYear, setSelectedYear] = useState(1);
 
@@ -57,16 +58,19 @@ const Courses = () => {
   }, []);
 
   const getImportCompleteActionComponent = () => {
+
     switch (isImportCompleteAction) {
-      case 1:
+      case CourseNotDoneImportAction.NotImportStudentInCourse:
         return <ImportStudentsListInCourse />;
-      case 2:
+      case CourseNotDoneImportAction.NotImportMidtermExamSchedule:
         return <ImportCentralizedExam typeExam="midterm" />;
-      case 3:
+      case CourseNotDoneImportAction.NotImportFinalExamSchedule:
         return <ImportCentralizedExam typeExam="final" />;
-      case 4:
+      case CourseNotDoneImportAction.NotImportReviewerListThesis:
+        return <ImportReviewerListThesis />;
+      case CourseNotDoneImportAction.NotImportScheduleAndCouncilListThesis:
         return <ImportThesisReport />;
-      case 5:
+      case CourseNotDoneImportAction.NotImportScheduleAndCouncilListIntern:
         return <ImportInternReport />;
       default:
         return null;
@@ -74,7 +78,7 @@ const Courses = () => {
   };
 
   const renderComponent = () => {
-    if (!isImport && isImportCompleteAction === -1) {
+    if (!isImport && isImportCompleteAction === CourseNotDoneImportAction.None) {
       return (
         <div>
           <div className="flex justify-end mb-3">
@@ -131,7 +135,7 @@ const Courses = () => {
                           green
                           onClick={(e) => {
                             e.stopPropagation();
-                            setIsImportCompleteAction(item.id);
+                            setIsImportCompleteAction(item.type);
                           }}
                           otherClasses="mr-4"
                         />
@@ -179,7 +183,7 @@ const Courses = () => {
         <>
           <BackToPrev
             text="Quay lại danh sách lớp học"
-            onClickPrev={() => setIsImportCompleteAction(-1)}
+            onClickPrev={() => setIsImportCompleteAction(CourseNotDoneImportAction.None)}
           />
           {getImportCompleteActionComponent()}
         </>

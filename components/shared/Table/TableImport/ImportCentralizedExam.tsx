@@ -197,7 +197,7 @@ export default function ImportCentralizedExam(params: Props) {
     fileInputRef.current?.click();
   };
 
-  const isMidTermFromScreen = false;
+  const isMidTermFromScreen = params.typeExam === "midterm";
 
   const createExamSchedule = async () => {
     console.log(
@@ -215,14 +215,25 @@ export default function ImportCentralizedExam(params: Props) {
       })
     );
 
-    setIsLoadingAPI(true)
+    setIsLoadingAPI(true);
 
-    const res1 = await importCentralizedExam({ data: dataTableCentralized });
+    const res1 = await importCentralizedExam(
+      convertToAPIDataTableCentralizedExam({
+        data: dataTableCentralized,
+        isMidterm: isMidTermFromScreen,
+      })
+    );
     console.log("res1", res1);
-    const res2 = await importQAandProjectExam({ data: dataTableQAandProject });
+
+    const res2 = await importQAandProjectExam(
+      convertToAPIDataTableQAandProjectExam({
+        data: dataTableQAandProject,
+        isMidterm: isMidTermFromScreen,
+      })
+    );
     console.log("res2", res2);
 
-    setIsLoadingAPI(false)
+    setIsLoadingAPI(false);
   };
 
   return (
