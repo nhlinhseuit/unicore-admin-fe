@@ -15,6 +15,7 @@ import ErrorComponent from "../../Status/ErrorComponent";
 import NoResult from "../../Status/NoResult";
 import DataTable from "../components/DataTable";
 import TableSkeleton from "../components/TableSkeleton";
+import LoadingComponent from "../../LoadingComponent";
 
 interface Props {
   isFetchTable?: boolean;
@@ -27,6 +28,7 @@ export default function OfficersDataTable(params: Props) {
   const [dataTable, setDataTable] = useState<OfficerDataItem[]>([]);
   const [errorMessages, setErrorMessages] = useState<string[]>([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [isLoadingAPI, setIsLoadingAPI] = useState(false);
 
   useEffect(() => {
     if (params.fetchDataTable) {
@@ -101,8 +103,11 @@ export default function OfficersDataTable(params: Props) {
       organizationId: "1",
     });
 
+    setIsLoadingAPI(true);
     const res = await handleCreateOfficerAction(APIdataTable);
+    setIsLoadingAPI(false);
   };
+  
   const editOffciersAPI = async (newDataTable: any) => {
     console.log("editOffciersAPI");
     const APIdataTable = convertToAPIDataTableOfficers({
@@ -117,7 +122,9 @@ export default function OfficersDataTable(params: Props) {
    
       console.log("params", params);
 
+    setIsLoadingAPI(true);
     const res = await handleEditOfficerAction(params);
+    setIsLoadingAPI(false);
     console.log("res", res);
   };
 
@@ -131,6 +138,7 @@ export default function OfficersDataTable(params: Props) {
 
   return (
     <div>
+      {isLoadingAPI ? <LoadingComponent /> : null}
       {errorMessages.length > 0 && (
         <div className="mb-6">
           {errorMessages.map((item, index) => (
@@ -179,7 +187,7 @@ export default function OfficersDataTable(params: Props) {
             </div>
 
             <a
-              href="/assets/KTLN - template import ds giáo vụ.xlsx"
+              href="/assets/template_import_danh_sach_giao_vu.xlsx"
               download
               className="text-blue-500 underline text-base italic"
             >

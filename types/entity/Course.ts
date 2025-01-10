@@ -46,8 +46,8 @@ export interface ISubCourseResponseData {
   credits: number;
   type: string;
   note: string;
-  teacher_code: string[];
-  teacher_assistant_code: string[];
+  teacher_codes: string[];
+  teacher_names: string[];
   start_date: string;
   end_date: string;
   max_size: number;

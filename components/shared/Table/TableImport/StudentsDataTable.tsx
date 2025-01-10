@@ -12,6 +12,7 @@ import ErrorComponent from "../../Status/ErrorComponent";
 import NoResult from "../../Status/NoResult";
 import DataTable from "../components/DataTable";
 import TableSkeleton from "../components/TableSkeleton";
+import LoadingComponent from "../../LoadingComponent";
 
 interface Props {
   isFetchTable?: boolean;
@@ -24,6 +25,7 @@ export default function StudentsDataTable(params: Props) {
   const [dataTable, setDataTable] = useState<StudentDataItem[]>([]);
   const [errorMessages, setErrorMessages] = useState<string[]>([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [isLoadingAPI, setIsLoadingAPI] = useState(false);
 
   useEffect(() => {
     if (params.fetchDataTable) {
@@ -106,7 +108,9 @@ export default function StudentsDataTable(params: Props) {
       organizationId: "1",
     });
 
+    setIsLoadingAPI(true);
     const res = await handleCreateStudentAction(APIdataTable);
+    setIsLoadingAPI(false);
 
     console.log(APIdataTable);
 
@@ -119,7 +123,9 @@ export default function StudentsDataTable(params: Props) {
       organizationId: "1",
     });
 
+    setIsLoadingAPI(true);
     const res = await handleEditStudentAction(APIdataTable);
+    setIsLoadingAPI(false);
 
     console.log(APIdataTable);
 
@@ -130,6 +136,7 @@ export default function StudentsDataTable(params: Props) {
 
   return (
     <div>
+      {isLoadingAPI ? <LoadingComponent /> : null}
       {errorMessages.length > 0 && (
         <div className="mb-6">
           {errorMessages.map((item, index) => (

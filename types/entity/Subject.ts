@@ -41,18 +41,18 @@ export interface ISubjectResponseData {
   id: string;
   code: string;
   name: string;
-  semester?: number;
-  year?: number;
+  semester: number;
+  year: number;
   description?: null;
   organization_id: string;
   organization_name: string;
   midterm_format?: string;
-  practical_format: string;
+  practical_format?: string;
   final_format: string;
-  coursework_weight: number;
-  midterm_weight: number;
-  practical_weight: number;
-  final_weight: number;
-  midterm_time: string;
-  final_time: string;
+  coursework_weight?: number;
+  midterm_weight?: number;
+  practical_weight?: number;
+  final_weight?: number;
+  midterm_time?: string;
+  final_time?: string;
 }

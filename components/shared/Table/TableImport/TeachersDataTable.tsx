@@ -12,6 +12,7 @@ import ErrorComponent from "../../Status/ErrorComponent";
 import NoResult from "../../Status/NoResult";
 import DataTable from "../components/DataTable";
 import TableSkeleton from "../components/TableSkeleton";
+import LoadingComponent from "../../LoadingComponent";
 
 interface Props {
   isFetchTable?: boolean;
@@ -24,6 +25,7 @@ export default function TeachersDataTable(params: Props) {
   const [dataTable, setDataTable] = useState<TeacherDataItem[]>([]);
   const [errorMessages, setErrorMessages] = useState<string[]>([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [isLoadingAPI, setIsLoadingAPI] = useState(false);
 
   useEffect(() => {
     if (params.fetchDataTable) {
@@ -102,7 +104,9 @@ export default function TeachersDataTable(params: Props) {
 
     console.log(APIdataTable);
 
+    setIsLoadingAPI(true);
     const res = await handleCreateTeachersAction(APIdataTable);
+    setIsLoadingAPI(false);
 
     console.log("res", res);
   };
@@ -115,7 +119,9 @@ export default function TeachersDataTable(params: Props) {
 
     console.log('APIdataTable', APIdataTable);
 
+    setIsLoadingAPI(true);
     const res = await handleEditTeachersAction(APIdataTable);
+    setIsLoadingAPI(false);
 
     console.log("res", res);
   };
@@ -130,6 +136,7 @@ export default function TeachersDataTable(params: Props) {
 
   return (
     <div>
+      {isLoadingAPI ? <LoadingComponent /> : null}
       {errorMessages.length > 0 && (
         <div className="mb-6">
           {errorMessages.map((item, index) => (

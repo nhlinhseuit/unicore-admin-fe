@@ -14,9 +14,9 @@ export const convertToDataTableSubjectsViKeys = (
     const requiredFields: SubjectData = {
       "Mã MH": item.code,
       "Hình thức thi LT GIỮA KỲ": item.midterm_format ?? "",
-      "Thời gian thi LT GIỮA KỲ": parseInt(item.midterm_time, 10) || 0, // Chuyển đổi sang số
+      "Thời gian thi LT GIỮA KỲ": parseInt(item.midterm_time ?? "0", 10), // Chuyển đổi sang số
       "Hình thức thi LT CUỐI KỲ": item.final_format ?? "",
-      "Thời gian thi CUỐI KỲ": parseInt(item.final_time, 10) || 0, // Chuyển đổi sang số
+      "Thời gian thi CUỐI KỲ": parseInt(item.final_time ?? "0", 10), // Chuyển đổi sang số
       "Hình thức thi THỰC HÀNH CUỐI KỲ": item.practical_format ?? "",
       "Trọng số QUÁ TRÌNH": item.coursework_weight || 0,
       "Trọng số THỰC HÀNH": item.practical_weight || 0,

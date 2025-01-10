@@ -6,13 +6,21 @@ import IconButton from "../../Button/IconButton";
 import ErrorComponent from "../../Status/ErrorComponent";
 import DataTable from "../components/DataTable";
 import TableSkeleton from "../components/TableSkeleton";
+import {
+  convertToAPIDataTableCentralizedExam,
+  convertToAPIDataTableQAandProjectExam,
+} from "@/lib/convertToDataTableExam";
+import {
+  importCentralizedExam,
+  importQAandProjectExam,
+} from "@/services/importExamSchedule";
+import LoadingComponent from "../../LoadingComponent";
 
 interface Props {
   typeExam: string;
 }
 
 export default function ImportCentralizedExam(params: Props) {
-  const [uploadedFileName, setUploadedFileName] = useState<string | null>(null);
   const [errorMessages, setErrorMessages] = useState<string[]>([]);
   const [dataTableCentralized, setDataTableCentralized] = useState<
     CentralizedExamDataItem[]
@@ -21,6 +29,7 @@ export default function ImportCentralizedExam(params: Props) {
     QAandProjectExamDataItem[]
   >([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [isLoadingAPI, setIsLoadingAPI] = useState(false);
 
   const getCentralizedExamRequiredField = (item: any) => {
     return {
@@ -123,9 +132,6 @@ export default function ImportCentralizedExam(params: Props) {
   // XỬ LÝ UPLOAD FILE LỚP HỌC
   const handleCoursesFileUpload = (e: any) => {
     const file = e.target.files[0];
-    if (file) {
-      setUploadedFileName(file.name);
-    }
 
     setIsLoading(true);
     setErrorMessages([]);
@@ -191,8 +197,37 @@ export default function ImportCentralizedExam(params: Props) {
     fileInputRef.current?.click();
   };
 
+  const isMidTermFromScreen = false;
+
+  const createExamSchedule = async () => {
+    console.log(
+      "convertToAPIDataTableCentralizedExam",
+      convertToAPIDataTableCentralizedExam({
+        data: dataTableCentralized,
+        isMidterm: isMidTermFromScreen,
+      })
+    );
+    console.log(
+      "convertToAPIDataTableQAandProjectExam",
+      convertToAPIDataTableQAandProjectExam({
+        data: dataTableQAandProject,
+        isMidterm: isMidTermFromScreen,
+      })
+    );
+
+    setIsLoadingAPI(true)
+
+    const res1 = await importCentralizedExam({ data: dataTableCentralized });
+    console.log("res1", res1);
+    const res2 = await importQAandProjectExam({ data: dataTableQAandProject });
+    console.log("res2", res2);
+
+    setIsLoadingAPI(false)
+  };
+
   return (
     <div>
+      {isLoadingAPI ? <LoadingComponent /> : null}
       {errorMessages.length > 0 && (
         <div className="mb-6">
           {errorMessages.map((item, index) => (
@@ -212,7 +247,7 @@ export default function ImportCentralizedExam(params: Props) {
       {/* DESCRIPTION */}
       <div className="flex justify-between">
         <div>
-          <div className="flex mb-2 gap-4 items-center">
+          <div className="flex mb-2 gap-2 items-center">
             <div>
               <input
                 ref={fileInputRef}
@@ -230,8 +265,10 @@ export default function ImportCentralizedExam(params: Props) {
                 iconHeight={16}
               />
             </div>
-
-            <p className="text-sm italic">{uploadedFileName}</p>
+            {dataTableCentralized.length > 0 &&
+              dataTableQAandProject.length > 0 && (
+                <IconButton text="Lưu" onClick={createExamSchedule} />
+              )}
           </div>
 
           <a

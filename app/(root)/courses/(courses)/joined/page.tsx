@@ -2,11 +2,12 @@
 import CourseItem from "@/components/courses/CourseItem";
 import MoreButtonCourseItem from "@/components/courses/MoreButtonCourseItem";
 import { ListCourseColors } from "@/constants";
-import Link from "next/link";
 import { useEffect, useState } from "react";
 
 import CourseItemDialog from "@/components/courses/CourseItemDialog";
 import DetailFilterComponent from "@/components/shared/DetailFilterComponent";
+import LoadingComponent from "@/components/shared/LoadingComponent";
+import NoResult from "@/components/shared/Status/NoResult";
 import {
   AlertDialog,
   AlertDialogCancel,
@@ -16,12 +17,9 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
-import { mockCourses } from "@/mocks";
-import { useRouter } from "next/navigation";
-import { ICourseResponseData } from "@/types/entity/Course";
 import { fetchCourses } from "@/services/courseServices";
-import LoadingComponent from "@/components/shared/LoadingComponent";
-import NoResult from "@/components/shared/Status/NoResult";
+import { ICourseResponseData } from "@/types/entity/Course";
+import { useRouter } from "next/navigation";
 import { sClassCode, sClassId } from "../(store)/courseStore";
 
 const JoinedCourses = () => {

@@ -8,16 +8,15 @@ export interface ITProjectResponseData {
   topics: ITTopicResponseData[];
   eventType: string;
   created_date: string; // ISO date string
-  modified_date: string | null;
+  modified_date?: string;
   created_by: string;
-  modified_by: string | null;
+  modified_by?: string;
   in_group: boolean;
   weight_type: string;
   class_id: string;
   subclass_code: string;
   allow_grade_review: boolean;
   review_times: number;
-  start_date: string | null;
+  start_date?: string;
   allow_topic_suggestion: boolean;
 }
-

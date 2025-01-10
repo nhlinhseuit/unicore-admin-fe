@@ -14,6 +14,7 @@ import { convertToAPIDataTableCourses } from "@/lib/convertToDataTableCourses";
 import { handleCreateCourseAction } from "@/services/courseServices";
 import { fetchSubjects } from "@/services/subjectServices";
 import { parseToArray } from "@/utils/utils";
+import LoadingComponent from "../../LoadingComponent";
 interface Props {
   isFetchTable?: boolean;
   fetchDataTable?: CourseDataItem[];
@@ -26,13 +27,13 @@ export default function CoursesDataTable(params: Props) {
   const [errorMessages, setErrorMessages] = useState<string[]>([]);
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [isLoadingAPI, setIsLoadingAPI] = useState(false);
 
-  
   useEffect(() => {
     if (params.fetchDataTable) {
-      setDataTable(params.fetchDataTable)
+      setDataTable(params.fetchDataTable);
     }
-  }, [params.fetchDataTable])
+  }, [params.fetchDataTable]);
 
   //TODO: check có ds môn chưa để hiện lỗi
   useEffect(() => {
@@ -106,10 +107,8 @@ export default function CoursesDataTable(params: Props) {
         };
       });
 
-
       console.log("parsedData", parsedData);
       console.log("transformedData", transformedData);
-
 
       if (errorMessages.length > 0) {
         setErrorMessages(errorMessages);
@@ -135,15 +134,14 @@ export default function CoursesDataTable(params: Props) {
       organizationId: "1",
     });
 
-    // const res = await handleCreateCourseAction(APIdataTable);
-
-    console.log("APIdataTable", APIdataTable);
-
-    // console.log("res:::::", res);
+    setIsLoadingAPI(true);
+    const res = await handleCreateCourseAction(APIdataTable);
+    setIsLoadingAPI(false);
   };
 
   return (
     <div>
+      {isLoadingAPI ? <LoadingComponent /> : null}
       {errorMessages.length > 0 && (
         <div className="mb-6">
           {errorMessages.map((item, index) => (

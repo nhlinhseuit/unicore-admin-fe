@@ -41,8 +41,10 @@ export const handleCreateSubjectAction = async (data: any) => {
 };
 
 export const handleEditSubjectAction = async (data: any) => {
+  console.log('handleEditSubjectAction')
+  
   const res = await sendRequest<IBackendRes<any>>({
-    url: `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/organization/subjects/bulk`,
+    url: `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/organization/subjects`,
     method: "PATCH",
     // headers: {
     //   Authorization: `Bearer ${session?.user?.access_token}`,
@@ -54,15 +56,15 @@ export const handleEditSubjectAction = async (data: any) => {
   return res;
 };
 
-// export const handleDeleteSubjectAction = async (id: any) => {
-//
-//   const res = await sendRequest<IBackendRes<any>>({
-//     url: `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/api/users/${id}`,
-//     method: 'DELETE',
-//     // headers: {
-//     //   Authorization: `Bearer ${session?.user?.access_token}`,
-//     // },
-//   });
-//   revalidateTag('list-subjects');
-//   return res;
-// };
+export const handleDeleteSubjectAction = async (id: any) => {
+
+  const res = await sendRequest<IBackendRes<any>>({
+    url: `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/organization/subjects/bulk`,
+    method: 'DELETE',
+    // headers: {
+    //   Authorization: `Bearer ${session?.user?.access_token}`,
+    // },
+  });
+  revalidateTag('list-subjects');
+  return res;
+};

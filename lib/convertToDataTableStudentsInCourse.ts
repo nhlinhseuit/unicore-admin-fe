@@ -1,4 +1,4 @@
-import { IStudent, StudentDataItem } from "@/types/entity/Student";
+import { StudentDataItem } from "@/types/entity/Student";
 
 export const convertToAPIDataTableStudentsInCourse = ({
   data,

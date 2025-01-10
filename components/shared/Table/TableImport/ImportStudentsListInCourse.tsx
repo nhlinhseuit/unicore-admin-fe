@@ -1,15 +1,15 @@
-import { mockCourses } from "@/mocks";
+import { addStudentsToCourse } from "@/services/importStudentsInCourseServices";
 import { StudentDataItem } from "@/types";
 import { Table } from "flowbite-react";
 import { useRef, useState } from "react";
 import * as XLSX from "xlsx";
 import BorderContainer from "../../BorderContainer";
 import IconButton from "../../Button/IconButton";
+import LoadingComponent from "../../LoadingComponent";
+import NoteComponent from "../../NoteComponent";
 import ErrorComponent from "../../Status/ErrorComponent";
 import { tableTheme } from "../components/DataTable";
-import NoteComponent from "../../NoteComponent";
-import { addStudentsToCourse } from "@/services/importStudentsInCourseServices";
-import LoadingComponent from "../../LoadingComponent";
+import { CourseType } from "@/types/entity/Course";
 
 type TransformedDataItem = {
   type: string;
@@ -51,7 +51,13 @@ export default function ImportStudentsListInCourse() {
     fileInputRefs.current[index]?.click();
   };
 
-  const handleStudentFileUpload = (e: any, courseId: string) => {
+  const handleStudentFileUpload = (
+    e: any,
+    courseId: string,
+    courseCode: string
+  ) => {
+    console.log("courseCode", courseCode);
+
     const file = e.target.files[0];
 
     setIsLoading(true);
@@ -64,13 +70,45 @@ export default function ImportStudentsListInCourse() {
       const workbook = XLSX.read(data, { type: "binary" });
       const sheetName = workbook.SheetNames[0];
       const sheet = workbook.Sheets[sheetName];
+      let errorMessages: string[] = [];
+
+      //! Lấy dòng đầu tiên (title) từ sheet
+      // Lấy toàn bộ sheet dưới dạng mảng 2 chiều
+      const rows: string[][] = XLSX.utils.sheet_to_json(sheet, { header: 1 });
+
+      // Kiểm tra dòng tiêu đề (titleRow)
+      const titleRow = rows[0];
+
+      console.log("titleRow", titleRow);
+
+      if (!titleRow || !titleRow[0]) {
+        setErrorMessages(["File Excel không chứa tiêu đề hoặc bị lỗi."]);
+        setIsLoading(false);
+        return;
+      }
+
+      const title = titleRow[0];
+      if (!title.includes(courseCode)) {
+        setErrorMessages([
+          `Import nhầm lớp. Vui lòng kiểm tra lại danh sách!.`,
+        ]);
+        if (file) {
+          setUploadedFileName((prevData: any) => ({
+            ...prevData,
+            [courseId]: { name: "Import lỗi", file: null },
+          }));
+        }
+        setIsLoading(false);
+        return;
+      }
+
+      //TODO: không lỗi
 
       const parsedData = XLSX.utils.sheet_to_json(sheet, {
         range: 1,
         defval: "",
       });
 
-      let errorMessages: string[] = [];
       const transformedData = parsedData.map((item: any, index: number) => {
         const requiredFields = {
           MSSV: item["MSSV"],
@@ -128,7 +166,11 @@ export default function ImportStudentsListInCourse() {
     };
   };
 
-  const handleStudentInternCourseFileUpload = (e: any, courseId: string) => {
+  const handleStudentInternCourseFileUpload = (
+    e: any,
+    courseId: string,
+    courseCode: string
+  ) => {
     const file = e.target.files[0];
 
     setIsLoading(true);
@@ -141,6 +183,29 @@ export default function ImportStudentsListInCourse() {
       const workbook = XLSX.read(data, { type: "binary" });
       const sheetName = workbook.SheetNames[0];
       const sheet = workbook.Sheets[sheetName];
+
+      //! Lấy dòng đầu tiên (title) từ sheet
+      // Lấy giá trị ô E6 (cột E, hàng 6)
+      const cellE6 = sheet["E6"]?.v || ""; // `.v` để lấy giá trị ô
+      console.log("cellE6", cellE6);
+
+      // Kiểm tra xem cellE6 có chứa mã lớp (courseCode) không
+      if (!cellE6.includes(courseCode)) {
+        setErrorMessages([
+          `Import nhầm lớp. Vui lòng kiểm tra lại danh sách! (Ô E6 không chứa mã lớp ${courseCode}).`,
+        ]);
+        if (file) {
+          setUploadedFileName((prevData: any) => ({
+            ...prevData,
+            [courseId]: { name: "Import lỗi", file: null },
+          }));
+        }
+        setIsLoading(false);
+        return;
+      }
+
+      //TODO: không lỗi
+
       const parsedData = XLSX.utils.sheet_to_json(sheet, {
         range: 8,
         defval: "",
@@ -232,27 +297,20 @@ export default function ImportStudentsListInCourse() {
   const addStudentsToCourseAPI = () => {
     console.log("dataTables", dataTables);
 
-    let data = [
-      {
-        class_id: "",
-        subclass_code: "",
-        leader_code: "",
-        student_codes: [],
-      },
-    ];
-
     const dataAPI = Object.entries(dataTables).map(([classId, students]) => {
       const studentCodes = students.map((student) => student.data.MSSV);
 
+      //? Nếu đã có ds sinh viên thì trả lỗi exist, không có gì hết
+
       return {
-        class_id: '677cd4ae0a706479b8773771', // Sử dụng key làm class_id
-        subclass_code: 'IT004.CLC', // subclass_code giống class_id
+        class_id: "677cd4ae0a706479b8773770", // Sử dụng key làm class_id
+        subclass_code: "SE113.O21.PMCL",
         leader_code: null, // Mặc định để rỗng
         student_codes: studentCodes, // Danh sách MSSV
       };
     });
 
-    console.log('dataAPI', dataAPI)
+    console.log("dataAPI", dataAPI);
 
     setIsLoading(true);
     addStudentsToCourse(dataAPI).then((data) => {
@@ -261,10 +319,36 @@ export default function ImportStudentsListInCourse() {
     });
   };
 
-  if (isLoading) return <LoadingComponent />;
+  const notImportStudentCoursesList = [
+    {
+      id: "677fefdd854d3e02e419170a",
+      code: "SE122.O21.PMCL",
+      name: "Đồ án 2",
+      type: "NOR",
+    },
+    {
+      id: "677fefdd854d3e02e4191712",
+      code: "SE501.O21.PMCL",
+      name: "Thực tập tốt nghiệp",
+      type: "TTTN",
+    },
+    {
+      id: "677fefdd854d3e02e4191706",
+      code: "SE113.O21.PMCL",
+      name: "Kiểm chứng phần mềm",
+    },
+    {
+      id: "677fefdd854d3e02e4191711",
+      code: "SE405.O22.PMCL",
+      name: "Chuyên đề Mobile and Pervasive Computing",
+      type: "NOR",
+    },
+  ];
 
   return (
     <div>
+      {isLoading ? <LoadingComponent /> : null}
+
       {errorMessages.length > 0 && (
         <div className="mb-6">
           {errorMessages.map((item, index) => (
@@ -291,7 +375,7 @@ export default function ImportStudentsListInCourse() {
           Template import danh sách sinh viên
         </p>
         <a
-          href="/assets/template_import_danh_sach_sinh_vien.xlsx"
+          href="/assets/template_import_danh_sach_sinh_vien_lop.xlsx"
           download
           className="text-blue-500 underline text-base italic"
         >
@@ -357,12 +441,12 @@ export default function ImportStudentsListInCourse() {
 
           {/* BODY */}
           <Table.Body className="text-left divide-y">
-            {mockCourses.map((dataItem, index) => (
+            {notImportStudentCoursesList.map((dataItem, index) => (
               <Table.Row
                 key={count}
                 onClick={() => {}}
                 className={`${
-                  dataItem.type === "intern"
+                  dataItem.type === CourseType.InternCourse
                     ? "bg-[#fef5e5]"
                     : "bg-background-secondary"
                 }  text-left duration-100
@@ -375,7 +459,7 @@ export default function ImportStudentsListInCourse() {
 
                 {/* Mã lớp */}
                 <Table.Cell className="text-left border-r-[1px] !py-0 !my-0">
-                  {dataItem.id}
+                  {dataItem.code}
                 </Table.Cell>
 
                 {/* Tên môn*/}
@@ -425,9 +509,17 @@ export default function ImportStudentsListInCourse() {
                       type="file"
                       accept=".xlsx, .xls"
                       onChange={(e) =>
-                        dataItem.type === "intern"
-                          ? handleStudentInternCourseFileUpload(e, dataItem.id)
-                          : handleStudentFileUpload(e, dataItem.id)
+                        dataItem.type === CourseType.InternCourse
+                          ? handleStudentInternCourseFileUpload(
+                              e,
+                              dataItem.id,
+                              dataItem.code
+                            )
+                          : handleStudentFileUpload(
+                              e,
+                              dataItem.id,
+                              dataItem.code
+                            )
                       }
                       style={{ display: "none" }}
                     />

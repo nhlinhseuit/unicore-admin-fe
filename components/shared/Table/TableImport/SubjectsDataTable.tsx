@@ -15,6 +15,7 @@ import NoResult from "../../Status/NoResult";
 import DataTable from "../components/DataTable";
 import TableSkeleton from "../components/TableSkeleton";
 import { convertToAPIDataTableSubjects } from "@/lib/convertToDataTableSubjects";
+import LoadingComponent from "../../LoadingComponent";
 
 interface Props {
   isFetchTable?: boolean;
@@ -27,6 +28,7 @@ export default function SubjectsDataTable(params: Props) {
   const [dataTable, setDataTable] = useState<SubjectDataItem[]>([]);
   const [errorMessages, setErrorMessages] = useState<string[]>([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [isLoadingAPI, setIsLoadingAPI] = useState(false);
 
   useEffect(() => {
     if (params.fetchDataTable) {
@@ -116,7 +118,9 @@ export default function SubjectsDataTable(params: Props) {
       organizationId: "1",
     });
 
+    setIsLoadingAPI(true);
     const res = await handleCreateSubjectAction(APIdataTable);
+    setIsLoadingAPI(false);
 
     console.log(APIdataTable);
 
@@ -129,7 +133,9 @@ export default function SubjectsDataTable(params: Props) {
       organizationId: "1",
     });
 
+    setIsLoadingAPI(true);
     const res = await handleEditSubjectAction(APIdataTable);
+    setIsLoadingAPI(false);
 
     console.log(APIdataTable);
 
@@ -138,6 +144,7 @@ export default function SubjectsDataTable(params: Props) {
 
   return (
     <div>
+      {isLoadingAPI ? <LoadingComponent /> : null}
       {errorMessages.length > 0 && (
         <div className="mb-6">
           {errorMessages.map((item, index) => (
