@@ -4,7 +4,7 @@ import One from "@/components/gallery/one";
 import BackToPrev from "@/components/shared/BackToPrev";
 import MyInput from "@/components/shared/MyInput";
 import MyPasswordInput from "@/components/shared/MyPasswordInput";
-import { validateConfirmPassword, validatePassword } from "@/utils/utils";
+import { validateConfirmPassword, validatePassword } from "@/utils/validateUtils";
 
 import Image from "next/image";
 import { useRouter } from "next/navigation";

@@ -3,7 +3,7 @@
 import One from "@/components/gallery/one";
 import BackToPrev from "@/components/shared/BackToPrev";
 import MyInput from "@/components/shared/MyInput";
-import { validateEmail } from "@/utils/utils";
+import { validateEmail } from "@/utils/validateUtils";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useState } from "react";

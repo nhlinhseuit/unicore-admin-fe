@@ -4,12 +4,12 @@ import One from "@/components/gallery/one";
 import MyInput from "@/components/shared/MyInput";
 import MyPasswordInput from "@/components/shared/MyPasswordInput";
 import {
+  validateName,
   validateConfirmPassword,
   validateEmail,
-  validateName,
   validatePassword,
   validatePhoneNumber,
-} from "@/utils/utils";
+} from "@/utils/validateUtils";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
