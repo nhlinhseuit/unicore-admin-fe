@@ -97,30 +97,30 @@ export default function TeachersDataTable(params: Props) {
   };
 
   const createTeachersAPI = async () => {
-    const APIdataTable = convertToAPIDataTableTeachers({
+    const mockParamsAPIdataTable = convertToAPIDataTableTeachers({
       data: dataTable,
       organizationId: "1",
     });
 
-    console.log(APIdataTable);
+    console.log(mockParamsAPIdataTable);
 
     setIsLoadingAPI(true);
-    const res = await handleCreateTeachersAction(APIdataTable);
+    const res = await handleCreateTeachersAction(mockParamsAPIdataTable);
     setIsLoadingAPI(false);
 
     console.log("res", res);
   };
 
   const editTeachersAPI = async (newDataTable: any) => {
-    const APIdataTable = convertToAPIDataTableTeachers({
+    const mockParamsAPIdataTable = convertToAPIDataTableTeachers({
       data: newDataTable,
       organizationId: "1",
     });
 
-    console.log('APIdataTable', APIdataTable);
+    console.log('APIdataTable', mockParamsAPIdataTable);
 
     setIsLoadingAPI(true);
-    const res = await handleEditTeachersAction(APIdataTable);
+    const res = await handleEditTeachersAction(mockParamsAPIdataTable);
     setIsLoadingAPI(false);
 
     console.log("res", res);

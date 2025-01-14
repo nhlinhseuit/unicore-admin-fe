@@ -98,7 +98,7 @@ const ImportListTopic = (params: Props) => {
   const createTopicsAPI = async () => {
     console.log("createTopicsAPI");
 
-    const projectId = "677cd4ae3bc6f71acb13d066";
+    const mockParamsProjectId = "677cd4ae3bc6f71acb13d066";
 
     const APIdataTable = convertToAPIDataTableTopics({
       data: dataTable,
@@ -107,7 +107,7 @@ const ImportListTopic = (params: Props) => {
     console.log("APIdataTable", APIdataTable);
 
     setIsLoadingAPI(true)
-    const res = await handleCreateTopicAction(projectId, APIdataTable);
+    const res = await handleCreateTopicAction(mockParamsProjectId, APIdataTable);
     setIsLoadingAPI(false)
 
     console.log("res", res);
@@ -118,13 +118,13 @@ const ImportListTopic = (params: Props) => {
     //   data: newDataTable,
     //   organizationId: "1",
     // });
-    // const params = {
+    // const mockParams = {
     //   organization_id: "1",
     //   staff: APIdataTable.officers,
     // };
-    // console.log("params", params);
+    // console.log("mockParams", mockParams);
     // setIsLoadingAPI(true)
-    // const res = await handleEditOfficerAction(params);
+    // const res = await handleEditOfficerAction(mockParams);
     // setIsLoadingAPI(false)
     // console.log("res", res);
   };

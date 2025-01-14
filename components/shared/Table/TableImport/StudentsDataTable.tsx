@@ -103,31 +103,31 @@ export default function StudentsDataTable(params: Props) {
   const { toast } = useToast();
 
   const createStudentsAPI = async () => {
-    const APIdataTable = convertToAPIDataTableStudent({
+    const mockParamsAPIdataTable = convertToAPIDataTableStudent({
       data: dataTable,
       organizationId: "1",
     });
 
     setIsLoadingAPI(true);
-    const res = await handleCreateStudentAction(APIdataTable);
+    const res = await handleCreateStudentAction(mockParamsAPIdataTable);
     setIsLoadingAPI(false);
 
-    console.log(APIdataTable);
+    console.log(mockParamsAPIdataTable);
 
     console.log("res:::::", res);
   };
 
   const editStudentsAPI = async (newDataTable: any) => {
-    const APIdataTable = convertToAPIDataTableStudent({
+    const mockParamsAPIdataTable = convertToAPIDataTableStudent({
       data: newDataTable,
       organizationId: "1",
     });
 
     setIsLoadingAPI(true);
-    const res = await handleEditStudentAction(APIdataTable);
+    const res = await handleEditStudentAction(mockParamsAPIdataTable);
     setIsLoadingAPI(false);
 
-    console.log(APIdataTable);
+    console.log(mockParamsAPIdataTable);
 
     console.log("res:::::", res);
   };

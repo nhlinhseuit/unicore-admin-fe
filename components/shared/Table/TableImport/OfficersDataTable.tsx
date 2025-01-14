@@ -98,32 +98,32 @@ export default function OfficersDataTable(params: Props) {
   };
 
   const createOffciersAPI = async () => {
-    const APIdataTable = convertToAPIDataTableOfficers({
+    const mockParamsAPIdataTable = convertToAPIDataTableOfficers({
       data: dataTable,
       organizationId: "1",
     });
 
     setIsLoadingAPI(true);
-    const res = await handleCreateOfficerAction(APIdataTable);
+    const res = await handleCreateOfficerAction(mockParamsAPIdataTable);
     setIsLoadingAPI(false);
   };
   
   const editOffciersAPI = async (newDataTable: any) => {
     console.log("editOffciersAPI");
-    const APIdataTable = convertToAPIDataTableOfficers({
+    const mockParamsAPIdataTable = convertToAPIDataTableOfficers({
       data: newDataTable,
       organizationId: "1",
     });
 
     
-    const params = {
+    const mockParams = {
       organization_id: "1",
-      staff: APIdataTable.officers}
+      staff: mockParamsAPIdataTable.officers}
    
-      console.log("params", params);
+      console.log("mockParams", mockParams);
 
     setIsLoadingAPI(true);
-    const res = await handleEditOfficerAction(params);
+    const res = await handleEditOfficerAction(mockParams);
     setIsLoadingAPI(false);
     console.log("res", res);
   };

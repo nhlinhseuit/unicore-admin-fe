@@ -22,10 +22,10 @@ const UploadTopicResult = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  const projectId = "677cd4ae3bc6f71acb13d066";
+  const mockParamsProjectId = "677cd4ae3bc6f71acb13d066";
 
   useEffect(() => {
-    fetchDetailProject(projectId)
+    fetchDetailProject(mockParamsProjectId)
       .then((data: any) => {
         if (data) setDataTable(convertToDataTableTopicsViKeys(data?.topics));
         setIsLoading(false);

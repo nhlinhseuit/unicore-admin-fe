@@ -126,13 +126,13 @@ export default function CoursesDataTable(params: Props) {
   const { toast } = useToast();
 
   const createCoursesAPI = async () => {
-    const APIdataTable = convertToAPIDataTableCourses({
-      data: dataTable,
+    const mockParamsAPIdataTable = convertToAPIDataTableCourses({
       organizationId: "1",
+      data: dataTable,
     });
 
     setIsLoadingAPI(true);
-    const res = await handleCreateCourseAction(APIdataTable);
+    const res = await handleCreateCourseAction(mockParamsAPIdataTable);
 
     if (res.statusCode === 400) {
       if (res.data.code === "CLASS01") {

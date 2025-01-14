@@ -297,7 +297,7 @@ export default function ImportStudentsListInCourse() {
   const addStudentsToCourseAPI = () => {
     console.log("dataTables", dataTables);
 
-    const dataAPI = Object.entries(dataTables).map(([classId, students]) => {
+    const mockParamsdataAPI = Object.entries(dataTables).map(([classId, students]) => {
       const studentCodes = students.map((student) => student.data.MSSV);
 
       //? Nếu đã có ds sinh viên thì trả lỗi exist, không có gì hết
@@ -310,10 +310,10 @@ export default function ImportStudentsListInCourse() {
       };
     });
 
-    console.log("dataAPI", dataAPI);
+    console.log("mockParamsdataAPI", mockParamsdataAPI);
 
     setIsLoading(true);
-    addStudentsToCourse(dataAPI).then((data) => {
+    addStudentsToCourse(mockParamsdataAPI).then((data) => {
       console.log("data", data);
       setIsLoading(false);
     });

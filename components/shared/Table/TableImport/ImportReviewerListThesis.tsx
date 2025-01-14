@@ -91,7 +91,7 @@ export default function ImportReviewerListThesis() {
 
       if (groups.length === 0) {
         errorMessages.push(
-          "Import lỗi. Vui lòng chọn đúng file import danh sách nhóm sinh viên!"
+          "Import lỗi. Vui lòng chọn đúng file import danh sách giảng viên phản biện!"
         );
       }
 
@@ -115,7 +115,6 @@ export default function ImportReviewerListThesis() {
   const handleButtonClick = () => {
     fileInputRef.current?.click();
   };
-  
 
   return (
     <div>
@@ -149,7 +148,7 @@ export default function ImportReviewerListThesis() {
               />
 
               <IconButton
-                text="Import danh sách nhóm sinh viên"
+                text="Import danh sách giảng viên phản biện"
                 onClick={handleButtonClick}
                 iconLeft="/assets/icons/upload-white.svg"
                 iconWidth={16}
@@ -177,7 +176,6 @@ export default function ImportReviewerListThesis() {
           </a>
         </div>
       </div>
-
     </div>
   );
 }

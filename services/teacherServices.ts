@@ -61,15 +61,3 @@ export const handleEditTeachersAction = async (data: any) => {
   return res;
 };
 
-// export const handleDeleteSubjectAction = async (id: any) => {
-//
-//   const res = await sendRequest<IBackendRes<any>>({
-//     url: `${process.env.NEXT_PUBLIC_BACKEND_URL}/v1/api/users/${id}`,
-//     method: 'DELETE',
-//     // headers: {
-//     //   Authorization: `Bearer ${session?.user?.access_token}`,
-//     // },
-//   });
-//   revalidateTag('list-teachers');
-//   return res;
-// };
