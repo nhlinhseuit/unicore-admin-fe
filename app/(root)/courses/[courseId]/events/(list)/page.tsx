@@ -1,6 +1,7 @@
 "use client";
 
 import BigExerciseItem from "@/components/shared/BigExercise/BigExerciseItem";
+import LoadingComponent from "@/components/shared/LoadingComponent";
 import ToggleTitle from "@/components/shared/ToggleTitle";
 import { mockBigExercisesList, mockCentralizedExam } from "@/mocks";
 import {
@@ -75,6 +76,7 @@ const BigExercises = () => {
 
   return (
     <>
+      {isLoading ? <LoadingComponent /> : null}
       <div className="flex flex-col gap-4">
         <ToggleTitle
           text="Thi tập trung"
