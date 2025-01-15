@@ -34,8 +34,6 @@ import { z } from "zod";
 import ImportListTopic from "./(UploadTopicResult)/ImportListTopic";
 import AlertCreateNewTopic from "./(UploadTopicResult)/AlertCreateNewTopic";
 import BorderContainer from "@/components/shared/BorderContainer";
-import { ITProjectResponseData } from "@/types/entity/Project";
-import { fetchDetailProject } from "@/services/topic.ProjectServices";
 
 const UploadTopic = () => {
   const router = useRouter();

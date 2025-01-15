@@ -19,9 +19,12 @@ import {
 } from "@/components/ui/alert-dialog";
 import { fetchCourses } from "@/services/courseServices";
 import { ICourseResponseData } from "@/types/entity/Course";
+import { useAtom } from "jotai";
 import { useRouter } from "next/navigation";
-import { sClassCode, sClassId } from "../(store)/courseStore";
-
+import {
+  classCodeAtom,
+  classIdAtom
+} from "../(store)/courseStore";
 const JoinedCourses = () => {
   const [currentCourseId, setCurrentCourseId] = useState("");
 
@@ -51,6 +54,9 @@ const JoinedCourses = () => {
   const getCurrentCourse = () => {
     return courses.find((item) => item.code === currentCourseId);
   };
+
+  const [, setClassId] = useAtom(classIdAtom);
+  const [, setClassCode] = useAtom(classCodeAtom);
 
   return (
     <>
@@ -105,15 +111,15 @@ const JoinedCourses = () => {
               onClick={() => {
                 if (item.subclasses.length > 1) {
                   //? Lưu code, id vào store
-                  sClassId.set(item.id);
+                  setClassId(item.id);
 
                   setCurrentCourseId(item.code);
                 } else {
                   router.push(`/courses/${item.code}`);
 
                   //? Lưu code, id vào store
-                  sClassId.set(item.id);
-                  sClassCode.set(item.subclasses[0].code);
+                  setClassId(item.id);
+                  setClassCode(item.subclasses[0].code);
                 }
               }}
             >
@@ -122,7 +128,7 @@ const JoinedCourses = () => {
                 id={item.code}
                 name={item.subject_metadata.name}
                 semester={item.semester.toString()}
-                year={item.semester.toString()}
+                year={item.year.toString()}
                 teachers={item.subclasses
                   .map((item) => item.teacher_codes)
                   .filter(
@@ -170,7 +176,7 @@ const JoinedCourses = () => {
                     <div
                       onClick={() => {
                         //? Lưu code, id vào store
-                        sClassCode.set(
+                        setClassCode(
                           getCurrentCourse()?.subclasses[index].code ?? ""
                         );
 

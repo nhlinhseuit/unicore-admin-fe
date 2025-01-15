@@ -9,7 +9,6 @@ import { RegisterTopicTableType } from "@/constants";
 import { toast } from "@/hooks/use-toast";
 import { convertToDataTableTopicsViKeys } from "@/lib/convertToDataTableTopic";
 import { fetchDetailProject } from "@/services/topic.ProjectServices";
-import { ITProjectResponseData } from "@/types/entity/Project";
 import { TopicDataItem } from "@/types/entity/Topic";
 import LoadingComponent from "@/components/shared/LoadingComponent";
 

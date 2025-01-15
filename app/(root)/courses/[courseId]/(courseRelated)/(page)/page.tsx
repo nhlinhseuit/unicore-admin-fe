@@ -8,20 +8,13 @@ import TableSearch from "@/components/shared/Search/TableSearch";
 import { AnnouncementTypesNotRegularCourse, FilterType } from "@/constants";
 import { mockPostDataCourseIdPage } from "@/mocks";
 import { Dropdown } from "flowbite-react";
+import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { sClassCode, sClassId } from "../../../(courses)/(store)/courseStore";
-import Image from "next/image";
 import { useState } from "react";
 
 const page = () => {
   const pathName = usePathname();
-
-  const classCode = sClassCode.use();
-  const classId = sClassId.use();
-
-  console.log("classCode", classCode);
-  console.log("classId", classId);
 
   const [typeFilter, setTypeFilter] = useState(FilterType.None);
 

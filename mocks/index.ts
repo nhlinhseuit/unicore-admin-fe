@@ -1579,6 +1579,7 @@ export const mockDataStudentRegisterTopic = [
 export const mockDataAllAppproveTopic = [
   {
     STT: "1",
+    type: 'topic',
     isDeleted: false,
     data: {
       "Trạng thái": "Đã chỉ định giảng viên",
@@ -1596,6 +1597,7 @@ export const mockDataAllAppproveTopic = [
   },
   {
     STT: "2",
+    type: 'topic',
     isDeleted: false,
     data: {
       "Trạng thái": "Chưa chỉ định giảng viên",
@@ -1613,6 +1615,7 @@ export const mockDataAllAppproveTopic = [
   },
   {
     STT: "3",
+    type: 'topic',
     isDeleted: false,
     data: {
       "Trạng thái": "Đã từ chối",
@@ -1630,6 +1633,7 @@ export const mockDataAllAppproveTopic = [
   },
   {
     STT: "4",
+    type: 'topic',
     isDeleted: false,
     data: {
       "Trạng thái": "Đã chỉ định giảng viên",
@@ -1646,6 +1650,7 @@ export const mockDataAllAppproveTopic = [
   },
   {
     STT: "5",
+    type: 'topic',
     isDeleted: false,
     data: {
       "Trạng thái": "Chưa chỉ định giảng viên",
@@ -1662,6 +1667,7 @@ export const mockDataAllAppproveTopic = [
   },
   {
     STT: "6",
+    type: 'topic',
     isDeleted: false,
     data: {
       "Trạng thái": "Đã từ chối",
@@ -1680,6 +1686,7 @@ export const mockDataAllAppproveTopic = [
 export const mockDataAssignedTopic = [
   {
     STT: "1",
+    type: 'topic',
     isDeleted: false,
     data: {
       "Trạng thái": "Đã chỉ định giảng viên",
@@ -1697,6 +1704,7 @@ export const mockDataAssignedTopic = [
   },
   {
     STT: "2",
+    type: 'topic',
     isDeleted: false,
     data: {
       "Trạng thái": "Đã chỉ định giảng viên",
@@ -1714,6 +1722,7 @@ export const mockDataAssignedTopic = [
   },
   {
     STT: "3",
+    type: 'topic',
     isDeleted: false,
     data: {
       "Trạng thái": "Đã chỉ định giảng viên",
@@ -1733,6 +1742,7 @@ export const mockDataAssignedTopic = [
 export const mockDataNotAssignedTopic = [
   {
     STT: "1",
+    type: 'topic',
     isDeleted: false,
     data: {
       "Trạng thái": "Chưa chỉ định giảng viên",
@@ -1750,6 +1760,7 @@ export const mockDataNotAssignedTopic = [
   },
   {
     STT: "2",
+    type: 'topic',
     isDeleted: false,
     data: {
       "Trạng thái": "Chưa chỉ định giảng viên",
@@ -1767,6 +1778,7 @@ export const mockDataNotAssignedTopic = [
   },
   {
     STT: "3",
+    type: 'topic',
     isDeleted: false,
     data: {
       "Trạng thái": "Chưa chỉ định giảng viên",
@@ -1786,6 +1798,7 @@ export const mockDataNotAssignedTopic = [
 export const mockDataRefuseTopic = [
   {
     STT: "1",
+    type: 'topic',
     isDeleted: false,
     data: {
       "Trạng thái": "Đã từ chối",
@@ -1803,6 +1816,7 @@ export const mockDataRefuseTopic = [
   },
   {
     STT: "2",
+    type: 'topic',
     isDeleted: false,
     data: {
       "Trạng thái": "Đã từ chối",
@@ -1820,6 +1834,7 @@ export const mockDataRefuseTopic = [
   },
   {
     STT: "3",
+    type: 'topic',
     isDeleted: false,
     data: {
       "Trạng thái": "Đã từ chối",
