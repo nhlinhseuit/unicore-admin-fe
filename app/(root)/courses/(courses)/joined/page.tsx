@@ -124,7 +124,7 @@ const JoinedCourses = () => {
                 semester={item.semester.toString()}
                 year={item.semester.toString()}
                 teachers={item.subclasses
-                  .map((item) => item.teacher_code)
+                  .map((item) => item.teacher_codes)
                   .filter(
                     (item) =>
                       item &&
@@ -185,13 +185,13 @@ const JoinedCourses = () => {
                         key={item.code}
                         id={item.code}
                         teacher={
-                          item.teacher_code &&
-                          item.teacher_code.length !== 0 &&
+                          item.teacher_codes &&
+                          item.teacher_codes.length !== 0 &&
                           !(
-                            item.teacher_code.length === 1 &&
-                            item.teacher_code[0] === ""
+                            item.teacher_codes.length === 1 &&
+                            item.teacher_codes[0] === ""
                           )
-                            ? item.teacher_code.join(", ")
+                            ? item.teacher_codes.join(", ")
                             : ""
                         }
                         type={item.type}
