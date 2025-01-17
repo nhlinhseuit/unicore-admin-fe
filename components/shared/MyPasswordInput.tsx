@@ -33,7 +33,8 @@ const MyPasswordInput: React.FC<MyPasswordInputProps> = ({  placeholder,
       <div className="relative w-full">
         {/* Label */}
         <div className="bg-white absolute mb-1 translate-y-[-50%] ml-2 px-2">
-          <label className="small-medium">{label}</label>
+          <label className="small-medium">Password</label>
+          {/* <label className="small-medium">{label}</label> */}
         </div>
 
         {/* Input */}
