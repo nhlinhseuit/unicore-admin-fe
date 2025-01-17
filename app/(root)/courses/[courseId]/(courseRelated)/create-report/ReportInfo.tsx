@@ -345,6 +345,10 @@ const ReportInfo = () => {
                         Nội dung chi tiết của báo cáo{" "}
                         <span className="text-red-600">*</span>
                       </FormLabel>
+                      <FormDescription className="body-regular mt-2.5 text-light-500">
+                        Thông tin chi tiết của thông báo. Tối thiểu 20 kí tự.
+                        Nhấn tổ hợp Ctrl + V để chèn hình ảnh.
+                      </FormDescription>
                       <FormControl className="mt-3.5 ">
                         {/* editor  */}
                         <Editor
@@ -378,10 +382,6 @@ const ReportInfo = () => {
                           }}
                         />
                       </FormControl>
-                      <FormDescription className="body-regular mt-2.5 text-light-500">
-                        Thông tin chi tiết của thông báo. Tối thiểu 20 kí tự.
-                        Nhấn tổ hợp Ctrl + V để chèn hình ảnh.
-                      </FormDescription>
                       <FormMessage className="text-red-500" />
                     </FormItem>
                   )}
@@ -663,7 +663,6 @@ const ReportInfo = () => {
               {/* //TODO: SECTION 2 */}
 
               <div className="flex w-[30%] flex-col gap-10">
-
                 {/* TẠO FORM ĐIỂM DANH */}
                 <div>
                   <label className="peer-disabled:cursor-not-allowed peer-disabled:opacity-70 dark:text-red-900 text-dark400_light800 text-[14px] font-semibold leading-[20.8px]">

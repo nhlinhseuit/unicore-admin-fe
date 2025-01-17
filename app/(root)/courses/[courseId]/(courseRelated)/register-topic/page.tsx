@@ -45,7 +45,7 @@ const RegisterTopic = () => {
 
   const [isToggleCreateSchedule, setIsToggleCreateSchedule] = useState(true);
   const [isToggleViewTable, setIsToggleViewTable] = useState(true);
-  const [isUseExistedGroup, setIsUseExistedGroup] = useState(1);
+  const [isUseExistedGroup, setIsUseExistedGroup] = useState(2);
 
   const [minMember, setMinMember] = useState("");
   const [maxMember, setMaxMember] = useState("");
@@ -172,7 +172,7 @@ const RegisterTopic = () => {
           />
 
           {isToggleCreateSchedule ? (
-            <div className="flex px-6 gap-12">
+            <div className="px-6">
               <div className="flex w-full flex-col gap-10">
                 {/* THỜI HẠN */}
 
@@ -272,7 +272,7 @@ const RegisterTopic = () => {
                       <FormControl className="mt-3.5 ">
                         <BorderContainer otherClasses="mt-3.5">
                           <div className="p-4 flex flex-col gap-10">
-                            <div>
+                            {/* <div>
                               <RadioboxComponent
                                 id={1}
                                 handleClick={() => {
@@ -295,7 +295,7 @@ const RegisterTopic = () => {
                                 Nhóm cho bài tập lớn được tạo cũng sẽ là nhóm
                                 chính nếu lớp chưa chia nhóm.
                               </p>
-                            </div>
+                            </div> */}
 
                             {isUseExistedGroup === 2 ? (
                               <div>
@@ -352,6 +352,16 @@ const RegisterTopic = () => {
                       <FormMessage className="text-red-500" />
                     </FormItem>
                   )}
+                />
+              </div>
+
+              <div className="flex mt-12 gap-2">
+                <SubmitButton text="Đăng" otherClasses="w-fit" />
+                <IconButton
+                  text="Hủy"
+                  red
+                  otherClasses="w-fit"
+                  onClick={() => {}}
                 />
               </div>
             </div>
@@ -439,16 +449,6 @@ const RegisterTopic = () => {
           ) : (
             <></>
           )}
-
-          <div className="flex mt-12 gap-2">
-            <SubmitButton text="Đăng" otherClasses="w-fit" />
-            <IconButton
-              text="Hủy"
-              red
-              otherClasses="w-fit"
-              onClick={() => {}}
-            />
-          </div>
         </form>
       </Form>
     </div>

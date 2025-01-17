@@ -10,6 +10,7 @@ import NoteComponent from "../../NoteComponent";
 import ErrorComponent from "../../Status/ErrorComponent";
 import { tableTheme } from "../components/DataTable";
 import { CourseType } from "@/types/entity/Course";
+import { addStudentsToInternCourse } from "@/services/importStudentsInInternCourseServices";
 
 type TransformedDataItem = {
   type: string;
@@ -297,18 +298,21 @@ export default function ImportStudentsListInCourse() {
   const addStudentsToCourseAPI = () => {
     console.log("dataTables", dataTables);
 
-    const mockParamsdataAPI = Object.entries(dataTables).map(([classId, students]) => {
-      const studentCodes = students.map((student) => student.data.MSSV);
+    const mockParamsdataAPI = Object.entries(dataTables).map(
+      ([classId, students]) => {
+        //! CHECK CLASSID CỦA LỚP THƯỜNG
+        const studentCodes = students.map((student) => student.data.MSSV);
 
-      //? Nếu đã có ds sinh viên thì trả lỗi exist, không có gì hết
+        //? Nếu đã có ds sinh viên thì trả lỗi exist, không có gì hết
 
-      return {
-        class_id: "677cd4ae0a706479b8773770", // Sử dụng key làm class_id
-        subclass_code: "SE113.O21.PMCL",
-        leader_code: null, // Mặc định để rỗng
-        student_codes: studentCodes, // Danh sách MSSV
-      };
-    });
+        return {
+          class_id: "677cd4ae0a706479b8773770", // Sử dụng key làm class_id
+          subclass_code: "SE113.O21.PMCL",
+          leader_code: null, // Mặc định để rỗng
+          student_codes: studentCodes, // Danh sách MSSV
+        };
+      }
+    );
 
     console.log("mockParamsdataAPI", mockParamsdataAPI);
 
@@ -319,7 +323,35 @@ export default function ImportStudentsListInCourse() {
     });
   };
 
-  const notImportStudentCoursesList = [
+  const addStudentsToInternCourseAPI = () => {
+    console.log("dataTables", dataTables);
+
+    //! CHECK CLASSID CỦA LỚP INTERN
+    const mockParamsdataAPI = Object.entries(dataTables).map(
+      ([classId, students]) => {
+        const studentCodes = students.map((student) => student.data.MSSV);
+
+        //? Nếu đã có ds sinh viên thì trả lỗi exist, không có gì hết
+
+        return {
+          class_id: "677cd4ae0a706479b8773770", // Sử dụng key làm class_id
+          subclass_code: "SE113.O21.PMCL",
+          leader_code: null, // Mặc định để rỗng
+          student_codes: studentCodes, // Danh sách MSSV
+        };
+      }
+    );
+
+    console.log("mockParamsdataAPI", mockParamsdataAPI);
+
+    setIsLoading(true);
+    addStudentsToInternCourse(mockParamsdataAPI).then((data) => {
+      console.log("data", data);
+      setIsLoading(false);
+    });
+  };
+
+  const mockNotImportStudentCoursesList = [
     {
       id: "677fefdd854d3e02e419170a",
       code: "SE122.O21.PMCL",
@@ -441,7 +473,7 @@ export default function ImportStudentsListInCourse() {
 
           {/* BODY */}
           <Table.Body className="text-left divide-y">
-            {notImportStudentCoursesList.map((dataItem, index) => (
+            {mockNotImportStudentCoursesList.map((dataItem, index) => (
               <Table.Row
                 key={count}
                 onClick={() => {}}

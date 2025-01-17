@@ -121,7 +121,7 @@ const ApproveTopicTable = (params: DataTableParams) => {
                     <div className="flex justify-between items-center gap-2">
                       <div className="flex gap-2 items-center">
                         <p className="inline-flex justify-start text-sm whitespace-nowrap">
-                          Chọn giảng viên
+                          Đang chỉ định giảng viên
                         </p>
                         <Dropdown
                           className="min-w-max z-30 rounded-lg"

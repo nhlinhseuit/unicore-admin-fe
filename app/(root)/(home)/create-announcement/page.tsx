@@ -78,14 +78,12 @@ const CreateAnnouncement = () => {
   const pathName = usePathname();
 
   const [date, setDate] = useState<Date>();
-  
 
   const [previewImage, setPreviewImage] = useState("");
   const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
   const [checkedCategory, setCheckedCategory] = useState<number[]>([]);
   const [selectedTarget, setSelectedTarget] = useState(1);
   const [selectedScheduleOption, setSelectedScheduleOption] = useState(1);
-
 
   const toggleCategory = (id: number) => {
     setCheckedCategory(
@@ -94,7 +92,7 @@ const CreateAnnouncement = () => {
           ? prevChecked.filter((catId) => catId !== id) // Bỏ nếu đã có
           : [...prevChecked, id] // Thêm nếu chưa có
     );
-};
+  };
 
   const handleChooseImage = (event: React.ChangeEvent<HTMLInputElement>) => {
     const image = event.target.files?.[0];
@@ -190,7 +188,6 @@ const CreateAnnouncement = () => {
       category: z.any(),
       target: z.number().optional(),
       date: z.date().optional(),
-      
     })
     .refine(
       (data) => {
@@ -314,6 +311,10 @@ const CreateAnnouncement = () => {
                       Nội dung chi tiết của thông báo{" "}
                       <span className="text-red-600">*</span>
                     </FormLabel>
+                    <FormDescription className="body-regular mt-2.5 text-light-500">
+                      Thông tin chi tiết của thông báo. Tối thiểu 20 kí tự. Nhấn
+                      tổ hợp Ctrl + V để chèn hình ảnh.
+                    </FormDescription>
                     <FormControl className="mt-3.5 ">
                       {/* editor  */}
                       <Editor
@@ -347,10 +348,7 @@ const CreateAnnouncement = () => {
                         }}
                       />
                     </FormControl>
-                    <FormDescription className="body-regular mt-2.5 text-light-500">
-                      Thông tin chi tiết của thông báo. Tối thiểu 20 kí tự. Nhấn
-                      tổ hợp Ctrl + V để chèn hình ảnh.
-                    </FormDescription>
+
                     <FormMessage className="text-red-500" />
                   </FormItem>
                 )}

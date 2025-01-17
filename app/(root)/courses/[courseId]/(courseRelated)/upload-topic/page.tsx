@@ -110,7 +110,7 @@ const UploadTopic = () => {
             />
 
             {isToggleCreateSchedule ? (
-              <div className="flex px-6 gap-12">
+              <div className="px-6">
                 <div className="flex w-full flex-col gap-10">
                   <FormField
                     control={form.control}
@@ -197,6 +197,16 @@ const UploadTopic = () => {
                     )}
                   />
                 </div>
+
+                <div className="flex mt-12 gap-2">
+                  <SubmitButton text="Đăng" otherClasses="w-fit" />
+                  <IconButton
+                    text="Hủy"
+                    red
+                    otherClasses="w-fit"
+                    onClick={() => {}}
+                  />
+                </div>
               </div>
             ) : (
               <></>
@@ -242,16 +252,6 @@ const UploadTopic = () => {
             ) : (
               <></>
             )}
-
-            <div className="flex mt-12 gap-2">
-              <SubmitButton text="Đăng" otherClasses="w-fit" />
-              <IconButton
-                text="Hủy"
-                red
-                otherClasses="w-fit"
-                onClick={() => {}}
-              />
-            </div>
           </div>
         </form>
       </Form>

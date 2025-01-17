@@ -81,11 +81,11 @@ export const DepartmentCourseTabItems = [
     label: "Bảng điểm",
     route: "/score-transcript",
   },
-  {
-    value: "files",
-    label: "Lưu trữ",
-    route: "/files",
-  },
+  // {
+  //   value: "files",
+  //   label: "Lưu trữ",
+  //   route: "/files",
+  // },
   {
     value: "setting",
     label: "Cài đặt",
@@ -119,11 +119,11 @@ export const BigExerciseTabItems = [
     label: "Bảng điểm",
     route: "/score-transcript",
   },
-  {
-    value: "files",
-    label: "Lưu trữ",
-    route: "/files",
-  },
+  // {
+  //   value: "files",
+  //   label: "Lưu trữ",
+  //   route: "/files",
+  // },
   {
     value: "setting",
     label: "Cài đặt",
