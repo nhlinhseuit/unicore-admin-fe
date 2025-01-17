@@ -7,6 +7,18 @@ import MyDropdown from "../../MyDropdown";
 import { mockOfficerList } from "@/mocks";
 import { parseToArray } from "@/utils/utils";
 
+import { Button } from "@/components/ui/button";
+import { Calendar } from "@/components/ui/calendar";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
+import { format } from "date-fns";
+import { vi } from "date-fns/locale";
+import { CalendarIcon } from "lucide-react";
+import LoadingComponent from "../../LoadingComponent";
+
 type Student = {
   STT: string;
   "Mã số SV": string;
@@ -55,6 +67,9 @@ export default function ImportInternReport() {
   const [councilsData, setCountcilsData] = useState<Council[]>([]);
 
   const [isLoading, setIsLoading] = useState(false);
+
+  const [dateStart, setDateStart] = useState<Date>();
+  const [dateEnd, setDateEnd] = useState<Date>();
 
   // XỬ LÝ UPLOAD FILE LỚP HỌC
   const handleCoursesFileUpload = (e: any) => {
@@ -169,6 +184,7 @@ export default function ImportInternReport() {
 
   return (
     <div>
+      {isLoading ? <LoadingComponent /> : null}
       {errorMessages.length > 0 && (
         <div className="mb-6">
           {errorMessages.map((item, index) => (
@@ -230,7 +246,76 @@ export default function ImportInternReport() {
 
       {councilsData.length > 0 ? (
         <div className="mt-12 flex flex-col gap-4">
-          <p className="paragraph-semibold">Chọn giáo vụ nhập điểm</p>
+          <p className="paragraph-semibold">Chọn thời gian nhập điểm</p>
+          <div className="flex gap-4 items-center">
+            <div className="w-1/4">
+              <Popover>
+                <PopoverTrigger asChild>
+                  <Button
+                    variant={"outline"}
+                    className={`w-full flex items-center text-center font-normal ${
+                      !dateStart && "text-muted-foreground"
+                    } hover:bg-transparent active:bg-transparent rounded-lg shadow-none`}
+                  >
+                    <span
+                      className={`flex-grow text-center ${
+                        !dateStart && "text-muted-foreground"
+                      }`}
+                    >
+                      {dateStart
+                        ? format(dateStart, "dd/MM/yyyy")
+                        : "Ngày bắt đầu"}
+                    </span>
+                    <CalendarIcon className="ml-2 h-4 w-4" />
+                  </Button>
+                </PopoverTrigger>
+                <PopoverContent className="w-auto p-0">
+                  <Calendar
+                    mode="single"
+                    selected={dateStart}
+                    onSelect={setDateStart}
+                    initialFocus
+                    locale={vi}
+                  />
+                </PopoverContent>
+              </Popover>
+            </div>
+            <span> - </span>
+            <div className="w-1/4">
+              <Popover>
+                <PopoverTrigger asChild>
+                  <Button
+                    variant={"outline"}
+                    className={`w-full flex items-center text-center font-normal ${
+                      !dateEnd && "text-muted-foreground"
+                    } hover:bg-transparent active:bg-transparent rounded-lg shadow-none`}
+                  >
+                    <span
+                      className={`flex-grow text-center ${
+                        !dateEnd && "text-muted-foreground"
+                      }`}
+                    >
+                      {dateEnd
+                        ? format(dateEnd, "dd/MM/yyyy")
+                        : "Ngày kết thúc"}
+                    </span>
+                    <CalendarIcon className="ml-2 h-4 w-4" />
+                  </Button>
+                </PopoverTrigger>
+                <PopoverContent className="w-auto p-0">
+                  <Calendar
+                    mode="single"
+                    selected={dateEnd}
+                    onSelect={setDateEnd}
+                    initialFocus
+                    locale={vi}
+                  />
+                </PopoverContent>
+              </Popover>
+            </div>
+          </div>
+
+          <p className="mt-10 paragraph-semibold">Chọn giáo vụ nhập điểm</p>
 
           {councilsData.map((item, index) => (
             <div key={item.STT} className="flex gap-4 items-center">

@@ -61,6 +61,8 @@ const UploadTopic = () => {
   const [dateStart, setDateStart] = useState<Date>();
   const [dateEnd, setDateEnd] = useState<Date>();
 
+  const [isAlreadyHasSchedule, setIsAlreadyHasSchedule] = useState(false);
+
   const AnnoucementSchema = z
     .object({
       date: z.string().optional(),
@@ -103,8 +105,9 @@ const UploadTopic = () => {
           <div>
             <ToggleTitle
               text="Lịch giảng viên đăng đề tài"
+              isActive={isAlreadyHasSchedule}
               showStatus
-              showEditButton
+              showEditButton={isAlreadyHasSchedule}
               handleClick={handleClickCreateSchedule}
               value={isToggleCreateSchedule}
             />

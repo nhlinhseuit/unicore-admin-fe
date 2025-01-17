@@ -9,9 +9,7 @@ interface MyPasswordInputProps {
   validate?: (value: string) => string | null; // Hàm kiểm tra lỗi
 }
 
-const MyPasswordInput: React.FC<MyPasswordInputProps> = ({
-  label,
-  placeholder,
+const MyPasswordInput: React.FC<MyPasswordInputProps> = ({  placeholder,
   value,
   onChange,
   validate,

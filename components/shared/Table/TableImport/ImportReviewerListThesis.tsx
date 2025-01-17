@@ -3,6 +3,18 @@ import { useRef, useState } from "react";
 import * as XLSX from "xlsx";
 import IconButton from "../../Button/IconButton";
 import ErrorComponent from "../../Status/ErrorComponent";
+import LoadingComponent from "../../LoadingComponent";
+
+import { Button } from "@/components/ui/button";
+import { Calendar } from "@/components/ui/calendar";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
+import { format } from "date-fns";
+import { vi } from "date-fns/locale";
+import { CalendarIcon } from "lucide-react";
 
 interface Group {
   STT: string;
@@ -25,6 +37,9 @@ export default function ImportReviewerListThesis() {
   const [errorMessages, setErrorMessages] = useState<string[]>([]);
   const [groupsData, setGroupsData] = useState<Group[]>([]);
   const [isLoading, setIsLoading] = useState(false);
+
+  const [dateStart, setDateStart] = useState<Date>();
+  const [dateEnd, setDateEnd] = useState<Date>();
 
   const handleCoursesFileUpload = (e: any) => {
     const file = e.target.files[0];
@@ -118,6 +133,7 @@ export default function ImportReviewerListThesis() {
 
   return (
     <div>
+      {isLoading ? <LoadingComponent /> : null}
       {errorMessages.length > 0 && (
         <div className="mb-6">
           {errorMessages.map((item, index) => (
@@ -172,10 +188,87 @@ export default function ImportReviewerListThesis() {
             download
             className="text-blue-500 underline text-base italic"
           >
-            Tải xuống template file import nhóm sinh viên
+            Tải xuống template file import danh sách giảng viên phản biện
           </a>
         </div>
       </div>
+
+      {uploadedFileName.file ? (
+        <div className="mt-12 flex flex-col gap-4">
+          <p className="paragraph-semibold">Chọn thời gian nhập điểm</p>
+          <div className="flex gap-4 items-center">
+            <div className="w-1/4">
+              <Popover>
+                <PopoverTrigger asChild>
+                  <Button
+                    variant={"outline"}
+                    className={`w-full flex items-center text-center font-normal ${
+                      !dateStart && "text-muted-foreground"
+                    } hover:bg-transparent active:bg-transparent rounded-lg shadow-none`}
+                  >
+                    <span
+                      className={`flex-grow text-center ${
+                        !dateStart && "text-muted-foreground"
+                      }`}
+                    >
+                      {dateStart
+                        ? format(dateStart, "dd/MM/yyyy")
+                        : "Ngày bắt đầu"}
+                    </span>
+                    <CalendarIcon className="ml-2 h-4 w-4" />
+                  </Button>
+                </PopoverTrigger>
+                <PopoverContent className="w-auto p-0">
+                  <Calendar
+                    mode="single"
+                    selected={dateStart}
+                    onSelect={setDateStart}
+                    initialFocus
+                    locale={vi}
+                  />
+                </PopoverContent>
+              </Popover>
+            </div>
+            <span> - </span>
+            <div className="w-1/4">
+              <Popover>
+                <PopoverTrigger asChild>
+                  <Button
+                    variant={"outline"}
+                    className={`w-full flex items-center text-center font-normal ${
+                      !dateEnd && "text-muted-foreground"
+                    } hover:bg-transparent active:bg-transparent rounded-lg shadow-none`}
+                  >
+                    <span
+                      className={`flex-grow text-center ${
+                        !dateEnd && "text-muted-foreground"
+                      }`}
+                    >
+                      {dateEnd
+                        ? format(dateEnd, "dd/MM/yyyy")
+                        : "Ngày kết thúc"}
+                    </span>
+                    <CalendarIcon className="ml-2 h-4 w-4" />
+                  </Button>
+                </PopoverTrigger>
+                <PopoverContent className="w-auto p-0">
+                  <Calendar
+                    mode="single"
+                    selected={dateEnd}
+                    onSelect={setDateEnd}
+                    initialFocus
+                    locale={vi}
+                  />
+                </PopoverContent>
+              </Popover>
+            </div>
+          </div>
+
+          <div>
+            <IconButton text="Lưu" onClick={() => {}} />
+          </div>
+        </div>
+      ) : null}
     </div>
   );
 }

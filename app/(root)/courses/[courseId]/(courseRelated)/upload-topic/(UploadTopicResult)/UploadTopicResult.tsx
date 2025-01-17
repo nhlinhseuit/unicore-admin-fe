@@ -100,6 +100,9 @@ const UploadTopicResult = () => {
           onClickGetOut={() => {
             setIsMultipleDelete(false);
           }}
+          onClickCancelEdit={() => {
+            setIsEditTable(false);
+          }}
         />
       ) : (
         <NoResult

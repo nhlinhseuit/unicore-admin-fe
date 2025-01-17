@@ -1,7 +1,9 @@
 "use client";
 
+import { isLoginAtom } from "@/app/(root)/courses/(courses)/(store)/courseStore";
 import { Button } from "@/components/ui/button";
 import { DepartmentCoursesTabItems, sidebarDepartmentLinks } from "@/constants";
+import { useAtomValue } from "jotai";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -53,6 +55,8 @@ const LeftSideBar = () => {
     group rounded-lg max-lg:w-[52px]
     bg-transparent px-4 py-3`;
   };
+
+  const isLogin = useAtomValue(isLoginAtom);
 
   return (
     <section
@@ -185,65 +189,38 @@ const LeftSideBar = () => {
         })}
       </div>
 
-      <div className="flex flex-col gap-3 mx-6 mt-6 mb-6 flex-shrink-0">
-        {/* <SignedOut>
-        </SignedOut> */}
-        <Link
-          href="/sign-in"
-          className="flex rounded-lg background-light800_dark400 "
-        >
-          <Button
-            className="
-                        small-medium btn-secondary 
-                        min-h-[41px] w-full rounded-lg
-                        px-4 py-3 shadow-none
-                        max-lg:hidden
-                        "
+      {isLogin ? null : (
+        <div className="flex flex-col gap-3 mx-6 mt-6 mb-6 flex-shrink-0">
+          <Link
+            href="/login"
+            className="flex rounded-lg background-light700_dark300"
           >
-            <span className=" max-lg:hidden primary-text-gradient">
-              Đăng nhập
-            </span>
-          </Button>
-          <Image
-            src="/assets/icons/account.svg"
-            alt="login"
-            width={20}
-            height={20}
-            className="
-                invert-colors 
-                max-lg:w-[52px]
-                bg-transparent p-4
-                lg:hidden"
-          />
-        </Link>
-
-        <Link
-          href="/sign-up"
-          className="flex rounded-lg background-light700_dark300"
-        >
-          <Button
-            className="
-                        small-medium btn-tertiary light-border-2 
-                        min-h-[41px] w-full rounded-lg
-                        px-4 py-3 shadow-none text-dark400_light900
-                        max-lg:hidden"
-          >
-            Đăng ký
-          </Button>
-
-          <Image
-            src="/assets/icons/sign-up.svg"
-            alt="signup"
-            width={20}
-            height={20}
-            className="
-                invert-colors 
-                max-lg:w-[52px]
-                bg-transparent p-4
-                lg:hidden"
-          />
-        </Link>
-      </div>
+            <Button
+              className="
+          small-medium btn-secondary 
+          min-h-[41px] w-full rounded-lg
+          px-4 py-3 shadow-none
+          max-lg:hidden
+        "
+            >
+              <span className=" max-lg:hidden primary-text-gradient">
+                Đăng nhập
+              </span>
+            </Button>
+            <Image
+              src="/assets/icons/account.svg"
+              alt="login"
+              width={20}
+              height={20}
+              className="
+          invert-colors 
+          max-lg:w-[52px]
+          bg-transparent p-4
+          lg:hidden"
+            />
+          </Link>
+        </div>
+      )}
     </section>
   );
 };

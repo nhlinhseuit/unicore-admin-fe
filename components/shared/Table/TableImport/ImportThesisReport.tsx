@@ -1,11 +1,22 @@
 import { mockOfficerList } from "@/mocks";
+import { parseToArray } from "@/utils/utils";
 import { useEffect, useRef, useState } from "react";
 import * as XLSX from "xlsx";
 import BorderContainer from "../../BorderContainer";
 import IconButton from "../../Button/IconButton";
 import MyDropdown from "../../MyDropdown";
 import ErrorComponent from "../../Status/ErrorComponent";
-import { parseToArray } from "@/utils/utils";
+
+import { Button } from "@/components/ui/button";
+import { Calendar } from "@/components/ui/calendar";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
+import { format } from "date-fns";
+import { vi } from "date-fns/locale";
+import { CalendarIcon } from "lucide-react";
 
 type Group = {
   STT: string;
@@ -36,9 +47,11 @@ export default function ImportThesisReport() {
     name: string;
     file: File | null;
   }>({ name: "", file: null });
-  const [errorMessages, setErrorMessages] = useState<string[]>([
-  ]);
+  const [errorMessages, setErrorMessages] = useState<string[]>([]);
   const [councilsData, setCountcilsData] = useState<Council[]>([]);
+
+  const [dateStart, setDateStart] = useState<Date>();
+  const [dateEnd, setDateEnd] = useState<Date>();
 
   useEffect(() => {
     if (councilsData.length > 0) {
@@ -79,7 +92,6 @@ export default function ImportThesisReport() {
         range: 7, // Chỉ số 7 đại diện cho hàng 8 (vì index bắt đầu từ 0)
         defval: "",
       });
-
 
       let errorMessagesCheck: string[] = [];
       let councils: Council[] = []; // Danh sách các hội đồng
@@ -124,7 +136,9 @@ export default function ImportThesisReport() {
             "Tên đề tài Tiếng Anh": item["TÊN ĐỀ TÀI TIẾNG ANH"] || "",
             "Cán bộ hướng dẫn": parseToArray(item["CÁN BỘ HƯỚNG DẪN"]),
             "Cán bộ phản biện": `${item["CÁN BỘ PHẢN BIỆN"]}`,
-            "Hội đồng chấm khóa luận": parseToArray(item["HỘI ĐỒNG CHẤM KHOÁ LUẬN\r\n(Ghi rõ chức vụ trong HĐ)"]),
+            "Hội đồng chấm khóa luận": parseToArray(
+              item["HỘI ĐỒNG CHẤM KHOÁ LUẬN\r\n(Ghi rõ chức vụ trong HĐ)"]
+            ),
           };
         } else if (currentGroup) {
           // Thêm sinh viên vào nhóm hiện tại (nếu topic rỗng)
@@ -159,7 +173,7 @@ export default function ImportThesisReport() {
       } else {
         //! POST API LƯU DỮ LIỆU LÊN BACKEND
 
-        console.log('councils KLTN', councils)
+        console.log("councils KLTN", councils);
 
         setCountcilsData(councils);
       }
@@ -248,7 +262,76 @@ export default function ImportThesisReport() {
 
       {councilsData.length > 0 ? (
         <div className="mt-12 flex flex-col gap-4">
-          <p className="paragraph-semibold">Chọn giáo vụ nhập điểm</p>
+          <p className="paragraph-semibold">Chọn thời gian nhập điểm</p>
+          <div className="flex gap-4 items-center">
+            <div className="w-1/4">
+              <Popover>
+                <PopoverTrigger asChild>
+                  <Button
+                    variant={"outline"}
+                    className={`w-full flex items-center text-center font-normal ${
+                      !dateStart && "text-muted-foreground"
+                    } hover:bg-transparent active:bg-transparent rounded-lg shadow-none`}
+                  >
+                    <span
+                      className={`flex-grow text-center ${
+                        !dateStart && "text-muted-foreground"
+                      }`}
+                    >
+                      {dateStart
+                        ? format(dateStart, "dd/MM/yyyy")
+                        : "Ngày bắt đầu"}
+                    </span>
+                    <CalendarIcon className="ml-2 h-4 w-4" />
+                  </Button>
+                </PopoverTrigger>
+                <PopoverContent className="w-auto p-0">
+                  <Calendar
+                    mode="single"
+                    selected={dateStart}
+                    onSelect={setDateStart}
+                    initialFocus
+                    locale={vi}
+                  />
+                </PopoverContent>
+              </Popover>
+            </div>
+            <span> - </span>
+            <div className="w-1/4">
+              <Popover>
+                <PopoverTrigger asChild>
+                  <Button
+                    variant={"outline"}
+                    className={`w-full flex items-center text-center font-normal ${
+                      !dateEnd && "text-muted-foreground"
+                    } hover:bg-transparent active:bg-transparent rounded-lg shadow-none`}
+                  >
+                    <span
+                      className={`flex-grow text-center ${
+                        !dateEnd && "text-muted-foreground"
+                      }`}
+                    >
+                      {dateEnd
+                        ? format(dateEnd, "dd/MM/yyyy")
+                        : "Ngày kết thúc"}
+                    </span>
+                    <CalendarIcon className="ml-2 h-4 w-4" />
+                  </Button>
+                </PopoverTrigger>
+                <PopoverContent className="w-auto p-0">
+                  <Calendar
+                    mode="single"
+                    selected={dateEnd}
+                    onSelect={setDateEnd}
+                    initialFocus
+                    locale={vi}
+                  />
+                </PopoverContent>
+              </Popover>
+            </div>
+          </div>
+
+          <p className="mt-10 paragraph-semibold">Chọn giáo vụ nhập điểm</p>
 
           {councilsData.map((item, index) => (
             <div key={item.STT} className="flex gap-4 items-center">

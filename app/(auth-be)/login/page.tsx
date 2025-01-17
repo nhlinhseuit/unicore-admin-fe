@@ -1,9 +1,12 @@
 "use client";
 
+import { isLoginAtom } from "@/app/(root)/courses/(courses)/(store)/courseStore";
 import One from "@/components/gallery/one";
 import MyInput from "@/components/shared/MyInput";
 import MyPasswordInput from "@/components/shared/MyPasswordInput";
-import { validateEmail, validatePassword } from "@/utils/validateUtils";
+import { toast } from "@/hooks/use-toast";
+import { useSetAtom } from "jotai";
+// import { validateEmail, validatePassword } from "@/utils/validateUtils";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
@@ -13,6 +16,8 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const [isChecked, setisChecked] = useState(false);
   const router = useRouter();
+
+  const setLoginAtom = useSetAtom(isLoginAtom);
 
   return (
     <main>
@@ -39,7 +44,7 @@ const Login = () => {
               placeholder="dev.hoanglinh@gmail.com"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              validate={validateEmail}
+              // validate={validateEmail}
             />
 
             <MyPasswordInput
@@ -47,7 +52,7 @@ const Login = () => {
               placeholder="Enter password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              validate={validatePassword}
+              // validate={validatePassword}
             />
 
             <div className="flex gap-44 justify-between items-center w-full">
@@ -80,8 +85,19 @@ const Login = () => {
           </div>
 
           <div className="w-full flex flex-col gap-6">
-            <button className="w-full flex justify-center items-center rounded-md gap-x-1 px-4 py-3 bg-primary-100 ">
-              <p className="body-semibold text-black">Login</p>
+            <button
+              onClick={() => {
+                toast({
+                  title: `Đăng nhập thành công.`,
+                  variant: "success",
+                  duration: 3000,
+                });
+                setLoginAtom(true);
+                router.push("/");
+              }}
+              className="w-full flex justify-center items-center rounded-md gap-x-1 px-4 py-3 bg-primary-100 "
+            >
+              <p className="body-semibold text-white">Login</p>
             </button>
 
             <p className="w-full text-center text-[14px] font-medium leading-[20px]">

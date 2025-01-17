@@ -70,6 +70,8 @@ const RegisterTopic = () => {
     setMaxMember(e.target.value);
   };
 
+  const [isAlreadyHasSchedule, setIsAlreadyHasSchedule] = useState(false);
+
   const AnnoucementSchema = z
     .object({
       date: z.string().optional(),
@@ -165,8 +167,9 @@ const RegisterTopic = () => {
         <form onSubmit={form.handleSubmit(onSubmit)}>
           <ToggleTitle
             text="Lịch đăng ký đề tài"
+            isActive={isAlreadyHasSchedule}
             showStatus
-            showEditButton
+            showEditButton={isAlreadyHasSchedule}
             handleClick={handleClickCreateSchedule}
             value={isToggleCreateSchedule}
           />
@@ -267,87 +270,48 @@ const RegisterTopic = () => {
                   render={({ field }) => (
                     <FormItem className="flex w-full flex-col">
                       <FormLabel className="text-dark400_light800 text-[14px] font-semibold leading-[20.8px]">
-                        Tùy chọn nhóm <span className="text-red-600">*</span>
+                        Số lượng thành viên nhóm{" "}
+                        <span className="text-red-600">*</span>
                       </FormLabel>
                       <FormControl className="mt-3.5 ">
-                        <BorderContainer otherClasses="mt-3.5">
-                          <div className="p-4 flex flex-col gap-10">
-                            {/* <div>
-                              <RadioboxComponent
-                                id={1}
-                                handleClick={() => {
-                                  setIsUseExistedGroup(1);
-                                }}
-                                value={isUseExistedGroup}
-                                text="Sử dụng nhóm chính"
+                        <div>
+                          <div className="mt-3.5 flex gap-6">
+                            <div className="flex gap-2 w-1/3 items-center">
+                              <span className="body-regular w-auto flex-shrink-0">
+                                Tối thiểu
+                              </span>
+                              <Input
+                                value={minMember}
+                                onChange={handleChangeMinMember}
+                                name="minMembers"
+                                placeholder="Nhập số lượng..."
+                                className="no-focus paragraph-regular background-light900_dark300 light-border-2 text-dark300_light700 min-h-[46px] border"
                               />
                             </div>
-                            <div>
-                              <RadioboxComponent
-                                id={2}
-                                handleClick={() => {
-                                  setIsUseExistedGroup(2);
-                                }}
-                                value={isUseExistedGroup}
-                                text="Tạo nhóm mới"
-                              />
-                              <p className="text-[0.8rem] dark:text-slate-400 body-regular mt-4 text-light-500">
-                                Nhóm cho bài tập lớn được tạo cũng sẽ là nhóm
-                                chính nếu lớp chưa chia nhóm.
+                            <div className="flex gap-2 w-1/3 items-center">
+                              <p className="body-regular w-auto flex-shrink-0">
+                                Tối đa
                               </p>
-                            </div> */}
-
-                            {isUseExistedGroup === 2 ? (
-                              <div>
-                                <label className="peer-disabled:cursor-not-allowed peer-disabled:opacity-70 dark:text-red-900 text-dark400_light800 text-[14px] font-semibold leading-[20.8px]">
-                                  Số lượng thành viên nhóm{" "}
-                                  <span className="text-red-600">*</span>
-                                </label>
-
-                                <div className="mt-3.5 flex gap-6">
-                                  <div className="flex gap-2 w-1/3 items-center">
-                                    <span className="body-regular w-auto flex-shrink-0">
-                                      Tối thiểu
-                                    </span>
-                                    <Input
-                                      value={minMember}
-                                      onChange={handleChangeMinMember}
-                                      name="minMembers"
-                                      placeholder="Nhập số lượng..."
-                                      className="no-focus paragraph-regular background-light900_dark300 light-border-2 text-dark300_light700 min-h-[46px] border"
-                                    />
-                                  </div>
-                                  <div className="flex gap-2 w-1/3 items-center">
-                                    <p className="body-regular w-auto flex-shrink-0">
-                                      Tối đa
-                                    </p>
-                                    <Input
-                                      value={maxMember}
-                                      onChange={handleChangeMaxMember}
-                                      name="maxMembers"
-                                      placeholder="Nhập số lượng..."
-                                      className="no-focus paragraph-regular background-light900_dark300 light-border-2 text-dark300_light700 min-h-[46px] border"
-                                    />
-                                  </div>
-                                </div>
-
-                                <div className="mt-10">
-                                  <CheckboxComponent
-                                    handleClick={() => {
-                                      setSelectedLeaderOption(
-                                        !selectedLeaderOption
-                                      );
-                                    }}
-                                    value={selectedLeaderOption}
-                                    text="Nhóm có nhóm trưởng"
-                                  />
-                                </div>
-                              </div>
-                            ) : (
-                              <></>
-                            )}
+                              <Input
+                                value={maxMember}
+                                onChange={handleChangeMaxMember}
+                                name="maxMembers"
+                                placeholder="Nhập số lượng..."
+                                className="no-focus paragraph-regular background-light900_dark300 light-border-2 text-dark300_light700 min-h-[46px] border"
+                              />
+                            </div>
                           </div>
-                        </BorderContainer>
+
+                          <div className="mt-10">
+                            <CheckboxComponent
+                              handleClick={() => {
+                                setSelectedLeaderOption(!selectedLeaderOption);
+                              }}
+                              value={selectedLeaderOption}
+                              text="Nhóm có nhóm trưởng"
+                            />
+                          </div>
+                        </div>
                       </FormControl>
                       <FormMessage className="text-red-500" />
                     </FormItem>
@@ -438,6 +402,9 @@ const RegisterTopic = () => {
                 }}
                 onClickGetOut={() => {
                   setIsMultipleDelete(false);
+                }}
+                onClickCancelEdit={() => {
+                  setIsEditTable(false);
                 }}
               />
             ) : (

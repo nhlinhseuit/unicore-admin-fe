@@ -118,6 +118,16 @@ const RowThesisReviewTicketTable = React.memo(
           ) : (
             value
           );
+        case "MSSV":
+        case "Họ và tên":
+          return Array.isArray(value)
+            ? value.map((item, index) => (
+                <React.Fragment key={index}>
+                  {item}
+                  {index < value.length - 1 && <br />}
+                </React.Fragment>
+              ))
+            : value;
         default:
           return value;
       }
@@ -154,7 +164,6 @@ const RowThesisReviewTicketTable = React.memo(
         </Table.Cell>
       );
     };
-
 
     return (
       <Table.Row
