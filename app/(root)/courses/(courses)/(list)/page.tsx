@@ -21,16 +21,17 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
-import {
-  convertToDataTableCoursesViKeys
-} from "@/lib/convertToDataTableCourses";
+import { convertToDataTableCoursesViKeys } from "@/lib/convertToDataTableCourses";
 import {
   mockNotCompleteActions,
   mockSemesterList,
   mockYearList,
 } from "@/mocks";
 import { fetchCourses } from "@/services/courseServices";
-import { CourseNotDoneImportAction, ICourseResponseData } from "@/types/entity/Course";
+import {
+  CourseNotDoneImportAction,
+  ICourseResponseData,
+} from "@/types/entity/Course";
 import { Dropdown } from "flowbite-react";
 import Image from "next/image";
 import { useEffect, useState } from "react";
@@ -41,7 +42,9 @@ const Courses = () => {
   const [error, setError] = useState<string | null>(null);
   const [courses, setCourses] = useState<ICourseResponseData[]>([]);
   const [isShowDialog, setIsShowDialog] = useState(false);
-  const [isImportCompleteAction, setIsImportCompleteAction] = useState(CourseNotDoneImportAction.None);
+  const [isImportCompleteAction, setIsImportCompleteAction] = useState(
+    CourseNotDoneImportAction.None
+  );
   const [selectedSemester, setSelectedSemester] = useState(1);
   const [selectedYear, setSelectedYear] = useState(1);
 
@@ -58,7 +61,6 @@ const Courses = () => {
   }, []);
 
   const getImportCompleteActionComponent = () => {
-
     switch (isImportCompleteAction) {
       case CourseNotDoneImportAction.NotImportStudentInCourse:
         return <ImportStudentsListInCourse />;
@@ -78,7 +80,10 @@ const Courses = () => {
   };
 
   const renderComponent = () => {
-    if (!isImport && isImportCompleteAction === CourseNotDoneImportAction.None) {
+    if (
+      !isImport &&
+      isImportCompleteAction === CourseNotDoneImportAction.None
+    ) {
       return (
         <div>
           <div className="flex justify-end mb-3">
@@ -146,12 +151,6 @@ const Courses = () => {
               ))}
             </div>
           </div>
-          <div className="items-center flex w-full gap-2 mb-8">
-            <p className="mr-2 inline-flex justify-start text-sm font-semibold whitespace-nowrap">
-              Bộ lọc lớp:
-            </p>
-            <DetailFilterComponent />
-          </div>
 
           {isLoading ? (
             <LoadingComponent />
@@ -183,7 +182,9 @@ const Courses = () => {
         <>
           <BackToPrev
             text="Quay lại danh sách lớp học"
-            onClickPrev={() => setIsImportCompleteAction(CourseNotDoneImportAction.None)}
+            onClickPrev={() =>
+              setIsImportCompleteAction(CourseNotDoneImportAction.None)
+            }
           />
           {getImportCompleteActionComponent()}
         </>

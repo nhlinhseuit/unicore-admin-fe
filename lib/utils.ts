@@ -89,6 +89,18 @@ export enum DepartmentPermission {
 
 //
 
+export function excelDateToJSDate(serial: number) {
+  const utc_days = Math.floor(serial - 25569); // Excel bắt đầu từ ngày 1900-01-01 (serial 1)
+  const utc_value = utc_days * 86400; // Mỗi ngày có 86400 giây
+  const date = new Date(utc_value * 1000); // Tạo đối tượng Date
+
+  // Định dạng ngày thành "dd-MM-yyyy"
+  const day = String(date.getDate()).padStart(2, "0"); // Lấy ngày, đảm bảo 2 chữ số
+  const month = String(date.getMonth() + 1).padStart(2, "0"); // Lấy tháng (bắt đầu từ 0), đảm bảo 2 chữ số
+  const year = date.getFullYear(); // Lấy năm
+  return `${day}/${month}/${year}`; // Định dạng ngày "dd-MM-yyyy"
+}
+
 export function generateUsername(fullName: string) {
   const nameParts = normalizeSearchItem(fullName).split(" ");
   const lastName = nameParts[nameParts.length - 1].toLowerCase();

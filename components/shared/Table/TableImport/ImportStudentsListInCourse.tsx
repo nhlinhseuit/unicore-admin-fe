@@ -1,5 +1,5 @@
-import { addStudentsToCourse } from "@/services/importStudentsInCourseServices";
 import { StudentDataItem } from "@/types";
+import { CourseType } from "@/types/entity/Course";
 import { Table } from "flowbite-react";
 import { useRef, useState } from "react";
 import * as XLSX from "xlsx";
@@ -9,10 +9,11 @@ import LoadingComponent from "../../LoadingComponent";
 import NoteComponent from "../../NoteComponent";
 import ErrorComponent from "../../Status/ErrorComponent";
 import { tableTheme } from "../components/DataTable";
-import { CourseType } from "@/types/entity/Course";
+import { excelDateToJSDate } from "@/lib/utils";
+import { addStudentsToCourse } from "@/services/importStudentsInCourseServices";
 import { addStudentsToInternCourse } from "@/services/importStudentsInInternCourseServices";
 
-type TransformedDataItem = {
+type InternTransformedDataItem = {
   type: string;
   STT: string | number;
   isDeleted: boolean;
@@ -32,13 +33,14 @@ type TransformedDataItem = {
   };
 };
 
-const transformedData: TransformedDataItem[] = [];
-
 export default function ImportStudentsListInCourse() {
   let count = 0;
 
   const [errorMessages, setErrorMessages] = useState<string[]>([]);
-  const [dataTables, setDataTables] = useState<
+  const [dataTablesRegularCourse, setDataTablesRegularCourse] = useState<
+    Record<string, StudentDataItem[]>
+  >({});
+  const [dataTablesInternCourse, setDataTablesInternCourse] = useState<
     Record<string, StudentDataItem[]>
   >({});
 
@@ -89,19 +91,19 @@ export default function ImportStudentsListInCourse() {
       }
 
       const title = titleRow[0];
-      if (!title.includes(courseCode)) {
-        setErrorMessages([
-          `Import nhầm lớp. Vui lòng kiểm tra lại danh sách!.`,
-        ]);
-        if (file) {
-          setUploadedFileName((prevData: any) => ({
-            ...prevData,
-            [courseId]: { name: "Import lỗi", file: null },
-          }));
-        }
-        setIsLoading(false);
-        return;
-      }
+      // if (!title.includes(courseCode)) {
+      //   setErrorMessages([
+      //     `Import nhầm lớp. Vui lòng kiểm tra lại danh sách!.`,
+      //   ]);
+      //   if (file) {
+      //     setUploadedFileName((prevData: any) => ({
+      //       ...prevData,
+      //       [courseId]: { name: "Import lỗi", file: null },
+      //     }));
+      //   }
+      //   setIsLoading(false);
+      //   return;
+      // }
 
       //TODO: không lỗi
 
@@ -148,9 +150,15 @@ export default function ImportStudentsListInCourse() {
       if (errorMessages.length > 0) {
         setErrorMessages(errorMessages);
       } else {
-        setDataTables((prevData: any) => ({
+        setDataTablesRegularCourse((prevData: any) => ({
           ...prevData,
-          [courseId]: transformedData,
+          [courseId]: {
+            class_id: mockParamsRegclass_id,
+            subclass_code: mockParamsRegsubclass_code,
+            // class_id: courseId,
+            // subclass_code: courseCode,
+            student_codes: transformedData.map((item) => item.data.MSSV),
+          },
         }));
         if (file) {
           setUploadedFileName((prevData) => ({
@@ -213,7 +221,7 @@ export default function ImportStudentsListInCourse() {
       });
 
       let errorMessages: string[] = [];
-      const transformedData: TransformedDataItem[] = [];
+      const transformedData: InternTransformedDataItem[] = [];
 
       for (const item of parsedData as any[]) {
         //? Kiểm tra nếu STT và MSSV đều trống, dừng việc xử lý
@@ -231,8 +239,14 @@ export default function ImportStudentsListInCourse() {
           "Nơi thực tập (tên DN)": item["Nơi thực tập (tên DN)"],
           "Nội dung thực tập": item["Nội dung thực tập"],
           "Vị trí thực tập": item["Vị trí thực tập"],
-          "Ngày bắt đầu": item["Ngày bắt đầu"],
-          "Ngày kết thúc": item["Ngày kết thúc"],
+          "Ngày bắt đầu":
+            typeof item["Ngày bắt đầu"] === "number"
+              ? excelDateToJSDate(item["Ngày bắt đầu"]) // Chuyển đổi nếu là số
+              : item["Ngày bắt đầu"], // Giữ nguyên nếu không phải số
+          "Ngày kết thúc":
+            typeof item["Ngày kết thúc"] === "number"
+              ? excelDateToJSDate(item["Ngày kết thúc"]) // Chuyển đổi nếu là số
+              : item["Ngày kết thúc"], // Giữ nguyên nếu không phải số
           "Điểm đánh giá của DN": item["Điểm đánh giá của DN"],
           "Ghi chú": item["Ghi chú"],
         };
@@ -273,12 +287,33 @@ export default function ImportStudentsListInCourse() {
         }
       }
 
+      console.log("transformedData", transformedData);
+
       if (errorMessages.length > 0) {
         setErrorMessages(errorMessages);
       } else {
-        setDataTables((prevData: any) => ({
+        setDataTablesInternCourse((prevData: any) => ({
           ...prevData,
-          [courseId]: transformedData,
+          [courseId]: {
+            // class_id: courseId,
+            class_id: mockParamsInternclass_id,
+            student_codes: transformedData.map(
+              (item: InternTransformedDataItem) => ({
+                studentCode: item.data.MSSV, // Lấy MSSV từ data
+                studentName: item.data["Họ và tên"], // Lấy Họ và tên từ data
+                studentEmail: item.data.Email, // Lấy Email từ data
+                teacherName: item.data["GV hướng dẫn"], // Lấy GV hướng dẫn từ data
+                teacherMail: item.data["Thông tin liên lạc"], // Lấy Thông tin liên lạc từ data
+                internCompany: item.data["Nơi thực tập (tên DN)"], // Lấy Nơi thực tập từ data
+                internPost: item.data["Vị trí thực tập"], // Lấy Vị trí thực tập từ data
+                internContent: item.data["Nội dung thực tập"], // Lấy Nội dung thực tập từ data
+                startTime: item.data["Ngày bắt đầu"], // Lấy Ngày bắt đầu từ data
+                endTime: item.data["Ngày kết thúc"], // Lấy Ngày kết thúc từ data
+                companyReview: Number(item.data["Điểm đánh giá của DN"]) || 0, // Chuyển đổi Điểm đánh giá của DN thành số
+                note: item.data["Ghi chú"] || "string", // Lấy Ghi chú từ data, mặc định là "string" nếu không có
+              })
+            ),
+          },
         }));
         if (file) {
           setUploadedFileName((prevData) => ({
@@ -295,60 +330,68 @@ export default function ImportStudentsListInCourse() {
     };
   };
 
+  const mockParamsRegclass_id = "67811045854d3e02e4191718"; // Sử dụng key làm class_id
+  const mockParamsRegsubclass_code = "MA005.P11.PMCL";
+
+  const mockParamsInternclass_id = "677fefdd854d3e02e4191712"; // Sử dụng key làm class_id
+
   const addStudentsToCourseAPI = () => {
-    console.log("dataTables", dataTables);
-
-    const mockParamsdataAPI = Object.entries(dataTables).map(
-      ([classId, students]) => {
-        //! CHECK CLASSID CỦA LỚP THƯỜNG
-        const studentCodes = students.map((student) => student.data.MSSV);
-
-        //? Nếu đã có ds sinh viên thì trả lỗi exist, không có gì hết
-
-        return {
-          class_id: "677cd4ae0a706479b8773770", // Sử dụng key làm class_id
-          subclass_code: "SE113.O21.PMCL",
-          leader_code: null, // Mặc định để rỗng
-          student_codes: studentCodes, // Danh sách MSSV
-        };
-      }
+    console.log(
+      "dataTablesRegularCourse",
+      Object.values(dataTablesRegularCourse)
+    );
+    console.log(
+      "dataTablesInternCourse",
+      Object.values(dataTablesInternCourse)
     );
 
-    console.log("mockParamsdataAPI", mockParamsdataAPI);
-
     setIsLoading(true);
-    addStudentsToCourse(mockParamsdataAPI).then((data) => {
-      console.log("data", data);
-      setIsLoading(false);
+    let count = 2 + Object.values(dataTablesInternCourse).length;
+
+    addStudentsToCourse(Object.values(dataTablesRegularCourse)).then((data) => {
+      console.log("addStudentsToCourse", data);
+      count -= 2;
+      if (count === 0) {
+        setIsLoading(false);
+      }
     });
+
+    Object.values(dataTablesInternCourse).forEach((item, index) => {
+      addStudentsToInternCourse(item).then(
+        (data) => {
+          console.log("addStudentsToInternCourse", index, data);
+          count -= 1;
+          if (count === 0) {
+            setIsLoading(false);
+          }
+        }
+      );
+    })
+
+    
   };
 
   const addStudentsToInternCourseAPI = () => {
-    console.log("dataTables", dataTables);
-
-    //! CHECK CLASSID CỦA LỚP INTERN
-    const mockParamsdataAPI = Object.entries(dataTables).map(
-      ([classId, students]) => {
-        const studentCodes = students.map((student) => student.data.MSSV);
-
-        //? Nếu đã có ds sinh viên thì trả lỗi exist, không có gì hết
-
-        return {
-          class_id: "677cd4ae0a706479b8773770", // Sử dụng key làm class_id
-          subclass_code: "SE113.O21.PMCL",
-          leader_code: null, // Mặc định để rỗng
-          student_codes: studentCodes, // Danh sách MSSV
-        };
-      }
-    );
-
-    console.log("mockParamsdataAPI", mockParamsdataAPI);
-
-    setIsLoading(true);
-    addStudentsToInternCourse(mockParamsdataAPI).then((data) => {
-      console.log("data", data);
-      setIsLoading(false);
-    });
+    // console.log("dataTables", dataTables);
+    // //! CHECK CLASSID CỦA LỚP INTERN
+    // const mockParamsdataAPI = Object.entries(dataTables).map(
+    //   ([classId, students]) => {
+    //     const studentCodes = students.map((student) => student.data.MSSV);
+    //     //? Nếu đã có ds sinh viên thì trả lỗi exist, không có gì hết
+    //     return {
+    //       class_id: "677cd4ae0a706479b8773770", // Sử dụng key làm class_id
+    //       subclass_code: "SE113.O21.PMCL",
+    //       leader_code: null, // Mặc định để rỗng
+    //       student_codes: studentCodes, // Danh sách MSSV
+    //     };
+    //   }
+    // );
+    // console.log("mockParamsdataAPI", mockParamsdataAPI);
+    // setIsLoading(true);
+    // addStudentsToInternCourse(mockParamsdataAPI).then((data) => {
+    //   console.log("data", data);
+    //   setIsLoading(false);
+    // });
   };
 
   const mockNotImportStudentCoursesList = [

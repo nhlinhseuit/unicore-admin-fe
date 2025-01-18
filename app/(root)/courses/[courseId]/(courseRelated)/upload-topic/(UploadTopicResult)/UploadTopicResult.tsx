@@ -16,7 +16,7 @@ const UploadTopicResult = () => {
   const [isEditTable, setIsEditTable] = useState(false);
   const [isMultipleDelete, setIsMultipleDelete] = useState(false);
   const [dataTable, setDataTable] =
-    useState<TopicDataItem[]>(mockTopicDataTable);
+    useState<TopicDataItem[]>();
 
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -39,7 +39,7 @@ const UploadTopicResult = () => {
     <>
       {isLoading ? (
         <LoadingComponent />
-      ) : dataTable.filter((item) => !item.isDeleted).length > 0 ? (
+      ) : dataTable && dataTable.filter((item) => !item.isDeleted).length > 0 ? (
         <RegisterTopicTable
           type={RegisterTopicTableType.registerTopic}
           isEditTable={isEditTable}
@@ -61,6 +61,7 @@ const UploadTopicResult = () => {
           }}
           onClickDeleteAll={() => {
             setDataTable((prevData) => {
+              if (prevData)
               return prevData.map((item) => ({
                 ...item,
                 isDeleted: true,
@@ -77,6 +78,7 @@ const UploadTopicResult = () => {
           onClickDelete={(itemsSelected: string[]) => {
             // ? DELETE THEO MÃ LỚP
             setDataTable((prevData) => {
+              if (prevData)
               return prevData.map((item) => {
                 if (itemsSelected.includes(item.STT.toString())) {
                   return {

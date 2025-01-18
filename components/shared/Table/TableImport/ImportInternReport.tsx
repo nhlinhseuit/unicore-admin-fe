@@ -18,6 +18,7 @@ import { format } from "date-fns";
 import { vi } from "date-fns/locale";
 import { CalendarIcon } from "lucide-react";
 import LoadingComponent from "../../LoadingComponent";
+import { excelDateToJSDate } from "@/lib/utils";
 
 type Student = {
   STT: string;
@@ -131,8 +132,14 @@ export default function ImportInternReport() {
             "Nơi thực tập (tên DN)": item["Nơi thực tập (tên DN)"] || "",
             "Nội dung thực tập": item["Nội dung thực tập"] || "",
             "Vị trí thực tập": item["Vị trí thực tập"] || "",
-            "Ngày bắt đầu": item["Ngày bắt đầu"] || "",
-            "Ngày kết thúc": item["Ngày kết thúc"] || "",
+            "Ngày bắt đầu":
+              typeof item["Ngày bắt đầu"] === "number"
+                ? excelDateToJSDate(item["Ngày bắt đầu"]) // Chuyển đổi nếu là số
+                : item["Ngày bắt đầu"] || "",
+            "Ngày kết thúc":
+              typeof item["Ngày kết thúc"] === "number"
+                ? excelDateToJSDate(item["Ngày kết thúc"]) // Chuyển đổi nếu là số
+                : item["Ngày kết thúc"] || "",
             "Điểm đánh giá của DN":
               item["Điểm đánh giá của DN"]?.toString() || "",
             "Ghi chú": item["Ghi chú"] || "",
