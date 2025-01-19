@@ -296,8 +296,8 @@ export default function ImportStudentsListInCourse() {
           ...prevData,
           [courseId]: {
             // class_id: courseId,
-            class_id: mockParamsInternclass_id,
-            student_codes: transformedData.map(
+            classId: mockParamsInternclass_id,
+            students: transformedData.map(
               (item: InternTransformedDataItem) => ({
                 studentCode: item.data.MSSV, // Lấy MSSV từ data
                 studentName: item.data["Họ và tên"], // Lấy Họ và tên từ data
@@ -330,8 +330,8 @@ export default function ImportStudentsListInCourse() {
     };
   };
 
-  const mockParamsRegclass_id = "67811045854d3e02e4191718"; // Sử dụng key làm class_id
-  const mockParamsRegsubclass_code = "MA005.P11.PMCL";
+  const mockParamsRegclass_id = "67811f38854d3e02e4191719"; // Sử dụng key làm class_id
+  const mockParamsRegsubclass_code = "IT002.O21.CLC";
 
   const mockParamsInternclass_id = "677fefdd854d3e02e4191712"; // Sử dụng key làm class_id
 
@@ -340,58 +340,30 @@ export default function ImportStudentsListInCourse() {
       "dataTablesRegularCourse",
       Object.values(dataTablesRegularCourse)
     );
-    console.log(
-      "dataTablesInternCourse",
-      Object.values(dataTablesInternCourse)
-    );
 
     setIsLoading(true);
-    let count = 2 + Object.values(dataTablesInternCourse).length;
+    let count = 1 + Object.values(dataTablesInternCourse).length;
 
-    addStudentsToCourse(Object.values(dataTablesRegularCourse)).then((data) => {
-      console.log("addStudentsToCourse", data);
-      count -= 2;
-      if (count === 0) {
-        setIsLoading(false);
-      }
-    });
+    // addStudentsToCourse(Object.values(dataTablesRegularCourse)).then((data) => {
+    //   console.log("addStudentsToCourse", data);
+    //   count -= 1;
+    //   if (count === 0) {
+    //     setIsLoading(false);
+    //   }
+    // });
+    count -= 1;
 
     Object.values(dataTablesInternCourse).forEach((item, index) => {
-      addStudentsToInternCourse(item).then(
-        (data) => {
-          console.log("addStudentsToInternCourse", index, data);
-          count -= 1;
-          if (count === 0) {
-            setIsLoading(false);
-          }
+      console.log("dataTablesInternCourse", item);
+
+      addStudentsToInternCourse(item).then((data) => {
+        console.log("addStudentsToInternCourse", index, data);
+        count -= 1;
+        if (count === 0) {
+          setIsLoading(false);
         }
-      );
-    })
-
-    
-  };
-
-  const addStudentsToInternCourseAPI = () => {
-    // console.log("dataTables", dataTables);
-    // //! CHECK CLASSID CỦA LỚP INTERN
-    // const mockParamsdataAPI = Object.entries(dataTables).map(
-    //   ([classId, students]) => {
-    //     const studentCodes = students.map((student) => student.data.MSSV);
-    //     //? Nếu đã có ds sinh viên thì trả lỗi exist, không có gì hết
-    //     return {
-    //       class_id: "677cd4ae0a706479b8773770", // Sử dụng key làm class_id
-    //       subclass_code: "SE113.O21.PMCL",
-    //       leader_code: null, // Mặc định để rỗng
-    //       student_codes: studentCodes, // Danh sách MSSV
-    //     };
-    //   }
-    // );
-    // console.log("mockParamsdataAPI", mockParamsdataAPI);
-    // setIsLoading(true);
-    // addStudentsToInternCourse(mockParamsdataAPI).then((data) => {
-    //   console.log("data", data);
-    //   setIsLoading(false);
-    // });
+      });
+    });
   };
 
   const mockNotImportStudentCoursesList = [

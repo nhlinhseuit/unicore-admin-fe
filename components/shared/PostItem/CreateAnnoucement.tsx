@@ -28,6 +28,7 @@ import {
 import { ALLOWED_FILE_TYPES, MAX_FILE_SIZE, MAX_FILE_VALUE } from "@/constants";
 import { useToast } from "@/hooks/use-toast";
 import { mockCoursesList } from "@/mocks";
+import { createAnnoucement } from "@/services/announcementServices";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Editor } from "@tinymce/tinymce-react";
 import { format } from "date-fns";
@@ -154,8 +155,23 @@ const CreateAnnouncement = () => {
         path: pathName,
       });
 
+      const mockParams = {
+        "name": values.title,
+        "description": values.description,
+        "source_id": "677fefdd854d3e02e4191707",
+        "created_by": "Trần Hạnh Xuân",
+        "creator_email": "xuanth@uit.edu.vn",
+        "category_ids": [
+          "Thông báo môn học"
+        ]
+      }
+
+      createAnnoucement(mockParams).then(data => {
+        console.log('createAnnoucement', data)
+      })
+
       // naviate to home page
-      router.push("/");
+      // router.push("/");
 
       toast({
         title: "Tạo thông báo thành công.",

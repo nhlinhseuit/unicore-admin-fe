@@ -131,6 +131,8 @@ export default function CoursesDataTable(params: Props) {
       data: dataTable,
     });
 
+    console.log('mockParamsAPIdataTable', mockParamsAPIdataTable)
+
     setIsLoadingAPI(true);
     const res = await handleCreateCourseAction(mockParamsAPIdataTable);
 
@@ -149,6 +151,14 @@ export default function CoursesDataTable(params: Props) {
             ...prev,
             `Các môn học ${res.data.data.subject_not_found
               .map((item: any) => item.subject_code)
+              .join(", ")} không tồn tại trong hệ thống.`,
+          ]);
+
+        if (res.data.data.teacher_not_found.length > 0)
+          setErrorMessages((prev) => [
+            ...prev,
+            `Các giảng viên ${res.data.data.teacher_not_found
+              .map((item: any) => item.teacher_name)
               .join(", ")} không tồn tại trong hệ thống.`,
           ]);
       }

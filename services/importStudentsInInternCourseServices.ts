@@ -6,12 +6,12 @@ import { revalidateTag } from "next/cache";
 
 export const addStudentsToInternCourse = async (data: any) => {
   const res = await sendRequest<IBackendRes<any>>({
-    url: `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/classroom/students`,
+    url: `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/classroom/students/intern`,
     method: "POST",
     // headers: {
     //   Authorization: `Bearer ${session?.user?.access_token}`,
     // },
-    body: { ...data },
+    body: data,
   });
   revalidateTag("list-students-in-classroom");
 

@@ -7,11 +7,13 @@ import ReportPostItem from "@/components/shared/PostItem/ReportPostItem";
 import TableSearch from "@/components/shared/Search/TableSearch";
 import { AnnouncementTypesNotRegularCourse, FilterType } from "@/constants";
 import { mockPostDataCourseIdPage } from "@/mocks";
+import { fetchAnnoucements } from "@/services/announcementServices";
+import { IAnnouncementResponseData } from "@/types/entity/Annoucement";
 import { Dropdown } from "flowbite-react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const page = () => {
   const pathName = usePathname();
@@ -83,6 +85,29 @@ const page = () => {
   ];
 
   const [selectedAnnoucementType, setSelectedAnnoucementType] = useState(1);
+
+  const [isLoading, setIsLoading] = useState(true);
+    const [error, setError] = useState<string | null>(null);
+    const [annoucements, setAnnoucements] = useState<IAnnouncementResponseData[]>([]);
+
+    const mockParamsClass_id = "677fefdd854d3e02e4191707"
+  
+
+  
+  useEffect(() => {
+      setIsLoading(true);
+  
+      fetchAnnoucements(mockParamsClass_id)
+        .then((data: any) => {
+          console.log('fetchAnnoucements', data)
+          setAnnoucements(data.data);
+        })
+        .catch((error) => {
+          setError(error.message);
+        })
+    }, []);
+
+          console.log('annoucements', annoucements)
 
   return (
     <div>
