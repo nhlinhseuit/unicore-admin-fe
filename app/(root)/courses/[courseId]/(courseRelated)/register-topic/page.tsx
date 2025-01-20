@@ -38,6 +38,8 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { TopicDataItem } from "@/types/entity/Topic";
+import { handleCreateTopicScheduleAction } from "@/services/topicInProjectServices";
+import { formatDayToISODateWithDefaultTime } from "@/utils/dateTimeUtil";
 
 const RegisterTopic = () => {
   const router = useRouter();
@@ -139,6 +141,25 @@ const RegisterTopic = () => {
         dateStart: dateStart,
         dateEnd: dateEnd,
       });
+
+      const mockParamsProjectId = "678e2546d1e5155775a06dff";
+
+      const formData = {
+
+      "use_default_groups": "false",
+      "start_register_date": formatDayToISODateWithDefaultTime(
+        dateStart ?? new Date()
+      ),
+      "end_register_date": formatDayToISODateWithDefaultTime(
+        dateEnd ?? new Date()
+      ),
+      "max_size": maxMember,
+      "min_size": minMember,
+      "has_leader": selectedLeaderOption ? "true" : "false"}
+
+      const res = await handleCreateTopicScheduleAction(mockParamsProjectId, formData);
+
+      console.log('res:::', res);
 
       toast({
         title: "Tạo lịch thành công.",
