@@ -1,7 +1,13 @@
 import { generateUsername } from "./utils";
-import { IOfficerResponse, OfficerData, OfficerDataItem } from "@/types/entity/Officer";
+import {
+  IOfficerResponse,
+  OfficerData,
+  OfficerDataItem,
+} from "@/types/entity/Officer";
 
-export const convertToDataTableOfficersViKeys = (data: IOfficerResponse[]): OfficerDataItem[] => {
+export const convertToDataTableOfficersViKeys = (
+  data: IOfficerResponse[]
+): OfficerDataItem[] => {
   return data.map((item, index) => {
     const requiredFields: OfficerData = {
       "Mã giáo vụ": item.code,
@@ -25,7 +31,6 @@ export const convertToDataTableOfficersViKeys = (data: IOfficerResponse[]): Offi
   });
 };
 
-
 export const convertToAPIDataTableOfficers = ({
   data,
   organizationId,
@@ -48,9 +53,8 @@ export const convertToAPIDataTableOfficers = ({
     };
   });
 
-  
   return {
-    officers: officersData,
+    staff: officersData,
     organization_id: organizationId,
   };
 };

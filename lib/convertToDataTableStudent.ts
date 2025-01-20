@@ -40,7 +40,7 @@ export const convertToAPIDataTableStudent = ({
       code: item.data["MSSV"],
       name: item.data["Họ và tên"],
       email: item.data["Email"],
-      address: item.data["Địa chỉ"],
+      // address: item.data["Địa chỉ"],
       phone: item.data["SDT"],
       dob: item.data["Ngày sinh"],
       gender: item.data["Giới tính"],

@@ -13,7 +13,7 @@ export const addStudentsToInternCourse = async (data: any) => {
     // headers: {
     //   Authorization: `Bearer ${session?.user?.access_token}`,
     // },
-    body: data,
+    body: { ...data },
   });
   revalidateTag("list-students-in-classroom");
 

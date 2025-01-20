@@ -63,7 +63,7 @@ export const DepartmentTeachersTabItems = [
   { value: "listTeachers", label: "Danh sách giảng viên", route: "/teachers" },
 ];
 export const DepartmentOfficersTabItems = [
-  { value: "listTeachers", label: "Danh sách giảng viên", route: "/teachers" },
+  { value: "listTeachers", label: "Danh sách giáo vụ", route: "/officers" },
 ];
 export const DepartmentStudentsTabItems = [
   { value: "listStudents", label: "Danh sách sinh viên", route: "/students" },
