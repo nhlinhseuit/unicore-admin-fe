@@ -7,7 +7,7 @@ export interface IAnnouncementResponseData {
   source_id: string;
   created_date: string; // ISO date string
   modified_date: string | null;
-  created_by: string;
-  created_email: string;
+  create_by: string;
+  create_email: string;
   modified_by: string | null;
 }

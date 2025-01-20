@@ -5,6 +5,8 @@ import { sendRequest } from "@/utils/api";
 import { revalidateTag } from "next/cache";
 
 export const addStudentsToInternCourse = async (data: any) => {
+  console.log("addStudentsToInternCourse", data);
+
   const res = await sendRequest<IBackendRes<any>>({
     url: `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/classroom/students/intern`,
     method: "POST",

@@ -51,6 +51,7 @@ const Courses = () => {
   useEffect(() => {
     fetchCourses()
       .then((data: ICourseResponseData[]) => {
+        console.log("data", data);
         setCourses(data);
         setIsLoading(false);
       })
@@ -202,98 +203,92 @@ const Courses = () => {
               Chọn học kỳ, năm học để import danh sách lớp
             </AlertDialogTitle>
           </AlertDialogHeader>
-          <div className="my-12 w-full flex flex-col gap-8">
-            <div className="flex-center gap-6">
-              <p className="w-[20%] inline-flex justify-start text-sm whitespace-nowrap">
-                Chọn học kỳ
-              </p>
-              <Dropdown
-                className="min-w-max z-30 rounded-lg"
-                label=""
-                dismissOnClick={true}
-                renderTrigger={() => (
+          <div className="flex justify-center items-center gap-2 w-full h-[200px]">
+            <p className="mr-2 text-sm whitespace-nowrap">Chọn học kỳ</p>
+            <Dropdown
+              className="z-30 rounded-lg w-[25%]"
+              label=""
+              dismissOnClick={false}
+              renderTrigger={() => (
+                <div>
                   <IconButton
                     text={`${mockSemesterList[selectedSemester - 1].value}`}
-                    iconRight="/assets/icons/chevron-down.svg"
+                    iconRight={"/assets/icons/chevron-down.svg"}
                     bgColor="bg-white"
                     textColor="text-black"
                     border
-                    otherClasses="w-[300px]"
                   />
-                )}
-              >
-                <div className="w-full scroll-container scroll-container-dropdown-content">
-                  {mockSemesterList.map((semester) => (
-                    <Dropdown.Item
-                      key={semester.id}
-                      onClick={() => setSelectedSemester(semester.id)}
-                      className="w-[300px] min-w-max"
-                    >
-                      <div className="flex justify-between w-full">
-                        <p className="w-[80%] text-left line-clamp-1">
-                          {semester.value}
-                        </p>
-                        {selectedSemester === semester.id && (
-                          <Image
-                            src="/assets/icons/check.svg"
-                            alt="search"
-                            width={21}
-                            height={21}
-                            className="cursor-pointer mr-2"
-                          />
-                        )}
-                      </div>
-                    </Dropdown.Item>
-                  ))}
                 </div>
-              </Dropdown>
-            </div>
-            <div className="flex-center gap-6">
-              <p className="w-[20%] inline-flex justify-start text-sm whitespace-nowrap">
-                Chọn năm học
-              </p>
-              <Dropdown
-                className="min-w-max z-30 rounded-lg"
-                label=""
-                dismissOnClick={true}
-                renderTrigger={() => (
+              )}
+            >
+              <div className="w-full scroll-container scroll-container-dropdown-content">
+                {mockSemesterList.map((semester) => (
+                  <Dropdown.Item
+                    key={semester.id}
+                    onClick={() => setSelectedSemester(semester.id)}
+                  >
+                    <div className="flex justify-between w-full">
+                      <p className="w-[80%] text-left line-clamp-1">
+                        {semester.value}
+                      </p>
+                      {selectedSemester === semester.id && (
+                        <Image
+                          src="/assets/icons/check.svg"
+                          alt="search"
+                          width={21}
+                          height={21}
+                          className="cursor-pointer mr-2"
+                        />
+                      )}
+                    </div>
+                  </Dropdown.Item>
+                ))}
+              </div>
+            </Dropdown>
+
+            <p className="mr-2 ml-8 text-sm whitespace-nowrap">Chọn năm học</p>
+            <Dropdown
+              className="z-30 rounded-lg w-[25%]"
+              label=""
+              dismissOnClick={false}
+              renderTrigger={() => (
+                <div>
                   <IconButton
                     text={`${mockYearList[selectedYear - 1].value}`}
-                    iconRight="/assets/icons/chevron-down.svg"
+                    iconRight={"/assets/icons/chevron-down.svg"}
                     bgColor="bg-white"
                     textColor="text-black"
                     border
-                    otherClasses="w-[300px]"
                   />
-                )}
-              >
-                <div className="w-full scroll-container scroll-container-dropdown-small">
-                  {mockYearList.map((year) => (
-                    <Dropdown.Item
-                      key={year.id}
-                      onClick={() => setSelectedYear(year.id)}
-                      className="w-[300px] min-w-max"
-                    >
-                      <div className="flex justify-between w-full">
-                        <p className="w-[80%] text-left line-clamp-1">
-                          {year.value}
-                        </p>
-                        {selectedYear === year.id && (
-                          <Image
-                            src="/assets/icons/check.svg"
-                            alt="search"
-                            width={21}
-                            height={21}
-                            className="cursor-pointer mr-2"
-                          />
-                        )}
-                      </div>
-                    </Dropdown.Item>
-                  ))}
                 </div>
-              </Dropdown>
-            </div>
+              )}
+            >
+              <div className="w-full h-[120px] overflow-y-auto scroll-container scroll-container-dropdown-content">
+                {mockYearList.map((year) => (
+                  <Dropdown.Item
+                    key={year.id}
+                    onClick={() => setSelectedYear(year.id)}
+                  >
+                    <div className="flex justify-between w-full">
+                      <p className="w-[80%] text-left line-clamp-1">
+                        {year.value}
+                      </p>
+                      {selectedYear === year.id && (
+                        <Image
+                          src="/assets/icons/check.svg"
+                          alt="search"
+                          width={21}
+                          height={21}
+                          className="cursor-pointer mr-2"
+                        />
+                      )}
+                    </div>
+                  </Dropdown.Item>
+                ))}
+              </div>
+            </Dropdown>
           </div>
+
           <AlertDialogFooter>
             <AlertDialogCancel
               onClick={() => {

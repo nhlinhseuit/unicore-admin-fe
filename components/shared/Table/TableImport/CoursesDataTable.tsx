@@ -134,37 +134,37 @@ export default function CoursesDataTable(params: Props) {
     console.log('mockParamsAPIdataTable', mockParamsAPIdataTable)
 
     setIsLoadingAPI(true);
-    const res = await handleCreateCourseAction(mockParamsAPIdataTable);
+    // const res = await handleCreateCourseAction(mockParamsAPIdataTable);
 
-    if (res.statusCode === 400) {
-      if (res.data.code === "CLASS01") {
-        if (res.data.data.duplicated.length > 0)
-          setErrorMessages((prev) => [
-            ...prev,
-            `Các lớp ${res.data.data.duplicated.join(
-              ", "
-            )} đã tồn tại trong hệ thống.`,
-          ]);
+    // if (res.statusCode === 400) {
+    //   if (res.data.code === "CLASS01") {
+    //     if (res.data.data.duplicated.length > 0)
+    //       setErrorMessages((prev) => [
+    //         ...prev,
+    //         `Các lớp ${res.data.data.duplicated.join(
+    //           ", "
+    //         )} đã tồn tại trong hệ thống.`,
+    //       ]);
 
-        if (res.data.data.subject_not_found.length > 0)
-          setErrorMessages((prev) => [
-            ...prev,
-            `Các môn học ${res.data.data.subject_not_found
-              .map((item: any) => item.subject_code)
-              .join(", ")} không tồn tại trong hệ thống.`,
-          ]);
+    //     if (res.data.data.subject_not_found.length > 0)
+    //       setErrorMessages((prev) => [
+    //         ...prev,
+    //         `Các môn học ${res.data.data.subject_not_found
+    //           .map((item: any) => item.subject_code)
+    //           .join(", ")} không tồn tại trong hệ thống.`,
+    //       ]);
 
-        if (res.data.data.teacher_not_found.length > 0)
-          setErrorMessages((prev) => [
-            ...prev,
-            `Các giảng viên ${res.data.data.teacher_not_found
-              .map((item: any) => item.teacher_name)
-              .join(", ")} không tồn tại trong hệ thống.`,
-          ]);
-      }
-    }
+    //     if (res.data.data.teacher_not_found.length > 0)
+    //       setErrorMessages((prev) => [
+    //         ...prev,
+    //         `Các giảng viên ${res.data.data.teacher_not_found
+    //           .map((item: any) => item.teacher_name)
+    //           .join(", ")} không tồn tại trong hệ thống.`,
+    //       ]);
+    //   }
+    // }
 
-    console.log("res", res);
+    // console.log("res", res);
 
     setIsLoadingAPI(false);
   };

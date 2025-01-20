@@ -1,6 +1,20 @@
 import { clsx, type ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
 
+export function createInitials(name: string): string {
+  if (!name) return "";
+  const words = name
+    .trim() // Xóa khoảng trắng thừa ở đầu và cuối
+    .split(/\s+/); // Tách các từ dựa trên khoảng trắng
+
+  // Nếu có nhiều hơn 2 từ, lấy 2 từ cuối, nếu không thì lấy toàn bộ
+  const lastTwoWords = words.length > 2 ? words.slice(-2) : words;
+
+  return lastTwoWords
+    .map((word) => word.charAt(0).toUpperCase()) // Lấy chữ cái đầu của từng từ và chuyển thành chữ in hoa
+    .join(""); // Ghép lại thành chuỗi
+}
+
 // TODO: Chuyển đổi các giá trị biến sang Label
 
 export enum Permission {
@@ -20,7 +34,7 @@ export const getPermissionLabel = (key: string): string => {
       return "Tạo thông báo";
     case Permission.CreateBigExercise:
       return "Tạo bài tập lớn";
-      case DepartmentPermission.ManageAcademicStaff:
+    case DepartmentPermission.ManageAcademicStaff:
       return "Quản lý danh sách giáo vụ";
     case DepartmentPermission.ManageLecturers:
       return "Quản lý danh sách giảng viên";
@@ -85,8 +99,6 @@ export enum DepartmentPermission {
   AdjustRoundingRules = "adjustRoundingRules",
 }
 
-
-
 //
 
 export function excelDateToJSDate(serial: number) {
@@ -111,7 +123,6 @@ export function generateUsername(fullName: string) {
   const username = lastName + middleInitials;
   return username;
 }
-
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));

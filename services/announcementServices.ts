@@ -21,15 +21,16 @@ export const createAnnoucement = async (data: any) => {
 export const fetchAnnoucements = async (classId: string) => {
   try {
     const res = await sendRequest<IBackendRes<any>>({
-      // url: `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/post/class?class_id=${classId}`,
-      url: `http://3.107.202.61:8080/api/v1/post/class?class_id=677fefdd854d3e02e4191707`,
+      url: `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/post/class`,
       method: "GET",
+      queryParams: { class_id: classId },
       nextOption: {
         next: { tags: ["list-annoucements"] },
       },
     });
 
     if (res?.data) {
+      console.log("res.data::", res);
       return res.data;
     } else {
       throw new Error("Data format error: 'data' field is missing.");
@@ -39,5 +40,3 @@ export const fetchAnnoucements = async (classId: string) => {
     throw error;
   }
 };
-
-

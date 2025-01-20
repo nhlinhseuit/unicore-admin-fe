@@ -21,8 +21,10 @@ const Subjects = () => {
     fetchSubjects()
       .then((data: any) => {
         console.log("data", data);
-        setSubjects(data);
-        setIsLoading(false);
+        if (data) {
+          setSubjects(data);
+          setIsLoading(false);
+        } else setIsLoading(false);
       })
       .catch((error) => {
         setError(error.message);
@@ -51,7 +53,7 @@ const Subjects = () => {
 
           {isLoading ? (
             <LoadingComponent />
-          ) : subjects ? (
+          ) : subjects && subjects.length > 0 ? (
             <SubjectsDataTable
               isFetchTable
               fetchDataTable={convertToDataTableSubjectsViKeys(subjects)}

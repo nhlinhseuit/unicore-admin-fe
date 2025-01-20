@@ -25,16 +25,12 @@ export const fetchStudentsInCourse = async () => {
   }
 };
 
-
 export const addStudentsToCourse = async (data: any) => {
   const enrichedData = data.map((item: any) => ({
     ...item,
     leader_code: "",
-    foreign_students: []
+    foreign_students: [],
   }));
-
-  console.log("Data being sent to API:", enrichedData);
-  console.log("Backend URL:", process.env.NEXT_PUBLIC_BACKEND_URL);
 
   const res = await sendRequest<IBackendRes<any>>({
     url: `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/classroom/students`,

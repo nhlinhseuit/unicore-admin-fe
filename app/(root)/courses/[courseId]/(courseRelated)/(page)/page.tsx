@@ -1,10 +1,12 @@
 "use client";
 
 import IconButton from "@/components/shared/Button/IconButton";
+import LoadingComponent from "@/components/shared/LoadingComponent";
 import ExercisePostItem from "@/components/shared/PostItem/ExercisePostItem";
 import PostItem from "@/components/shared/PostItem/PostItem";
 import ReportPostItem from "@/components/shared/PostItem/ReportPostItem";
 import TableSearch from "@/components/shared/Search/TableSearch";
+import NoResult from "@/components/shared/Status/NoResult";
 import { AnnouncementTypesNotRegularCourse, FilterType } from "@/constants";
 import { mockPostDataCourseIdPage } from "@/mocks";
 import { fetchAnnoucements } from "@/services/announcementServices";
@@ -26,6 +28,38 @@ const page = () => {
     ? AnnouncementTypesNotRegularCourse
     : null;
 
+  const getRenderItems = (): JSX.Element => {
+    switch (selectedAnnoucementType) {
+      case 1:
+        return (
+          <>
+            {annoucements.map((item, index) => {
+          console.log('case item', item)
+              return (
+                <PostItem
+                  key={item.id}
+                  id={item.id}
+                  creator={item.create_by}
+                  createdAt={item.created_date}
+                  title={item.name}
+                  desc={item.description}
+                  fileName={""}
+                  // comments={}
+                />
+              );
+            })}
+          </>
+        );
+      default:
+        return (
+          <NoResult
+            title="Không có dữ liệu!"
+            description="💡 Không có thông báo nào."
+          />
+        );
+    }
+  };
+
   const getRenderPostItem = (item: any): JSX.Element => {
     switch (item.typePost) {
       case "report":
@@ -36,6 +70,7 @@ const page = () => {
             creator={item.creator}
             createdAt={item.createdAt}
             title={item.title}
+            desc={item.title}
             fileName={item.fileName}
             comments={item.comments}
             setGrading={() => {
@@ -51,6 +86,7 @@ const page = () => {
             creator={item.creator}
             createdAt={item.createdAt}
             title={item.title}
+            desc={item.title}
             fileName={item.fileName}
             comments={item.comments}
             setGrading={() => {
@@ -67,6 +103,7 @@ const page = () => {
             creator={item.creator}
             createdAt={item.createdAt}
             title={item.title}
+            desc={item.title}
             fileName={item.fileName}
             comments={item.comments}
           />
@@ -87,30 +124,43 @@ const page = () => {
   const [selectedAnnoucementType, setSelectedAnnoucementType] = useState(1);
 
   const [isLoading, setIsLoading] = useState(true);
-    const [error, setError] = useState<string | null>(null);
-    const [annoucements, setAnnoucements] = useState<IAnnouncementResponseData[]>([]);
+  const [error, setError] = useState<string | null>(null);
+  const [annoucements, setAnnoucements] = useState<IAnnouncementResponseData[]>(
+    []
+  );
 
-    const mockParamsClass_id = "677fefdd854d3e02e4191707"
-  
+  const mockParamsClass_id = "677fefdd854d3e02e4191707";
 
-  
   useEffect(() => {
-      setIsLoading(true);
-  
-      fetchAnnoucements(mockParamsClass_id)
-        .then((data: any) => {
-          console.log('fetchAnnoucements', data)
-          setAnnoucements(data.data);
-        })
-        .catch((error) => {
-          setError(error.message);
-        })
-    }, []);
+    setIsLoading(true);
+    if (selectedAnnoucementType === 1) fetchAnnoucementsAPI();
+  }, []);
 
-          console.log('annoucements', annoucements)
+  useEffect(() => {
+    // setIsLoading(true);
+    // if (selectedAnnoucementType === 2 && exercises.length === 0)
+    //   fetchExercisesAPI();
+    // if (selectedAnnoucementType === 3 && exercises.length === 0) fetchReportsAPI();
+  }, [selectedAnnoucementType]);
+
+  const fetchAnnoucementsAPI = () => {
+    fetchAnnoucements(mockParamsClass_id)
+      .then((data: any) => {
+        console.log("fetchAnnoucements", data);
+        setAnnoucements(data.data);
+        setIsLoading(false);
+      })
+      .catch((error) => {
+        setError(error.message);
+        setIsLoading(false);
+      });
+  };
+
+  console.log("annoucements", annoucements);
 
   return (
     <div>
+      {isLoading ? <LoadingComponent /> : null}
       <div
         className="
         mt-6 mb-10 flex w-full gap-6 sm:flex-row sm:items-center justify-between"
@@ -304,9 +354,12 @@ const page = () => {
 
       {/* PostList */}
       <div className="mt-6 flex flex-col gap-4">
-        {mockPostDataCourseIdPage.map((item, index) => {
+        {/* //! mockParams */}
+        {/* {mockPostDataCourseIdPage.map((item, index) => {
           return getRenderPostItem(item);
-        })}
+        })} */}
+
+        {getRenderItems()}
       </div>
     </div>
   );
