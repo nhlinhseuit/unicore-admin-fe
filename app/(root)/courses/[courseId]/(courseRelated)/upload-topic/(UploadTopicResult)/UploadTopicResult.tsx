@@ -11,6 +11,7 @@ import { convertToDataTableTopicsViKeys } from "@/lib/convertToDataTableTopic";
 import { fetchDetailProject } from "@/services/topic.ProjectServices";
 import { TopicDataItem } from "@/types/entity/Topic";
 import LoadingComponent from "@/components/shared/LoadingComponent";
+import { fetchTopicsInProject } from "@/services/topicInProjectServices";
 
 const UploadTopicResult = () => {
   const [isEditTable, setIsEditTable] = useState(false);
@@ -21,10 +22,10 @@ const UploadTopicResult = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  const mockParamsProjectId = "677cd4ae3bc6f71acb13d066";
+  const mockParamsProjectId = "678e2546d1e5155775a06dff";
 
   useEffect(() => {
-    fetchDetailProject(mockParamsProjectId)
+    fetchTopicsInProject(mockParamsProjectId)
       .then((data: any) => {
         if (data) setDataTable(convertToDataTableTopicsViKeys(data?.topics));
         setIsLoading(false);
