@@ -18,6 +18,20 @@ export const createAnnoucement = async (data: any) => {
   return res;
 };
 
+export const editAnnoucement = async (annoucementId: string, data: any) => {
+  const res = await sendRequest<IBackendRes<any>>({
+    url: `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/post/update/${annoucementId}`,
+    method: "PUT",
+    // headers: {
+    //   Authorization: `Bearer ${session?.user?.access_token}`,
+    // },
+    body: { ...data },
+  });
+  revalidateTag("create-annoucement");
+
+  return res;
+};
+
 export const fetchAnnoucements = async (classId: string) => {
   try {
     const res = await sendRequest<IBackendRes<any>>({

@@ -16,18 +16,22 @@ import { fetchTopicsInProject } from "@/services/topicInProjectServices";
 const UploadTopicResult = () => {
   const [isEditTable, setIsEditTable] = useState(false);
   const [isMultipleDelete, setIsMultipleDelete] = useState(false);
-  const [dataTable, setDataTable] =
-    useState<TopicDataItem[]>();
+  const [dataTable, setDataTable] = useState<TopicDataItem[]>();
 
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  const mockParamsProjectId = "678e2546d1e5155775a06dff";
+  //TODO: trong lớp
+  // class_id: "678e0290551a4b14f9d22bed",
+  // subclass_code: "SE113.O21.PMCL",
+
+  const mockParamsProjectId = "678f1384cee96711b92d894c";
 
   useEffect(() => {
     fetchTopicsInProject(mockParamsProjectId)
       .then((data: any) => {
-        if (data) setDataTable(convertToDataTableTopicsViKeys(data?.topics));
+        console.log("fetchTopicsInProject", data);
+        if (data) setDataTable(convertToDataTableTopicsViKeys(data.data));
         setIsLoading(false);
       })
       .catch((error) => {
@@ -36,11 +40,14 @@ const UploadTopicResult = () => {
       });
   }, []);
 
+  console.log("dataTable", dataTable);
+
   return (
     <>
       {isLoading ? (
         <LoadingComponent />
-      ) : dataTable && dataTable.filter((item) => !item.isDeleted).length > 0 ? (
+      ) : dataTable &&
+        dataTable.filter((item) => !item.isDeleted).length > 0 ? (
         <RegisterTopicTable
           type={RegisterTopicTableType.registerTopic}
           isEditTable={isEditTable}
@@ -63,10 +70,10 @@ const UploadTopicResult = () => {
           onClickDeleteAll={() => {
             setDataTable((prevData) => {
               if (prevData)
-              return prevData.map((item) => ({
-                ...item,
-                isDeleted: true,
-              }));
+                return prevData.map((item) => ({
+                  ...item,
+                  isDeleted: true,
+                }));
             });
 
             toast({
@@ -80,15 +87,15 @@ const UploadTopicResult = () => {
             // ? DELETE THEO MÃ LỚP
             setDataTable((prevData) => {
               if (prevData)
-              return prevData.map((item) => {
-                if (itemsSelected.includes(item.STT.toString())) {
-                  return {
-                    ...item,
-                    isDeleted: true,
-                  };
-                }
-                return item;
-              });
+                return prevData.map((item) => {
+                  if (itemsSelected.includes(item.STT.toString())) {
+                    return {
+                      ...item,
+                      isDeleted: true,
+                    };
+                  }
+                  return item;
+                });
             });
 
             toast({

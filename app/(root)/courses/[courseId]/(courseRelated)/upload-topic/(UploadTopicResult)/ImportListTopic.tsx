@@ -98,7 +98,11 @@ const ImportListTopic = (params: Props) => {
   const createTopicsAPI = async () => {
     console.log("createTopicsAPI");
 
-    const mockParamsProjectId = "677cd4ae3bc6f71acb13d066";
+    //TODO: trong lớp
+    // class_id: "678e0290551a4b14f9d22bed",
+    // subclass_code: "SE113.O21.PMCL",
+
+    const mockParamsProjectId = "678f1384cee96711b92d894c";
 
     const APIdataTable = convertToAPIDataTableTopics({
       data: dataTable,
@@ -106,9 +110,12 @@ const ImportListTopic = (params: Props) => {
 
     console.log("APIdataTable", APIdataTable);
 
-    setIsLoadingAPI(true)
-    const res = await handleCreateTopicAction(mockParamsProjectId, APIdataTable);
-    setIsLoadingAPI(false)
+    setIsLoadingAPI(true);
+    const res = await handleCreateTopicAction(
+      mockParamsProjectId,
+      APIdataTable
+    );
+    setIsLoadingAPI(false);
 
     console.log("res", res);
   };
@@ -137,9 +144,9 @@ const ImportListTopic = (params: Props) => {
           params.handleSetImport(false);
         }}
       />
-      
+
       {isLoadingAPI ? <LoadingComponent /> : null}
-      
+
       {errorMessages.length > 0 && (
         <div className="mb-6">
           {errorMessages.map((item, index) => (

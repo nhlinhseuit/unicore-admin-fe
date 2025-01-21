@@ -31,15 +31,24 @@ import { format } from "date-fns";
 import { vi } from "date-fns/locale";
 import { CalendarIcon } from "lucide-react";
 import { useRouter } from "next/navigation";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 import NoResult from "@/components/shared/Status/NoResult";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { TopicDataItem } from "@/types/entity/Topic";
-import { handleCreateTopicScheduleAction } from "@/services/topicInProjectServices";
-import { formatDayToISODateWithDefaultTime } from "@/utils/dateTimeUtil";
+import {
+  fetchTopicRegisterSchedule,
+  handleCreateTopicScheduleAction,
+} from "@/services/topicInProjectServices";
+import {
+  formatDayToISODateWithDefaultTime,
+  formatISOToDayDatatype,
+} from "@/utils/dateTimeUtil";
+import { useAtomValue, useSetAtom } from "jotai";
+import { groupingIdAtom } from "../../../(courses)/(store)/courseStore";
+import { ITopicRegisterResponseData } from "@/types/entity/TopicRegister";
 
 const RegisterTopic = () => {
   const router = useRouter();
@@ -142,24 +151,31 @@ const RegisterTopic = () => {
         dateEnd: dateEnd,
       });
 
-      const mockParamsProjectId = "678e2546d1e5155775a06dff";
+      //TODO: trong lớp
+      // class_id: "678e0290551a4b14f9d22bed",
+      // subclass_code: "SE113.O21.PMCL",
+
+      const mockParamsProjectId = "678f1384cee96711b92d894c";
 
       const formData = {
+        use_default_groups: "false",
+        start_register_date: formatDayToISODateWithDefaultTime(
+          dateStart ?? new Date()
+        ),
+        end_register_date: formatDayToISODateWithDefaultTime(
+          dateEnd ?? new Date()
+        ),
+        max_size: maxMember,
+        min_size: minMember,
+        has_leader: selectedLeaderOption ? "true" : "false",
+      };
 
-      "use_default_groups": "false",
-      "start_register_date": formatDayToISODateWithDefaultTime(
-        dateStart ?? new Date()
-      ),
-      "end_register_date": formatDayToISODateWithDefaultTime(
-        dateEnd ?? new Date()
-      ),
-      "max_size": maxMember,
-      "min_size": minMember,
-      "has_leader": selectedLeaderOption ? "true" : "false"}
+      const res = await handleCreateTopicScheduleAction(
+        mockParamsProjectId,
+        formData
+      );
 
-      const res = await handleCreateTopicScheduleAction(mockParamsProjectId, formData);
-
-      console.log('res:::', res);
+      console.log("res:::", res);
 
       toast({
         title: "Tạo lịch thành công.",
@@ -181,6 +197,53 @@ const RegisterTopic = () => {
   const [dataTable, setDataTable] = useState<TopicDataItem[]>(
     mockDataStudentRegisterTopic
   );
+
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  const [groupRegisterSchedule, setGroupRegisterSchedule] =
+    useState<ITopicRegisterResponseData>();
+
+  const groupingId = useAtomValue(groupingIdAtom);
+  const mockParamsGroupingId = "2f92d554-747d-4183-b8e3-f767437cabd3";
+
+  useEffect(() => {
+    //@ts-ignore
+    if (mockParamsGroupingId !== "") {
+      fetchTopicRegisterSchedule(mockParamsGroupingId)
+        .then((data: ITopicRegisterResponseData) => {
+          if (data) {
+            console.log("fetchGroupRegisterSchedule", data);
+            // console.log(
+            //   "convertGroupDataToRegisterGroupDataItem(data.groups)",
+            //   convertGroupDataToRegisterGroupDataItem(data.groups)
+            // );
+
+            // setDataTable(convertGroupDataToRegisterGroupDataItem(data.groups));
+
+            //?
+            setDateStart(formatISOToDayDatatype(data.start_register_date));
+            setDateEnd(formatISOToDayDatatype(data.end_register_date));
+            setMaxMember(data.max_size.toString());
+            setMinMember(data.min_size.toString());
+            // ! mockParams
+            // setSelectedLeaderOption(data.hasLeader)
+            setIsAlreadyHasSchedule(true);
+
+            setGroupRegisterSchedule(data);
+            setIsLoading(false);
+          }
+        })
+        .catch((error) => {
+          setError(error.message);
+          setIsLoading(false);
+        });
+    } else {
+      setIsLoading(false);
+    }
+  }, []);
+
+  const setGroupingId = useSetAtom(groupingIdAtom);
 
   return (
     <div>

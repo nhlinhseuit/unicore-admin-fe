@@ -28,7 +28,12 @@ import {
 import { ALLOWED_FILE_TYPES, MAX_FILE_SIZE, MAX_FILE_VALUE } from "@/constants";
 import { useToast } from "@/hooks/use-toast";
 import { mockCoursesList } from "@/mocks";
-import { createAnnoucement } from "@/services/announcementServices";
+import {
+  createAnnoucement,
+  editAnnoucement,
+  fetchAnnoucements,
+} from "@/services/announcementServices";
+import { IAnnouncementResponseData } from "@/types/entity/Annoucement";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Editor } from "@tinymce/tinymce-react";
 import { format } from "date-fns";
@@ -37,7 +42,7 @@ import { Dropdown } from "flowbite-react";
 import { Calendar as CalendarIcon } from "lucide-react";
 import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
@@ -46,7 +51,12 @@ const type: any = "create";
 
 // TODO: Search debouce tìm kiếm lớp nếu cần
 
-const CreateAnnouncement = () => {
+interface Props {
+  isEdit?: boolean;
+  announcementId?: string;
+}
+
+const CreateAnnouncement = (params: Props) => {
   const editorRef = useRef(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const router = useRouter();
@@ -156,33 +166,51 @@ const CreateAnnouncement = () => {
       });
 
       const mockParams = {
-        "name": values.title,
-        "description": values.description,
-        "source_id": "677fefdd854d3e02e4191707",
-        "created_by": "Trần Hạnh Xuân",
-        "creator_email": "xuanth@uit.edu.vn",
-        "category_ids": [
-          "Thông báo môn học"
-        ]
+        name: values.title,
+        description: values.description,
+        source_id: mockParamsClass_id,
+        created_by: "Trần Hạnh Xuân",
+        creator_email: "xuanth@uit.edu.vn",
+        category_ids: ["678d5f084db35b61d3e23abf"],
+      };
+
+      if (
+        params.isEdit &&
+        params.announcementId &&
+        params.announcementId !== ""
+      ) {
+        editAnnoucement(params.announcementId, mockParams).then((data) => {
+          console.log("editAnnoucement", data);
+        });
+        toast({
+          title: "Chỉnh sửa thông báo thành công.",
+          description: `Thông báo đã được gửi đến lớp ${
+            selectedCourses.length > 0
+              ? `và các lớp ${selectedCourses.join(", ")}`
+              : ""
+          }`,
+          variant: "success",
+          duration: 3000,
+        });
+      } else {
+        createAnnoucement(mockParams).then((data) => {
+          console.log("createAnnoucement", data);
+        });
+
+        // naviate to home page
+        // router.push("/");
+
+        toast({
+          title: "Tạo thông báo thành công.",
+          description: `Thông báo đã được gửi đến lớp ${
+            selectedCourses.length > 0
+              ? `và các lớp ${selectedCourses.join(", ")}`
+              : ""
+          }`,
+          variant: "success",
+          duration: 3000,
+        });
       }
-
-      createAnnoucement(mockParams).then(data => {
-        console.log('createAnnoucement', data)
-      })
-
-      // naviate to home page
-      // router.push("/");
-
-      toast({
-        title: "Tạo thông báo thành công.",
-        description: `Thông báo đã được gửi đến lớp ${
-          selectedCourses.length > 0
-            ? `và các lớp ${selectedCourses.join(", ")}`
-            : ""
-        }`,
-        variant: "success",
-        duration: 3000,
-      });
     } catch {
     } finally {
       setIsSubmitting(false);
@@ -190,6 +218,56 @@ const CreateAnnouncement = () => {
   }
 
   const tinymceKey = process.env.NEXT_PUBLIC_TINYMCE_EDITOR_API_KEY;
+
+  //TODO API: Get detail exercise for EDIT
+
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [announcement, setAnnouncement] = useState<IAnnouncementResponseData>();
+
+  //TODO: trong lớp
+  const mockParamsClass_id = "678e0290551a4b14f9d22bed";
+  // subclass_code: "SE113.O21.PMCL",
+
+  useEffect(() => {
+    //TODO: Fetch detail exercise
+    if (
+      params.isEdit &&
+      params.announcementId &&
+      params.announcementId !== ""
+    ) {
+      setIsLoading(true);
+
+      fetchAnnoucements(mockParamsClass_id)
+        .then((data: any) => {
+          console.log("fetchAnnoucements", data);
+
+          setAnnouncement(
+            (data.data as IAnnouncementResponseData[]).find(
+              (item) => item.id === params.announcementId
+            )
+          );
+          setIsLoading(false);
+        })
+        .catch((error) => {
+          setError(error.message);
+          setIsLoading(false);
+        });
+    }
+  }, []);
+
+  console.log("annoucement", announcement);
+  console.log("announcement?.description", announcement?.description);
+
+  useEffect(() => {
+    if (announcement) {
+      form.reset({
+        title: announcement?.name,
+        description: announcement?.description,
+        // file: announcement?.file,
+      });
+    }
+  }, [announcement]);
 
   const { toast } = useToast();
 
@@ -256,7 +334,7 @@ const CreateAnnouncement = () => {
                         }
                         onBlur={field.onBlur}
                         onEditorChange={(content) => field.onChange(content)}
-                        initialValue=""
+                        value={field.value || ""}
                         init={{
                           height: 500,
                           menubar: false,

@@ -2,7 +2,6 @@ import { IRequest } from "@/types/commonType";
 import queryString from "query-string";
 
 export const sendRequest = async <T>(props: IRequest) => {
-  console.log("sendRequest");
   let {
     url,
     method,

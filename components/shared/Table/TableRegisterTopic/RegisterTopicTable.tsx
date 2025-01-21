@@ -117,8 +117,6 @@ const RegisterTopicTable = (params: DataTableParams) => {
     }
   };
 
-  console.log("register topic table", dataTable);
-
   return (
     <div>
       <div className="flex flex-col items-center justify-between p-4 space-y-3 md:flex-row md:space-y-0">

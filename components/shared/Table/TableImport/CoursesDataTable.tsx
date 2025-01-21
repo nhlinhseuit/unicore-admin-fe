@@ -131,7 +131,6 @@ export default function CoursesDataTable(params: Props) {
       data: dataTable,
     });
 
-    console.log("mockParamsAPIdataTable", mockParamsAPIdataTable);
 
     setIsLoadingAPI(true);
     const res = await handleCreateCourseAction(mockParamsAPIdataTable);

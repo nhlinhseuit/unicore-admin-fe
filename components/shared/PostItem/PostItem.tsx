@@ -8,6 +8,7 @@ import Divider from "../Divider";
 import { getAvatarName } from "@/lib/utils";
 import StatusButton from "../Button/StatusButton";
 import parse from "html-react-parser";
+import { usePathname, useRouter } from "next/navigation";
 
 interface Comment {
   id: string;
@@ -26,6 +27,9 @@ interface Props {
 }
 
 const PostItem = (params: Props) => {
+  const router = useRouter();
+  const pathName = usePathname();
+
   return (
     <div className="card-wrapper rounded-[10px]">
       <div className="relative flex-col w-full p-6">
@@ -47,6 +51,9 @@ const PostItem = (params: Props) => {
             height={26}
             alt={"edit"}
             className={`object-contain cursor-pointer ml-4`}
+            onClick={() => {
+              router.push(`${pathName}/edit-announcement?id=${params.id}`)
+            }}
           />
         </div>
 

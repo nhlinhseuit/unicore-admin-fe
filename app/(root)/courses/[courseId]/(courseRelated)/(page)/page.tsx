@@ -8,7 +8,6 @@ import ReportPostItem from "@/components/shared/PostItem/ReportPostItem";
 import TableSearch from "@/components/shared/Search/TableSearch";
 import NoResult from "@/components/shared/Status/NoResult";
 import { AnnouncementTypesNotRegularCourse, FilterType } from "@/constants";
-import { mockPostDataCourseIdPage } from "@/mocks";
 import { fetchAnnoucements } from "@/services/announcementServices";
 import { IAnnouncementResponseData } from "@/types/entity/Annoucement";
 import { Dropdown } from "flowbite-react";
@@ -34,7 +33,7 @@ const page = () => {
         return (
           <>
             {annoucements.map((item, index) => {
-          console.log('case item', item)
+              console.log("case item", item);
               return (
                 <PostItem
                   key={item.id}
@@ -129,7 +128,9 @@ const page = () => {
     []
   );
 
-  const mockParamsClass_id = "677fefdd854d3e02e4191707";
+  //TODO: trong lớp
+  const mockParamsClass_id = "678e0290551a4b14f9d22bed";
+  // subclass_code: "SE113.O21.PMCL",
 
   useEffect(() => {
     setIsLoading(true);
