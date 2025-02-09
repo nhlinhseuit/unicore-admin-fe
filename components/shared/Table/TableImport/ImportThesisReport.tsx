@@ -17,6 +17,7 @@ import {
 import { format } from "date-fns";
 import { vi } from "date-fns/locale";
 import { CalendarIcon } from "lucide-react";
+import LoadingComponent from "../../LoadingComponent";
 
 type Group = {
   STT: string;
@@ -37,7 +38,12 @@ type Council = {
   data: Group[];
 };
 
-export default function ImportThesisReport() {
+
+interface Props {
+  onBack?: () => void;
+}
+
+export default function ImportThesisReport(params: Props) {
   let council = 0;
 
   const [selectedOfficers, setSelectedOfficers] = useState<string[]>(
@@ -199,8 +205,20 @@ export default function ImportThesisReport() {
     setCountcilsData(updatedCouncils);
   };
 
+
+  const handleLoading = () => {
+    setIsLoading(true);
+    setTimeout(() => {
+      setIsLoading(false);
+
+      params.onBack && params.onBack()
+
+    }, 2000); // 2 giây
+  };
+
   return (
     <div>
+      {isLoading ? <LoadingComponent /> : null}
       {errorMessages.length > 0 && (
         <div className="mb-6">
           {errorMessages.map((item, index) => (
@@ -349,7 +367,12 @@ export default function ImportThesisReport() {
           ))}
 
           <div>
-            <IconButton text="Lưu" onClick={() => {}} />
+            <IconButton
+              text="Lưu"
+              onClick={() => {
+                handleLoading();
+              }}
+            />
           </div>
         </div>
       ) : null}

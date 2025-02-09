@@ -1,11 +1,11 @@
-import { useRef, useState } from "react";
-import * as XLSX from "xlsx";
-import IconButton from "../../Button/IconButton";
-import ErrorComponent from "../../Status/ErrorComponent";
-import BorderContainer from "../../BorderContainer";
-import MyDropdown from "../../MyDropdown";
 import { mockOfficerList } from "@/mocks";
 import { parseToArray } from "@/utils/utils";
+import { useRef, useState } from "react";
+import * as XLSX from "xlsx";
+import BorderContainer from "../../BorderContainer";
+import IconButton from "../../Button/IconButton";
+import MyDropdown from "../../MyDropdown";
+import ErrorComponent from "../../Status/ErrorComponent";
 
 import { Button } from "@/components/ui/button";
 import { Calendar } from "@/components/ui/calendar";
@@ -14,11 +14,11 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
+import { excelDateToJSDate } from "@/lib/utils";
 import { format } from "date-fns";
 import { vi } from "date-fns/locale";
 import { CalendarIcon } from "lucide-react";
 import LoadingComponent from "../../LoadingComponent";
-import { excelDateToJSDate } from "@/lib/utils";
 
 type Student = {
   STT: string;
@@ -44,7 +44,11 @@ type Council = {
   data: Student[];
 };
 
-export default function ImportInternReport() {
+interface Props {
+  onBack?: () => void;
+}
+
+export default function ImportInternReport(params: Props) {
   const [selectedOfficers, setSelectedOfficers] = useState<string[]>(
     mockOfficerList.length === 1 ? [mockOfficerList[0].value] : []
   );
@@ -187,6 +191,16 @@ export default function ImportInternReport() {
   const fileInputRef = useRef<HTMLInputElement | null>(null);
   const handleButtonClick = () => {
     fileInputRef.current?.click();
+  };
+
+
+  const handleLoading = () => {
+    setIsLoading(true);
+    setTimeout(() => {
+      setIsLoading(false);
+
+      params.onBack && params.onBack()
+    }, 2000); // 2 giây
   };
 
   return (
@@ -340,7 +354,13 @@ export default function ImportInternReport() {
           ))}
 
           <div>
-            <IconButton text="Lưu" onClick={() => {}} otherClasses="mt-4" />
+            <IconButton
+              text="Lưu"
+              onClick={() => {
+                handleLoading();
+              }}
+              otherClasses="mt-4"
+            />
           </div>
         </div>
       ) : null}

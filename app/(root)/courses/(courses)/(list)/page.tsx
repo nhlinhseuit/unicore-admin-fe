@@ -48,6 +48,8 @@ const Courses = () => {
   const [selectedSemester, setSelectedSemester] = useState(1);
   const [selectedYear, setSelectedYear] = useState(1);
 
+  console.log("isImport", isImport);
+
   useEffect(() => {
     fetchCourses()
       .then((data: ICourseResponseData[]) => {
@@ -70,11 +72,32 @@ const Courses = () => {
       case CourseNotDoneImportAction.NotImportFinalExamSchedule:
         return <ImportCentralizedExam typeExam="final" />;
       case CourseNotDoneImportAction.NotImportReviewerListThesis:
-        return <ImportReviewerListThesis />;
+        return (
+          <ImportReviewerListThesis
+            onBack={() => {
+              setIsImport(false);
+              setIsImportCompleteAction(CourseNotDoneImportAction.None);
+            }}
+          />
+        );
       case CourseNotDoneImportAction.NotImportScheduleAndCouncilListThesis:
-        return <ImportThesisReport />;
+        return (
+          <ImportThesisReport
+            onBack={() => {
+              setIsImport(false);
+              setIsImportCompleteAction(CourseNotDoneImportAction.None);
+            }}
+          />
+        );
       case CourseNotDoneImportAction.NotImportScheduleAndCouncilListIntern:
-        return <ImportInternReport />;
+        return (
+          <ImportInternReport
+            onBack={() => {
+              setIsImport(false);
+              setIsImportCompleteAction(CourseNotDoneImportAction.None);
+            }}
+          />
+        );
       default:
         return null;
     }

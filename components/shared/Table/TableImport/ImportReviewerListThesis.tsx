@@ -2,8 +2,8 @@ import { mockOfficerList } from "@/mocks";
 import { useRef, useState } from "react";
 import * as XLSX from "xlsx";
 import IconButton from "../../Button/IconButton";
-import ErrorComponent from "../../Status/ErrorComponent";
 import LoadingComponent from "../../LoadingComponent";
+import ErrorComponent from "../../Status/ErrorComponent";
 
 import { Button } from "@/components/ui/button";
 import { Calendar } from "@/components/ui/calendar";
@@ -26,7 +26,11 @@ interface Group {
   "Cán bộ phản biện": string;
 }
 
-export default function ImportReviewerListThesis() {
+interface Props {
+  onBack: () => void;
+}
+
+export default function ImportReviewerListThesis(params: Props) {
   const [selectedReviewers, setSelectedReviewers] = useState<string[]>(
     mockOfficerList.length === 1 ? [mockOfficerList[0].value] : []
   );
@@ -129,6 +133,16 @@ export default function ImportReviewerListThesis() {
   const fileInputRef = useRef<HTMLInputElement | null>(null);
   const handleButtonClick = () => {
     fileInputRef.current?.click();
+  };
+
+
+  const handleLoading = () => {
+    setIsLoading(true);
+    setTimeout(() => {
+      setIsLoading(false);
+
+      params.onBack()
+    }, 2000); // 2 giây
   };
 
   return (
@@ -265,7 +279,9 @@ export default function ImportReviewerListThesis() {
           </div>
 
           <div>
-            <IconButton text="Lưu" onClick={() => {}} />
+            <IconButton text="Lưu" onClick={() => {
+handleLoading()
+            }} />
           </div>
         </div>
       ) : null}
