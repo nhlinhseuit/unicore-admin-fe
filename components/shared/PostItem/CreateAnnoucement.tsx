@@ -200,7 +200,8 @@ const CreateAnnouncement = (params: Props) => {
         });
 
         // naviate to home page
-        // router.push("/");
+        const newPath = pathName.substring(0, pathName.lastIndexOf("/"));
+      router.push(newPath);
 
         toast({
           title: "Tạo thông báo thành công.",
