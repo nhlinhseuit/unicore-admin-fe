@@ -178,7 +178,7 @@ const RegisterTopic = () => {
 
       console.log("res handleCreateTopicRegisterScheduleAction:", res);
 
-      setGroupingId(res.data.id);
+      setGroupingId(res.data.grouping_id);
 
       toast({
         title: "Tạo lịch thành công.",
@@ -208,15 +208,15 @@ const RegisterTopic = () => {
     useState<ITopicRegisterResponseData>();
 
   //? id của lịch đăng ký đề tài
-  const groupingId = useAtomValue(groupingIdAtom);
-  const [, setGroupingId] = useAtom(groupingIdAtom);
+  const [groupingId, setGroupingId] = useAtom(groupingIdAtom);
 
-  const mockParamsGroupingId = "25337c8d-4f9f-441a-8344-de809c094972";
+  // const mockParamsGroupingId = "25337c8d-4f9f-441a-8344-de809c094972";
 
   useEffect(() => {
+    console.log("useEffect again");
     //@ts-ignore
-    if (mockParamsGroupingId !== "") {
-      fetchTopicRegisterSchedule(mockParamsGroupingId)
+    if (groupingId !== "") {
+      fetchTopicRegisterSchedule(groupingId)
         .then((data: ITopicRegisterResponseData) => {
           if (data) {
             console.log("fetchGroupRegisterSchedule", data);
@@ -256,7 +256,7 @@ const RegisterTopic = () => {
       setIsLoading(false);
       setIsAlreadyHasSchedule(0);
     }
-  }, []);
+  }, [groupingId]);
 
   return (
     <div>

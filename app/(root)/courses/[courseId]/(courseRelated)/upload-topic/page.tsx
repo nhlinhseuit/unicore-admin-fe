@@ -81,8 +81,8 @@ const UploadTopic = () => {
     endTopicImportTimeAtom
   );
 
-  const mockParamsStartTopicImportTime = "2025-02-01T06:00:00"
-  const mockParamsEndTopicImportTime = "2025-02-28T06:00:00";
+  const mockParamsStartTopicImportTime = null;
+  const mockParamsEndTopicImportTime = null;
 
   useEffect(() => {
     //TODO thay cho startTopicImportTime
@@ -100,6 +100,23 @@ const UploadTopic = () => {
       }
     }
   }, []);
+
+  //! FAKE API
+  useEffect(() => {
+    if (startTopicImportTime && endTopicImportTime) {
+      setDateStart(formatISOToDayDatatype(startTopicImportTime));
+      setDateEnd(formatISOToDayDatatype(endTopicImportTime));
+
+      //? Xác định status
+      const date = formatISOToDayDatatype(endTopicImportTime);
+      if (date !== undefined) {
+        if (isDateBeforeToday(date)) setIsAlreadyHasSchedule(-1);
+        else setIsAlreadyHasSchedule(1);
+      } else {
+        setIsAlreadyHasSchedule(0);
+      }
+    }
+  }, [startTopicImportTime, endTopicImportTime]);
 
   const AnnoucementSchema = z
     .object({
