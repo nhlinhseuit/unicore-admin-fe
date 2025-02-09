@@ -40,13 +40,14 @@ import { z } from "zod";
 import { TopicDataItem } from "@/types/entity/Topic";
 import {
   fetchTopicRegisterSchedule,
-  handleCreateTopicScheduleAction,
+  handleCreateTopicRegisterScheduleAction,
 } from "@/services/topicInProjectServices";
 import {
   formatDayToISODateWithDefaultTime,
   formatISOToDayDatatype,
+  isDateBeforeToday,
 } from "@/utils/dateTimeUtil";
-import { useAtomValue, useSetAtom } from "jotai";
+import { useAtom, useAtomValue, useSetAtom } from "jotai";
 import { groupingIdAtom } from "../../../(courses)/(store)/courseStore";
 import { ITopicRegisterResponseData } from "@/types/entity/TopicRegister";
 
@@ -81,7 +82,7 @@ const RegisterTopic = () => {
     setMaxMember(e.target.value);
   };
 
-  const [isAlreadyHasSchedule, setIsAlreadyHasSchedule] = useState(false);
+  const [isAlreadyHasSchedule, setIsAlreadyHasSchedule] = useState(0);
 
   const AnnoucementSchema = z
     .object({
@@ -155,7 +156,7 @@ const RegisterTopic = () => {
       // class_id: "678e0290551a4b14f9d22bed",
       // subclass_code: "SE113.O21.PMCL",
 
-      const mockParamsProjectId = "678f1384cee96711b92d894c";
+      const mockParamsProjectId = "67a6e790dcf5f232aead4372";
 
       const formData = {
         use_default_groups: "false",
@@ -170,16 +171,18 @@ const RegisterTopic = () => {
         has_leader: selectedLeaderOption ? "true" : "false",
       };
 
-      const res = await handleCreateTopicScheduleAction(
+      const res = await handleCreateTopicRegisterScheduleAction(
         mockParamsProjectId,
         formData
       );
 
-      console.log("res:::", res);
+      console.log("res handleCreateTopicRegisterScheduleAction:", res);
+
+      setGroupingId(res.data.id);
 
       toast({
         title: "Tạo lịch thành công.",
-        description: `Đăng ký nhóm sẽ diễn ra vào ngày ${format(
+        description: `Đăng ký đề tài sẽ diễn ra vào ngày ${format(
           dateStart ?? "",
           "dd/MM/yyyy"
         )}`,
@@ -204,8 +207,11 @@ const RegisterTopic = () => {
   const [groupRegisterSchedule, setGroupRegisterSchedule] =
     useState<ITopicRegisterResponseData>();
 
+  //? id của lịch đăng ký đề tài
   const groupingId = useAtomValue(groupingIdAtom);
-  const mockParamsGroupingId = "2f92d554-747d-4183-b8e3-f767437cabd3";
+  const [, setGroupingId] = useAtom(groupingIdAtom);
+
+  const mockParamsGroupingId = "25337c8d-4f9f-441a-8344-de809c094972";
 
   useEffect(() => {
     //@ts-ignore
@@ -228,7 +234,15 @@ const RegisterTopic = () => {
             setMinMember(data.min_size.toString());
             // ! mockParams
             // setSelectedLeaderOption(data.hasLeader)
-            setIsAlreadyHasSchedule(true);
+
+            //? Xác định status
+            const date = formatISOToDayDatatype(data.end_register_date);
+            if (date !== undefined) {
+              if (isDateBeforeToday(date)) setIsAlreadyHasSchedule(-1);
+              else setIsAlreadyHasSchedule(1);
+            } else {
+              setIsAlreadyHasSchedule(0);
+            }
 
             setGroupRegisterSchedule(data);
             setIsLoading(false);
@@ -240,10 +254,9 @@ const RegisterTopic = () => {
         });
     } else {
       setIsLoading(false);
+      setIsAlreadyHasSchedule(0);
     }
   }, []);
-
-  const setGroupingId = useSetAtom(groupingIdAtom);
 
   return (
     <div>
@@ -253,7 +266,7 @@ const RegisterTopic = () => {
             text="Lịch đăng ký đề tài"
             isActive={isAlreadyHasSchedule}
             showStatus
-            showEditButton={isAlreadyHasSchedule}
+            showEditButton={isAlreadyHasSchedule === 1}
             handleClick={handleClickCreateSchedule}
             value={isToggleCreateSchedule}
           />

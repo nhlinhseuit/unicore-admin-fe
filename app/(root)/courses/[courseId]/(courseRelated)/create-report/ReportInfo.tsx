@@ -771,60 +771,6 @@ const ReportInfo = () => {
                   )}
                 />
 
-                {/* PHÚC KHẢO*/}
-                <div>
-                  <label className="peer-disabled:cursor-not-allowed peer-disabled:opacity-70 dark:text-red-900 text-dark400_light800 text-[14px] font-semibold leading-[20.8px]">
-                    Phúc khảo <span className="text-red-600">*</span>
-                  </label>
-
-                  <BorderContainer otherClasses="mt-3.5">
-                    <div className="p-4 flex flex-col gap-10">
-                      <RadioboxComponent
-                        id={1}
-                        handleClick={() => {
-                          setSelectedRecheckOption(1);
-                        }}
-                        value={selectedRecheckOption}
-                        text="Không cho phép phúc khảo"
-                      />
-                      <RadioboxComponent
-                        id={2}
-                        handleClick={() => {
-                          setSelectedRecheckOption(2);
-                        }}
-                        value={selectedRecheckOption}
-                        text="Cho phép phúc khảo"
-                      />
-
-                      {selectedRecheckOption === 2 ? (
-                        <FormField
-                          control={form.control}
-                          name="maxRecheck"
-                          render={({ field }) => (
-                            <FormItem className="flex w-full flex-col">
-                              <FormLabel className="text-dark400_light800 text-[14px] font-semibold leading-[20.8px]">
-                                Số lần tối đa
-                              </FormLabel>
-                              <FormControl className="mt-3.5">
-                                <Input
-                                  value={numberOfRecheck}
-                                  onChange={handleChangeNumberOfRecheck}
-                                  name="numberOfRecheck"
-                                  placeholder="Nhập số lượng..."
-                                  className="no-focus paragraph-regular background-light900_dark300 light-border-2 text-dark300_light700 min-h-[46px] border"
-                                />
-                              </FormControl>
-                              <FormMessage className="text-red-500" />
-                            </FormItem>
-                          )}
-                        />
-                      ) : (
-                        <></>
-                      )}
-                    </div>
-                  </BorderContainer>
-                </div>
-
                 {/*  CUSTOM ĐĂNG THÔNG BÁO*/}
                 <div>
                   <label className="peer-disabled:cursor-not-allowed peer-disabled:opacity-70 dark:text-red-900 text-dark400_light800 text-[14px] font-semibold leading-[20.8px]">

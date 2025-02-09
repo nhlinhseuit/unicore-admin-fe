@@ -55,6 +55,14 @@ export const isDateValid = (selectedDate: Date): boolean => {
   return selectedDate >= today;
 };
 
+export const isDateBeforeToday = (selectedDate: Date): boolean => {
+  const today = new Date();
+  today.setHours(0, 0, 0, 0); // Đặt thời gian của ngày hiện tại về 00:00:00
+
+  return selectedDate < today; // Kiểm tra nếu ngày được chọn nhỏ hơn ngày hiện tại
+};
+
+
 //TODO: DATETIME
 
 //? ISO để params cho API

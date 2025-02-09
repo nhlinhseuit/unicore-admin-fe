@@ -34,6 +34,17 @@ import { z } from "zod";
 import ImportListTopic from "./(UploadTopicResult)/ImportListTopic";
 import AlertCreateNewTopic from "./(UploadTopicResult)/AlertCreateNewTopic";
 import BorderContainer from "@/components/shared/BorderContainer";
+import { handleCreateUploadTopicScheduleAction } from "@/services/topicInProjectServices";
+import {
+  isDateBeforeToday,
+  formatDayToISODateWithDefaultTime,
+  formatISOToDayDatatype,
+} from "@/utils/dateTimeUtil";
+import {
+  endTopicImportTimeAtom,
+  startTopicImportTimeAtom,
+} from "../../../(courses)/(store)/courseStore";
+import { useAtom } from "jotai";
 
 const UploadTopic = () => {
   const router = useRouter();
@@ -61,7 +72,34 @@ const UploadTopic = () => {
   const [dateStart, setDateStart] = useState<Date>();
   const [dateEnd, setDateEnd] = useState<Date>();
 
-  const [isAlreadyHasSchedule, setIsAlreadyHasSchedule] = useState(false);
+  const [isAlreadyHasSchedule, setIsAlreadyHasSchedule] = useState(0);
+
+  const [startTopicImportTime, setStartTopicImportTime] = useAtom(
+    startTopicImportTimeAtom
+  );
+  const [endTopicImportTime, setEndTopicImportTime] = useAtom(
+    endTopicImportTimeAtom
+  );
+
+  const mockParamsStartTopicImportTime = "2025-02-01T06:00:00"
+  const mockParamsEndTopicImportTime = "2025-02-28T06:00:00";
+
+  useEffect(() => {
+    //TODO thay cho startTopicImportTime
+    if (mockParamsStartTopicImportTime && mockParamsEndTopicImportTime) {
+      setDateStart(formatISOToDayDatatype(mockParamsStartTopicImportTime));
+      setDateEnd(formatISOToDayDatatype(mockParamsEndTopicImportTime));
+
+      //? Xác định status
+      const date = formatISOToDayDatatype(mockParamsEndTopicImportTime);
+      if (date !== undefined) {
+        if (isDateBeforeToday(date)) setIsAlreadyHasSchedule(-1);
+        else setIsAlreadyHasSchedule(1);
+      } else {
+        setIsAlreadyHasSchedule(0);
+      }
+    }
+  }, []);
 
   const AnnoucementSchema = z
     .object({
@@ -83,6 +121,31 @@ const UploadTopic = () => {
         dateStart: dateStart,
         dateEnd: dateEnd,
       });
+
+      //TODO: trong lớp
+      // class_id: "678e0290551a4b14f9d22bed",
+      // subclass_code: "SE113.O21.PMCL",
+
+      const mockParamsProjectId = "67a6e790dcf5f232aead4372";
+
+      const formData = {
+        start_topic_import_time: formatDayToISODateWithDefaultTime(
+          dateStart ?? new Date()
+        ),
+        end_topic_import_time: formatDayToISODateWithDefaultTime(
+          dateEnd ?? new Date()
+        ),
+      };
+
+      const res = await handleCreateUploadTopicScheduleAction(
+        mockParamsProjectId,
+        formData
+      );
+
+      console.log("res handleCreateUploadTopicScheduleAction:", res);
+
+      setStartTopicImportTime(res?.data.start_topic_import_time);
+      setEndTopicImportTime(res?.data.end_topic_import_time);
 
       toast({
         title: "Tạo lịch đăng đề tài thành công.",
@@ -107,7 +170,7 @@ const UploadTopic = () => {
               text="Lịch giảng viên đăng đề tài"
               isActive={isAlreadyHasSchedule}
               showStatus
-              showEditButton={isAlreadyHasSchedule}
+              showEditButton={isAlreadyHasSchedule === 1}
               handleClick={handleClickCreateSchedule}
               value={isToggleCreateSchedule}
             />

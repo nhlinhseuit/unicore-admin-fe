@@ -34,6 +34,7 @@ import {
   fetchAnnoucements,
 } from "@/services/announcementServices";
 import { IAnnouncementResponseData } from "@/types/entity/Annoucement";
+import { formatDayToISODateWithDefaultTime } from "@/utils/dateTimeUtil";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Editor } from "@tinymce/tinymce-react";
 import { format } from "date-fns";
@@ -169,9 +170,10 @@ const CreateAnnouncement = (params: Props) => {
         name: values.title,
         description: values.description,
         source_id: mockParamsClass_id,
+        published_date: formatDayToISODateWithDefaultTime(date ?? new Date()),
         created_by: "Trần Hạnh Xuân",
         creator_email: "xuanth@uit.edu.vn",
-        category_ids: ["678d5f084db35b61d3e23abf"],
+        // category_ids: ["678d5f084db35b61d3e23abf"],
       };
 
       if (

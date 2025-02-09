@@ -23,7 +23,11 @@ import { useAtom } from "jotai";
 import { useRouter } from "next/navigation";
 import {
   classCodeAtom,
-  classIdAtom
+  classIdAtom,
+  endTopicImportTimeAtom,
+  groupingIdAtom,
+  projectIdAtom,
+  startTopicImportTimeAtom
 } from "../(store)/courseStore";
 const JoinedCourses = () => {
   const [currentCourseId, setCurrentCourseId] = useState("");
@@ -57,6 +61,11 @@ const JoinedCourses = () => {
 
   const [, setClassId] = useAtom(classIdAtom);
   const [, setClassCode] = useAtom(classCodeAtom);
+  const [, setGroupingId] = useAtom(groupingIdAtom);
+
+  const [, setProjectId] = useAtom(projectIdAtom);
+  const [, setStartTopicImportTime] = useAtom(startTopicImportTimeAtom);
+  const [, setEndTopicImportTime] = useAtom(endTopicImportTimeAtom);
 
   return (
     <>
@@ -120,6 +129,17 @@ const JoinedCourses = () => {
                   //? Lưu code, id vào store
                   setClassId(item.id);
                   setClassCode(item.subclasses[0].code);
+
+                  //* cho lịch đăng ký đề tài
+                  setGroupingId(item.subclasses[0].grouping_id ?? "");
+                  
+                  //? gọi api fetch list projects
+                  //? set project id trong list project với autoCreated là true, và gán 2 ngày ở dưới
+                  
+                  //* cho lịch đăng đề tài
+                  // setStartTopicImportTime
+                  // setEndTopicImportTime
+
                 }
               }}
             >

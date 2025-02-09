@@ -52,7 +52,7 @@ const PostItem = (params: Props) => {
             alt={"edit"}
             className={`object-contain cursor-pointer ml-4`}
             onClick={() => {
-              router.push(`${pathName}/edit-announcement?id=${params.id}`)
+              router.push(`${pathName}/edit-announcement?id=${params.id}`);
             }}
           />
         </div>
@@ -60,7 +60,8 @@ const PostItem = (params: Props) => {
         <p className="base-regular mt-3 ml-2 ">{params.title}</p>
         <p className="body-regular mt-2 ml-2 ">{parse(params.desc)}</p>
 
-        <RenderFile _id={1} name={"exercise.docx"} otherClasses={"mt-3 px-2"} />
+        {/* //! KHI NÀO CÓ NỘP FILE  */}
+        {/* <RenderFile _id={1} name={"exercise.docx"} otherClasses={"mt-3 px-2"} /> */}
 
         <Divider />
 

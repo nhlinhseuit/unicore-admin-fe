@@ -9,7 +9,8 @@ interface Props {
   showStatus?: boolean;
   showEditButton?: boolean;
   handleEdit?: () => void;
-  isActive?: boolean;
+  isActive?: number;
+  isDue?: number;
 }
 
 const ToggleTitle = (params: Props) => {
@@ -26,44 +27,43 @@ const ToggleTitle = (params: Props) => {
               ? "/assets/icons/chevron-up.svg"
               : "/assets/icons/chevron-down.svg"
           }
-          alt="previous"
+          alt="toggle-icon"
           width={18}
           height={18}
           className="cursor-pointer ml-2 mr-2"
         />
       </div>
-      {params.showStatus ? (
-        params.isActive ? (
+
+      {params.showStatus && params.isActive ? (
+        params.isActive === 1 ? (
           <StatusButton
             green
             text="Đang diễn ra"
             smallText
             otherClasses="ml-4"
           />
-        ) : (
+        ) : params.isActive === 0 ? (
           <StatusButton
             gray
             text="Chưa diễn ra"
             smallText
             otherClasses="ml-4"
           />
-        )
-      ) : (
-        <></>
-      )}
-      {params.showEditButton ? (
+        ) : params.isActive === -1 ? (
+          <StatusButton gray text="Đã kết thúc" smallText otherClasses="ml-4" />
+        ) : null
+      ) : null}
+      {params.showEditButton && (
         <Image
           src={"/assets/icons/edit-black.svg"}
           width={26}
           height={26}
           alt={"edit"}
-          className={`ml-4 -translate-y-[2px] object-contain cursor-pointer`}
+          className="ml-4 -translate-y-[2px] object-contain cursor-pointer"
           onClick={() => {
             params.handleEdit && params.handleEdit();
           }}
         />
-      ) : (
-        <></>
       )}
     </div>
   );

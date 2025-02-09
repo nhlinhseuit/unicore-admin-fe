@@ -4,7 +4,7 @@ import { CourseType } from "@/types/entity/Course";
 export const itemsPerPage = 30;
 export const maxStudentPerGroup = 2;
 export const minStudentPerGroup = 1;
-export const itemsPerPageRegisterTable = 10;
+export const itemsPerPageRegisterTable = 20;
 export const itemsPerPageTopicTable = 20;
 export const MAX_FILE_VALUE = 25; // 25MB
 export const MAX_FILE_SIZE = MAX_FILE_VALUE * 1024 * 1024; // 25MB
