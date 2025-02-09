@@ -116,8 +116,8 @@ const page = () => {
 
   const annoucementTypes = [
     { id: 1, value: "Thông báo" },
-    { id: 2, value: "Bài tập" },
-    { id: 3, value: "Báo cáo" },
+    // { id: 2, value: "Bài tập" },
+    { id: 2, value: "Báo cáo" },
   ];
 
   const [selectedAnnoucementType, setSelectedAnnoucementType] = useState(1);
