@@ -335,14 +335,26 @@ export default function ImportStudentsListInCourse() {
 
   const mockParamsInternclass_id = "677fefdd854d3e02e4191712"; // Sử dụng key làm class_id
 
+  const handleLoading = () => {
+    setIsLoading(true);
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 2000); // 2 giây
+  };
+  
   const addStudentsToCourseAPI = () => {
     console.log(
       "dataTablesRegularCourse",
       Object.values(dataTablesRegularCourse)
     );
 
-    setIsLoading(true);
-    let count = 1 + Object.values(dataTablesInternCourse).length;
+    
+    
+    //! fake API
+    handleLoading()
+
+    // setIsLoading(true);
+    // let count = 1 + Object.values(dataTablesInternCourse).length;
 
     // addStudentsToCourse(Object.values(dataTablesRegularCourse)).then((data) => {
     //   console.log("addStudentsToCourse", data);
@@ -351,54 +363,53 @@ export default function ImportStudentsListInCourse() {
     //     setIsLoading(false);
     //   }
     // });
-    count -= 1;
 
-    Object.values(dataTablesInternCourse).forEach((item, index) => {
-      console.log("dataTablesInternCourse", item);
+    // Object.values(dataTablesInternCourse).forEach((item, index) => {
+    //   console.log("dataTablesInternCourse", item);
 
-      const mockParams = 
-      {
-          "classId": "677fefdd854d3e02e4191712",
-          "students": [
-              {
-                  "studentCode": "15520605",
-                  "studentName": "Phan Mạnh Phát",
-                  "studentEmail": "",
-                  "teacherName": "",
-                  "teacherMail": "",
-                  "internCompany": "",
-                  "internPost": "",
-                  "internContent": "",
-                  "startTime": "",
-                  "endTime": "",
-                  "companyReview": 0,
-                  "note": "hết hạn học tập"
-              },
-              {
-                  "studentCode": "17520460",
-                  "studentName": "Nguyễn Ngọc Hiển",
-                  "studentEmail": "17520460@gm.uit.edu.vn",
-                  "teacherName": "ThS. Lê Thanh Trọng",
-                  "teacherMail": "tronglt@uit.edu.vn",
-                  "internCompany": "",
-                  "internPost": "",
-                  "internContent": "",
-                  "startTime": "",
-                  "endTime": "",
-                  "companyReview": 0,
-                  "note": "hủy đkhp"
-              }
-          ]
-      }
+    //   const mockParams = 
+    //   {
+    //       "classId": "677fefdd854d3e02e4191712",
+    //       "students": [
+    //           {
+    //               "studentCode": "15520605",
+    //               "studentName": "Phan Mạnh Phát",
+    //               "studentEmail": "",
+    //               "teacherName": "",
+    //               "teacherMail": "",
+    //               "internCompany": "",
+    //               "internPost": "",
+    //               "internContent": "",
+    //               "startTime": "",
+    //               "endTime": "",
+    //               "companyReview": 0,
+    //               "note": "hết hạn học tập"
+    //           },
+    //           {
+    //               "studentCode": "17520460",
+    //               "studentName": "Nguyễn Ngọc Hiển",
+    //               "studentEmail": "17520460@gm.uit.edu.vn",
+    //               "teacherName": "ThS. Lê Thanh Trọng",
+    //               "teacherMail": "tronglt@uit.edu.vn",
+    //               "internCompany": "",
+    //               "internPost": "",
+    //               "internContent": "",
+    //               "startTime": "",
+    //               "endTime": "",
+    //               "companyReview": 0,
+    //               "note": "hủy đkhp"
+    //           }
+    //       ]
+    //   }
 
-      addStudentsToInternCourse(mockParams).then((data) => {
-        console.log("addStudentsToInternCourse", index, data);
-        count -= 1;
-        if (count === 0) {
-          setIsLoading(false);
-        }
-      });
-    });
+    //   addStudentsToInternCourse(mockParams).then((data) => {
+    //     console.log("addStudentsToInternCourse", index, data);
+    //     count -= 1;
+    //     if (count === 0) {
+    //       setIsLoading(false);
+    //     }
+    //   });
+    // });
   };
 
   const mockNotImportStudentCoursesList = [

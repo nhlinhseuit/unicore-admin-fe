@@ -254,11 +254,12 @@ const ReportInfo = () => {
       });
 
       // naviate to home page
-      router.push("/");
+      const newPath = pathName.substring(0, pathName.lastIndexOf("/"));
+      router.push(newPath);
 
       // ?? LẤY DATA TỪ STEP TRƯỚC + DATA STEP NÀY
       toast({
-        title: "Tạo thông báo thành công.",
+        title: "Tạo báo cáo đồ án thành công.",
         variant: "success",
         duration: 3000,
       });
