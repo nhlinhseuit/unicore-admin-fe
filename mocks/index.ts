@@ -2469,33 +2469,9 @@ export const mockDataOfficerPermissions = [
 ];
 export const mockDataOfficerDepartmentPermissions = [
   {
+    id: "ID: 1",
     name: "Trần Hạnh Xuân",
     email: "xuanth@uit.edu.vn",
-    permissions: {
-      manageAcademicStaff: true,
-      manageLecturers: true,
-      manageStudents: true,
-      manageSubjects: true,
-      manageClasses: true,
-      manageFacultyAnnouncements: true,
-      manageAnnouncementCategories: true,
-      manageClassStudents: true,
-      manageExamSchedules: true,
-      manageBigExercisesAnnouncements: true,
-      manageProjectProposalSchedules: true,
-      manageProjectProposals: true,
-      manageProjectGroups: true,
-      assignSupervisors: true,
-      manageReportSchedules: true,
-      submitFeedbackForms: true,
-      enterFinalScores: true,
-      adjustGradingFormula: true,
-      adjustRoundingRules: true,
-    },
-  },
-  {
-    name: "Nguyễn Văn A",
-    email: "anv@uit.edu.vn",
     permissions: {
       manageAcademicStaff: true,
       manageLecturers: true,

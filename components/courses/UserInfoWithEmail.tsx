@@ -3,6 +3,7 @@ import SmallAvatar from "./SmallAvatar";
 import { getAvatarName } from "@/lib/utils";
 
 interface Props {
+  id: string;
   name: string;
   email: string;
 }
@@ -13,7 +14,8 @@ const UserInfoWithEmail = (params: Props) => {
       <SmallAvatar text={getAvatarName(params.name)} />
       <div>
         <p className="small-regular">{params.name}</p>
-        <p className="body-regular mt-1 underline">{params.email}</p>
+        <p className="mt-1 small-regular">{params.id}</p>
+        <p className="mt-1 small-regular underline">{params.email}</p>
       </div>
     </div>
   );

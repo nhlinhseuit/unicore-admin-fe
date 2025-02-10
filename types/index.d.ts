@@ -331,6 +331,7 @@ export interface StudentDataItem {
 }
 
 export interface OfficerPermissionDataItem {
+  id: string;
   name: string;
   email: string;
   permissions: OfficerPermissionData;

@@ -30,6 +30,7 @@ const OfficerPermission = (params: Props) => {
         <UserInfoWithEmail
           name={params.dataItem.name}
           email={params.dataItem.email}
+          id={params.dataItem.id}
         />
 
         <Divider otherClasses="mt-2 mb-4 !h-[1.3px] !bg-gray-200" />

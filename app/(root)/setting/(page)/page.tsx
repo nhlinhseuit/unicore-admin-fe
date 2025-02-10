@@ -43,7 +43,7 @@ interface Teacher {
   email: string;
 }
 
-export const mockDbTeacher = [
+const mockDbTeacher = [
   {
     id: "80210",
     name: "Nguyễn Thị Thanh Trúc",
@@ -136,6 +136,7 @@ const Setting = () => {
   };
 
   const [suggestion, setSuggestion] = useState(false);
+  const [isToggledOfficers, setIsToggledOfficers] = useState(true);
   const [placeholder, setPlaceholder] = useState("Nhập mã giảng viên");
   const debounceRef = useRef<NodeJS.Timeout | null>(null);
 
@@ -166,6 +167,7 @@ const Setting = () => {
       setOfficers((prev) => [
         ...prev,
         ...selectedTeachers.map((teacher) => ({
+          id: "ID: " + teacher.id,
           name: teacher.name,
           email: teacher.email,
           permissions: {
@@ -197,6 +199,8 @@ const Setting = () => {
         variant: "success",
         duration: 3000,
       });
+
+      setSelectedTeachers([]);
 
       setIsShowDialogChooseTeacher(false);
     } catch {
@@ -294,9 +298,27 @@ const Setting = () => {
 
             <div>
               <div className="flex items-center gap-4">
-                <label className="peer-disabled:cursor-not-allowed peer-disabled:opacity-70 dark:text-red-900 text-dark400_light800 text-[14px] font-medium leading-[20.8px]">
-                  2. Phân quyền giáo vụ
-                </label>
+                <div
+                  onClick={() => {
+                    setIsToggledOfficers(!isToggledOfficers);
+                  }}
+                  className="flex justify-start text-sm cursor-pointer"
+                >
+                  <p className="text-[14px] font-medium leading-[20.8px]">
+                    2. Phân quyền giáo vụ
+                  </p>
+                  <Image
+                    src={
+                      isToggledOfficers
+                        ? "/assets/icons/chevron-up.svg"
+                        : "/assets/icons/chevron-down.svg"
+                    }
+                    alt="toggle-icon"
+                    width={18}
+                    height={18}
+                    className="cursor-pointer ml-2 mr-2"
+                  />
+                </div>
 
                 <IconButton
                   text={"Thêm quyền giảng viên"}
@@ -309,13 +331,15 @@ const Setting = () => {
                   }}
                 />
               </div>
-              <div className="flex flex-wrap gap-4 w-full">
-                {officers.map((item: any, index) => (
-                  <div key={index} className="w-[49%]">
-                    <OfficerPermission dataItem={item} />
-                  </div>
-                ))}
-              </div>
+              {isToggledOfficers ? (
+                <div className="flex flex-wrap gap-4 w-full">
+                  {officers.map((item: any, index) => (
+                    <div key={index} className="w-[49%]">
+                      <OfficerPermission dataItem={item} />
+                    </div>
+                  ))}
+                </div>
+              ) : null}
             </div>
 
             <div>
