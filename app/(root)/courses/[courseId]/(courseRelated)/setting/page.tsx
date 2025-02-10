@@ -101,6 +101,7 @@ const Setting = () => {
                 2. Phân quyền lớp học
               </label>
               <div className="flex gap-4">
+                {/* //! FAKE API */}
                 {/* {mockDataOfficerPermissions.map((item, index) => (
                   <OfficerPermission key={index} dataItem={item} />
                 ))} */}
