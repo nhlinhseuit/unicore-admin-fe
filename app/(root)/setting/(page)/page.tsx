@@ -310,13 +310,12 @@ const Setting = () => {
                 />
               </div>
               <div className="flex flex-wrap gap-4 w-full">
-  {officers.map((item: any, index) => (
-    <div key={index} className="w-[49%]">
-      <OfficerPermission dataItem={item} />
-    </div>
-  ))}
-</div>
-
+                {officers.map((item: any, index) => (
+                  <div key={index} className="w-[49%]">
+                    <OfficerPermission dataItem={item} />
+                  </div>
+                ))}
+              </div>
             </div>
 
             <div>
