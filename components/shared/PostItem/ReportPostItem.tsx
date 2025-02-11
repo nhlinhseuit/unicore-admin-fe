@@ -1,5 +1,4 @@
 import { getAvatarName } from "@/lib/utils";
-import { mockSubmissionPost } from "@/mocks";
 import Image from "next/image";
 import MyAvatar from "../../courses/MyAvatar";
 import MyComment from "../../courses/MyComment";
@@ -7,8 +6,32 @@ import OtherComment from "../../courses/OtherComment";
 import RenderFile from "../Annoucements/RenderFile";
 import StatusButton from "../Button/StatusButton";
 import Divider from "../Divider";
-import parse from "html-react-parser";
 
+import parse from "html-react-parser";
+import Prism from "prismjs";
+
+import "prismjs/components/prism-aspnet";
+import "prismjs/components/prism-bash";
+import "prismjs/components/prism-c";
+import "prismjs/components/prism-cpp";
+import "prismjs/components/prism-csharp";
+import "prismjs/components/prism-dart";
+import "prismjs/components/prism-go";
+import "prismjs/components/prism-java";
+import "prismjs/components/prism-json";
+import "prismjs/components/prism-jsx";
+import "prismjs/components/prism-kotlin";
+import "prismjs/components/prism-mongodb";
+import "prismjs/components/prism-r";
+import "prismjs/components/prism-ruby";
+import "prismjs/components/prism-rust";
+import "prismjs/components/prism-sass";
+import "prismjs/components/prism-solidity";
+import "prismjs/components/prism-sql";
+import "prismjs/components/prism-typescript";
+import "prismjs/plugins/line-numbers/prism-line-numbers.css";
+import "prismjs/plugins/line-numbers/prism-line-numbers.js";
+import { useEffect } from "react";
 interface Comment {
   id: string;
   author: string;
@@ -27,6 +50,10 @@ interface Props {
 }
 
 const ReportPostItem = (params: Props) => {
+  useEffect(() => {
+    Prism.highlightAll();
+  }, []);
+
   console.log("params.creator", params.creator);
   return (
     <div className="card-wrapper rounded-[10px]">
