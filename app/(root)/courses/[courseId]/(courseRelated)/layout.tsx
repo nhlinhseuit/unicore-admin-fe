@@ -3,10 +3,12 @@
 import React from "react";
 import Link from "next/link";
 import { useParams, usePathname } from "next/navigation";
-import { BigExerciseTabItems, DepartmentCourseTabItems } from "@/constants";
+import { BigExerciseInternTabItems, BigExerciseTabItems, DepartmentCourseTabItems } from "@/constants";
 import { Dropdown } from "flowbite-react";
 import Image from "next/image";
 import NavbarButton from "@/components/shared/NavbarButton";
+import { useAtomValue } from "jotai";
+import { classCodeAtom } from "../../(courses)/(store)/courseStore";
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
   const pathName = usePathname();
@@ -28,6 +30,14 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
   const renderDepartmentCourseTabItems = isNotRegularCourse
     ? BigExerciseTabItems
     : DepartmentCourseTabItems;
+
+
+  const classCode = useAtomValue(classCodeAtom);
+  const isTTDN = classCode === "SE501.O21.PMCL";
+
+  const renderTabItems = isTTDN
+    ? BigExerciseInternTabItems
+    : renderDepartmentCourseTabItems;
 
   return (
     <main
@@ -53,7 +63,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
           pr-[230px]
         "
       >
-        {renderDepartmentCourseTabItems.map((item) => {
+        {renderTabItems.map((item) => {
           let isActive;
 
           // TODO: handle cho COURSE ITEM

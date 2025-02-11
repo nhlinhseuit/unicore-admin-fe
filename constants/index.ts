@@ -92,6 +92,7 @@ export const DepartmentCourseTabItems = [
     route: "/setting",
   },
 ];
+
 export const BigExerciseTabItems = [
   { value: "generalPost", label: "Thông báo chung", route: "/" },
   {
@@ -131,7 +132,40 @@ export const BigExerciseTabItems = [
   },
 ];
 
+export const BigExerciseInternTabItems = [
+  { value: "generalPost", label: "Thông báo chung", route: "/" },
+  {
+    value: "happeningEvent",
+    label: "Hoạt động đang diễn ra",
+    route: "/happening-event",
+  },
+  {
+    value: "internInfo",
+    label: "Điền thông tin thực tập",
+    route: "/intern-info",
+  },
+  {
+    value: "scoreTranscript",
+    label: "Bảng điểm",
+    route: "/score-transcript",
+  },
+  {
+    value: "setting",
+    label: "Cài đặt",
+    route: "/setting",
+  },
+];
+
 // TODO: OTHERS
+
+export enum Action {
+  create,
+  edit,
+  editing,
+  delete,
+  none,
+}
+
 export const AnnouncementTypesNotRegularCourse = [
   { route: "/create-announcement", label: "Tạo thông báo" },
   { route: "/create-report", label: "Tạo báo cáo đồ án" },
