@@ -368,6 +368,7 @@ const RegisterTopic = () => {
                     <FormItem className="flex w-full flex-col">
                       <FormLabel className="text-dark400_light800 text-[14px] font-semibold leading-[20.8px]">
                         Số lượng thành viên nhóm{" "}
+                        
                         <span className="text-red-600">*</span>
                       </FormLabel>
                       <FormControl className="mt-3.5 ">
