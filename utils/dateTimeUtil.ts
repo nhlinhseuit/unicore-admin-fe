@@ -71,7 +71,7 @@ export const formatDayToISODateWithDefaultTime = (date: Date): string => {
   const month = String(date.getMonth() + 1).padStart(2, "0");
   const day = String(date.getDate()).padStart(2, "0");
 
-  return `${year}-${month}-${day}T06:00:00`;
+  return `${year}-${month}-${day}T01:00:00`;
 };
 
 export const formatDayToISO = (date: Date, time: string): string => {
