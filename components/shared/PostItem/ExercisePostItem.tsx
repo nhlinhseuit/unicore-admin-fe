@@ -119,7 +119,13 @@ const ExercisePostItem = (params: Props) => {
         </div>
 
 
-        <MyComment textAvatar="HL" />
+        <MyComment
+          textAvatar="HL"
+          type="post"
+          sourceId={params.id}
+          onComplete={(cmt: string) => {
+          }}
+        />
       </div>
     </div>
   );
