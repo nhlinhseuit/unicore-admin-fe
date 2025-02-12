@@ -9,7 +9,10 @@ interface Props {
 
 const InternTopic = (params: Props) => {
   return (
-    <BorderContainer otherClasses="cursor-pointer" onClick={params.onClick}>
+    <BorderContainer
+      otherClasses="cursor-pointer h-full flex flex-col"
+      onClick={params.onClick}
+    >
       <div className="rounded-[10px] relative flex-col w-full p-6">
         <div className="flex flex-col gap-4">
           <div className="flex items-center gap-4">
@@ -40,8 +43,8 @@ const InternTopic = (params: Props) => {
             <p className="body-regular">{params.topic.councilInfo}</p>
           </div>
           <div className="flex gap-2">
-            <p className="body-semibold line-clamp-1 ">Số đề tài: </p>
-            <p className="body-regular">{params.topic.councilInfo}</p>
+            <p className="body-semibold line-clamp-1 ">Số sinh viên: </p>
+            <p className="body-regular">{params.topic.numberOfStudents}</p>
           </div>
           <p className="body-semibold line-clamp-1 ">Hội đồng chấm: </p>
           <p className="body-regular line-clamp-1 ">
