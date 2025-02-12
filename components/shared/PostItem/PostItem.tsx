@@ -1,7 +1,7 @@
 import { getAvatarName } from "@/lib/utils";
 import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import MyAvatar from "../../courses/MyAvatar";
 import MyComment from "../../courses/MyComment";
 import OtherComment from "../../courses/OtherComment";
@@ -32,11 +32,9 @@ import "prismjs/components/prism-sql";
 import "prismjs/components/prism-typescript";
 import "prismjs/plugins/line-numbers/prism-line-numbers.css";
 import "prismjs/plugins/line-numbers/prism-line-numbers.js";
-interface Comment {
-  id: string;
-  author: string;
-  content: string;
-}
+import SmallAvatar from "@/components/courses/SmallAvatar";
+import { fetchComments } from "@/services/commentsServices";
+import { ICommentResponseData } from "@/types/entity/Comment";
 
 interface Props {
   id: string;
@@ -55,6 +53,19 @@ const PostItem = (params: Props) => {
   useEffect(() => {
     Prism.highlightAll();
   }, []);
+
+  const [cmt, setCmt] = useState("");
+  const [isViewComments, setIsViewComments] = useState(false);
+  const [comments, setComments] = useState<ICommentResponseData[]>([]);
+
+  console.log("comments", comments);
+
+  const fetchViewComments = () => {
+    fetchComments(params.id).then((data) => {
+      console.log("data fetchComments", data);
+      setComments(data.data.data);
+    });
+  };
 
   return (
     <div className="card-wrapper rounded-[10px]">
@@ -91,22 +102,53 @@ const PostItem = (params: Props) => {
 
         <Divider />
 
-        <div className="flex flex-col gap-4">
-          {params.comments &&
-            params.comments.map((item, index) => (
-              <>
+        {isViewComments && comments.length > 0 ? (
+          <div className="flex flex-col">
+            {comments.map((item, index) => (
+              <div key={item.id}>
                 <OtherComment
-                  key={item.id}
-                  textAvatar={getAvatarName(item.author)}
-                  name={item.author}
+                  textAvatar={getAvatarName(item.creator_name)}
+                  name={item.creator_name}
                   comment={item.content}
                 />
                 <Divider />
-              </>
+              </div>
             ))}
-        </div>
+          </div>
+        ) : (
+          <p
+            onClick={() => {
+              setIsViewComments(true);
 
-        <MyComment textAvatar="HL" />
+              //! fake API
+              fetchViewComments();
+            }}
+            className="flex justify-end underline cursor-pointer body-regular text-gray-500 mt-3 ml-2"
+          >
+            Xem bình luận
+            {/* {params.commentsCount} bình luận */}
+          </p>
+        )}
+
+        {cmt !== "" ? (
+          <div className="flex pl-2 gap-4 mb-4">
+            <SmallAvatar text={"HL"} bgColor={"bg-[#DA3B01]"} />
+
+            <div>
+              <p className="small-regular">Nguyễn Hoàng Linh</p>
+              <p className="body-regular mt-1">{cmt}</p>
+            </div>
+          </div>
+        ) : null}
+
+        <MyComment
+          textAvatar="HL"
+          type="post"
+          sourceId={params.id}
+          onComplete={(cmt: string) => {
+            setCmt(cmt);
+          }}
+        />
       </div>
     </div>
   );

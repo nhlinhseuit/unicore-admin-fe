@@ -32,21 +32,28 @@ const page = () => {
       case 1:
         return (
           <>
-            {annoucements.map((item, index) => {
-              console.log("case item", item);
-              return (
-                <PostItem
-                  key={item.id}
-                  id={item.id}
-                  creator={item.create_by}
-                  createdAt={item.created_date}
-                  title={item.name}
-                  desc={item.description}
-                  fileName={""}
-                  // comments={}
-                />
-              );
-            })}
+            {!annoucements ? (
+              <NoResult
+                title="Không có dữ liệu!"
+                description="💡 Không có thông báo nào."
+              />
+            ) : (
+              annoucements.map((item, index) => {
+                console.log("case item", item);
+                return (
+                  <PostItem
+                    key={item.id}
+                    id={item.id}
+                    creator={item.create_by}
+                    createdAt={item.created_date}
+                    title={item.name}
+                    desc={item.description}
+                    fileName={""}
+                    // comments={}
+                  />
+                );
+              })
+            )}
           </>
         );
       default:

@@ -34,6 +34,11 @@ export const editAnnoucement = async (annoucementId: string, data: any) => {
 
 export const fetchAnnoucements = async (classId: string) => {
   try {
+    console.log(
+      "`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/post/class`",
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/post/class`
+    );
+
     const res = await sendRequest<IBackendRes<any>>({
       url: `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/post/class`,
       method: "GET",
@@ -53,4 +58,28 @@ export const fetchAnnoucements = async (classId: string) => {
     console.error("fetchAnnoucements failed:", error);
     throw error;
   }
+};
+
+export const fetchDetailAnnoucement = async (postId: string) => {
+  try {
+
+  const res = await fetch(`http://3.107.202.61:8080/api/v1/post/${postId}`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+
+  console.log("res fetchDetailAnnoucement", res);
+
+  if (!res.ok) {
+    throw new Error(`Error: ${res.status}`);
+  }
+
+  const data = await res.json();
+  return data; // Trả về dữ liệu từ API
+} catch (error) {
+  console.error("fetchComments failed:", error);
+  throw error;
+}
 };
