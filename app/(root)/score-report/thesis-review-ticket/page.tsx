@@ -56,7 +56,7 @@ const page = () => {
           />
           <div className="flex gap-4">
           <div className="w-full">
-            <ReviewForm
+          <ReviewForm
                 //@ts-ignore
                 topic={getTopic()}
                 ownerName={getReviewer()}

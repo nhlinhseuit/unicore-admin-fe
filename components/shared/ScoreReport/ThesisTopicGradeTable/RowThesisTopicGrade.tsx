@@ -5,6 +5,7 @@ import React, { useRef } from "react";
 import InputComponent from "../../Table/components/InputComponent";
 
 interface RowParams {
+  roles: string[];
   valueUniqueInput: string;
   dataItem: ThesisTopicGradeDataItem;
   isEditTable?: boolean;
@@ -62,12 +63,12 @@ const RowThesisTopicGrade = React.memo(
         style += "!w-[800px] line-clamp-6 flex items-center";
       } else if (
         key === "STT" ||
-        key === "Phản biện" ||
-        key === "Hướng dẫn" ||
-        key === "Chủ tịch" ||
+        key === "Điểm phản biện" ||
+        key === "Điểm hướng dẫn" ||
+        key === "Điểm chủ tịch" ||
         key === "Điểm tổng" ||
-        key === "Thư ký" ||
-        key === "Ủy viên"
+        key === "Điểm thư ký" ||
+        key === "Điểm ủy viên"
       ) {
         style += "text-center";
       } else {
@@ -89,8 +90,8 @@ const RowThesisTopicGrade = React.memo(
       params: any;
     }) => {
       switch (key) {
-        case "Phản biện":
-        case "Hướng dẫn":
+        case "Điểm phản biện":
+        case "Điểm hướng dẫn":
           return params.isEditTable ? (
             <div className="flex justify-center items-center gap-2">
               {typeof value === "string" && value.trim() === "" ? (
@@ -108,7 +109,7 @@ const RowThesisTopicGrade = React.memo(
                 onClick={() => {
                   params.onReviewForm(
                     params.dataItem.data["Mã nhóm"],
-                    key === "Phản biện" ? 1 : 0
+                    key === "Điểm phản biện" ? 1 : 0
                   );
                 }}
               />
@@ -119,9 +120,9 @@ const RowThesisTopicGrade = React.memo(
             value
           );
 
-        case "Chủ tịch":
-        case "Thư ký":
-        case "Ủy viên":
+        case "Điểm chủ tịch":
+        case "Điểm thư ký":
+        case "Điểm ủy viên":
           return params.isEditTable ? (
             <InputComponent
               key={`${keyId}_input_${value}`}
@@ -147,6 +148,7 @@ const RowThesisTopicGrade = React.memo(
 
         case "MSSV":
         case "Họ và tên":
+        case "Hướng dẫn":
           return Array.isArray(value)
             ? value.map((item, index) => (
                 <React.Fragment key={index}>
@@ -172,7 +174,7 @@ const RowThesisTopicGrade = React.memo(
       keyId: string | number;
       params: any;
     }) => {
-      if (key === "Mã nhóm") return null;
+      if (key === "Mã nhóm" || key === "Mã đề tài") return null;
 
       return (
         <Table.Cell
@@ -192,7 +194,6 @@ const RowThesisTopicGrade = React.memo(
         </Table.Cell>
       );
     };
-
 
     return (
       <Table.Row
