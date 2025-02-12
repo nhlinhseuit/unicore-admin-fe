@@ -37,6 +37,16 @@ export interface InternInfo {
   "Ngày kết thúc": string;
 }
 
+ interface IStudentResponseData {
+  name: string;
+  phone: string;
+  class_id: string;
+  subclass_code: string;
+  student_code: string;
+  group_name?: string;
+}
+
+
 export interface ITopicResponseData {
   id: string;
   name: string;
@@ -46,6 +56,7 @@ export interface ITopicResponseData {
   official: boolean;
   status: string;
   feedback: string;
+  students?: IStudentResponseData[];
   selectors: string[];
   evaluatorCode: string;
   teacher_codes: string[];
