@@ -172,7 +172,7 @@ const CreateAnnouncement = (params: Props) => {
         source_id: mockParamsClass_id,
         published_date: formatDayToISODateWithDefaultTime(date ?? new Date()),
         created_by: "Trần Hạnh Xuân",
-        creator_email: "xuanth@uit.edu.vn",
+        creator_email: "21522289@gm.uit.edu.vn",
         // category_ids: ["678d5f084db35b61d3e23abf"],
       };
 
