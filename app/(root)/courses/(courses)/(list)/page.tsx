@@ -126,52 +126,72 @@ const Courses = () => {
             <p className="text-sm font-semibold whitespace-nowrap">
               Bạn chưa hoàn thành các bước sau:
             </p>
+
             <div className="mt-4 flex gap-4 w-full flex-wrap">
               {mockNotCompleteActions.map((item) => (
-                <Dropdown
-                  key={item.id}
-                  className="z-30 rounded-lg"
-                  label=""
-                  renderTrigger={() => (
-                    <div className="cursor-pointer px-2 border-[1px] border-[#17a1fa] h-12 rounded-lg flex items-center gap-2 mb-2 relative">
-                      <div className="cursor-pointer bg-[#17a1fa] w-5 h-5 my-2 rounded-full flex-center text-sm text-white">
-                        {item.id}
-                      </div>
-                      <p className="text-[#17a1fa] body-medium whitespace-nowrap mr-8">
-                        {item.action}
-                      </p>
-                      <Image
-                        src="/assets/icons/chevron-down.svg"
-                        width={22}
-                        height={22}
-                        alt="close"
-                        className="absolute right-0 mr-2 cursor-pointer"
-                      />
-                    </div>
-                  )}
+                <div
+                  onClick={() => setIsImportCompleteAction(item.type)}
+                  className="cursor-pointer px-2 border-[1px] border-[#17a1fa] h-12 rounded-lg flex items-center gap-2 mb-2 relative"
                 >
-                  <div className="relative">
-                    <div className="scroll-container scroll-container-dropdown-content">
-                      <span className="px-4 py-2 text-sm text-left text-gray-700 cursor-default font-semibold">
-                        {item.desc}
-                      </span>
-                      <span className="flex items-center justify-start px-4 py-2 text-sm text-left text-gray-700 cursor-default">
-                        {item.data}
-                      </span>
-                      <div className="flex justify-end mb-2">
-                        <IconButtonStopPropagation
-                          text="Đi tới"
-                          green
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            setIsImportCompleteAction(item.type);
-                          }}
-                          otherClasses="mr-4"
-                        />
-                      </div>
-                    </div>
+                  <div className="cursor-pointer bg-[#17a1fa] w-5 h-5 my-2 rounded-full flex-center text-sm text-white">
+                    {item.id}
                   </div>
-                </Dropdown>
+                  <p className="text-[#17a1fa] body-medium whitespace-nowrap mr-8">
+                    {item.action}
+                  </p>
+                  <Image
+                    src="/assets/icons/chevron-down.svg"
+                    width={22}
+                    height={22}
+                    alt="close"
+                    className="absolute right-0 mr-2 cursor-pointer"
+                  />
+                </div>
+
+                // <Dropdown
+                //   key={item.id}
+                //   className="z-30 rounded-lg"
+                //   label=""
+                //   renderTrigger={() => (
+                //     <div className="cursor-pointer px-2 border-[1px] border-[#17a1fa] h-12 rounded-lg flex items-center gap-2 mb-2 relative">
+                //       <div className="cursor-pointer bg-[#17a1fa] w-5 h-5 my-2 rounded-full flex-center text-sm text-white">
+                //         {item.id}
+                //       </div>
+                //       <p className="text-[#17a1fa] body-medium whitespace-nowrap mr-8">
+                //         {item.action}
+                //       </p>
+                //       <Image
+                //         src="/assets/icons/chevron-down.svg"
+                //         width={22}
+                //         height={22}
+                //         alt="close"
+                //         className="absolute right-0 mr-2 cursor-pointer"
+                //       />
+                //     </div>
+                //   )}
+                // >
+                //   <div className="relative">
+                //     <div className="scroll-container scroll-container-dropdown-content">
+                //       <span className="px-4 py-2 text-sm text-left text-gray-700 cursor-default font-semibold">
+                //         {item.desc}
+                //       </span>
+                //       <span className="flex items-center justify-start px-4 py-2 text-sm text-left text-gray-700 cursor-default">
+                //         {item.data}
+                //       </span>
+                //       <div className="flex justify-end mb-2">
+                //         <IconButtonStopPropagation
+                //           text="Đi tới"
+                //           green
+                //           onClick={(e) => {
+                //             e.stopPropagation();
+                //             setIsImportCompleteAction(item.type);
+                //           }}
+                //           otherClasses="mr-4"
+                //         />
+                //       </div>
+                //     </div>
+                //   </div>
+                // </Dropdown>
               ))}
             </div>
           </div>
